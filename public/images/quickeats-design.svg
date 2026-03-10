@@ -1,0 +1,57 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff6b35;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f7931e;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="phoneGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#2c3e50;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#34495e;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="600" fill="url(#bgGrad)"/>
+  
+  <!-- Main Phone Mockup -->
+  <rect x="250" y="100" width="300" height="400" rx="25" fill="url(#phoneGrad)" filter="url(#shadow)"/>
+  <rect x="265" y="130" width="270" height="340" rx="15" fill="#1a1a1a"/>
+  
+  <!-- Status Bar -->
+  <rect x="265" y="130" width="270" height="30" rx="15" fill="#2c3e50"/>
+  <text x="400" y="150" font-family="Arial" font-size="14" fill="white" text-anchor="middle">QuickEats</text>
+  
+  <!-- Food Items -->
+  <rect x="280" y="180" width="240" height="60" rx="8" fill="#ff6b35"/>
+  <text x="400" y="215" font-family="Arial" font-size="16" font-weight="bold" fill="white" text-anchor="middle">🍔 Burger Combo - ₹199</text>
+  
+  <rect x="280" y="250" width="240" height="60" rx="8" fill="#27ae60"/>
+  <text x="400" y="285" font-family="Arial" font-size="16" font-weight="bold" fill="white" text-anchor="middle">🥗 Salad Bowl - ₹149</text>
+  
+  <rect x="280" y="320" width="240" height="60" rx="8" fill="#3498db"/>
+  <text x="400" y="355" font-family="Arial" font-size="16" font-weight="bold" fill="white" text-anchor="middle">🍕 Pizza Margherita - ₹299</text>
+  
+  <rect x="280" y="390" width="240" height="60" rx="8" fill="#9b59b6"/>
+  <text x="400" y="425" font-family="Arial" font-size="16" font-weight="bold" fill="white" text-anchor="middle">🥤 Cold Coffee - ₹89</text>
+  
+  <!-- Order Button -->
+  <rect x="320" y="460" width="160" height="40" rx="20" fill="#e74c3c"/>
+  <text x="400" y="485" font-family="Arial" font-size="14" font-weight="bold" fill="white" text-anchor="middle">Place Order</text>
+  
+  <!-- Logo/Branding -->
+  <circle cx="400" cy="60" r="30" fill="white" opacity="0.9"/>
+  <text x="400" y="70" font-family="Arial" font-size="24" font-weight="bold" fill="#ff6b35" text-anchor="middle">Q</text>
+  
+  <!-- Title -->
+  <text x="400" y="550" font-family="Arial" font-size="32" font-weight="bold" fill="white" text-anchor="middle">QuickEats</text>
+  <text x="400" y="575" font-family="Arial" font-size="18" fill="white" text-anchor="middle">Food Ordering System</text>
+  
+  <!-- Decorative Elements -->
+  <circle cx="150" cy="150" r="25" fill="white" opacity="0.2"/>
+  <circle cx="650" cy="450" r="35" fill="white" opacity="0.15"/>
+  <circle cx="100" cy="400" r="20" fill="white" opacity="0.1"/>
+  <circle cx="700" cy="200" r="30" fill="white" opacity="0.2"/>
+</svg>

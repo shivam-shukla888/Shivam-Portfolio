@@ -13,20 +13,33 @@ import {
 
 const textureLoader = new THREE.TextureLoader();
 const imageUrls = [
-  "/images/react2.webp",
-  "/images/next2.webp",
-  "/images/node2.webp",
-  "/images/express.webp",
-  "/images/mongo.webp",
-  "/images/mysql.webp",
-  "/images/typescript.webp",
+  "/images/java.svg",
+  "/images/spring.svg", 
+  "/images/react.webp",
+  "/images/node.webp",
   "/images/javascript.webp",
+  "/images/typescript.webp",
+  "/images/mysql.webp",
+  "/images/express.webp",
+  "/images/hibernate.svg",
+  "/images/python.svg",
+  // Duplicates to fill up the spheres
+  "/images/java.svg",
+  "/images/spring.svg", 
+  "/images/react.webp",
+  "/images/node.webp",
+  "/images/javascript.webp",
+  "/images/typescript.webp",
+  "/images/mysql.webp",
+  "/images/express.webp",
+  "/images/hibernate.svg",
+  "/images/python.svg",
 ];
 const textures = imageUrls.map((url) => textureLoader.load(url));
 
 const sphereGeometry = new THREE.SphereGeometry(1, 28, 28);
 
-const spheres = [...Array(30)].map(() => ({
+const spheres = [...Array(20)].map(() => ({
   scale: [0.7, 1, 0.8, 1, 1][Math.floor(Math.random() * 5)],
 }));
 
@@ -130,9 +143,9 @@ const TechStack = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY || document.documentElement.scrollTop;
-      const threshold = document
-        .getElementById("work")!
-        .getBoundingClientRect().top;
+      const workElem = document.getElementById("work");
+      if (!workElem) return;
+      const threshold = workElem.getBoundingClientRect().top;
       setIsActive(scrollY > threshold);
     };
     document.querySelectorAll(".header a").forEach((elem) => {
@@ -193,7 +206,7 @@ const TechStack = () => {
             <SphereGeo
               key={i}
               {...props}
-              material={materials[Math.floor(Math.random() * materials.length)]}
+              material={materials[i % materials.length]}
               isActive={isActive}
             />
           ))}

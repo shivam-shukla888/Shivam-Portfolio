@@ -1,0 +1,47 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff6b35;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f7931e;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="phoneGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#2c3e50;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#34495e;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="300" fill="url(#bgGrad)"/>
+  
+  <!-- Main Phone Mockup -->
+  <rect x="125" y="50" width="150" height="200" rx="12" fill="url(#phoneGrad)" filter="url(#shadow)"/>
+  <rect x="132" y="65" width="136" height="170" rx="8" fill="#1a1a1a"/>
+  
+  <!-- Status Bar -->
+  <rect x="132" y="65" width="136" height="15" rx="8" fill="#2c3e50"/>
+  <text x="200" y="77" font-family="Arial" font-size="8" fill="white" text-anchor="middle">QuickEats</text>
+  
+  <!-- Food Items -->
+  <rect x="140" y="90" width="120" height="30" rx="4" fill="#ff6b35"/>
+  <text x="200" y="108" font-family="Arial" font-size="8" font-weight="bold" fill="white" text-anchor="middle">🍔 Burger - ₹199</text>
+  
+  <rect x="140" y="125" width="120" height="30" rx="4" fill="#27ae60"/>
+  <text x="200" y="143" font-family="Arial" font-size="8" font-weight="bold" fill="white" text-anchor="middle">🥗 Salad - ₹149</text>
+  
+  <rect x="140" y="160" width="120" height="30" rx="4" fill="#3498db"/>
+  <text x="200" y="178" font-family="Arial" font-size="8" font-weight="bold" fill="white" text-anchor="middle">🍕 Pizza - ₹299</text>
+  
+  <rect x="140" y="195" width="120" height="30" rx="4" fill="#9b59b6"/>
+  <text x="200" y="213" font-family="Arial" font-size="8" font-weight="bold" fill="white" text-anchor="middle">🥤 Coffee - ₹89</text>
+  
+  <!-- Logo/Branding -->
+  <circle cx="200" cy="30" r="15" fill="white" opacity="0.9"/>
+  <text x="200" y="35" font-family="Arial" font-size="12" font-weight="bold" fill="#ff6b35" text-anchor="middle">Q</text>
+  
+  <!-- Title -->
+  <text x="200" y="275" font-family="Arial" font-size="16" font-weight="bold" fill="white" text-anchor="middle">QuickEats</text>
+  <text x="200" y="290" font-family="Arial" font-size="10" fill="white" text-anchor="middle">Food Ordering</text>
+</svg>

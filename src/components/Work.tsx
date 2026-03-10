@@ -5,34 +5,25 @@ import { MdArrowBack, MdArrowForward } from "react-icons/md";
 
 const projects = [
   {
-    title: "Solid Starters",
-    category: "Low-Code Platform",
-    tools: "Angular, Next.js, NestJS, MongoDB",
-    image: "/images/Solidx.png",
+    title: "V-Mitra: Voice AI Companion",
+    category: "AI business assistant",
+    tools: "Java, Spring Boot, React, Gemini API",
+    image: "/images/vmitra (1).png",
+    link: "https://github.com/shivam-shukla888/V-Mitra-Smart-Ai-Companion",
   },
   {
-    title: "Radix",
-    category: "E-Commerce",
-    tools: "Angular, Next.js, NestJS, CMS",
-    image: "/images/radix.png",
+    title: "SAS AI: Handwriting Recognition",
+    category: "AI-driven recognition system",
+    tools: "Python, React, TensorFlow, CNN",
+    image: "/images/sasai (1).png",
+    link: "https://github.com/shivam-shukla888/SAS-ai---Handwriting-Recognition-System",
   },
   {
-    title: "Bond Cancellation",
-    category: "Import-Export Automation",
-    tools: "Angular, Next.js, NestJS, Workflows",
-    image: "/images/bond.png",
-  },
-  {
-    title: "Sapphire",
-    category: "CRM Platform",
-    tools: "AngularJS, NestJS, PostgreSQL",
-    image: "/images/sapphire.png",
-  },
-  {
-    title: "Mpro",
-    category: "Insurance Platform",
-    tools: "React.js, Node.js, Microservices",
-    image: "/images/Maxlife.png",
+    title: "QuickEats: Ordering System",
+    category: "Food ordering platform",
+    tools: "Java, Spring Boot, Hibernate, MySQL",
+    image: "/images/quickeats-final.svg",
+    link: "https://github.com/shivam-shukla888/QuickEats-Ordering-System",
   },
 ];
 
@@ -115,7 +106,11 @@ const Work = () => {
                       </div>
                     </div>
                     <div className="carousel-image-wrapper">
-                      <WorkImage image={project.image} alt={project.title} />
+                      <WorkImage
+                        image={project.image}
+                        alt={project.title}
+                        link={project.link}
+                      />
                     </div>
                   </div>
                 </div>

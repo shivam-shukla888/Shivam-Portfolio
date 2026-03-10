@@ -15,44 +15,39 @@ const Career = () => {
           <div className="career-info-box">
             <div className="career-info-in">
               <div className="career-role">
-                <h4>Full Stack Developer</h4>
-                <h5>Ikshan</h5>
-              </div>
-              <h3>2020</h3>
-            </div>
-            <p>
-              Built 6+ complete applications using React.js. Integrated backend
-              authentication using Node.js & MongoDB. Created responsive UI/UX
-              and designed wireframes using Figma.
-            </p>
-          </div>
-          <div className="career-info-box">
-            <div className="career-info-in">
-              <div className="career-role">
-                <h4>Senior Full Stack Developer</h4>
-                <h5>Monocept (Max Life Insurance)</h5>
+                <h4>Secondary School</h4>
+                <h5>Nav Jeevan Mission School</h5>
               </div>
               <h3>2021</h3>
             </div>
             <p>
-              Led two development teams on Mpro, a large-scale insurance
-              operations platform. Developed multiple modules using React.js &
-              migrated critical functionalities to Node.js microservices.
+              Completed Senior Secondary (CBSE) with a strong foundation in science
+              and mathematics, preparing for higher education in engineering.
             </p>
           </div>
           <div className="career-info-box">
             <div className="career-info-in">
               <div className="career-role">
-                <h4>Full Stack Developer</h4>
-                <h5>Logic Loop</h5>
+                <h4>Java with Spring Boot Intern</h4>
+                <h5>Soft Pro</h5>
               </div>
-              <h3>NOW</h3>
+              <h3>2025</h3>
             </div>
             <p>
-              Building Solid, a proprietary low-code platform using Angular,
-              Next.js & NestJS. Delivering production-ready CMS-based projects
-              including e-commerce, CRM, and import-export automation systems.
+              Developed 8+ RESTful APIs using Java and Spring Boot following MVC
+              architecture. Integrated MySQL with Hibernate ORM, improving query
+              performance by 20%. Worked in an Agile environment.
             </p>
+          </div>
+          <div className="career-info-box">
+            <div className="career-info-in">
+              <h4>B.Tech in Computer Science</h4>
+              <h5>SRMS CET&R, Bareilly</h5>
+              <p>
+                Final Year Student (2022 - 2026). Specializing in backend development,
+                systems design, and AI Agent integration.
+              </p>
+            </div>
           </div>
         </div>
       </div>

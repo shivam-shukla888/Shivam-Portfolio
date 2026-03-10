@@ -1,4 +1,4 @@
-import { MdArrowOutward, MdCopyright } from "react-icons/md";
+import { MdArrowOutward, MdCopyright, MdDownload } from "react-icons/md";
 import "./styles/Contact.css";
 
 const Contact = () => {
@@ -10,17 +10,27 @@ const Contact = () => {
           <div className="contact-box">
             <h4>Email</h4>
             <p>
-              <a href="mailto:rajeshchittyal21@gmail.com" data-cursor="disable">
-                rajeshchittyal21@gmail.com
+              <a href="mailto:theshivamshukla.4uu@gmail.com" data-cursor="disable">
+                theshivamshukla.4uu@gmail.com
               </a>
             </p>
+            <h4>Resume</h4>
+            <a
+              href="/resume.pdf"
+              target="_blank"
+              download="Shivam_Shukla_Resume.pdf"
+              className="resume-download-btn"
+              data-cursor="disable"
+            >
+              Download Resume <MdDownload />
+            </a>
             <h4>Education</h4>
-            <p>BSc in Computer Science</p>
+            <p>B.Tech in Computer Science</p>
           </div>
           <div className="contact-box">
             <h4>Social</h4>
             <a
-              href="https://github.com/raxx21"
+              href="https://github.com/shivam-shukla888"
               target="_blank"
               data-cursor="disable"
               className="contact-social"
@@ -28,7 +38,7 @@ const Contact = () => {
               Github <MdArrowOutward />
             </a>
             <a
-              href="https://www.linkedin.com/in/rajesh-chityal-2a70141b3"
+              href="https://www.linkedin.com/in/shivam-shukla-186276374/"
               target="_blank"
               data-cursor="disable"
               className="contact-social"
@@ -36,7 +46,7 @@ const Contact = () => {
               Linkedin <MdArrowOutward />
             </a>
             <a
-              href="https://x.com/raxx21_official"
+              href="https://x.com/S888Shivam"
               target="_blank"
               data-cursor="disable"
               className="contact-social"
@@ -44,7 +54,7 @@ const Contact = () => {
               Twitter <MdArrowOutward />
             </a>
             <a
-              href="https://www.instagram.com/therajeshchityal"
+              href="https://www.instagram.com/_shiv_am_262?utm_source=qr&igsh=eDZhbnR1NzltZm05"
               target="_blank"
               data-cursor="disable"
               className="contact-social"
@@ -54,10 +64,10 @@ const Contact = () => {
           </div>
           <div className="contact-box">
             <h2>
-              Designed and Developed <br /> by <span>Rajesh Chityal</span>
+              Designed and Developed <br /> by <span>Shivam Shukla</span>
             </h2>
             <h5>
-              <MdCopyright /> 2025
+              <MdCopyright /> 2026
             </h5>
           </div>
         </div>

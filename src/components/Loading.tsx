@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./styles/Loading.css";
-import { useLoading } from "../context/LoadingProvider";
+import { useLoading } from "../context/LoadingContext";
 
 import Marquee from "react-fast-marquee";
 
@@ -97,7 +97,7 @@ export const setProgress = (setLoading: (value: number) => void) => {
 
   let interval = setInterval(() => {
     if (percent <= 50) {
-      let rand = Math.round(Math.random() * 5);
+      const rand = Math.round(Math.random() * 5);
       percent = percent + rand;
       setLoading(percent);
     } else {
