@@ -109,7 +109,7 @@ const WhatIDo = () => {
           </div>
           <div
             className="what-content what-noTouch"
-            ref={(el) => setRef(el, 1)}
+            ref={(el) => setRef(el, 2)}
           >
             <div className="what-border1">
               <svg height="100%">
@@ -126,22 +126,22 @@ const WhatIDo = () => {
             </div>
             <div className="what-corner"></div>
             <div className="what-content-in">
-              <h3>AI AGENTS & INTEGRATION</h3>
-              <h4>Intelligent Autonomous Systems</h4>
+              <h3>AI TOOLS & SKILLS</h3>
+              <h4>Development & Integration Platforms</h4>
               <p>
-                Building AI Agents and voice assistants that automate complex workflows. 
-                Using LLMs, Gemini API, and autonomous frameworks to create responsive, 
-                intelligent systems.
+                Modern AI development tools and platforms for building intelligent
+                agents, automation workflows, and cutting-edge solutions.
               </p>
-              <h5>Skillset & tools</h5>
+              <h5>Skillset & Tools</h5>
               <div className="what-content-flex">
+                <div className="what-tags">Stitch</div>
+                <div className="what-tags">Windsurf</div>
+                <div className="what-tags">Google AI Studio</div>
+                <div className="what-tags">Cursor</div>
+                <div className="what-tags">Ollama</div>
+                <div className="what-tags">Perplexity</div>
                 <div className="what-tags">AI Agents</div>
                 <div className="what-tags">Gemini API</div>
-                <div className="what-tags">LLMs</div>
-                <div className="what-tags">Python</div>
-                <div className="what-tags">TensorFlow</div>
-                <div className="what-tags">CNN</div>
-                <div className="what-tags">AWS EC2</div>
               </div>
               <div className="what-arrow"></div>
             </div>

@@ -24,10 +24,19 @@
 }
 
 .about-me p {
-  font-size: 33px;
+  font-size: 28px;
   font-weight: 600;
-  line-height: 36px;
+  line-height: 34px;
   letter-spacing: 1px;
+  text-align: left;
+  margin-bottom: 20px;
+  text-wrap: balance;
+  hyphens: auto;
+}
+
+.about-me span {
+  color: #ff9999;
+  font-weight: 700;
 }
 
 @media only screen and (min-width: 600px) {

@@ -6,11 +6,12 @@ const About = () => {
       <div className="about-me">
         <h3 className="title">About Me</h3>
         <p className="para">
-          I am a <span>Final Year Computer Science Student</span> at SRMS CET&R,
-          specializing in <span>Java Back-end Development</span> and <span>AI Agents</span>.
-          With a strong foundation in building scalable systems using <span>Spring Boot</span> and <span>Microservices</span>,
-          I am passionate about integrating advanced AI solutions to create intelligent, automation-driven applications.
-          My journey is defined by a commitment to clean code, architectural excellence, and solving complex problems at the intersection of backend stability and AI innovation.
+          I am a <span>Computer Science Engineer</span> focused on <span>Backend Development</span>, <span>Cloud Technologies</span>, and <span>AI-driven solutions</span>. 
+          I build scalable backend systems using <span>Java</span>, <span>Spring Boot</span>, and <span>Microservices</span> while developing <span>AI agents</span> for intelligent automation.
+        </p>
+        <p className="para">
+          My work focuses on designing <span>reliable architectures</span> and writing <span>clean maintainable code</span>. 
+          I leverage <span>cloud platforms</span> to build efficient scalable solutions that solve real-world problems.
         </p>
       </div>
     </div>
