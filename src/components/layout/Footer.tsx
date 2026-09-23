@@ -167,6 +167,14 @@ export function Footer() {
         {/* Bottom Colophon Bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-[11px] font-mono tracking-[0.08em] text-[var(--color-dark-ink-secondary)]">
           <p>© {new Date().getFullYear()} SHIVAM SHUKLA. All rights reserved.</p>
+          <div className="flex items-center gap-6">
+            <Link
+              href="/privacy"
+              className="hover:text-white transition-colors underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white"
+            >
+              Privacy Policy
+            </Link>
+          </div>
         </div>
       </SectionContainer>
     </footer>
