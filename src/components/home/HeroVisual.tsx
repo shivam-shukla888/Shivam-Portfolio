@@ -21,7 +21,7 @@ const MAX_DELTA_TRANS = 4; // ±4px subtle translation movement
  * - Precision architectural annotations reflecting core positioning:
  *   1. Center Core: "SHIVAM SHUKLA" (protected system identity)
  *   2. Upper Tier: "AGENTIC AI" (orchestration conduit apex)
- *   3. Left Tier: "BACKEND SYSTEMS" (infrastructure and execution)
+ *   3. Left Tier: "BACKEND" (infrastructure and execution)
  *   4. Right Tier: "AI SECURITY" (perimeter and defensive boundary)
  *   5. Lower Flanks: "DIGITAL PRODUCTS" & "TEMPLATES" (modular creative output)
  *   6. Base Tier: "PROJECTS" (build and delivery module)
@@ -164,13 +164,13 @@ export function HeroVisual() {
             <span className="w-[1px] h-2.5 sm:h-3.5 bg-[var(--color-hairline)] mt-1 block" />
           </div>
 
-          {/* 3. LEFT / INFRASTRUCTURE — BACKEND SYSTEMS */}
+          {/* 3. LEFT / INFRASTRUCTURE — BACKEND */}
           <div
             className="absolute top-[35%] left-2 sm:left-3 hidden sm:flex items-center pointer-events-none z-10"
             style={{ transform: "translateZ(10px)" }}
           >
             <span className="text-[10px] sm:text-[11px] font-sans font-bold tracking-[0.08em] text-[var(--color-ink-primary)] uppercase whitespace-nowrap">
-              BACKEND SYSTEMS
+              BACKEND
             </span>
             <span className="h-[1px] w-2 sm:w-3 bg-[var(--color-hairline)] ml-1.5 block" />
           </div>
