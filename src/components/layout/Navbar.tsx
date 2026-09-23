@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
@@ -15,6 +15,25 @@ const NAV_LINKS = [
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+
+  // Close on Escape key and prevent background scroll while drawer is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === "Escape") {
+          setIsOpen(false);
+        }
+      };
+      window.addEventListener("keydown", handleKeyDown);
+      return () => {
+        document.body.style.overflow = "";
+        window.removeEventListener("keydown", handleKeyDown);
+      };
+    } else {
+      document.body.style.overflow = "";
+    }
+  }, [isOpen]);
 
   return (
     <header className="sticky top-0 z-50 w-full bg-[var(--color-canvas-primary)]/90 backdrop-blur-md border-b border-[var(--color-hairline)]">
@@ -87,12 +106,18 @@ export function Navbar() {
         </button>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Backdrop & Drawer */}
       {isOpen && (
-        <nav
-          id="mobile-navigation-menu"
-          aria-label="Mobile Navigation"
-          className="md:hidden border-t border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] px-5 py-6 flex flex-col gap-4"
+        <>
+          <div
+            className="fixed inset-0 top-16 bg-black/20 z-40 md:hidden"
+            aria-hidden="true"
+            onClick={() => setIsOpen(false)}
+          />
+          <nav
+            id="mobile-navigation-menu"
+            aria-label="Mobile Navigation"
+            className="relative z-50 md:hidden border-t border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] px-5 py-6 flex flex-col gap-4 shadow-sm"
         >
           {NAV_LINKS.map((link) => {
             const isStore = link.label === "Store";
@@ -125,6 +150,7 @@ export function Navbar() {
             Personal Lab →
           </Link>
         </nav>
+        </>
       )}
     </header>
   );
