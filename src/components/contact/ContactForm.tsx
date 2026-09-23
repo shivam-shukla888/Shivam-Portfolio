@@ -1,9 +1,30 @@
 "use client";
 
-import React, { useActionState } from "react";
+import React, { useActionState, useState, useRef, useEffect, useCallback } from "react";
+import Script from "next/script";
 import { Button } from "@/components/ui/Button";
 import { submitContactInquiry } from "@/app/actions/contact";
 import { initialContactState } from "@/lib/validations/contact";
+
+declare global {
+  interface Window {
+    turnstile?: {
+      render: (
+        container: string | HTMLElement,
+        params: {
+          sitekey: string;
+          theme?: "light" | "dark" | "auto";
+          callback?: (token: string) => void;
+          "expired-callback"?: () => void;
+          "error-callback"?: () => void;
+          size?: "normal" | "compact" | "flexible";
+        }
+      ) => string;
+      reset: (widgetId?: string) => void;
+      remove: (widgetId: string) => void;
+    };
+  }
+}
 
 interface ContactFormProps {
   variant?: "dark" | "light";
@@ -31,7 +52,89 @@ export function ContactForm({
     initialContactState
   );
 
+  const [turnstileToken, setTurnstileToken] = useState<string>("");
+  const turnstileContainerRef = useRef<HTMLDivElement>(null);
+  const widgetIdRef = useRef<string | null>(null);
+  const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "";
+
   const isDark = variant === "dark";
+
+  // Explicit Turnstile Rendering
+  const renderTurnstile = useCallback(() => {
+    if (
+      typeof window === "undefined" ||
+      !window.turnstile ||
+      !turnstileContainerRef.current ||
+      !siteKey
+    ) {
+      return;
+    }
+
+    if (widgetIdRef.current) {
+      return;
+    }
+
+    try {
+      const widgetId = window.turnstile.render(turnstileContainerRef.current, {
+        sitekey: siteKey,
+        theme: isDark ? "dark" : "light",
+        callback: (token: string) => {
+          setTurnstileToken(token);
+        },
+        "expired-callback": () => {
+          setTurnstileToken("");
+        },
+        "error-callback": () => {
+          setTurnstileToken("");
+        },
+      });
+      widgetIdRef.current = widgetId;
+    } catch {
+      // Container may have already been rendered
+    }
+  }, [siteKey, isDark]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.turnstile) {
+      renderTurnstile();
+    }
+  }, [renderTurnstile]);
+
+  // Reset challenge on verification/submission errors
+  useEffect(() => {
+    if (
+      state.status === "verification_error" ||
+      state.status === "validation_error" ||
+      state.status === "server_error"
+    ) {
+      if (
+        typeof window !== "undefined" &&
+        window.turnstile &&
+        widgetIdRef.current
+      ) {
+        window.turnstile.reset(widgetIdRef.current);
+        setTurnstileToken("");
+      }
+    }
+  }, [state.status]);
+
+  // Cleanup widget on unmount
+  useEffect(() => {
+    return () => {
+      if (
+        typeof window !== "undefined" &&
+        window.turnstile &&
+        widgetIdRef.current
+      ) {
+        try {
+          window.turnstile.remove(widgetIdRef.current);
+        } catch {
+          // Ignore unmount error
+        }
+        widgetIdRef.current = null;
+      }
+    };
+  }, []);
 
   // If successfully submitted, present a dignified, editorial confirmation
   if (state.status === "success") {
@@ -78,8 +181,10 @@ export function ContactForm({
 
   return (
     <form action={formAction} className={`space-y-5 ${className || ""}`}>
-      {/* Global Status Banner for rate limits or server errors */}
-      {(state.status === "rate_limited" || state.status === "server_error") && (
+      {/* Global Status Banner for rate limits, verification errors, or server errors */}
+      {(state.status === "rate_limited" ||
+        state.status === "server_error" ||
+        state.status === "verification_error") && (
         <div
           role="alert"
           aria-live="assertive"
@@ -143,7 +248,7 @@ export function ContactForm({
             }
           />
           {state.errors?.name && (
-            <p id="name-error" className="font-mono text-[11px] text-[var(--color-accent)] pt-1">
+            <p id="name-error" role="alert" className="font-mono text-[11px] text-[var(--color-accent)] pt-1">
               {state.errors.name[0]}
             </p>
           )}
@@ -177,7 +282,7 @@ export function ContactForm({
             }
           />
           {state.errors?.email && (
-            <p id="email-error" className="font-mono text-[11px] text-[var(--color-accent)] pt-1">
+            <p id="email-error" role="alert" className="font-mono text-[11px] text-[var(--color-accent)] pt-1">
               {state.errors.email[0]}
             </p>
           )}
@@ -216,11 +321,32 @@ export function ContactForm({
           }
         />
         {state.errors?.brief && (
-          <p id="brief-error" className="font-mono text-[11px] text-[var(--color-accent)] pt-1">
+          <p id="brief-error" role="alert" className="font-mono text-[11px] text-[var(--color-accent)] pt-1">
             {state.errors.brief[0]}
           </p>
         )}
       </div>
+
+      {/* Cloudflare Turnstile Challenge Container */}
+      {siteKey && (
+        <div className="space-y-2 pt-1">
+          <div
+            ref={turnstileContainerRef}
+            className="min-h-[65px] flex items-center"
+            aria-label="Security verification challenge"
+          />
+          <input
+            type="hidden"
+            name="cf-turnstile-response"
+            value={turnstileToken}
+          />
+          {state.errors?.turnstile && (
+            <p id="turnstile-error" role="alert" className="font-mono text-[11px] text-[var(--color-accent)]">
+              {state.errors.turnstile[0]}
+            </p>
+          )}
+        </div>
+      )}
 
       {/* Submit Button */}
       <Button
@@ -232,6 +358,14 @@ export function ContactForm({
       >
         {isPending ? "Sending..." : labels.submit}
       </Button>
+
+      {siteKey && (
+        <Script
+          src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
+          strategy="afterInteractive"
+          onLoad={renderTurnstile}
+        />
+      )}
     </form>
   );
 }

@@ -17,7 +17,7 @@ export const contactInquirySchema = z.object({
     .trim()
     .min(10, "Inquiry brief must be at least 10 characters.")
     .max(3000, "Inquiry brief cannot exceed 3000 characters."),
-  hp_website: z.string().optional(),
+  hp_website: z.string().nullable().optional(),
 });
 
 export type ContactInquiryInput = z.infer<typeof contactInquirySchema>;
@@ -28,7 +28,8 @@ export type ContactActionStatus =
   | "success"
   | "validation_error"
   | "rate_limited"
-  | "server_error";
+  | "server_error"
+  | "verification_error";
 
 export interface ContactActionState {
   status: ContactActionStatus;
@@ -37,6 +38,7 @@ export interface ContactActionState {
     name?: string[];
     email?: string[];
     brief?: string[];
+    turnstile?: string[];
   };
 }
 

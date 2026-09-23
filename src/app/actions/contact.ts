@@ -10,6 +10,7 @@ import {
   checkRateLimit,
   extractClientIp,
 } from "@/lib/rate-limit";
+import { verifyTurnstileToken } from "@/lib/turnstile";
 import { getSupabaseServerClient } from "@/lib/supabase/server";
 
 export async function submitContactInquiry(
@@ -34,8 +35,13 @@ export async function submitContactInquiry(
     }
 
     // 2. Anonymized Rate Limiting (SEC-01: Deployment-aware IP extraction)
-    const headerList = await headers();
-    const rawIp = extractClientIp(headerList);
+    let rawIp = "127.0.0.1";
+    try {
+      const headerList = await headers();
+      rawIp = extractClientIp(headerList);
+    } catch {
+      // Fallback for execution outside active request scope (e.g. CLI tests)
+    }
 
     const hashedIp = hashClientIdentifier(rawIp);
     const rateLimit = await checkRateLimit(hashedIp);
@@ -65,7 +71,25 @@ export async function submitContactInquiry(
 
     const { name, email, brief } = validationResult.data;
 
-    // 4. Persistence via Supabase (with safe unconfigured fallback)
+    // 4. Cloudflare Turnstile Verification (SEC-04: Single-use server-side challenge verification)
+    const turnstileToken =
+      formData.get("cf-turnstile-response") || formData.get("turnstile_token");
+    const turnstileTokenStr =
+      typeof turnstileToken === "string" ? turnstileToken : null;
+
+    const turnstileResult = await verifyTurnstileToken(turnstileTokenStr, rawIp);
+
+    if (!turnstileResult.success) {
+      return {
+        status: "verification_error",
+        message: "Verification failed. Please try again.",
+        errors: {
+          turnstile: ["Verification failed. Please try again."],
+        },
+      };
+    }
+
+    // 5. Persistence via Supabase (with safe unconfigured fallback)
     const supabase = getSupabaseServerClient();
 
     if (supabase) {

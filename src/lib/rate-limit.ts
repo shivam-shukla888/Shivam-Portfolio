@@ -1,7 +1,24 @@
 import crypto from "crypto";
+import {
+  isRedisConfigured,
+  checkDistributedRateLimit,
+  RATE_LIMIT_PREFIX,
+} from "./redis";
 
 interface RateLimitRecord {
   timestamps: number[];
+}
+
+export const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000; // 10 minutes
+export const RATE_LIMIT_MAX_REQUESTS = 5;
+const WINDOW_MS = RATE_LIMIT_WINDOW_MS;
+const MAX_REQUESTS = RATE_LIMIT_MAX_REQUESTS;
+const MAX_ENTRIES = 1000;
+const CLEANUP_INTERVAL_MS = 5 * 60 * 1000; // 5 minutes
+
+export interface RateLimitOptions {
+  forceInMemory?: boolean;
+  timeoutMs?: number;
 }
 
 /**
@@ -12,14 +29,9 @@ interface RateLimitRecord {
  * - Stale entries are evicted on ingestion when capacity is pressured.
  * - Periodic background sweep runs every CLEANUP_INTERVAL_MS with .unref()
  *   so it does not hold the Node.js event loop open during dev/tests.
- * - Designed to be superseded in production by @upstash/ratelimit.
+ * - Designed to be superseded in production by Upstash Redis distributed limiter.
  */
 const memoryStore = new Map<string, RateLimitRecord>();
-
-const WINDOW_MS = 10 * 60 * 1000; // 10 minutes
-const MAX_REQUESTS = 5;
-const MAX_ENTRIES = 1000;
-const CLEANUP_INTERVAL_MS = 5 * 60 * 1000; // 5 minutes
 
 // Periodic background cleanup with unref() to prevent event-loop lock
 const cleanupInterval = setInterval(() => {
@@ -111,57 +123,103 @@ export function extractClientIp(headerList: Headers): string {
   return "127.0.0.1";
 }
 
+/**
+ * Enforces rate limiting on contact submissions.
+ * 
+ * PRODUCTION SEMANTICS:
+ * - Upstash Redis distributed rate limiting when UPSTASH_REDIS_REST_URL and
+ *   UPSTASH_REDIS_REST_TOKEN are configured.
+ * - Redis operations are atomic Lua scripts on sorted sets (ZSET), preventing race conditions.
+ * - Key format: `shivsastra:ratelimit:contact:<hashedId>` (zero raw IPs or PII).
+ * 
+ * RESILIENCE & FALLBACK:
+ * - If Redis is unavailable, times out, or throws an error, the limiter degrades
+ *   gracefully to the bounded in-memory sliding window fallback.
+ * - Never fails open: if both Redis and in-memory fail, requests are rejected safely.
+ */
 export async function checkRateLimit(
-  hashedId: string
+  hashedId: string,
+  options?: RateLimitOptions
 ): Promise<{ success: boolean; remaining: number; reset: number }> {
-  // Production Upstash Redis hook boundary (configured via env variables)
-  if (
-    process.env.UPSTASH_REDIS_REST_URL &&
-    process.env.UPSTASH_REDIS_REST_TOKEN
-  ) {
-    // Upstash integration boundary hook
-    // (Architecture documented; falls back safely to in-memory store)
-  }
-
-  const now = Date.now();
-  const windowStart = now - WINDOW_MS;
-
-  // Capacity pressure management: prune expired entries if map approaches MAX_ENTRIES
-  if (memoryStore.size >= MAX_ENTRIES) {
-    pruneExpiredEntries(now);
-    // If still at capacity, evict oldest record deterministically (FIFO eviction)
-    if (memoryStore.size >= MAX_ENTRIES) {
-      const oldestKey = memoryStore.keys().next().value;
-      if (oldestKey) {
-        memoryStore.delete(oldestKey);
-      }
+  // 1. Production Distributed Rate Limiting via Upstash Redis
+  if (isRedisConfigured() && !options?.forceInMemory) {
+    try {
+      const key = `${RATE_LIMIT_PREFIX}:${hashedId}`;
+      const result = await checkDistributedRateLimit(
+        key,
+        MAX_REQUESTS,
+        WINDOW_MS,
+        { timeoutMs: options?.timeoutMs }
+      );
+      return result;
+    } catch {
+      // Safe degradation: Redis outage, timeout, or network exception
+      // logs a sanitized operational warning without credentials or stack trace
+      console.warn(
+        "[RATE_LIMIT] Distributed Redis limiter unavailable; falling back safely to bounded in-memory store."
+      );
     }
   }
 
-  const record = memoryStore.get(hashedId) || { timestamps: [] };
+  // 2. Bounded In-Memory Sliding Window Fallback (Local Dev / Redis Outage)
+  try {
+    const now = Date.now();
+    const windowStart = now - WINDOW_MS;
 
-  // Filter timestamps outside current sliding window
-  const validTimestamps = record.timestamps.filter((ts) => ts > windowStart);
+    // Capacity pressure management: prune expired entries if map approaches MAX_ENTRIES
+    if (memoryStore.size >= MAX_ENTRIES) {
+      pruneExpiredEntries(now);
+      // If still at capacity, evict oldest record deterministically (FIFO eviction)
+      if (memoryStore.size >= MAX_ENTRIES) {
+        const oldestKey = memoryStore.keys().next().value;
+        if (oldestKey) {
+          memoryStore.delete(oldestKey);
+        }
+      }
+    }
 
-  if (validTimestamps.length >= MAX_REQUESTS) {
-    const oldest = validTimestamps[0];
-    const resetTime = oldest + WINDOW_MS;
+    const record = memoryStore.get(hashedId) || { timestamps: [] };
+
+    // Filter timestamps outside current sliding window
+    const validTimestamps = record.timestamps.filter((ts) => ts > windowStart);
+
+    if (validTimestamps.length >= MAX_REQUESTS) {
+      const oldest = validTimestamps[0];
+      const resetTime = oldest + WINDOW_MS;
+      return {
+        success: false,
+        remaining: 0,
+        reset: resetTime,
+      };
+    }
+
+    validTimestamps.push(now);
+    memoryStore.set(hashedId, { timestamps: validTimestamps });
+
+    return {
+      success: true,
+      remaining: MAX_REQUESTS - validTimestamps.length,
+      reset: now + WINDOW_MS,
+    };
+  } catch {
+    // Fail closed if memory store encounters unexpected error
     return {
       success: false,
       remaining: 0,
-      reset: resetTime,
+      reset: Date.now() + WINDOW_MS,
     };
   }
-
-  validTimestamps.push(now);
-  memoryStore.set(hashedId, { timestamps: validTimestamps });
-
-  return {
-    success: true,
-    remaining: MAX_REQUESTS - validTimestamps.length,
-    reset: now + WINDOW_MS,
-  };
 }
+
+/**
+ * Diagnostic helper to force checking in-memory store directly.
+ */
+export async function checkInMemoryRateLimit(
+  hashedId: string
+): Promise<{ success: boolean; remaining: number; reset: number }> {
+  return checkRateLimit(hashedId, { forceInMemory: true });
+}
+
 
 /**
  * Diagnostic helpers used strictly in automated test assertions
