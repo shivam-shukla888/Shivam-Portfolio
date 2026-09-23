@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
 import { SectionContainer } from "@/components/layout/SectionContainer";
+import { PageBackground } from "@/components/ui/PageBackground";
 import { getPublishedProjects } from "@/lib/projects";
 
 export const revalidate = 60;
@@ -27,7 +28,12 @@ export default async function ProjectsPage() {
   const projects = await getPublishedProjects();
 
   return (
-    <div className="w-full pt-16 md:pt-24 pb-20 md:pb-28">
+    <div className="relative w-full pt-16 md:pt-24 pb-20 md:pb-28 overflow-hidden">
+      <PageBackground
+        src="/images/backgrounds/projects.webp"
+        opacity={0.25}
+        position="top"
+      />
       <SectionContainer>
         <div className="space-y-12">
           {/* Header Block */}

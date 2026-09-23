@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { SectionContainer } from "@/components/layout/SectionContainer";
+import { PageBackground } from "@/components/ui/PageBackground";
 import {
   getPublishedStoreProducts,
   getStoreCategoryCounts,
@@ -25,7 +26,12 @@ export default async function StorePage() {
   ]);
 
   return (
-    <div className="w-full pt-16 md:pt-24 pb-20 md:pb-28">
+    <div className="relative w-full pt-16 md:pt-24 pb-20 md:pb-28 overflow-hidden">
+      <PageBackground
+        src="/images/backgrounds/store.webp"
+        opacity={0.24}
+        position="top"
+      />
       <SectionContainer>
         <div className="space-y-16">
           {/* Header Metadata Block */}

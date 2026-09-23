@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { SectionContainer } from "@/components/layout/SectionContainer";
+import { PageBackground } from "@/components/ui/PageBackground";
 import { getProfileSettings } from "@/lib/profile";
 
 export const revalidate = 60;
@@ -24,7 +25,12 @@ export default async function AboutPage() {
   const profile = await getProfileSettings();
 
   return (
-    <div className="w-full pt-16 md:pt-24 pb-20 md:pb-28">
+    <div className="relative w-full pt-16 md:pt-24 pb-20 md:pb-28 overflow-hidden">
+      <PageBackground
+        src="/images/backgrounds/about.webp"
+        opacity={0.25}
+        position="top"
+      />
       <SectionContainer>
         <div className="max-w-4xl space-y-12">
           {/* Header Block */}

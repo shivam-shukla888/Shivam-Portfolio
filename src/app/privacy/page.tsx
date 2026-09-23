@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { SectionContainer } from "@/components/layout/SectionContainer";
+import { PageBackground } from "@/components/ui/PageBackground";
 
 export const metadata: Metadata = {
   title: "Privacy Policy — Shivam Shukla",
@@ -19,7 +20,12 @@ export const metadata: Metadata = {
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="w-full pt-16 md:pt-24 pb-20 md:pb-28">
+    <div className="relative w-full pt-16 md:pt-24 pb-20 md:pb-28 overflow-hidden">
+      <PageBackground
+        src="/images/backgrounds/privacy.webp"
+        opacity={0.18}
+        position="top"
+      />
       <SectionContainer>
         <div className="max-w-3xl space-y-12">
           {/* Header */}

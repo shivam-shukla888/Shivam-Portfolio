@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { SectionContainer } from "@/components/layout/SectionContainer";
+import { PageBackground } from "@/components/ui/PageBackground";
 import { getPublishedLabEntries } from "@/lib/lab";
 
 export const revalidate = 60;
@@ -23,7 +24,12 @@ export default async function LabPage() {
   const entries = await getPublishedLabEntries();
 
   return (
-    <div className="w-full pt-16 md:pt-24 pb-20 md:pb-28">
+    <div className="relative w-full pt-16 md:pt-24 pb-20 md:pb-28 overflow-hidden">
+      <PageBackground
+        src="/images/backgrounds/lab.webp"
+        opacity={0.24}
+        position="top"
+      />
       <SectionContainer>
         <div className="max-w-3xl space-y-10">
           {/* Header Block */}

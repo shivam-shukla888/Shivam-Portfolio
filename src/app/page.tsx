@@ -10,6 +10,7 @@ import { ContactForm } from "@/components/contact/ContactForm";
 import { getProfileSettings } from "@/lib/profile";
 import { getPublishedProjects } from "@/lib/projects";
 import { getPublishedServices } from "@/lib/services";
+import { PageBackground } from "@/components/ui/PageBackground";
 
 export const revalidate = 60;
 
@@ -89,7 +90,13 @@ export default async function HomePage() {
       {/* =======================================================
           01 // HERO
           ======================================================= */}
-      <section className="relative w-full border-b border-[var(--color-hairline)] pt-16 md:pt-24 pb-20 md:pb-32">
+      <section className="relative w-full border-b border-[var(--color-hairline)] pt-16 md:pt-24 pb-20 md:pb-32 overflow-hidden">
+        <PageBackground
+          src="/images/backgrounds/homepage.webp"
+          priority
+          opacity={0.32}
+          position="right"
+        />
         <SectionContainer>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             {/* Left Narrative Block */}

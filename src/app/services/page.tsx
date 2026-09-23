@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { SectionContainer } from "@/components/layout/SectionContainer";
+import { PageBackground } from "@/components/ui/PageBackground";
 import { getPublishedServices } from "@/lib/services";
 
 export const revalidate = 60;
@@ -59,7 +60,12 @@ export default async function ServicesPage() {
   const services = await getPublishedServices();
 
   return (
-    <div className="w-full pt-16 md:pt-24 pb-20 md:pb-28">
+    <div className="relative w-full pt-16 md:pt-24 pb-20 md:pb-28 overflow-hidden">
+      <PageBackground
+        src="/images/backgrounds/services.webp"
+        opacity={0.25}
+        position="top"
+      />
       <SectionContainer>
         <div className="space-y-12">
             {/* Header Block with Dual Identity Clarity */}
