@@ -12,13 +12,13 @@ export const metadata: Metadata = {
   description:
     "Curated technical monographs, system architecture case studies, and engineering projects by Shivam Shukla.",
   alternates: {
-    canonical: "/projects",
+    canonical: "https://shivsastra.com/projects",
   },
   openGraph: {
     title: "Projects & Case Studies — Shivam Shukla",
     description:
       "Curated technical monographs, system architecture case studies, and engineering projects by Shivam Shukla.",
-    url: "/projects",
+    url: "https://shivsastra.com/projects",
     type: "website",
   },
 };

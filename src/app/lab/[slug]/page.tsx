@@ -32,6 +32,15 @@ export async function generateMetadata({
   return {
     title: `${entry.title} | Personal Lab — SHIVSASTRA`,
     description: snippet,
+    alternates: {
+      canonical: `https://shivsastra.com/lab/${entry.slug}`,
+    },
+    openGraph: {
+      title: `${entry.title} | Personal Lab — SHIVSASTRA`,
+      description: snippet,
+      url: `https://shivsastra.com/lab/${entry.slug}`,
+      type: "article",
+    },
   };
 }
 

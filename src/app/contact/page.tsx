@@ -10,6 +10,15 @@ export const revalidate = 60;
 export const metadata = {
   title: "Contact",
   description: "Initiate a collaboration or direct engagement with Shivam Shukla.",
+  alternates: {
+    canonical: "https://shivsastra.com/contact",
+  },
+  openGraph: {
+    title: "Contact — Shivam Shukla",
+    description: "Initiate a collaboration or direct engagement with Shivam Shukla.",
+    url: "https://shivsastra.com/contact",
+    type: "website",
+  },
 };
 
 export default async function ContactPage() {

@@ -31,12 +31,12 @@ export async function generateMetadata({
     title: `${project.title} — Projects & Case Studies`,
     description: project.summary || undefined,
     alternates: {
-      canonical: `/projects/${project.slug}`,
+      canonical: `https://shivsastra.com/projects/${project.slug}`,
     },
     openGraph: {
       title: `${project.title} — Shivam Shukla`,
       description: project.summary || undefined,
-      url: `/projects/${project.slug}`,
+      url: `https://shivsastra.com/projects/${project.slug}`,
       type: "article",
     },
   };

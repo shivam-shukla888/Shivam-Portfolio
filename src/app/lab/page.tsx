@@ -8,6 +8,15 @@ export const revalidate = 60;
 export const metadata = {
   title: "Personal Lab",
   description: "Isolated creative technology and experimental laboratory.",
+  alternates: {
+    canonical: "https://shivsastra.com/lab",
+  },
+  openGraph: {
+    title: "Personal Lab — Shivam Shukla",
+    description: "Isolated creative technology and experimental laboratory.",
+    url: "https://shivsastra.com/lab",
+    type: "website",
+  },
 };
 
 export default async function LabPage() {

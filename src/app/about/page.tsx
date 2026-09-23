@@ -9,6 +9,15 @@ export const revalidate = 60;
 export const metadata = {
   title: "About Shivam Shukla",
   description: "About Shivam Shukla — Personal Digital Headquarters & Studio.",
+  alternates: {
+    canonical: "https://shivsastra.com/about",
+  },
+  openGraph: {
+    title: "About Shivam Shukla",
+    description: "About Shivam Shukla — Personal Digital Headquarters & Studio.",
+    url: "https://shivsastra.com/about",
+    type: "profile",
+  },
 };
 
 export default async function AboutPage() {

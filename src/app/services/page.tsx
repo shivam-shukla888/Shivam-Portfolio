@@ -11,13 +11,13 @@ export const metadata: Metadata = {
   description:
     "Professional technology services and bespoke engineering engagements across Backend Systems, Agentic AI, and AI Security by Shivam Shukla.",
   alternates: {
-    canonical: "/services",
+    canonical: "https://shivsastra.com/services",
   },
   openGraph: {
     title: "Services & Engagements — Shivam Shukla",
     description:
       "Professional technology services and bespoke engineering engagements across Backend Systems, Agentic AI, and AI Security by Shivam Shukla.",
-    url: "/services",
+    url: "https://shivsastra.com/services",
     type: "website",
   },
 };
