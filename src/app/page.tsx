@@ -12,6 +12,7 @@ import { getPublishedProjects } from "@/lib/projects";
 import { getPublishedServices } from "@/lib/services";
 import { PageBackground } from "@/components/ui/PageBackground";
 import { HomeHeroMotion } from "@/components/home/HomeHeroMotion";
+import { HomeSectionReveal } from "@/components/home/HomeSectionReveal";
 
 export const revalidate = 60;
 
@@ -159,7 +160,8 @@ export default async function HomePage() {
           02 // WHAT I BUILD (Technical Disciplines)
           ======================================================= */}
       <section className="w-full border-b border-[var(--color-hairline)] py-20 md:py-28 bg-[var(--color-canvas-primary)]">
-        <SectionContainer>
+        <HomeSectionReveal>
+          <SectionContainer>
           <div className="space-y-12">
             <div className="space-y-4 max-w-2xl">
               <SectionLabel index="02" name="Disciplines" />
@@ -228,13 +230,15 @@ export default async function HomePage() {
             </div>
           </div>
         </SectionContainer>
+        </HomeSectionReveal>
       </section>
 
       {/* =======================================================
           03 // THE STORE (Commercial Discovery)
           ======================================================= */}
       <section id="store" className="w-full border-b border-[var(--color-hairline)] py-20 md:py-28 bg-[var(--color-canvas-secondary)]">
-        <SectionContainer>
+        <HomeSectionReveal>
+          <SectionContainer>
           <div className="space-y-12">
             {/* Header: Swiss Asymmetrical Composition */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pb-8 border-b border-[var(--color-hairline)]">
@@ -351,13 +355,15 @@ export default async function HomePage() {
             </div>
           </div>
         </SectionContainer>
+        </HomeSectionReveal>
       </section>
 
       {/* =======================================================
           04 // SELECTED WORK (Projects)
           ======================================================= */}
       <section id="work" className="w-full border-b border-[var(--color-hairline)] py-20 md:py-28">
-        <SectionContainer>
+        <HomeSectionReveal>
+          <SectionContainer>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-12 border-b border-[var(--color-hairline)]">
             <div className="space-y-4">
               <SectionLabel index="04" name="Selected work" />
@@ -461,13 +467,15 @@ export default async function HomePage() {
             )}
           </div>
         </SectionContainer>
+        </HomeSectionReveal>
       </section>
 
       {/* =======================================================
           05 // SERVICES (Services & Advisory)
           ======================================================= */}
       <section id="services" className="w-full border-b border-[var(--color-hairline)] py-20 md:py-28">
-        <SectionContainer>
+        <HomeSectionReveal>
+          <SectionContainer>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-12 border-b border-[var(--color-hairline)]">
             <div className="space-y-4">
               <SectionLabel index="05" name="Services" />
@@ -625,13 +633,15 @@ export default async function HomePage() {
             </div>
           )}
         </SectionContainer>
+        </HomeSectionReveal>
       </section>
 
       {/* =======================================================
           06 // PROFILE & ETHOS (About Preview)
           ======================================================= */}
       <section id="about" className="w-full border-b border-[var(--color-hairline)] py-20 md:py-28">
-        <SectionContainer>
+        <HomeSectionReveal>
+          <SectionContainer>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
             <div className="lg:col-span-4 space-y-6">
               <div className="space-y-4">
@@ -682,13 +692,15 @@ export default async function HomePage() {
             </div>
           </div>
         </SectionContainer>
+        </HomeSectionReveal>
       </section>
 
       {/* =======================================================
           07 // CONTACT
           ======================================================= */}
       <section id="contact" className="w-full bg-[var(--color-surface-dark)] text-white py-20 md:py-32">
-        <SectionContainer>
+        <HomeSectionReveal>
+          <SectionContainer>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
             <div className="lg:col-span-5 space-y-5">
               <SectionLabel index="07" name="Contact" dark />
@@ -753,6 +765,7 @@ export default async function HomePage() {
             </div>
           </div>
         </SectionContainer>
+        </HomeSectionReveal>
       </section>
     </div>
   );
