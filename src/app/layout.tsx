@@ -1,0 +1,95 @@
+import type { Metadata, Viewport } from "next";
+import { Newsreader, Inter, JetBrains_Mono } from "next/font/google";
+import "./globals.css";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
+
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  weight: ["400", "500"],
+  display: "swap",
+});
+
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  display: "swap",
+});
+
+export const metadata: Metadata = {
+  title: {
+    template: "%s | Shivam Shukla",
+    default: "Shivam Shukla — Backend Systems, Agentic AI & AI Security",
+  },
+  description:
+    "Personal digital headquarters of Shivam Shukla. Engineering backend systems, agentic AI workflows, and AI security software — with curated digital releases via SHIVSASTRA Store.",
+  keywords: [
+    "Shivam Shukla",
+    "ShivSastra",
+    "Backend Systems",
+    "Agentic AI",
+    "AI Security",
+    "AI Agents",
+    "Digital Products",
+    "Software Architecture",
+  ],
+  authors: [{ name: "Shivam Shukla" }],
+  creator: "Shivam Shukla",
+  metadataBase: new URL("https://shivsastra.com"),
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://shivsastra.com",
+    siteName: "SHIVSASTRA",
+    title: "Shivam Shukla — Backend Systems, Agentic AI & AI Security",
+    description:
+      "Personal digital headquarters of Shivam Shukla. Engineering backend systems, agentic AI workflows, and AI security software — with curated digital releases via SHIVSASTRA Store.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Shivam Shukla — Backend Systems, Agentic AI & AI Security",
+    description:
+      "Personal digital headquarters of Shivam Shukla. Engineering backend systems, agentic AI workflows, and AI security software — with curated digital releases via SHIVSASTRA Store.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#FAF9F6",
+  colorScheme: "light",
+  width: "device-width",
+  initialScale: 1,
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      className={`${newsreader.variable} ${inter.variable} ${jetbrainsMono.variable} antialiased`}
+    >
+      <body className="min-h-screen flex flex-col bg-[var(--color-canvas-primary)] text-[var(--color-ink-primary)] font-body">
+        <Navbar />
+        <main className="flex-1 w-full">{children}</main>
+        <Footer />
+      </body>
+    </html>
+  );
+}
