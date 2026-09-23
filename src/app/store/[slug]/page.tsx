@@ -180,9 +180,14 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
           {/* Overview & Description */}
           {product.description && (
             <section className="space-y-4">
-              <h2 className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--color-accent)]">
-                Overview & Architecture
-              </h2>
+              <div className="space-y-1">
+                <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--color-accent)]">
+                  OVERVIEW
+                </span>
+                <h2 className="font-display text-2xl text-[var(--color-ink-primary)]">
+                  Overview & Architecture
+                </h2>
+              </div>
               <div className="font-sans text-base text-[var(--color-ink-secondary)] leading-relaxed space-y-4 whitespace-pre-line">
                 {product.description}
               </div>

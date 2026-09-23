@@ -340,7 +340,7 @@ export function ProjectForm({ initialData, mode }: ProjectFormProps) {
                   ? "error-case_study_markdown"
                   : undefined
               }
-              className="w-full bg-[var(--color-canvas-primary)] border border-[var(--color-hairline)] p-4 font-sans text-sm text-[var(--color-ink-primary)] leading-relaxed focus:outline-none focus:border-[var(--color-ink-primary)] transition-colors disabled:opacity-50 resize-y font-mono"
+              className="w-full bg-[var(--color-canvas-primary)] border border-[var(--color-hairline)] p-4 font-mono text-sm text-[var(--color-ink-primary)] leading-relaxed focus:outline-none focus:border-[var(--color-ink-primary)] transition-colors disabled:opacity-50 resize-y"
             />
             {state.fieldErrors?.case_study_markdown && (
               <p
