@@ -200,7 +200,7 @@ export function StoreCatalogView({
             return (
               <article
                 key={product.id}
-                className="border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] p-6 md:p-8 flex flex-col justify-between hover:border-[var(--color-ink-primary)] transition-all group"
+                className="border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] p-6 md:p-8 flex flex-col justify-between hover:border-[var(--color-ink-primary)] hover:-translate-y-[2px] transition-[border-color,transform] duration-200 ease-out group motion-reduce:hover:translate-y-0"
               >
                 <div className="space-y-4">
                   {/* Preview Image or Graphic Frame */}
@@ -211,7 +211,7 @@ export function StoreCatalogView({
                         alt={product.title}
                         fill
                         unoptimized
-                        className="object-cover group-hover:scale-[1.02] transition-transform duration-300"
+                        className="object-cover group-hover:scale-[1.02] transition-transform duration-300 motion-reduce:group-hover:scale-100"
                         sizes="(max-width: 1024px) 100vw, 33vw"
                       />
                     </div>
@@ -284,10 +284,13 @@ export function StoreCatalogView({
                     className={buttonStyles({
                       variant: "secondary",
                       size: "sm",
-                      className: "font-mono uppercase tracking-wider text-xs",
+                      className: "font-mono uppercase tracking-wider text-xs group/btn",
                     })}
                   >
-                    View Details →
+                    <span>View Details</span>
+                    <span className="inline-block transition-transform duration-200 group-hover/btn:translate-x-1 motion-reduce:transform-none ml-1">
+                      →
+                    </span>
                   </Link>
                 </div>
               </article>

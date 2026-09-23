@@ -134,20 +134,26 @@ export default async function HomePage() {
                   className={buttonStyles({
                     variant: "primary",
                     size: "lg",
-                    className: "w-full sm:w-auto font-mono text-xs uppercase tracking-wider",
+                    className: "w-full sm:w-auto font-mono text-xs uppercase tracking-wider group",
                   })}
                 >
-                  Explore My Work →
+                  <span>Explore My Work</span>
+                  <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none ml-1.5">
+                    →
+                  </span>
                 </Link>
                 <Link
                   href="/store"
                   className={buttonStyles({
                     variant: "secondary",
                     size: "lg",
-                    className: "w-full sm:w-auto font-mono text-xs uppercase tracking-wider border-[var(--color-ink-primary)]",
+                    className: "w-full sm:w-auto font-mono text-xs uppercase tracking-wider border-[var(--color-ink-primary)] group",
                   })}
                 >
-                  Visit Store →
+                  <span>Visit Store</span>
+                  <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none ml-1.5">
+                    →
+                  </span>
                 </Link>
               </div>
             }
@@ -264,7 +270,7 @@ export default async function HomePage() {
               {/* Category 1: Design Studio */}
               <Link
                 href="/store/design"
-                className="border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] p-8 space-y-4 hover:border-[var(--color-ink-primary)] transition-all group flex flex-col justify-between"
+                className="border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] p-8 space-y-4 hover:border-[var(--color-ink-primary)] hover:-translate-y-[2px] transition-[border-color,transform] duration-200 ease-out group flex flex-col justify-between motion-reduce:hover:translate-y-0"
               >
                 <div className="space-y-3">
                   <span className="font-mono text-xs text-[var(--color-accent)] uppercase tracking-wider font-semibold">
@@ -282,14 +288,16 @@ export default async function HomePage() {
                 </div>
                 <div className="pt-4 border-t border-[var(--color-hairline)] flex items-center justify-between font-mono text-xs text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)]">
                   <span>Explore Design</span>
-                  <span>→</span>
+                  <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none">
+                    →
+                  </span>
                 </div>
               </Link>
 
               {/* Category 2: AI Agents */}
               <Link
                 href="/store/ai-agents"
-                className="border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] p-8 space-y-4 hover:border-[var(--color-ink-primary)] transition-all group flex flex-col justify-between"
+                className="border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] p-8 space-y-4 hover:border-[var(--color-ink-primary)] hover:-translate-y-[2px] transition-[border-color,transform] duration-200 ease-out group flex flex-col justify-between motion-reduce:hover:translate-y-0"
               >
                 <div className="space-y-3">
                   <span className="font-mono text-xs text-[var(--color-accent)] uppercase tracking-wider font-semibold">
@@ -307,14 +315,16 @@ export default async function HomePage() {
                 </div>
                 <div className="pt-4 border-t border-[var(--color-hairline)] flex items-center justify-between font-mono text-xs text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)]">
                   <span>Explore AI Agents</span>
-                  <span>→</span>
+                  <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none">
+                    →
+                  </span>
                 </div>
               </Link>
 
               {/* Category 3: Digital Products */}
               <Link
                 href="/store/digital-products"
-                className="border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] p-8 space-y-4 hover:border-[var(--color-ink-primary)] transition-all group flex flex-col justify-between"
+                className="border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] p-8 space-y-4 hover:border-[var(--color-ink-primary)] hover:-translate-y-[2px] transition-[border-color,transform] duration-200 ease-out group flex flex-col justify-between motion-reduce:hover:translate-y-0"
               >
                 <div className="space-y-3">
                   <span className="font-mono text-xs text-[var(--color-accent)] uppercase tracking-wider font-semibold">
@@ -332,7 +342,9 @@ export default async function HomePage() {
                 </div>
                 <div className="pt-4 border-t border-[var(--color-hairline)] flex items-center justify-between font-mono text-xs text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)]">
                   <span>Explore Products</span>
-                  <span>→</span>
+                  <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none">
+                    →
+                  </span>
                 </div>
               </Link>
             </div>
@@ -347,10 +359,13 @@ export default async function HomePage() {
                 className={buttonStyles({
                   variant: "primary",
                   size: "lg",
-                  className: "w-full sm:w-auto font-mono text-xs uppercase tracking-wider",
+                  className: "w-full sm:w-auto font-mono text-xs uppercase tracking-wider group",
                 })}
               >
-                VISIT STORE →
+                <span>VISIT STORE</span>
+                <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none ml-1.5">
+                  →
+                </span>
               </Link>
             </div>
           </div>
@@ -399,7 +414,7 @@ export default async function HomePage() {
                           alt={project.title}
                           fill
                           unoptimized
-                          className="object-cover"
+                          className="object-cover group-hover:scale-[1.015] transition-transform duration-300 motion-reduce:group-hover:scale-100"
                           sizes="(max-width: 1024px) 100vw, 58vw"
                         />
                       </div>
@@ -419,7 +434,7 @@ export default async function HomePage() {
                         {project.editionCode}
                       </span>
                     )}
-                    <h3 className="font-display text-2xl md:text-3xl font-normal tracking-tight text-[var(--color-ink-primary)]">
+                    <h3 className="font-display text-2xl md:text-3xl font-normal tracking-tight text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors duration-200">
                       {project.title}
                     </h3>
                     <p className="font-sans text-sm md:text-base text-[var(--color-ink-secondary)] leading-relaxed">
@@ -443,7 +458,7 @@ export default async function HomePage() {
                         className="inline-flex items-center gap-1.5 font-sans font-medium text-xs text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
                       >
                         <span>View Case Study</span>
-                        <span className="transition-transform duration-150 group-hover:translate-x-1">
+                        <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none">
                           →
                         </span>
                       </Link>
@@ -492,7 +507,9 @@ export default async function HomePage() {
                 className="inline-flex items-center gap-1.5 font-sans font-medium text-xs text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors group focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
               >
                 <span>View Services Directory</span>
-                <span className="transition-transform duration-150 group-hover:translate-x-1">→</span>
+                <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none">
+                  →
+                </span>
               </Link>
             </div>
           </div>
@@ -502,7 +519,7 @@ export default async function HomePage() {
               {allServices.map((service) => (
                 <div
                   key={service.id}
-                  className="py-8 md:py-0 md:px-8 first:pl-0 last:pr-0 space-y-4 flex flex-col justify-between"
+                  className="py-8 md:py-0 md:px-8 first:pl-0 last:pr-0 space-y-4 flex flex-col justify-between group"
                 >
                   <div className="space-y-3">
                     {service.programCode && (
@@ -510,7 +527,7 @@ export default async function HomePage() {
                         {service.programCode}
                       </span>
                     )}
-                    <h3 className="font-display text-2xl font-normal text-[var(--color-ink-primary)]">
+                    <h3 className="font-display text-2xl font-normal text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors duration-200">
                       {service.title}
                     </h3>
                     <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
@@ -520,9 +537,12 @@ export default async function HomePage() {
                   <div className="pt-4">
                     <Link
                       href={`/services/${service.slug}`}
-                      className="inline-flex items-center gap-1.5 font-sans font-medium text-xs text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
+                      className="inline-flex items-center gap-1.5 font-sans font-medium text-xs text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
                     >
-                      <span>View details →</span>
+                      <span>View details</span>
+                      <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none">
+                        →
+                      </span>
                     </Link>
                   </div>
                 </div>
@@ -533,12 +553,12 @@ export default async function HomePage() {
             <div className="space-y-10 pt-8">
               <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[var(--color-hairline)] border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)]">
                 {/* 01: Backend Systems */}
-                <div className="p-8 space-y-4 flex flex-col justify-between">
+                <div className="p-8 space-y-4 flex flex-col justify-between group">
                   <div className="space-y-3">
                     <span className="font-mono text-xs text-[var(--color-accent)] font-semibold uppercase tracking-wider">
                       01 — Infrastructure
                     </span>
-                    <h3 className="font-display text-2xl text-[var(--color-ink-primary)]">
+                    <h3 className="font-display text-2xl text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors duration-200">
                       Backend Systems
                     </h3>
                     <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
@@ -551,20 +571,23 @@ export default async function HomePage() {
                     </span>
                     <Link
                       href="/contact?subject=Backend%20Systems%20Inquiry"
-                      className="inline-flex items-center gap-1.5 font-sans font-medium text-xs text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors"
+                      className="inline-flex items-center gap-1.5 font-sans font-medium text-xs text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors group/link"
                     >
-                      <span>Discuss a Project →</span>
+                      <span>Discuss a Project</span>
+                      <span className="inline-block transition-transform duration-200 group-hover/link:translate-x-1 motion-reduce:transform-none">
+                        →
+                      </span>
                     </Link>
                   </div>
                 </div>
 
                 {/* 02: Agentic AI */}
-                <div className="p-8 space-y-4 flex flex-col justify-between">
+                <div className="p-8 space-y-4 flex flex-col justify-between group">
                   <div className="space-y-3">
                     <span className="font-mono text-xs text-[var(--color-accent)] font-semibold uppercase tracking-wider">
                       02 — Intelligence
                     </span>
-                    <h3 className="font-display text-2xl text-[var(--color-ink-primary)]">
+                    <h3 className="font-display text-2xl text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors duration-200">
                       Agentic AI
                     </h3>
                     <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
@@ -577,20 +600,23 @@ export default async function HomePage() {
                     </span>
                     <Link
                       href="/contact?subject=Agentic%20AI%20Inquiry"
-                      className="inline-flex items-center gap-1.5 font-sans font-medium text-xs text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors"
+                      className="inline-flex items-center gap-1.5 font-sans font-medium text-xs text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors group/link"
                     >
-                      <span>Start a Conversation →</span>
+                      <span>Start a Conversation</span>
+                      <span className="inline-block transition-transform duration-200 group-hover/link:translate-x-1 motion-reduce:transform-none">
+                        →
+                      </span>
                     </Link>
                   </div>
                 </div>
 
                 {/* 03: AI Security */}
-                <div className="p-8 space-y-4 flex flex-col justify-between">
+                <div className="p-8 space-y-4 flex flex-col justify-between group">
                   <div className="space-y-3">
                     <span className="font-mono text-xs text-[var(--color-accent)] font-semibold uppercase tracking-wider">
                       03 — Defense
                     </span>
-                    <h3 className="font-display text-2xl text-[var(--color-ink-primary)]">
+                    <h3 className="font-display text-2xl text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors duration-200">
                       AI Security
                     </h3>
                     <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
@@ -603,9 +629,12 @@ export default async function HomePage() {
                     </span>
                     <Link
                       href="/contact?subject=AI%20Security%20Inquiry"
-                      className="inline-flex items-center gap-1.5 font-sans font-medium text-xs text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors"
+                      className="inline-flex items-center gap-1.5 font-sans font-medium text-xs text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors group/link"
                     >
-                      <span>Get in Touch →</span>
+                      <span>Get in Touch</span>
+                      <span className="inline-block transition-transform duration-200 group-hover/link:translate-x-1 motion-reduce:transform-none">
+                        →
+                      </span>
                     </Link>
                   </div>
                 </div>
@@ -624,9 +653,12 @@ export default async function HomePage() {
                 <div className="flex items-center gap-3 shrink-0">
                   <Link
                     href="/contact"
-                    className="font-mono text-xs uppercase tracking-wider px-4 py-2 border border-[var(--color-ink-primary)] text-[var(--color-ink-primary)] hover:bg-[var(--color-ink-primary)] hover:text-[var(--color-canvas-primary)] transition-colors"
+                    className="font-mono text-xs uppercase tracking-wider px-4 py-2 border border-[var(--color-ink-primary)] text-[var(--color-ink-primary)] hover:bg-[var(--color-ink-primary)] hover:text-[var(--color-canvas-primary)] hover:-translate-y-[1px] active:translate-y-0 active:scale-[0.98] transition-[color,background-color,border-color,transform] duration-150 group motion-reduce:hover:translate-y-0 motion-reduce:active:scale-100"
                   >
-                    Start a Conversation →
+                    <span>Start a Conversation</span>
+                    <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none ml-1.5">
+                      →
+                    </span>
                   </Link>
                 </div>
               </div>
@@ -745,9 +777,13 @@ export default async function HomePage() {
                   className={buttonStyles({
                     variant: "dark-inverse",
                     size: "md",
+                    className: "group",
                   })}
                 >
-                  Open Contact Form →
+                  <span>Open Contact Form</span>
+                  <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none ml-1.5">
+                    →
+                  </span>
                 </Link>
               </div>
             </div>

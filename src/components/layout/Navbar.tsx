@@ -55,16 +55,26 @@ export function Navbar() {
                 key={link.label}
                 href={link.href}
                 className={cn(
-                  "transition-colors duration-150 py-1 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)] flex items-center gap-1.5",
+                  "relative group py-1 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)] flex items-center gap-1.5",
                   isStore
                     ? "text-[var(--color-ink-primary)] font-medium hover:text-[var(--color-accent)]"
                     : "text-[var(--color-ink-secondary)] hover:text-[var(--color-ink-primary)]"
                 )}
               >
-                <span>{link.label}</span>
+                <span className="relative">
+                  {link.label}
+                  <span
+                    className={cn(
+                      "absolute -bottom-0.5 left-0 w-0 h-[1px] transition-[width] duration-200 ease-out group-hover:w-full motion-reduce:transition-none",
+                      isStore
+                        ? "bg-[var(--color-accent)]"
+                        : "bg-[var(--color-ink-primary)]"
+                    )}
+                  />
+                </span>
                 {isStore && (
                   <span
-                    className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] inline-block shrink-0"
+                    className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] inline-block shrink-0 transition-transform duration-200 group-hover:scale-125 motion-reduce:group-hover:scale-100"
                     aria-label="Studio Store"
                   />
                 )}
@@ -75,7 +85,7 @@ export function Navbar() {
           {/* Discrete Secondary Lab Link */}
           <Link
             href="/lab"
-            className="text-xs font-sans px-2.5 py-1 border border-[var(--color-hairline)] text-[var(--color-ink-secondary)] hover:border-[var(--color-ink-primary)] hover:text-[var(--color-ink-primary)] transition-colors duration-150 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
+            className="text-xs font-sans px-2.5 py-1 border border-[var(--color-hairline)] text-[var(--color-ink-secondary)] hover:border-[var(--color-ink-primary)] hover:text-[var(--color-ink-primary)] transition-[border-color,color,transform] duration-150 active:scale-[0.98] motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
             title="Personal Lab"
           >
             Lab

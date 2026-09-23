@@ -19,7 +19,7 @@ export function buttonStyles({
   className,
 }: ButtonStylesProps = {}) {
   const baseStyles =
-    "inline-flex items-center justify-center font-sans font-medium text-xs tracking-normal transition-colors duration-150 ease-out cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed select-none min-h-[44px] rounded-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)] focus-visible:ring-offset-1";
+    "inline-flex items-center justify-center font-sans font-medium text-xs tracking-normal transition-[color,background-color,border-color,transform] duration-150 ease-out cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:active:scale-100 select-none min-h-[44px] rounded-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)] focus-visible:ring-offset-1 hover:-translate-y-[1px] active:translate-y-0 active:scale-[0.98] motion-reduce:hover:translate-y-0 motion-reduce:active:scale-100";
 
   const variantStyles = {
     primary:
