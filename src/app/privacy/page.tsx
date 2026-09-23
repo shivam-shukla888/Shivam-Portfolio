@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { SectionContainer } from "@/components/layout/SectionContainer";
 import { PageBackground } from "@/components/ui/PageBackground";
+import { InnerPageEntrance } from "@/components/layout/InnerPageEntrance";
 
 export const metadata: Metadata = {
   title: "Privacy Policy — Shivam Shukla",
@@ -29,23 +30,26 @@ export default function PrivacyPolicyPage() {
       <SectionContainer>
         <div className="max-w-3xl space-y-12">
           {/* Header */}
-          <div className="space-y-4 pb-8 border-b border-[var(--color-hairline)]">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 bg-[var(--color-accent)] inline-block shrink-0" />
-              <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--color-accent)] font-semibold">
-                LEGAL & SECURITY MEMORANDUM
-              </span>
+          <InnerPageEntrance delayIndex={0}>
+            <div className="space-y-4 pb-8 border-b border-[var(--color-hairline)]">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 bg-[var(--color-accent)] inline-block shrink-0" />
+                <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--color-accent)] font-semibold">
+                  LEGAL & SECURITY MEMORANDUM
+                </span>
+              </div>
+              <h1 className="font-display text-4xl sm:text-5xl font-normal tracking-tight text-[var(--color-ink-primary)]">
+                Privacy Policy
+              </h1>
+              <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
+                Effective Date: September 2026 · Operational identity: Shivam Shukla / SHIVSASTRA
+              </p>
             </div>
-            <h1 className="font-display text-4xl sm:text-5xl font-normal tracking-tight text-[var(--color-ink-primary)]">
-              Privacy Policy
-            </h1>
-            <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
-              Effective Date: September 2026 · Operational identity: Shivam Shukla / SHIVSASTRA
-            </p>
-          </div>
+          </InnerPageEntrance>
 
           {/* Sections */}
-          <div className="space-y-10 font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
+          <InnerPageEntrance delayIndex={1}>
+            <div className="space-y-10 font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
             {/* 1. Scope & Operator */}
             <section className="space-y-3">
               <h2 className="font-display text-xl sm:text-2xl text-[var(--color-ink-primary)] font-normal tracking-tight">
@@ -164,23 +168,26 @@ export default function PrivacyPolicyPage() {
                 .
               </p>
             </section>
-          </div>
+            </div>
+          </InnerPageEntrance>
 
           {/* Footer Back Link */}
-          <div className="pt-8 border-t border-[var(--color-hairline)] flex items-center justify-between text-xs font-mono text-[var(--color-ink-secondary)]">
-            <Link
-              href="/"
-              className="hover:text-[var(--color-ink-primary)] transition-colors underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
-            >
-              ← Back to Home
-            </Link>
-            <Link
-              href="/contact"
-              className="text-[var(--color-accent)] hover:underline"
-            >
-              Initiate an Engagement →
-            </Link>
-          </div>
+          <InnerPageEntrance delayIndex={2}>
+            <div className="pt-8 border-t border-[var(--color-hairline)] flex items-center justify-between text-xs font-mono text-[var(--color-ink-secondary)]">
+              <Link
+                href="/"
+                className="hover:text-[var(--color-ink-primary)] transition-colors underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
+              >
+                ← Back to Home
+              </Link>
+              <Link
+                href="/contact"
+                className="text-[var(--color-accent)] hover:underline"
+              >
+                Initiate an Engagement →
+              </Link>
+            </div>
+          </InnerPageEntrance>
         </div>
       </SectionContainer>
     </div>

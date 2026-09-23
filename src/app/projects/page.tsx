@@ -4,6 +4,7 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { SectionContainer } from "@/components/layout/SectionContainer";
 import { PageBackground } from "@/components/ui/PageBackground";
+import { InnerPageEntrance } from "@/components/layout/InnerPageEntrance";
 import { getPublishedProjects } from "@/lib/projects";
 
 export const revalidate = 60;
@@ -37,29 +38,32 @@ export default async function ProjectsPage() {
       <SectionContainer>
         <div className="space-y-12">
           {/* Header Block */}
-          <div className="space-y-3 pb-8 border-b border-[var(--color-hairline)]">
-            <div className="flex flex-wrap items-center justify-between gap-4">
-              <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--color-accent)] font-semibold">
-                CURATED ARCHIVE · MONOGRAPHS & CASE STUDIES
-              </span>
-              <Link
-                href="/services"
-                className="font-mono text-xs text-[var(--color-ink-secondary)] hover:text-[var(--color-accent)] transition-colors inline-flex items-center gap-1"
-              >
-                <span>Looking to work together? View Services</span>
-                <span>→</span>
-              </Link>
+          <InnerPageEntrance delayIndex={0}>
+            <div className="space-y-3 pb-8 border-b border-[var(--color-hairline)]">
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--color-accent)] font-semibold">
+                  CURATED ARCHIVE · MONOGRAPHS & CASE STUDIES
+                </span>
+                <Link
+                  href="/services"
+                  className="font-mono text-xs text-[var(--color-ink-secondary)] hover:text-[var(--color-accent)] transition-colors inline-flex items-center gap-1"
+                >
+                  <span>Looking to work together? View Services</span>
+                  <span>→</span>
+                </Link>
+              </div>
+              <h1 className="font-display text-4xl sm:text-5xl font-normal tracking-tight text-[var(--color-ink-primary)]">
+                Projects & Case Studies
+              </h1>
+              <p className="font-sans text-sm md:text-base text-[var(--color-ink-secondary)] leading-relaxed max-w-3xl">
+                In-depth technical monographs and architectural studies covering Backend Systems, Agentic AI, and AI Security.
+              </p>
             </div>
-            <h1 className="font-display text-4xl sm:text-5xl font-normal tracking-tight text-[var(--color-ink-primary)]">
-              Projects & Case Studies
-            </h1>
-            <p className="font-sans text-sm md:text-base text-[var(--color-ink-secondary)] leading-relaxed max-w-3xl">
-              In-depth technical monographs and architectural studies covering Backend Systems, Agentic AI, and AI Security.
-            </p>
-          </div>
+          </InnerPageEntrance>
 
           {/* Projects List or Refined Editorial Empty State */}
-          <div className="divide-y divide-[var(--color-hairline)]">
+          <InnerPageEntrance delayIndex={1}>
+            <div className="divide-y divide-[var(--color-hairline)]">
             {projects.length > 0 ? (
               projects.map((project) => (
                 <div
@@ -187,26 +191,29 @@ export default async function ProjectsPage() {
                 </div>
               </div>
             )}
-          </div>
+            </div>
+          </InnerPageEntrance>
 
           {/* Navigation Footer */}
-          <div className="pt-6 border-t border-[var(--color-hairline)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 font-mono text-xs text-[var(--color-ink-secondary)]">
-            <Link
-              href="/"
-              className="inline-flex items-center gap-1 hover:text-[var(--color-ink-primary)] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
-            >
-              <span>← Back to Home</span>
-            </Link>
-            <div className="flex items-center gap-4">
-              <span>EXPLORE SERVICES:</span>
+          <InnerPageEntrance delayIndex={2}>
+            <div className="pt-6 border-t border-[var(--color-hairline)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 font-mono text-xs text-[var(--color-ink-secondary)]">
               <Link
-                href="/services"
-                className="text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors underline underline-offset-4"
+                href="/"
+                className="inline-flex items-center gap-1 hover:text-[var(--color-ink-primary)] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
               >
-                Services & Advisory →
+                <span>← Back to Home</span>
               </Link>
+              <div className="flex items-center gap-4">
+                <span>EXPLORE SERVICES:</span>
+                <Link
+                  href="/services"
+                  className="text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors underline underline-offset-4"
+                >
+                  Services & Advisory →
+                </Link>
+              </div>
             </div>
-          </div>
+          </InnerPageEntrance>
         </div>
       </SectionContainer>
     </div>

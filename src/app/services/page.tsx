@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { SectionContainer } from "@/components/layout/SectionContainer";
 import { PageBackground } from "@/components/ui/PageBackground";
+import { InnerPageEntrance } from "@/components/layout/InnerPageEntrance";
 import { getPublishedServices } from "@/lib/services";
 
 export const revalidate = 60;
@@ -68,31 +69,35 @@ export default async function ServicesPage() {
       />
       <SectionContainer>
         <div className="space-y-12">
-            {/* Header Block with Dual Identity Clarity */}
-          <div className="space-y-4 pb-8 border-b border-[var(--color-hairline)]">
-            <div className="flex flex-wrap items-center justify-between gap-4">
-              <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--color-accent)] font-semibold">
-                WORK WITH SHIVAM · PROFESSIONAL SERVICES
-              </span>
-              <Link
-                href="/store"
-                className="font-mono text-xs text-[var(--color-ink-secondary)] hover:text-[var(--color-accent)] transition-colors inline-flex items-center gap-1"
-              >
-                <span>Looking to purchase digital tools? Visit Store</span>
-                <span>→</span>
-              </Link>
+          {/* Header Block with Dual Identity Clarity */}
+          <InnerPageEntrance delayIndex={0}>
+            <div className="space-y-4 pb-8 border-b border-[var(--color-hairline)]">
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--color-accent)] font-semibold">
+                  WORK WITH SHIVAM · PROFESSIONAL SERVICES
+                </span>
+                <Link
+                  href="/store"
+                  className="font-mono text-xs text-[var(--color-ink-secondary)] hover:text-[var(--color-accent)] transition-colors inline-flex items-center gap-1"
+                >
+                  <span>Looking to purchase digital tools? Visit Store</span>
+                  <span>→</span>
+                </Link>
+              </div>
+              <h1 className="font-display text-4xl sm:text-5xl font-normal tracking-tight text-[var(--color-ink-primary)]">
+                Services & Engagements
+              </h1>
+              <p className="font-sans text-sm md:text-base text-[var(--color-ink-secondary)] leading-relaxed max-w-3xl">
+                Tailored technical engagements and advisory scopes across Backend Systems, Agentic AI, and AI Security.
+                Each engagement is scoped directly around project requirements, architecture constraints, and technical integrity.
+              </p>
             </div>
-            <h1 className="font-display text-4xl sm:text-5xl font-normal tracking-tight text-[var(--color-ink-primary)]">
-              Services & Engagements
-            </h1>
-            <p className="font-sans text-sm md:text-base text-[var(--color-ink-secondary)] leading-relaxed max-w-3xl">
-              Tailored technical engagements and advisory scopes across Backend Systems, Agentic AI, and AI Security.
-              Each engagement is scoped directly around project requirements, architecture constraints, and technical integrity.
-            </p>
-          </div>
+          </InnerPageEntrance>
 
           {/* Service Grid: Real Published Services or Refined Domain Positioning */}
-          {services.length > 0 ? (
+          <InnerPageEntrance delayIndex={1}>
+            <div>
+            {services.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[var(--color-hairline)] border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)]">
               {services.map((service) => (
                 <div
@@ -214,25 +219,29 @@ export default async function ServicesPage() {
               </div>
             </div>
           )}
+            </div>
+          </InnerPageEntrance>
 
           {/* Cross-Link Distinction: Services vs Store */}
-          <div className="pt-6 border-t border-[var(--color-hairline)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 font-mono text-xs text-[var(--color-ink-secondary)]">
-            <Link
-              href="/"
-              className="hover:text-[var(--color-ink-primary)] transition-colors inline-flex items-center gap-1 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
-            >
-              <span>← Back to Home</span>
-            </Link>
-            <div className="flex items-center gap-4">
-              <span>EXPLORE SHIVSASTRA:</span>
+          <InnerPageEntrance delayIndex={2}>
+            <div className="pt-6 border-t border-[var(--color-hairline)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 font-mono text-xs text-[var(--color-ink-secondary)]">
               <Link
-                href="/store"
-                className="text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors underline underline-offset-4"
+                href="/"
+                className="hover:text-[var(--color-ink-primary)] transition-colors inline-flex items-center gap-1 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
               >
-                The Store (Digital Products) →
+                <span>← Back to Home</span>
               </Link>
+              <div className="flex items-center gap-4">
+                <span>EXPLORE SHIVSASTRA:</span>
+                <Link
+                  href="/store"
+                  className="text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors underline underline-offset-4"
+                >
+                  The Store (Digital Products) →
+                </Link>
+              </div>
             </div>
-          </div>
+          </InnerPageEntrance>
         </div>
       </SectionContainer>
     </div>

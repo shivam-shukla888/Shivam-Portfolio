@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { SectionContainer } from "@/components/layout/SectionContainer";
 import { PageBackground } from "@/components/ui/PageBackground";
+import { InnerPageEntrance } from "@/components/layout/InnerPageEntrance";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { getProfileSettings } from "@/lib/profile";
 
@@ -43,19 +44,23 @@ export default async function ContactPage() {
       <SectionContainer>
         <div className="max-w-5xl space-y-12">
           {/* Header Block */}
-          <div className="space-y-3 max-w-2xl">
-            <h1 className="font-display text-4xl sm:text-5xl font-normal tracking-tight text-[var(--color-ink-primary)]">
-              Initiate an Engagement
-            </h1>
-            <p className="font-sans text-xs text-[var(--color-accent)] font-medium">
-              Direct inquiries for {profile.fullName}
-            </p>
-            <p className="font-sans text-base text-[var(--color-ink-secondary)] pt-2 leading-relaxed whitespace-pre-wrap">
-              {profile.contactInstructions}
-            </p>
-          </div>
+          <InnerPageEntrance delayIndex={0}>
+            <div className="space-y-3 max-w-2xl">
+              <h1 className="font-display text-4xl sm:text-5xl font-normal tracking-tight text-[var(--color-ink-primary)]">
+                Initiate an Engagement
+              </h1>
+              <p className="font-sans text-xs text-[var(--color-accent)] font-medium">
+                Direct inquiries for {profile.fullName}
+              </p>
+              <p className="font-sans text-base text-[var(--color-ink-secondary)] pt-2 leading-relaxed whitespace-pre-wrap">
+                {profile.contactInstructions}
+              </p>
+            </div>
+          </InnerPageEntrance>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+          {/* Direct Channels & Contact Form */}
+          <InnerPageEntrance delayIndex={1}>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
             {/* Left Column: Direct Channels & Profiles */}
             <div className="lg:col-span-5 space-y-8">
               {/* Direct Channels */}
@@ -152,17 +157,20 @@ export default async function ContactPage() {
                 />
               </div>
             </div>
-          </div>
+            </div>
+          </InnerPageEntrance>
 
           {/* Navigation Return */}
-          <div className="pt-2">
-            <Link
-              href="/"
-              className="inline-flex items-center gap-1.5 font-sans text-xs text-[var(--color-ink-secondary)] hover:text-[var(--color-ink-primary)] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
-            >
-              <span>← Back to Home</span>
-            </Link>
-          </div>
+          <InnerPageEntrance delayIndex={2}>
+            <div className="pt-2">
+              <Link
+                href="/"
+                className="inline-flex items-center gap-1.5 font-sans text-xs text-[var(--color-ink-secondary)] hover:text-[var(--color-ink-primary)] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
+              >
+                <span>← Back to Home</span>
+              </Link>
+            </div>
+          </InnerPageEntrance>
         </div>
       </SectionContainer>
     </div>
