@@ -94,10 +94,11 @@ export default async function HomePage() {
         <PageBackground
           src="/images/backgrounds/homepage.webp"
           priority
-          opacity={0.32}
+          opacity={0.55}
           position="right"
+          overlayVariant="hero-left-quiet"
         />
-        <SectionContainer>
+        <SectionContainer className="relative z-1">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             {/* Left Narrative Block */}
             <div className="lg:col-span-7 space-y-6">
