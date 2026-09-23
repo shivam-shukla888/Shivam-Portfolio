@@ -2,7 +2,13 @@
 
 export { MotionProvider } from "./MotionProvider";
 export type { MotionProviderProps } from "./MotionProvider";
-export { m, useReducedMotion } from "motion/react";
+export {
+  m,
+  useReducedMotion,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from "motion/react";
 export type {
   HTMLMotionProps,
   MotionProps,
