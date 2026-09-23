@@ -11,6 +11,7 @@ import { getProfileSettings } from "@/lib/profile";
 import { getPublishedProjects } from "@/lib/projects";
 import { getPublishedServices } from "@/lib/services";
 import { PageBackground } from "@/components/ui/PageBackground";
+import { HomeHeroMotion } from "@/components/home/HomeHeroMotion";
 
 export const revalidate = 60;
 
@@ -99,9 +100,8 @@ export default async function HomePage() {
           overlayVariant="hero-left-quiet"
         />
         <SectionContainer className="relative z-1">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-            {/* Left Narrative Block */}
-            <div className="lg:col-span-7 space-y-6">
+          <HomeHeroMotion
+            overview={
               <div className="flex flex-wrap items-baseline gap-4">
                 <SectionLabel index="01" name="Overview" />
                 {profile.availabilityStatus && (
@@ -110,23 +110,23 @@ export default async function HomePage() {
                   </span>
                 )}
               </div>
-
-              {/* Dominant Visual Identity */}
+            }
+            title={
               <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-normal tracking-tight text-[var(--color-ink-primary)] leading-[1.05]">
-                SHIVAM
+                Shivam Shukla
               </h1>
-
-              {/* Primary Technical Positioning */}
+            }
+            positioning={
               <p className="font-mono text-xs sm:text-sm uppercase tracking-[0.14em] text-[var(--color-accent)] font-semibold">
                 Backend Systems · Agentic AI · AI Security
               </p>
-
-              {/* Supporting Statement */}
+            }
+            narrative={
               <p className="font-sans text-base md:text-lg text-[var(--color-ink-secondary)] leading-relaxed max-w-[62ch]">
                 Building intelligent systems, AI agents, and security-focused software — and creating useful digital work along the way.
               </p>
-
-              {/* Two Clear CTAs: Primary (Work) & Secondary (Store) */}
+            }
+            ctas={
               <div className="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
                 <Link
                   href="#work"
@@ -149,13 +149,9 @@ export default async function HomePage() {
                   Visit Store →
                 </Link>
               </div>
-            </div>
-
-            {/* Right Signature Visual */}
-            <div className="lg:col-span-5 flex justify-center">
-              <HeroVisual />
-            </div>
-          </div>
+            }
+            visual={<HeroVisual />}
+          />
         </SectionContainer>
       </section>
 
