@@ -16,6 +16,7 @@ export interface DistributedRateLimitOptions {
 }
 
 export const RATE_LIMIT_PREFIX = "shivsastra:ratelimit:contact";
+export const AI_RATE_LIMIT_PREFIX = "shivsastra:ratelimit:ai";
 export const DEFAULT_RATE_LIMIT_MAX_REQUESTS = 5;
 export const DEFAULT_RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000; // 10 minutes
 export const DEFAULT_REDIS_TIMEOUT_MS = 3000; // 3 seconds timeout

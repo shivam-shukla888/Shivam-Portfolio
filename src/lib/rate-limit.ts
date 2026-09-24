@@ -3,6 +3,7 @@ import {
   isRedisConfigured,
   checkDistributedRateLimit,
   RATE_LIMIT_PREFIX,
+  AI_RATE_LIMIT_PREFIX,
 } from "./redis";
 
 interface RateLimitRecord {
@@ -231,3 +232,102 @@ export function getStoreSize(): number {
 export function clearRateLimitStore(): void {
   memoryStore.clear();
 }
+
+/**
+ * AI Assistant Rate Limiting Policy (Phase 1.5):
+ * 10 chat requests / 10 minutes / client IP (hashed).
+ * Uses distributed Upstash Redis with bounded in-memory sliding window fallback.
+ */
+export const AI_RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000; // 10 minutes
+export const AI_RATE_LIMIT_MAX_REQUESTS = 10; // 10 requests / 10 mins
+
+const aiMemoryStore = new Map<string, RateLimitRecord>();
+
+export function pruneExpiredAiEntries(now: number = Date.now()): number {
+  const windowStart = now - AI_RATE_LIMIT_WINDOW_MS;
+  let prunedCount = 0;
+
+  for (const [key, record] of aiMemoryStore.entries()) {
+    const valid = record.timestamps.filter((ts) => ts > windowStart);
+    if (valid.length === 0) {
+      aiMemoryStore.delete(key);
+      prunedCount++;
+    } else if (valid.length !== record.timestamps.length) {
+      aiMemoryStore.set(key, { timestamps: valid });
+    }
+  }
+
+  return prunedCount;
+}
+
+export async function checkAiRateLimit(
+  hashedId: string,
+  options?: RateLimitOptions
+): Promise<{ success: boolean; remaining: number; reset: number }> {
+  // 1. Production Distributed Rate Limiting via Upstash Redis
+  if (isRedisConfigured() && !options?.forceInMemory) {
+    try {
+      const key = `${AI_RATE_LIMIT_PREFIX}:${hashedId}`;
+      const result = await checkDistributedRateLimit(
+        key,
+        AI_RATE_LIMIT_MAX_REQUESTS,
+        AI_RATE_LIMIT_WINDOW_MS,
+        { timeoutMs: options?.timeoutMs }
+      );
+      return result;
+    } catch {
+      console.warn(
+        "[AI_RATE_LIMIT] Distributed Redis limiter unavailable; falling back safely to bounded in-memory store."
+      );
+    }
+  }
+
+  // 2. Bounded In-Memory Sliding Window Fallback (Local Dev / Redis Outage)
+  try {
+    const now = Date.now();
+    const windowStart = now - AI_RATE_LIMIT_WINDOW_MS;
+
+    if (aiMemoryStore.size >= MAX_ENTRIES) {
+      pruneExpiredAiEntries(now);
+      if (aiMemoryStore.size >= MAX_ENTRIES) {
+        const oldestKey = aiMemoryStore.keys().next().value;
+        if (oldestKey) {
+          aiMemoryStore.delete(oldestKey);
+        }
+      }
+    }
+
+    const record = aiMemoryStore.get(hashedId) || { timestamps: [] };
+    const validTimestamps = record.timestamps.filter((ts) => ts > windowStart);
+
+    if (validTimestamps.length >= AI_RATE_LIMIT_MAX_REQUESTS) {
+      const oldest = validTimestamps[0];
+      const resetTime = oldest + AI_RATE_LIMIT_WINDOW_MS;
+      return {
+        success: false,
+        remaining: 0,
+        reset: resetTime,
+      };
+    }
+
+    validTimestamps.push(now);
+    aiMemoryStore.set(hashedId, { timestamps: validTimestamps });
+
+    return {
+      success: true,
+      remaining: AI_RATE_LIMIT_MAX_REQUESTS - validTimestamps.length,
+      reset: now + AI_RATE_LIMIT_WINDOW_MS,
+    };
+  } catch {
+    return {
+      success: false,
+      remaining: 0,
+      reset: Date.now() + AI_RATE_LIMIT_WINDOW_MS,
+    };
+  }
+}
+
+export function clearAiRateLimitStore(): void {
+  aiMemoryStore.clear();
+}
+

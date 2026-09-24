@@ -4,6 +4,7 @@ import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { MotionProvider } from "@/components/motion";
+import { ShivSastraAssistant } from "@/components/ai/ShivSastraAssistant";
 
 const newsreader = Newsreader({
   variable: "--font-newsreader",
@@ -94,6 +95,7 @@ export default function RootLayout({
           <Navbar />
           <main className="flex-1 w-full">{children}</main>
           <Footer />
+          <ShivSastraAssistant />
         </MotionProvider>
       </body>
     </html>
