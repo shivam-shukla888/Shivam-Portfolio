@@ -12,9 +12,9 @@ import { StoreCatalogView } from "@/components/store/StoreCatalogView";
 export const revalidate = 60;
 
 export const metadata = {
-  title: "Store — Studio Catalog & Digital Systems",
+  title: "Store — Shivam Shukla",
   description:
-    "Curated digital tools, autonomous agents, and architectural design systems by Shivam Shukla.",
+    "Digital products, templates, and tools made and sold by Shivam Shukla.",
   alternates: {
     canonical: "https://shivsastra.com/store",
   },
@@ -48,17 +48,17 @@ export default async function StorePage() {
               <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
                 <div className="space-y-2 max-w-2xl">
                   <h1 className="font-display text-4xl sm:text-5xl font-normal tracking-tight text-[var(--color-ink-primary)]">
-                    Studio Store
+                    Store
                   </h1>
                   <p className="font-sans text-sm md:text-base text-[var(--color-ink-secondary)] leading-relaxed">
-                    Curated digital tools, autonomous agents, and architectural design systems crafted by Shivam Shukla. Built for engineers, founders, and creative directors.
+                    Digital products I make and sell. Browse templates, tools, and downloadable work.
                   </p>
                 </div>
                 <div className="font-mono text-xs text-[var(--color-ink-secondary)] shrink-0">
                   <span className="text-[var(--color-accent)] font-semibold">
                     {categoryCounts.total}
                   </span>{" "}
-                  {categoryCounts.total === 1 ? "release available" : "releases available"}
+                  {categoryCounts.total === 1 ? "product available" : "products available"}
                 </div>
               </div>
             </div>
@@ -67,7 +67,7 @@ export default async function StorePage() {
           {/* 3 Category Spotlight Cards */}
           <InnerPageEntrance delayIndex={1}>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {/* 1. Design Studio */}
+              {/* 1. Design & Templates */}
               <Link
                 href="/store/design"
                 className="border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] p-6 md:p-8 space-y-4 hover:border-[var(--color-ink-primary)] transition-all group flex flex-col justify-between"
@@ -75,22 +75,22 @@ export default async function StorePage() {
                 <div className="space-y-3">
                   <div className="flex items-center justify-between text-xs font-mono text-[var(--color-ink-secondary)]">
                     <span className="text-[var(--color-accent)] uppercase tracking-wider font-semibold">
-                      Category 01
+                      Templates
                     </span>
                     <span>
                       {categoryCounts.design}{" "}
-                      {categoryCounts.design === 1 ? "edition" : "editions"}
+                      {categoryCounts.design === 1 ? "product" : "products"}
                     </span>
                   </div>
                   <h2 className="font-display text-2xl text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors">
-                    Design Studio
+                    Design & Templates
                   </h2>
                   <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
-                    Interaction guidelines, editorial typography systems, UI kit frameworks, and precision aesthetic design libraries.
+                    Interaction kits, typography systems, and web templates.
                   </p>
                 </div>
                 <div className="pt-4 border-t border-[var(--color-hairline)] flex items-center justify-between font-mono text-xs text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)]">
-                  <span>Explore Design Editions</span>
+                  <span>Browse Design</span>
                   <span>→</span>
                 </div>
               </Link>
@@ -103,22 +103,22 @@ export default async function StorePage() {
                 <div className="space-y-3">
                   <div className="flex items-center justify-between text-xs font-mono text-[var(--color-ink-secondary)]">
                     <span className="text-[var(--color-accent)] uppercase tracking-wider font-semibold">
-                      Category 02
+                      Agent Tools
                     </span>
                     <span>
                       {categoryCounts.ai_agents}{" "}
-                      {categoryCounts.ai_agents === 1 ? "edition" : "editions"}
+                      {categoryCounts.ai_agents === 1 ? "product" : "products"}
                     </span>
                   </div>
                   <h2 className="font-display text-2xl text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors">
                     AI Agents
                   </h2>
                   <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
-                    Autonomous cognitive agents, prompt engineering evaluation harnesses, multi-agent orchestrations, and tool interfaces.
+                    Agent starter code, tool pipelines, and evaluation workflows.
                   </p>
                 </div>
                 <div className="pt-4 border-t border-[var(--color-hairline)] flex items-center justify-between font-mono text-xs text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)]">
-                  <span>Explore AI Agents</span>
+                  <span>Browse AI Agents</span>
                   <span>→</span>
                 </div>
               </Link>
@@ -131,22 +131,22 @@ export default async function StorePage() {
                 <div className="space-y-3">
                   <div className="flex items-center justify-between text-xs font-mono text-[var(--color-ink-secondary)]">
                     <span className="text-[var(--color-accent)] uppercase tracking-wider font-semibold">
-                      Category 03
+                      Downloads
                     </span>
                     <span>
                       {categoryCounts.digital_products}{" "}
-                      {categoryCounts.digital_products === 1 ? "edition" : "editions"}
+                      {categoryCounts.digital_products === 1 ? "product" : "products"}
                     </span>
                   </div>
                   <h2 className="font-display text-2xl text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors">
                     Digital Products
                   </h2>
                   <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
-                    Technical monographs, full-stack boilerplates, architectural templates, and production developer licenses.
+                    Code starter repos, developer templates, and technical downloads.
                   </p>
                 </div>
                 <div className="pt-4 border-t border-[var(--color-hairline)] flex items-center justify-between font-mono text-xs text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)]">
-                  <span>Explore Digital Products</span>
+                  <span>Browse Products</span>
                   <span>→</span>
                 </div>
               </Link>
@@ -157,11 +157,8 @@ export default async function StorePage() {
           <InnerPageEntrance delayIndex={2}>
             <div className="space-y-8 pt-6">
               <div className="space-y-1">
-                <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--color-accent)]">
-                  CATALOG
-                </span>
                 <h2 className="font-display text-3xl font-normal text-[var(--color-ink-primary)]">
-                  All Studio Editions
+                  All Products
                 </h2>
               </div>
 
@@ -181,7 +178,7 @@ export default async function StorePage() {
                 href="/"
                 className="inline-flex items-center gap-1.5 font-sans text-xs text-[var(--color-ink-secondary)] hover:text-[var(--color-ink-primary)] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
               >
-                <span>← Back to Portfolio</span>
+                <span>← Back to Home</span>
               </Link>
             </div>
           </InnerPageEntrance>

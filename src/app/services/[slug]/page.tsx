@@ -185,10 +185,10 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
               <div className="p-8 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] flex flex-col sm:flex-row sm:items-center justify-between gap-6">
                 <div className="space-y-1">
                   <h2 className="font-display text-2xl font-normal text-[var(--color-ink-primary)]">
-                    Ready to explore this scope?
+                    Interested in this service?
                   </h2>
                   <p className="font-sans text-xs text-[var(--color-ink-secondary)] max-w-lg leading-relaxed">
-                    Engagements begin with a technical discussion to confirm system requirements, architecture goals, and operational constraints.
+                    We can discuss your requirements, tech stack, and timeline over a message or call.
                   </p>
                 </div>
                 <Link
@@ -199,7 +199,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                     className: "shrink-0",
                   })}
                 >
-                  Start a Conversation →
+                  Discuss This Project →
                 </Link>
               </div>
 
@@ -212,12 +212,12 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                   <span>← Back to Services</span>
                 </Link>
                 <div className="flex items-center gap-2">
-                  <span>EXPLORE SHIVSASTRA:</span>
+                  <span>EXPLORE:</span>
                   <Link
                     href="/store"
                     className="text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors underline underline-offset-4"
                   >
-                    The Store →
+                    Store →
                   </Link>
                 </div>
               </div>

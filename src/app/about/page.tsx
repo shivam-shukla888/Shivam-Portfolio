@@ -42,10 +42,10 @@ export default async function AboutPage() {
           <InnerPageEntrance delayIndex={0}>
             <div className="space-y-3 pb-6 border-b border-[var(--color-hairline)]">
               <h1 className="font-display text-4xl sm:text-5xl font-normal tracking-tight text-[var(--color-ink-primary)]">
-                About {profile.fullName}
+                About Me
               </h1>
               <p className="font-sans text-xs text-[var(--color-accent)] font-medium">
-                Personal Profile & Studio Discipline
+                Background & Approach
               </p>
             </div>
           </InnerPageEntrance>
@@ -71,12 +71,14 @@ export default async function AboutPage() {
               <div className="md:col-span-7 space-y-6">
                 <div className="p-8 md:p-10 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)]">
                   <p className="font-display text-xl sm:text-2xl text-[var(--color-ink-primary)] leading-relaxed italic whitespace-pre-wrap">
-                    {profile.aboutMarkdown}
+                    {profile.aboutMarkdown && profile.aboutMarkdown !== "[ABOUT CONTENT PENDING]"
+                      ? profile.aboutMarkdown
+                      : "I like building things that are useful, understandable, and reliable.\n\nI spend most of my time working with backend systems, AI agents, and software security. I learn by building projects and testing ideas in real code."}
                   </p>
                 </div>
 
                 <p className="font-mono text-xs text-[var(--color-ink-secondary)] leading-relaxed">
-                  Biographical narrative, background history, and studio principles will be authored strictly by {profile.fullName}.
+                  I&apos;ll be adding more notes on my background, tools, and technical principles here over time.
                 </p>
               </div>
             </div>
@@ -87,17 +89,17 @@ export default async function AboutPage() {
             <div className="p-8 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] flex flex-col sm:flex-row sm:items-center justify-between gap-6">
               <div className="space-y-1">
                 <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--color-accent)] font-semibold">
-                  INITIATE DIALOGUE
+                  Get in Touch
                 </span>
                 <p className="font-display text-xl text-[var(--color-ink-primary)]">
-                  Have an architectural inquiry or engineering challenge?
+                  Have a project in mind or want to talk?
                 </p>
               </div>
               <Link
                 href="/contact"
                 className="shrink-0 inline-flex items-center justify-center font-mono text-xs uppercase tracking-[0.08em] px-5 py-3 bg-[var(--color-ink-primary)] text-white hover:bg-[var(--color-accent)] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
               >
-                Direct Inquiry →
+                Send a Message →
               </Link>
             </div>
           </InnerPageEntrance>

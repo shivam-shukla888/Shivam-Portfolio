@@ -216,10 +216,10 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
               <div className="p-8 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] flex flex-col sm:flex-row sm:items-center justify-between gap-6">
                 <div className="space-y-1">
                   <h2 className="font-display text-2xl font-normal text-[var(--color-ink-primary)]">
-                    Have questions about this architecture?
+                    Questions about this project?
                   </h2>
                   <p className="font-sans text-xs text-[var(--color-ink-secondary)] max-w-lg leading-relaxed">
-                    Reach out to discuss technical decisions, system design patterns, or bespoke implementation requirements.
+                    Feel free to reach out if you&apos;d like to talk about the tech stack, implementation, or a similar project.
                   </p>
                 </div>
                 <Link
@@ -230,7 +230,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                     className: "shrink-0",
                   })}
                 >
-                  Discuss a Project →
+                  Get in Touch →
                 </Link>
               </div>
 
@@ -243,12 +243,12 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                   <span>← Back to Projects</span>
                 </Link>
                 <div className="flex items-center gap-2">
-                  <span>EXPLORE SERVICES:</span>
+                  <span>EXPLORE:</span>
                   <Link
                     href="/services"
                     className="text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors underline underline-offset-4"
                   >
-                    Services & Advisory →
+                    Services →
                   </Link>
                 </div>
               </div>

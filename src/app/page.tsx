@@ -19,7 +19,7 @@ export const revalidate = 60;
 export const metadata: Metadata = {
   title: "Shivam Shukla — Backend Systems, Agentic AI & AI Security",
   description:
-    "Personal digital headquarters of Shivam Shukla. Engineering backend systems, agentic AI workflows, and AI security software — with curated digital releases via SHIVSASTRA Store.",
+    "Personal website and portfolio of Shivam Shukla. I build backend systems, AI agents, and security-focused software, and sell digital tools via the store.",
   alternates: {
     canonical: "https://shivsastra.com",
   },
@@ -64,7 +64,7 @@ export default async function HomePage() {
         name: profile.fullName || "Shivam Shukla",
         url: "https://shivsastra.com",
         description:
-          "Building intelligent systems, AI agents, and security-focused software.",
+          "Building backend systems, AI agents, and security-focused software.",
         sameAs: verifiedSameAs,
       },
       {
@@ -76,7 +76,7 @@ export default async function HomePage() {
           "@id": "https://shivsastra.com/#person",
         },
         description:
-          "Personal digital headquarters and studio store of Shivam Shukla.",
+          "Personal website, portfolio, and digital store of Shivam Shukla.",
       },
     ],
   };
@@ -90,7 +90,7 @@ export default async function HomePage() {
       />
 
       {/* =======================================================
-          01 // HERO
+          HERO
           ======================================================= */}
       <section className="relative w-full border-b border-[var(--color-hairline)] pt-16 md:pt-24 pb-20 md:pb-32 overflow-hidden">
         <PageBackground
@@ -104,7 +104,7 @@ export default async function HomePage() {
           <HomeHeroMotion
             overview={
               <div className="flex flex-wrap items-baseline gap-4">
-                <SectionLabel index="01" name="Overview" />
+                <SectionLabel name="Overview" />
                 {profile.availabilityStatus && (
                   <span className="font-mono text-xs text-[var(--color-accent)] border-l border-[var(--color-hairline)] pl-4">
                     {profile.availabilityStatus}
@@ -124,7 +124,7 @@ export default async function HomePage() {
             }
             narrative={
               <p className="font-sans text-base md:text-lg text-[var(--color-ink-secondary)] leading-relaxed max-w-[62ch]">
-                Building intelligent systems, AI agents, and security-focused software — and creating useful digital work along the way.
+                I build backend systems, AI agents, and security-focused software — and create digital tools along the way.
               </p>
             }
             ctas={
@@ -137,7 +137,7 @@ export default async function HomePage() {
                     className: "w-full sm:w-auto font-mono text-xs uppercase tracking-wider group",
                   })}
                 >
-                  <span>Explore My Work</span>
+                  <span>See My Work</span>
                   <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none ml-1.5">
                     →
                   </span>
@@ -163,74 +163,74 @@ export default async function HomePage() {
       </section>
 
       {/* =======================================================
-          02 // WHAT I BUILD (Technical Disciplines)
+          WHAT I BUILD (Technical Disciplines)
           ======================================================= */}
       <section className="w-full border-b border-[var(--color-hairline)] py-20 md:py-28 bg-[var(--color-canvas-primary)]">
         <HomeSectionReveal>
           <SectionContainer>
           <div className="space-y-12">
             <div className="space-y-4 max-w-2xl">
-              <SectionLabel index="02" name="Disciplines" />
+              <SectionLabel name="What I Build" />
               <h2 className="font-display text-3xl md:text-4xl font-normal tracking-tight text-[var(--color-ink-primary)]">
                 What I Build
               </h2>
               <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
-                Core areas of technical focus spanning resilient backend infrastructure, autonomous cognitive systems, and defensive security engineering.
+                My work focuses on backend development, practical AI agents, and software security.
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {/* Discipline 01: Backend Systems */}
+              {/* Discipline 1: Backend Systems */}
               <div className="border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] p-8 space-y-4 flex flex-col justify-between">
                 <div className="space-y-3">
                   <span className="font-mono text-xs text-[var(--color-accent)] uppercase tracking-wider font-semibold">
-                    01 // Infrastructure
+                    Backend Development
                   </span>
                   <h3 className="font-display text-2xl text-[var(--color-ink-primary)]">
                     Backend Systems
                   </h3>
                   <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
-                    Resilient software architectures, distributed data layers, deterministic APIs, and high-integrity transactional backends engineered for stability.
+                    I build APIs, backend services, database-backed applications, and the infrastructure around them.
                   </p>
                 </div>
                 <div className="pt-4 border-t border-[var(--color-hairline)] font-mono text-[11px] text-[var(--color-ink-secondary)]">
-                  Architectures · APIs · Data Layers
+                  APIs · Databases · System Architecture
                 </div>
               </div>
 
-              {/* Discipline 02: Agentic AI */}
+              {/* Discipline 2: Agentic AI */}
               <div className="border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] p-8 space-y-4 flex flex-col justify-between">
                 <div className="space-y-3">
                   <span className="font-mono text-xs text-[var(--color-accent)] uppercase tracking-wider font-semibold">
-                    02 // Intelligence
+                    AI Agents
                   </span>
                   <h3 className="font-display text-2xl text-[var(--color-ink-primary)]">
                     Agentic AI
                   </h3>
                   <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
-                    Autonomous cognitive agents, multi-agent orchestrations, tool-calling pipelines, and structured evaluation harnesses designed for production reliability.
+                    I build AI agents and LLM-based workflows that connect models with useful application logic and tools.
                   </p>
                 </div>
                 <div className="pt-4 border-t border-[var(--color-hairline)] font-mono text-[11px] text-[var(--color-ink-secondary)]">
-                  Autonomous Agents · Orchestration · Tool Interfaces
+                  AI Agents · LLM Workflows · Tool Integration
                 </div>
               </div>
 
-              {/* Discipline 03: AI Security */}
+              {/* Discipline 3: AI Security */}
               <div className="border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] p-8 space-y-4 flex flex-col justify-between">
                 <div className="space-y-3">
                   <span className="font-mono text-xs text-[var(--color-accent)] uppercase tracking-wider font-semibold">
-                    03 // Defense
+                    Software Security
                   </span>
                   <h3 className="font-display text-2xl text-[var(--color-ink-primary)]">
                     AI Security
                   </h3>
                   <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
-                    Vulnerability surface analysis, agentic permission boundaries, runtime defenses, defense-in-depth isolation, and secure sandbox execution.
+                    I work on security for AI applications, including input validation, prompt-injection protection, access control, and safe system design.
                   </p>
                 </div>
                 <div className="pt-4 border-t border-[var(--color-hairline)] font-mono text-[11px] text-[var(--color-ink-secondary)]">
-                  Boundary Hardening · Sandboxes · Defense-in-Depth
+                  Access Control · Input Validation · System Safety
                 </div>
               </div>
             </div>
@@ -240,7 +240,7 @@ export default async function HomePage() {
       </section>
 
       {/* =======================================================
-          03 // THE STORE (Commercial Discovery)
+          STORE
           ======================================================= */}
       <section id="store" className="w-full border-b border-[var(--color-hairline)] py-20 md:py-28 bg-[var(--color-canvas-secondary)]">
         <HomeSectionReveal>
@@ -249,18 +249,18 @@ export default async function HomePage() {
             {/* Header: Swiss Asymmetrical Composition */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pb-8 border-b border-[var(--color-hairline)]">
               <div className="lg:col-span-5 space-y-3">
-                <SectionLabel index="03" name="Commercial" />
+                <SectionLabel name="Store" />
                 <h2 className="font-display text-4xl sm:text-5xl font-normal tracking-tight text-[var(--color-ink-primary)]">
-                  THE STORE
+                  Store
                 </h2>
                 <p className="font-sans text-xs text-[var(--color-accent)] font-medium">
-                  Digital work, tools, and resources.
+                  Digital products I make and sell.
                 </p>
               </div>
 
               <div className="lg:col-span-7 space-y-4">
                 <p className="font-sans text-base text-[var(--color-ink-secondary)] leading-relaxed max-w-xl">
-                  An authentic extension of technical building. Digital artifacts, design systems, and agent frameworks created during real engineering cycles and made available for developers, founders, and studios.
+                  Digital products, templates, and tools built from my own projects and workflows. Available for developers, founders, and creators.
                 </p>
               </div>
             </div>
@@ -274,20 +274,20 @@ export default async function HomePage() {
               >
                 <div className="space-y-3">
                   <span className="font-mono text-xs text-[var(--color-accent)] uppercase tracking-wider font-semibold">
-                    Category 01
+                    Templates
                   </span>
                   <h3 className="font-display text-2xl text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors">
-                    Design Studio
+                    Design & Templates
                   </h3>
                   <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
                     Logos · Design · Templates
                   </p>
                   <p className="font-sans text-xs text-[var(--color-ink-secondary)]/80 leading-relaxed pt-1">
-                    Interaction guidelines, typography systems, and architectural design kits.
+                    Interaction kits, typography systems, and web templates.
                   </p>
                 </div>
                 <div className="pt-4 border-t border-[var(--color-hairline)] flex items-center justify-between font-mono text-xs text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)]">
-                  <span>Explore Design</span>
+                  <span>Browse Design</span>
                   <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none">
                     →
                   </span>
@@ -301,20 +301,20 @@ export default async function HomePage() {
               >
                 <div className="space-y-3">
                   <span className="font-mono text-xs text-[var(--color-accent)] uppercase tracking-wider font-semibold">
-                    Category 02
+                    Agent Tools
                   </span>
                   <h3 className="font-display text-2xl text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors">
                     AI Agents
                   </h3>
                   <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
-                    AI agents · Agent resources · Workflows
+                    AI agents · Tools · Workflows
                   </p>
                   <p className="font-sans text-xs text-[var(--color-ink-secondary)]/80 leading-relaxed pt-1">
-                    Autonomous agent architectures, tool pipelines, and evaluation harnesses.
+                    Agent starter code, tool pipelines, and evaluation workflows.
                   </p>
                 </div>
                 <div className="pt-4 border-t border-[var(--color-hairline)] flex items-center justify-between font-mono text-xs text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)]">
-                  <span>Explore AI Agents</span>
+                  <span>Browse AI Agents</span>
                   <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none">
                     →
                   </span>
@@ -328,20 +328,20 @@ export default async function HomePage() {
               >
                 <div className="space-y-3">
                   <span className="font-mono text-xs text-[var(--color-accent)] uppercase tracking-wider font-semibold">
-                    Category 03
+                    Downloads
                   </span>
                   <h3 className="font-display text-2xl text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors">
                     Digital Products
                   </h3>
                   <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
-                    Digital downloads · Templates · Technical resources
+                    Code starters · Downloads · Tools
                   </p>
                   <p className="font-sans text-xs text-[var(--color-ink-secondary)]/80 leading-relaxed pt-1">
-                    Technical monographs, code starter repositories, and developer licenses.
+                    Code starter repos, developer templates, and technical downloads.
                   </p>
                 </div>
                 <div className="pt-4 border-t border-[var(--color-hairline)] flex items-center justify-between font-mono text-xs text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)]">
-                  <span>Explore Products</span>
+                  <span>Browse Products</span>
                   <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none">
                     →
                   </span>
@@ -352,7 +352,7 @@ export default async function HomePage() {
             {/* Prominent Visit Store CTA */}
             <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-[var(--color-hairline)]">
               <span className="font-mono text-xs text-[var(--color-ink-secondary)]">
-                Browse catalog releases, detailed specifications, and digital licenses.
+                Browse all digital products, templates, and tools.
               </span>
               <Link
                 href="/store"
@@ -362,7 +362,7 @@ export default async function HomePage() {
                   className: "w-full sm:w-auto font-mono text-xs uppercase tracking-wider group",
                 })}
               >
-                <span>VISIT STORE</span>
+                <span>Visit Store</span>
                 <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none ml-1.5">
                   →
                 </span>
@@ -374,26 +374,26 @@ export default async function HomePage() {
       </section>
 
       {/* =======================================================
-          04 // SELECTED WORK (Projects)
+          SELECTED WORK (Projects)
           ======================================================= */}
       <section id="work" className="w-full border-b border-[var(--color-hairline)] py-20 md:py-28">
         <HomeSectionReveal>
           <SectionContainer>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-12 border-b border-[var(--color-hairline)]">
             <div className="space-y-4">
-              <SectionLabel index="04" name="Selected work" />
+              <SectionLabel name="Selected Work" />
               <h2 className="font-display text-3xl md:text-4xl font-normal tracking-tight text-[var(--color-ink-primary)]">
-                Projects & Monographs
+                Selected Work
               </h2>
               <p className="font-sans text-xs text-[var(--color-accent)] font-medium">
-                Authored by {profile.fullName}
+                Projects by {profile.fullName}
               </p>
             </div>
             <Link
               href="/projects"
               className="inline-flex items-center gap-1.5 font-sans font-medium text-xs text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors group focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
             >
-              <span>Explore Archive</span>
+              <span>View all projects</span>
               <span className="transition-transform duration-150 group-hover:translate-x-1">→</span>
             </Link>
           </div>
@@ -457,7 +457,7 @@ export default async function HomePage() {
                         href={`/projects/${project.slug}`}
                         className="inline-flex items-center gap-1.5 font-sans font-medium text-xs text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
                       >
-                        <span>View Case Study</span>
+                        <span>View project</span>
                         <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none">
                           →
                         </span>
@@ -467,16 +467,13 @@ export default async function HomePage() {
                 </div>
               ))
             ) : (
-              /* Refined Editorial Empty State (Zero Fake Cards) */
+              /* Refined Empty State */
               <div className="py-16 md:py-20 text-center space-y-3">
-                <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--color-accent)] block">
-                  ARCHIVE NOTICE
-                </span>
                 <p className="font-display text-2xl text-[var(--color-ink-primary)]">
-                  Selected projects and technical monographs will appear here once published.
+                  Projects will be listed here as I publish them.
                 </p>
                 <p className="font-sans text-xs text-[var(--color-ink-secondary)] max-w-md mx-auto">
-                  Architectural case studies, open-source repositories, and system monographs are currently under editorial review.
+                  I&apos;m adding projects here as I finish and publish them.
                 </p>
               </div>
             )}
@@ -486,19 +483,19 @@ export default async function HomePage() {
       </section>
 
       {/* =======================================================
-          05 // SERVICES (Services & Advisory)
+          SERVICES
           ======================================================= */}
       <section id="services" className="w-full border-b border-[var(--color-hairline)] py-20 md:py-28">
         <HomeSectionReveal>
           <SectionContainer>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-12 border-b border-[var(--color-hairline)]">
             <div className="space-y-4">
-              <SectionLabel index="05" name="Services" />
+              <SectionLabel name="Services" />
               <h2 className="font-display text-3xl md:text-4xl font-normal tracking-tight text-[var(--color-ink-primary)]">
-                Services & Advisory
+                Services
               </h2>
               <p className="font-sans text-xs text-[var(--color-accent)] font-medium">
-                Work with Shivam Shukla · Bespoke Scopes & Advisory
+                Work with me on custom software and AI systems.
               </p>
             </div>
             <div className="flex items-center gap-4">
@@ -506,7 +503,7 @@ export default async function HomePage() {
                 href="/services"
                 className="inline-flex items-center gap-1.5 font-sans font-medium text-xs text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors group focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
               >
-                <span>View Services Directory</span>
+                <span>View all services</span>
                 <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none">
                   →
                 </span>
@@ -549,25 +546,25 @@ export default async function HomePage() {
               ))}
             </div>
           ) : (
-            /* Refined Editorial Positioning (Answering: What can someone engage Shivam for?) */
+            /* Clear Practical Fallback Scopes */
             <div className="space-y-10 pt-8">
               <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[var(--color-hairline)] border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)]">
-                {/* 01: Backend Systems */}
+                {/* 1: Backend Systems */}
                 <div className="p-8 space-y-4 flex flex-col justify-between group">
                   <div className="space-y-3">
                     <span className="font-mono text-xs text-[var(--color-accent)] font-semibold uppercase tracking-wider">
-                      01 — Infrastructure
+                      Backend Systems
                     </span>
                     <h3 className="font-display text-2xl text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors duration-200">
                       Backend Systems
                     </h3>
                     <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
-                      Resilient backend architectures, distributed data layers, deterministic APIs, and high-integrity transactional infrastructure.
+                      I build APIs, backend services, database-backed applications, and the systems around them.
                     </p>
                   </div>
                   <div className="pt-4 border-t border-[var(--color-hairline)] space-y-3">
                     <span className="font-mono text-[11px] text-[var(--color-ink-secondary)] block">
-                      Bespoke Architecture · Scoped upon Inquiry
+                      APIs & Databases
                     </span>
                     <Link
                       href="/contact?subject=Backend%20Systems%20Inquiry"
@@ -581,28 +578,28 @@ export default async function HomePage() {
                   </div>
                 </div>
 
-                {/* 02: Agentic AI */}
+                {/* 2: Agentic AI */}
                 <div className="p-8 space-y-4 flex flex-col justify-between group">
                   <div className="space-y-3">
                     <span className="font-mono text-xs text-[var(--color-accent)] font-semibold uppercase tracking-wider">
-                      02 — Intelligence
+                      Agentic AI
                     </span>
                     <h3 className="font-display text-2xl text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors duration-200">
                       Agentic AI
                     </h3>
                     <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
-                      Autonomous cognitive agents, multi-agent workflows, tool execution interfaces, and deterministic evaluation harnesses.
+                      I build AI agents and LLM-based workflows that connect models with useful application logic.
                     </p>
                   </div>
                   <div className="pt-4 border-t border-[var(--color-hairline)] space-y-3">
                     <span className="font-mono text-[11px] text-[var(--color-ink-secondary)] block">
-                      Workflow Design · Scoped upon Inquiry
+                      Agents & Workflows
                     </span>
                     <Link
                       href="/contact?subject=Agentic%20AI%20Inquiry"
                       className="inline-flex items-center gap-1.5 font-sans font-medium text-xs text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors group/link"
                     >
-                      <span>Start a Conversation</span>
+                      <span>Discuss a Project</span>
                       <span className="inline-block transition-transform duration-200 group-hover/link:translate-x-1 motion-reduce:transform-none">
                         →
                       </span>
@@ -610,28 +607,28 @@ export default async function HomePage() {
                   </div>
                 </div>
 
-                {/* 03: AI Security */}
+                {/* 3: AI Security */}
                 <div className="p-8 space-y-4 flex flex-col justify-between group">
                   <div className="space-y-3">
                     <span className="font-mono text-xs text-[var(--color-accent)] font-semibold uppercase tracking-wider">
-                      03 — Defense
+                      AI Security
                     </span>
                     <h3 className="font-display text-2xl text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors duration-200">
                       AI Security
                     </h3>
                     <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
-                      Vulnerability surface analysis, agentic permission boundaries, runtime defenses, defense-in-depth isolation, and sandbox execution.
+                      I work on security for AI applications, including input validation, prompt-injection protection, and safe system design.
                     </p>
                   </div>
                   <div className="pt-4 border-t border-[var(--color-hairline)] space-y-3">
                     <span className="font-mono text-[11px] text-[var(--color-ink-secondary)] block">
-                      Boundary Hardening · Scoped upon Inquiry
+                      Security & Validation
                     </span>
                     <Link
                       href="/contact?subject=AI%20Security%20Inquiry"
                       className="inline-flex items-center gap-1.5 font-sans font-medium text-xs text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors group/link"
                     >
-                      <span>Get in Touch</span>
+                      <span>Discuss a Project</span>
                       <span className="inline-block transition-transform duration-200 group-hover/link:translate-x-1 motion-reduce:transform-none">
                         →
                       </span>
@@ -644,10 +641,10 @@ export default async function HomePage() {
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)]">
                 <div className="space-y-1">
                   <span className="font-mono text-xs uppercase tracking-wider text-[var(--color-accent)] font-semibold block">
-                    ENGAGEMENT ARCHITECTURE
+                    Custom Work vs Store Products
                   </span>
                   <p className="font-sans text-xs text-[var(--color-ink-secondary)] max-w-xl">
-                    Services represent bespoke scopes where you work directly WITH Shivam. For purchasing ready-to-use digital tools, visit the Store.
+                    Services are for custom development where you work with me directly. For ready-to-use digital tools and templates, visit the Store.
                   </p>
                 </div>
                 <div className="flex items-center gap-3 shrink-0">
@@ -655,7 +652,7 @@ export default async function HomePage() {
                     href="/contact"
                     className="font-mono text-xs uppercase tracking-wider px-4 py-2 border border-[var(--color-ink-primary)] text-[var(--color-ink-primary)] hover:bg-[var(--color-ink-primary)] hover:text-[var(--color-canvas-primary)] hover:-translate-y-[1px] active:translate-y-0 active:scale-[0.98] transition-[color,background-color,border-color,transform] duration-150 group motion-reduce:hover:translate-y-0 motion-reduce:active:scale-100"
                   >
-                    <span>Start a Conversation</span>
+                    <span>Get in Touch</span>
                     <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none ml-1.5">
                       →
                     </span>
@@ -669,7 +666,7 @@ export default async function HomePage() {
       </section>
 
       {/* =======================================================
-          06 // PROFILE & ETHOS (About Preview)
+          ABOUT (About Preview)
           ======================================================= */}
       <section id="about" className="w-full border-b border-[var(--color-hairline)] py-20 md:py-28">
         <HomeSectionReveal>
@@ -677,9 +674,9 @@ export default async function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
             <div className="lg:col-span-4 space-y-6">
               <div className="space-y-4">
-                <SectionLabel index="06" name="Profile" />
+                <SectionLabel name="About" />
                 <h2 className="font-display text-3xl md:text-4xl font-normal tracking-tight text-[var(--color-ink-primary)]">
-                  Discipline & Ethos
+                  About Me
                 </h2>
                 <p className="font-sans text-xs text-[var(--color-accent)] font-medium">
                   {profile.fullName}
@@ -706,7 +703,7 @@ export default async function HomePage() {
                 <p className="font-display text-2xl md:text-3xl text-[var(--color-ink-primary)] leading-relaxed italic whitespace-pre-wrap">
                   {profile.aboutMarkdown && profile.aboutMarkdown !== "[ABOUT CONTENT PENDING]"
                     ? profile.aboutMarkdown
-                    : "Focused on deterministic engineering, intelligent agent workflows, and digital craft. Building software with precision architecture and editorial care."}
+                    : "I build software focused on reliability, clear architecture, and practical use. I spend most of my time working on backend systems, AI agents, and software security."}
                 </p>
               </div>
 
@@ -715,7 +712,7 @@ export default async function HomePage() {
                   href="/about"
                   className="inline-flex items-center gap-1.5 font-sans font-medium text-xs text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors group focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
                 >
-                  <span>Read Full Profile & Ethos</span>
+                  <span>Read more about me</span>
                   <span className="transition-transform duration-150 group-hover:translate-x-1">
                     →
                   </span>
@@ -728,24 +725,24 @@ export default async function HomePage() {
       </section>
 
       {/* =======================================================
-          07 // CONTACT
+          CONTACT
           ======================================================= */}
       <section id="contact" className="w-full bg-[var(--color-surface-dark)] text-white py-20 md:py-32">
         <HomeSectionReveal>
           <SectionContainer>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
             <div className="lg:col-span-5 space-y-5">
-              <SectionLabel index="07" name="Contact" dark />
+              <SectionLabel name="Contact" dark />
               <h2 className="font-display text-4xl sm:text-5xl font-normal tracking-tight text-white leading-tight">
-                Initiate an Engagement
+                Get in Touch
               </h2>
               <p className="font-sans text-xs text-[var(--color-accent)] font-medium">
-                Direct inquiry for {profile.fullName}
+                Send a message to discuss a project or question.
               </p>
               <p className="font-sans text-sm text-[var(--color-dark-ink-secondary)] leading-relaxed max-w-md whitespace-pre-wrap">
                 {profile.contactInstructions && profile.contactInstructions !== "[CONTACT DETAILS PENDING]"
                   ? profile.contactInstructions
-                  : "Direct inquiries regarding software engineering, AI agent architectures, or custom digital systems."}
+                  : "Have a project in mind? Tell me what you're building, and I'll get back to you."}
               </p>
               <div className="pt-2 space-y-2 font-mono text-xs text-[var(--color-dark-ink-secondary)]">
                 {profile.email && (
@@ -780,7 +777,7 @@ export default async function HomePage() {
                     className: "group",
                   })}
                 >
-                  <span>Open Contact Form</span>
+                  <span>Go to Contact Page</span>
                   <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none ml-1.5">
                     →
                   </span>
@@ -792,9 +789,9 @@ export default async function HomePage() {
               <ContactForm
                 variant="dark"
                 labels={{
-                  name: "Name / Organization",
-                  email: "Direct Email",
-                  brief: "Project Brief & Intent",
+                  name: "Your Name",
+                  email: "Email Address",
+                  brief: "Message or Project Details",
                   submit: "Send Message →",
                 }}
               />

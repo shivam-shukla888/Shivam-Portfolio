@@ -40,9 +40,9 @@ interface ContactFormProps {
 export function ContactForm({
   variant = "dark",
   labels = {
-    name: "Name / Organization",
-    email: "Direct Email",
-    brief: "Project Brief & Intent",
+    name: "Your Name",
+    email: "Email Address",
+    brief: "Message or Project Details",
     submit: "Send Message →",
   },
   className,
@@ -164,7 +164,7 @@ export function ContactForm({
               : "text-[var(--color-ink-secondary)]"
           }`}
         >
-          Your inquiry has been received. If the project aligns with current availability, you will hear back shortly.
+          Thanks for reaching out. I&apos;ll review the details and get back to you.
         </p>
         <div className="pt-2">
           <button
@@ -307,11 +307,7 @@ export function ContactForm({
           rows={isDark ? 4 : 5}
           required
           disabled={isPending}
-          placeholder={
-            isDark
-              ? "Describe your inquiry or commission..."
-              : "Please describe the nature and timeline of your engagement..."
-          }
+          placeholder="Tell me what you're building..."
           aria-invalid={!!state.errors?.brief}
           aria-describedby={state.errors?.brief ? "brief-error" : undefined}
           className={

@@ -25,7 +25,7 @@ export async function generateMetadata({
 
   if (!entry) {
     return {
-      title: "Entry Not Found | Personal Lab",
+      title: "Entry Not Found | Lab",
     };
   }
 
@@ -34,13 +34,13 @@ export async function generateMetadata({
     : undefined;
 
   return {
-    title: `${entry.title} | Personal Lab — SHIVSASTRA`,
+    title: `${entry.title} | Lab — Shivam Shukla`,
     description: snippet,
     alternates: {
       canonical: `https://shivsastra.com/lab/${entry.slug}`,
     },
     openGraph: {
-      title: `${entry.title} | Personal Lab — SHIVSASTRA`,
+      title: `${entry.title} | Lab — Shivam Shukla`,
       description: snippet,
       url: `https://shivsastra.com/lab/${entry.slug}`,
       type: "article",
@@ -171,7 +171,7 @@ export default async function LabDetailPage({ params }: LabDetailPageProps) {
                     href="/lab"
                     className="text-[var(--color-ink-secondary)] hover:text-[var(--color-ink-primary)] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
                   >
-                    Personal Lab
+                    Lab
                   </Link>
                   <span className="text-[var(--color-hairline)] select-none">/</span>
                   <span className="text-[var(--color-accent)] font-medium capitalize">
@@ -239,7 +239,7 @@ export default async function LabDetailPage({ params }: LabDetailPageProps) {
                 href="/lab"
                 className="inline-flex items-center gap-1.5 font-sans text-xs text-[var(--color-ink-secondary)] hover:text-[var(--color-ink-primary)] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
               >
-                <span>← Back to Personal Lab</span>
+                <span>← Back to Lab</span>
               </Link>
             </div>
           </InnerPageEntrance>

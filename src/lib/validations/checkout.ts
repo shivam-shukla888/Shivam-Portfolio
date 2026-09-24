@@ -16,6 +16,11 @@ export const checkoutRequestSchema = z.object({
     .toLowerCase()
     .email("A valid email address is required for order delivery")
     .max(255, "Email address is too long"),
+  idempotencyKey: z
+    .string()
+    .trim()
+    .max(100, "Invalid idempotency key format")
+    .optional(),
 });
 
 export type CheckoutRequestInput = z.infer<typeof checkoutRequestSchema>;

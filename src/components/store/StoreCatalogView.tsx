@@ -18,7 +18,7 @@ interface StoreCatalogViewProps {
 }
 
 const CATEGORY_LABELS: Record<StoreCategory, string> = {
-  design: "Design Studio",
+  design: "Design & Templates",
   ai_agents: "AI Agents",
   digital_products: "Digital Products",
 };
@@ -120,7 +120,7 @@ export function StoreCatalogView({
                   : "border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] text-[var(--color-ink-secondary)] hover:border-[var(--color-ink-primary)]"
               }`}
             >
-              Design Studio ({categoryCounts.design})
+              Design & Templates ({categoryCounts.design})
             </button>
             <button
               type="button"
@@ -154,8 +154,8 @@ export function StoreCatalogView({
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search catalog..."
-              aria-label="Search catalog"
+              placeholder="Search products..."
+              aria-label="Search products"
               className="w-full px-3 py-1.5 bg-[var(--color-canvas-primary)] border border-[var(--color-hairline)] rounded-none font-mono text-xs text-[var(--color-ink-primary)] focus:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)] placeholder:text-[var(--color-ink-secondary)]/50"
             />
             {searchQuery && (
@@ -181,7 +181,7 @@ export function StoreCatalogView({
             className="px-3 py-1.5 bg-[var(--color-canvas-primary)] border border-[var(--color-hairline)] rounded-none font-mono text-xs text-[var(--color-ink-primary)] focus:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
           >
             <option value="newest">Sort: Newest First</option>
-            <option value="featured">Sort: Featured Releases</option>
+            <option value="featured">Sort: Featured Products</option>
             <option value="price_asc">Price: Low to High</option>
             <option value="price_desc">Price: High to Low</option>
           </select>
@@ -243,7 +243,7 @@ export function StoreCatalogView({
                   <div className="space-y-1">
                     {product.isFeatured && (
                       <span className="inline-block font-mono text-[9px] uppercase tracking-wider px-1.5 py-0.5 border border-[var(--color-accent)] text-[var(--color-accent)] bg-[var(--color-accent)]/5 mb-1">
-                        Featured Edition
+                        Featured Product
                       </span>
                     )}
                     <h2 className="font-display text-2xl font-normal text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors">
@@ -255,7 +255,7 @@ export function StoreCatalogView({
                   <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
                     {product.shortDescription ||
                       product.description ||
-                      "Architectural studio release crafted for modern software systems."}
+                      "Digital product by Shivam Shukla."}
                   </p>
 
                   {/* Features snippets if available */}
@@ -301,18 +301,15 @@ export function StoreCatalogView({
         /* Refined Editorial Empty State (Zero Fake Content) */
         <div className="border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] p-12 md:p-16 text-center space-y-6 max-w-2xl mx-auto">
           <div className="space-y-2">
-            <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--color-accent)] block">
-              CATALOG NOTICE
-            </span>
             <h3 className="font-display text-2xl md:text-3xl text-[var(--color-ink-primary)]">
               {searchQuery || selectedCategory !== "all"
-                ? "No matching releases found."
-                : "New work is being prepared."}
+                ? "No matching products found."
+                : "New products are on the way."}
             </h3>
             <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed max-w-md mx-auto">
               {searchQuery || selectedCategory !== "all"
-                ? "There are no products currently available under these filter parameters. Try clearing your search query or selecting another category."
-                : "Studio editions, agent frameworks, and architectural design kits will appear here upon official release."}
+                ? "No products match your current search or filter. Try clearing filters to see everything."
+                : "I'm adding new templates, tools, and digital products here as they're ready."}
             </p>
           </div>
 
@@ -342,7 +339,7 @@ export function StoreCatalogView({
                 className: "font-mono text-xs uppercase tracking-wider",
               })}
             >
-              Inquire About Custom Engagements →
+              Ask About Custom Work →
             </Link>
           </div>
         </div>

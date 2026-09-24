@@ -2,7 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { checkoutRequestSchema } from "@/lib/validations/checkout";
 import { getPublishedStoreProductById } from "@/lib/products";
 import { createRazorpayOrder, isRazorpayConfigured, getRazorpayKeyId } from "@/lib/payments/razorpay";
-import { createInternalOrder, updateOrderRazorpayId } from "@/lib/orders";
+import {
+  createInternalOrder,
+  updateOrderRazorpayId,
+  findRecentPendingOrder,
+  logStoreEvent,
+} from "@/lib/orders";
 
 export const dynamic = "force-dynamic";
 
@@ -70,7 +75,35 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 6. Create internal order record in PENDING state
+    logStoreEvent("CHECKOUT_STARTED", {
+      productId: product.id,
+      note: "Checkout initiation validated",
+    });
+
+    // 6. DUPLICATE ORDER PROTECTION (Server-Side Idempotency)
+    // Check if an active pending order was recently created for this product + email
+    const existingPendingOrder = await findRecentPendingOrder(product.id, email, 5 * 60 * 1000);
+    if (existingPendingOrder && existingPendingOrder.razorpay_order_id) {
+      logStoreEvent("ORDER_CREATED", {
+        orderId: existingPendingOrder.id,
+        productId: product.id,
+        status: "pending",
+        note: "Reused existing active pending order (idempotency guard)",
+      });
+
+      return NextResponse.json({
+        success: true,
+        orderId: existingPendingOrder.id,
+        razorpayOrderId: existingPendingOrder.razorpay_order_id,
+        amount: trustedAmount,
+        currency: trustedCurrency,
+        keyId: getRazorpayKeyId(),
+        productTitle: product.title,
+        isIdempotentReuse: true,
+      });
+    }
+
+    // 7. Create internal order record in PENDING state
     const internalOrder = await createInternalOrder({
       productId: product.id,
       productTitle: product.title,
@@ -87,7 +120,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 7. Create Razorpay order via official Orders API
+    // 8. Create Razorpay order via official Orders API
     let razorpayOrder;
     try {
       razorpayOrder = await createRazorpayOrder({
@@ -108,10 +141,16 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 8. Associate Razorpay Order ID with internal order
+    // 9. Associate Razorpay Order ID with internal order
     await updateOrderRazorpayId(internalOrder.id, razorpayOrder.id);
 
-    // 9. Return safe client response
+    logStoreEvent("ORDER_CREATED", {
+      orderId: internalOrder.id,
+      productId: product.id,
+      status: "pending",
+    });
+
+    // 10. Return safe client response
     return NextResponse.json({
       success: true,
       orderId: internalOrder.id,

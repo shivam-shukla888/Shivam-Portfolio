@@ -10,16 +10,16 @@ import { getPublishedProjects } from "@/lib/projects";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Projects & Case Studies — Shivam Shukla",
+  title: "Projects — Shivam Shukla",
   description:
-    "Curated technical monographs, system architecture case studies, and engineering projects by Shivam Shukla.",
+    "Software projects, systems, and engineering builds by Shivam Shukla.",
   alternates: {
     canonical: "https://shivsastra.com/projects",
   },
   openGraph: {
-    title: "Projects & Case Studies — Shivam Shukla",
+    title: "Projects — Shivam Shukla",
     description:
-      "Curated technical monographs, system architecture case studies, and engineering projects by Shivam Shukla.",
+      "Software projects, systems, and engineering builds by Shivam Shukla.",
     url: "https://shivsastra.com/projects",
     type: "website",
   },
@@ -42,7 +42,7 @@ export default async function ProjectsPage() {
             <div className="space-y-3 pb-8 border-b border-[var(--color-hairline)]">
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--color-accent)] font-semibold">
-                  CURATED ARCHIVE · MONOGRAPHS & CASE STUDIES
+                  Work Archive
                 </span>
                 <Link
                   href="/services"
@@ -53,10 +53,10 @@ export default async function ProjectsPage() {
                 </Link>
               </div>
               <h1 className="font-display text-4xl sm:text-5xl font-normal tracking-tight text-[var(--color-ink-primary)]">
-                Projects & Case Studies
+                Projects
               </h1>
               <p className="font-sans text-sm md:text-base text-[var(--color-ink-secondary)] leading-relaxed max-w-3xl">
-                In-depth technical monographs and architectural studies covering Backend Systems, Agentic AI, and AI Security.
+                Selected software builds and projects across backend systems, AI agents, and security.
               </p>
             </div>
           </InnerPageEntrance>
@@ -164,14 +164,11 @@ export default async function ProjectsPage() {
               /* Refined Editorial Empty State (Zero Fake Cards) */
               <div className="py-20 md:py-28 text-center space-y-6">
                 <div className="space-y-3 max-w-xl mx-auto">
-                  <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--color-accent)] block font-semibold">
-                    ARCHIVE NOTICE
-                  </span>
                   <h2 className="font-display text-3xl sm:text-4xl text-[var(--color-ink-primary)] font-normal tracking-tight">
-                    Selected projects and monographs will appear here once published.
+                    I&apos;m adding projects here as I finish and publish them.
                   </h2>
                   <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
-                    Architectural case studies, open-source repositories, and system monographs across Backend Systems, Agentic AI, and AI Security are currently undergoing editorial review.
+                    Code, case studies, and writeups for my current and past builds will be posted here.
                   </p>
                 </div>
 
@@ -180,13 +177,13 @@ export default async function ProjectsPage() {
                     href="/store"
                     className="font-mono text-xs uppercase tracking-wider px-5 py-2.5 border border-[var(--color-ink-primary)] text-[var(--color-ink-primary)] hover:bg-[var(--color-ink-primary)] hover:text-[var(--color-canvas-primary)] transition-colors"
                   >
-                    Explore The Store →
+                    Visit the Store →
                   </Link>
                   <Link
                     href="/contact"
                     className="font-mono text-xs uppercase tracking-wider px-5 py-2.5 border border-[var(--color-hairline)] text-[var(--color-ink-secondary)] hover:border-[var(--color-ink-primary)] hover:text-[var(--color-ink-primary)] transition-colors"
                   >
-                    Initiate an Engagement →
+                    Get in Touch →
                   </Link>
                 </div>
               </div>
@@ -204,12 +201,12 @@ export default async function ProjectsPage() {
                 <span>← Back to Home</span>
               </Link>
               <div className="flex items-center gap-4">
-                <span>EXPLORE SERVICES:</span>
+                <span>EXPLORE:</span>
                 <Link
                   href="/services"
                   className="text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors underline underline-offset-4"
                 >
-                  Services & Advisory →
+                  View Services →
                 </Link>
               </div>
             </div>

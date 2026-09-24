@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getOrderById, verifyDeliveryToken, createShortLivedStorageUrl } from "@/lib/orders";
+import { getOrderById, verifyDeliveryToken, createShortLivedStorageUrl, logStoreEvent } from "@/lib/orders";
 import { getSupabaseServerClient } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
@@ -41,6 +41,12 @@ export async function GET(req: NextRequest, { params }: RouteParams) {
         { status: 403 }
       );
     }
+
+    logStoreEvent("DELIVERY_STARTED", {
+      orderId: order.id,
+      productId: order.product_id,
+      note: "Authorized digital asset download initiated",
+    });
 
     // 4. Fetch product's private storage asset path from server
     const client = getSupabaseServerClient();

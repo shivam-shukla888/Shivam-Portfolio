@@ -210,14 +210,14 @@ export function ShivSastraAssistant() {
                   aria-hidden="true"
                 />
                 <span className="font-mono text-[10px] text-[var(--color-accent)] tracking-widest uppercase">
-                  ShivSastra // AI
+                  AI Assistant
                 </span>
               </div>
               <h2
                 id="shivsastra-ai-title"
                 className="font-display text-base text-[var(--color-ink-primary)] font-normal tracking-tight mt-0.5"
               >
-                Public Studio Assistant
+                Portfolio Assistant
               </h2>
             </div>
 
@@ -250,19 +250,19 @@ export function ShivSastraAssistant() {
               <div className="py-4 space-y-4">
                 <div className="space-y-1">
                   <span className="font-mono text-[10px] uppercase tracking-[0.08em] text-[var(--color-ink-secondary)]">
-                    Ask The Studio
+                    Ask a Question
                   </span>
                   <p className="font-display text-sm italic text-[var(--color-ink-primary)]">
-                    Explore ShivSastra with a question.
+                    Ask a question about my work, projects, or services.
                   </p>
                   <p className="text-xs text-[var(--color-ink-secondary)] leading-relaxed pt-1">
-                    Ask about Shivam&apos;s background in Backend Systems, Agentic AI, and AI Security, or inquire about published projects, services, store items, and personal lab explorations.
+                    Ask about my background in Backend Systems, Agentic AI, and AI Security, or inquire about projects, services, store products, and lab experiments.
                   </p>
                 </div>
 
                 <div className="pt-2 space-y-2">
                   <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--color-ink-secondary)] block">
-                    Suggested Inquiries
+                    Suggested Questions
                   </span>
                   <div className="flex flex-col gap-1.5">
                     {SUGGESTED_PROMPTS.map((prompt) => (
@@ -298,7 +298,7 @@ export function ShivSastraAssistant() {
                   ) : (
                     <>
                       <span className="w-1.5 h-1.5 bg-[var(--color-accent)] inline-block" />
-                      <span>ShivSastra AI</span>
+                      <span>Assistant</span>
                     </>
                   )}
                 </div>
@@ -327,7 +327,7 @@ export function ShivSastraAssistant() {
               <div className="space-y-1 mr-2">
                 <div className="flex items-center gap-2 text-[10px] font-mono text-[var(--color-accent)] uppercase tracking-wider">
                   <span className="w-1.5 h-1.5 bg-[var(--color-accent)] inline-block animate-pulse" />
-                  <span>Consulting Public Archive...</span>
+                  <span>Thinking...</span>
                 </div>
                 <div className="p-3.5 bg-[var(--color-canvas-primary)] border border-[var(--color-hairline)]">
                   <div className="flex items-center gap-1.5 py-1">
@@ -370,7 +370,7 @@ export function ShivSastraAssistant() {
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  placeholder="Ask a question about ShivSastra..."
+                  placeholder="Ask a question about my work..."
                   maxLength={2000}
                   rows={2}
                   disabled={status === "sending"}

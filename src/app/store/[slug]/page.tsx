@@ -25,7 +25,7 @@ interface ProductPageProps {
 }
 
 const CATEGORY_NAMES: Record<StoreCategory, string> = {
-  design: "Design Studio",
+  design: "Design & Templates",
   ai_agents: "AI Agents",
   digital_products: "Digital Products",
 };
@@ -44,16 +44,16 @@ export async function generateMetadata({
 
   if (!product) {
     return {
-      title: "Edition Not Found — SHIVSASTRA Store",
+      title: "Product Not Found — Store",
     };
   }
 
   return {
-    title: `${product.title} — SHIVSASTRA Store`,
+    title: `${product.title} — Store`,
     description:
       product.shortDescription ||
       product.description ||
-      "Studio release crafted by Shivam Shukla.",
+      "Digital product by Shivam Shukla.",
     alternates: {
       canonical: `https://shivsastra.com/store/${slug}`,
     },
@@ -194,10 +194,10 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
             <section className="space-y-4">
               <div className="space-y-1">
                 <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--color-accent)]">
-                  OVERVIEW
+                  Overview
                 </span>
                 <h2 className="font-display text-2xl text-[var(--color-ink-primary)]">
-                  Overview & Architecture
+                  Overview
                 </h2>
               </div>
               <div className="font-sans text-base text-[var(--color-ink-secondary)] leading-relaxed space-y-4 whitespace-pre-line">
@@ -211,7 +211,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
             <section className="space-y-6 pt-6 border-t border-[var(--color-hairline)]">
               <div className="space-y-1">
                 <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--color-accent)]">
-                  SPECIFICATION
+                  Features
                 </span>
                 <h2 className="font-display text-2xl text-[var(--color-ink-primary)]">
                   What is Included
@@ -240,7 +240,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
             <section className="space-y-4 pt-6 border-t border-[var(--color-hairline)]">
               <div className="space-y-1">
                 <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--color-accent)]">
-                  PREREQUISITES
+                  Requirements
                 </span>
                 <h2 className="font-display text-2xl text-[var(--color-ink-primary)]">
                   System Requirements
@@ -259,10 +259,10 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
           <section className="space-y-6 pt-6 border-t border-[var(--color-hairline)]">
             <div className="space-y-1">
               <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--color-accent)]">
-                FEEDBACK & REVIEWS
+                Feedback
               </span>
               <h2 className="font-display text-2xl text-[var(--color-ink-primary)]">
-                Customer Attestations
+                Reviews
               </h2>
             </div>
 
@@ -297,10 +297,10 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
             ) : (
               <div className="p-8 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] text-center space-y-2">
                 <p className="font-mono text-xs text-[var(--color-ink-secondary)]">
-                  No public attestations have been published yet for this edition.
+                  No reviews yet for this product.
                 </p>
                 <p className="font-sans text-xs text-[var(--color-ink-secondary)]">
-                  Client evaluations and verified purchase feedback are curated post-release.
+                  Feedback from verified buyers will appear here as reviews are submitted.
                 </p>
               </div>
             )}
@@ -317,7 +317,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                   <div className="flex items-center justify-between">
                     <div className="space-y-1">
                       <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--color-accent)]">
-                        RELATED EDITIONS
+                        Related Products
                       </span>
                       <h2 className="font-display text-2xl text-[var(--color-ink-primary)]">
                         More from {categoryName}
@@ -340,7 +340,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                       >
                         <div className="space-y-2">
                           <div className="flex items-center justify-between text-[11px] font-mono text-[var(--color-ink-secondary)]">
-                            <span>{rel.releaseCode || "EDITION"}</span>
+                            <span>{rel.releaseCode || "PRODUCT"}</span>
                             <span className="text-[var(--color-accent)] font-semibold">
                               {rel.formattedPrice}
                             </span>
@@ -353,7 +353,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                           </p>
                         </div>
                         <div className="pt-3 border-t border-[var(--color-hairline)] font-mono text-[11px] text-[var(--color-ink-primary)]">
-                          View Edition →
+                          View Product →
                         </div>
                       </Link>
                     ))}
@@ -373,7 +373,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                   href="/store"
                   className="inline-flex items-center gap-1.5 font-sans text-xs text-[var(--color-ink-secondary)] hover:text-[var(--color-ink-primary)] transition-colors"
                 >
-                  <span>All Store Editions</span>
+                  <span>All Products</span>
                 </Link>
               </div>
             </div>

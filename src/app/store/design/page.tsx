@@ -12,9 +12,9 @@ import { StoreCatalogView } from "@/components/store/StoreCatalogView";
 export const revalidate = 60;
 
 export const metadata = {
-  title: "Design Studio — SHIVSASTRA Store",
+  title: "Design & Templates — Store",
   description:
-    "Interaction systems, typography guidelines, and design architectures crafted by Shivam Shukla.",
+    "Design templates, interaction kits, and UI components by Shivam Shukla.",
   alternates: {
     canonical: "https://shivsastra.com/store/design",
   },
@@ -43,25 +43,22 @@ export default async function DesignStorePage() {
                   Store
                 </Link>
                 <span>/</span>
-                <span className="text-[var(--color-accent)] font-medium">Design Studio</span>
+                <span className="text-[var(--color-accent)] font-medium">Design & Templates</span>
               </div>
               <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
                 <div className="space-y-2 max-w-2xl">
-                  <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--color-accent)] block">
-                    CATEGORY 01
-                  </span>
                   <h1 className="font-display text-4xl sm:text-5xl font-normal tracking-tight text-[var(--color-ink-primary)]">
-                    Design Studio
+                    Design & Templates
                   </h1>
                   <p className="font-sans text-sm md:text-base text-[var(--color-ink-secondary)] leading-relaxed">
-                    Precision digital interaction systems, bespoke component libraries, editorial typography specifications, and visual architectures.
+                    Design templates, interaction kits, and UI components built for web apps.
                   </p>
                 </div>
                 <div className="font-mono text-xs text-[var(--color-ink-secondary)] shrink-0">
                   <span className="text-[var(--color-accent)] font-semibold">
                     {categoryCounts.design}
                   </span>{" "}
-                  {categoryCounts.design === 1 ? "edition available" : "editions available"}
+                  {categoryCounts.design === 1 ? "product available" : "products available"}
                 </div>
               </div>
             </div>
@@ -84,7 +81,7 @@ export default async function DesignStorePage() {
                 href="/store"
                 className="inline-flex items-center gap-1.5 font-sans text-xs text-[var(--color-ink-secondary)] hover:text-[var(--color-ink-primary)] transition-colors"
               >
-                <span>← All Store Categories</span>
+                <span>← All Products</span>
               </Link>
               <div className="flex items-center gap-4 text-xs font-mono text-[var(--color-ink-secondary)]">
                 <Link href="/store/ai-agents" className="hover:text-[var(--color-ink-primary)]">

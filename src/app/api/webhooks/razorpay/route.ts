@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { verifyWebhookSignature } from "@/lib/payments/razorpay";
-import { getOrderByRazorpayOrderId, markOrderPaidAndFulfill } from "@/lib/orders";
+import { getOrderByRazorpayOrderId, markOrderPaidAndFulfill, logStoreEvent } from "@/lib/orders";
 
 export const dynamic = "force-dynamic";
 
@@ -36,6 +36,10 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
+
+    logStoreEvent("WEBHOOK_RECEIVED", {
+      note: "Cryptographically verified webhook payload",
+    });
 
     // Parse JSON only AFTER signature verification has succeeded
     let eventPayload: {

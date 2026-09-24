@@ -81,7 +81,6 @@ export default async function AdminOrdersPage() {
             <tbody className="divide-y divide-[var(--color-hairline)] font-sans text-xs text-[var(--color-ink-primary)]">
               {orders.map((order) => {
                 const formatted = formatPrice(order.amount_cents, order.currency);
-                const isPaid = order.status === "paid";
                 const isSent = order.delivery_status === "sent";
 
                 return (
@@ -113,8 +112,14 @@ export default async function AdminOrdersPage() {
                     <td className="py-4 px-4">
                       <span
                         className={`inline-block font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 border ${
-                          isPaid
+                          order.status === "paid"
                             ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-600/30"
+                            : order.status === "failed"
+                            ? "bg-red-500/10 text-red-700 dark:text-red-400 border-red-600/30"
+                            : order.status === "cancelled"
+                            ? "bg-zinc-500/10 text-zinc-700 dark:text-zinc-400 border-zinc-600/30"
+                            : order.status === "refunded"
+                            ? "bg-purple-500/10 text-purple-700 dark:text-purple-400 border-purple-600/30"
                             : "bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-600/30"
                         }`}
                       >

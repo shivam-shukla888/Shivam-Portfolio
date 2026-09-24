@@ -13,10 +13,10 @@ export function Footer() {
               SHIVAM SHUKLA
             </h2>
             <p className="font-sans text-xs tracking-[0.04em] text-[var(--color-dark-ink-secondary)]">
-              Personal Studio & Portfolio
+              Developer & Creator
             </p>
             <p className="text-sm text-[var(--color-dark-ink-secondary)] max-w-sm leading-relaxed font-sans pt-2">
-              An art-directed synthesis of digital architecture, creative technology, and independent studio releases.
+              Backend systems, AI agents, and software security. Building projects and digital tools in public.
             </p>
           </div>
 
@@ -53,7 +53,7 @@ export function Footer() {
                 <ul className="pl-2 pt-1 space-y-1 text-[11px] text-[var(--color-dark-ink-secondary)]/80">
                   <li>
                     <Link href="/store/design" className="hover:text-white transition-colors">
-                      Design Studio
+                      Design & Templates
                     </Link>
                   </li>
                   <li>
@@ -143,7 +143,7 @@ export function Footer() {
           {/* Explorations & Sandbox */}
           <div className="md:col-span-3 space-y-3">
             <h3 className="font-sans text-xs uppercase tracking-[0.08em] text-white/90 font-medium">
-              Explorations
+              Lab
             </h3>
             <ul className="space-y-2 text-xs font-sans text-[var(--color-dark-ink-secondary)]">
               <li>
@@ -151,13 +151,13 @@ export function Footer() {
                   href="/lab"
                   className="text-[var(--color-accent)] hover:underline flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white"
                 >
-                  <span>Personal Lab</span>
+                  <span>Lab</span>
                   <span>→</span>
                 </Link>
               </li>
               <li>
                 <span className="text-xs text-[var(--color-dark-ink-secondary)]/70">
-                  Explorations at /lab
+                  Experiments & prototypes
                 </span>
               </li>
             </ul>

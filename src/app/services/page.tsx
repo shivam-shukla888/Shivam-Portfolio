@@ -9,16 +9,16 @@ import { getPublishedServices } from "@/lib/services";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Services & Engagements — Shivam Shukla",
+  title: "Services — Shivam Shukla",
   description:
-    "Professional technology services and bespoke engineering engagements across Backend Systems, Agentic AI, and AI Security by Shivam Shukla.",
+    "Software engineering and consulting across backend systems, AI agents, and AI application security by Shivam Shukla.",
   alternates: {
     canonical: "https://shivsastra.com/services",
   },
   openGraph: {
-    title: "Services & Engagements — Shivam Shukla",
+    title: "Services — Shivam Shukla",
     description:
-      "Professional technology services and bespoke engineering engagements across Backend Systems, Agentic AI, and AI Security by Shivam Shukla.",
+      "Software engineering and consulting across backend systems, AI agents, and AI application security by Shivam Shukla.",
     url: "https://shivsastra.com/services",
     type: "website",
   },
@@ -26,34 +26,34 @@ export const metadata: Metadata = {
 
 const SERVICE_DOMAINS = [
   {
-    index: "01",
-    domain: "BACKEND SYSTEMS",
-    title: "Backend Systems Engineering",
+    key: "backend-systems",
+    domain: "Backend Systems",
+    title: "Backend Systems",
     summary:
-      "Resilient systems architecture, distributed data layers, deterministic APIs, and high-integrity transactional backends engineered for stability.",
-    engagement: "Bespoke Scopes · Architecture Audits · Advisory",
+      "I build APIs, backend services, database-backed applications, and the systems around them.",
+    engagement: "APIs · Databases · System Architecture",
     ctaSubject: "Backend Systems Inquiry",
-    ctaLabel: "Discuss a Project",
+    ctaLabel: "Discuss a project",
   },
   {
-    index: "02",
-    domain: "AGENTIC AI",
-    title: "Agentic AI & Orchestration",
+    key: "agentic-ai",
+    domain: "Agentic AI",
+    title: "Agentic AI",
     summary:
-      "Autonomous cognitive agents, multi-agent workflows, tool execution interfaces, and deterministic evaluation harnesses designed for production reliability.",
-    engagement: "Workflow Design · Agent Implementation · Advisory",
+      "I build AI agents and LLM-based workflows that connect models with useful application logic.",
+    engagement: "AI Agents · LLM Workflows · Tool Integration",
     ctaSubject: "Agentic AI Inquiry",
-    ctaLabel: "Start a Conversation",
+    ctaLabel: "Discuss an AI project",
   },
   {
-    index: "03",
-    domain: "AI SECURITY",
-    title: "AI Security & System Hardening",
+    key: "ai-security",
+    domain: "AI Security",
+    title: "AI Security",
     summary:
-      "Vulnerability surface analysis, agentic permission boundaries, runtime defenses, defense-in-depth isolation, and secure sandbox execution.",
-    engagement: "Security Architecture · Boundary Hardening · Advisory",
+      "I work on security for AI applications, including input validation, prompt-injection protection, access control, and safe system design.",
+    engagement: "Input Validation · Access Control · System Safety",
     ctaSubject: "AI Security Inquiry",
-    ctaLabel: "Get in Touch",
+    ctaLabel: "Discuss AI security",
   },
 ];
 
@@ -69,27 +69,26 @@ export default async function ServicesPage() {
       />
       <SectionContainer>
         <div className="space-y-12">
-          {/* Header Block with Dual Identity Clarity */}
+          {/* Header Block with Clear Service Context */}
           <InnerPageEntrance delayIndex={0}>
             <div className="space-y-4 pb-8 border-b border-[var(--color-hairline)]">
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--color-accent)] font-semibold">
-                  WORK WITH SHIVAM · PROFESSIONAL SERVICES
+                  Work with Me
                 </span>
                 <Link
                   href="/store"
                   className="font-mono text-xs text-[var(--color-ink-secondary)] hover:text-[var(--color-accent)] transition-colors inline-flex items-center gap-1"
                 >
-                  <span>Looking to purchase digital tools? Visit Store</span>
+                  <span>Looking for digital products or tools? Visit the Store</span>
                   <span>→</span>
                 </Link>
               </div>
               <h1 className="font-display text-4xl sm:text-5xl font-normal tracking-tight text-[var(--color-ink-primary)]">
-                Services & Engagements
+                Services
               </h1>
               <p className="font-sans text-sm md:text-base text-[var(--color-ink-secondary)] leading-relaxed max-w-3xl">
-                Tailored technical engagements and advisory scopes across Backend Systems, Agentic AI, and AI Security.
-                Each engagement is scoped directly around project requirements, architecture constraints, and technical integrity.
+                I work with clients on custom software development and consulting across backend systems, AI agents, and AI security.
               </p>
             </div>
           </InnerPageEntrance>
@@ -147,7 +146,7 @@ export default async function ServicesPage() {
                         href={`/services/${service.slug}`}
                         className="inline-flex items-center gap-1.5 font-sans font-medium text-xs text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors group focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
                       >
-                        <span>View Details</span>
+                        <span>View details</span>
                         <span className="transition-transform duration-150 group-hover:translate-x-1">
                           →
                         </span>
@@ -158,18 +157,18 @@ export default async function ServicesPage() {
               ))}
             </div>
           ) : (
-            /* Editorial Positioning Architecture (Zero Fake Cards) */
+            /* Practical Deliverables Architecture */
             <div className="space-y-8">
               <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[var(--color-hairline)] border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)]">
                 {SERVICE_DOMAINS.map((domain) => (
                   <div
-                    key={domain.index}
+                    key={domain.key}
                     className="p-8 space-y-6 flex flex-col justify-between"
                   >
                     <div className="space-y-4">
                       <div className="flex items-center justify-between">
                         <span className="font-mono text-xs text-[var(--color-accent)] font-semibold uppercase tracking-wider">
-                          {`${domain.index} — ${domain.domain}`}
+                          {domain.domain}
                         </span>
                       </div>
                       <h2 className="font-display text-2xl font-normal text-[var(--color-ink-primary)]">
@@ -204,17 +203,17 @@ export default async function ServicesPage() {
               <div className="p-6 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="space-y-1">
                   <span className="font-mono text-xs uppercase tracking-wider text-[var(--color-accent)] font-medium">
-                    ADVISORY NOTE
+                    Custom Projects
                   </span>
                   <p className="font-sans text-xs text-[var(--color-ink-secondary)] max-w-2xl leading-relaxed">
-                    Formal packaged programs are currently under editorial review. Custom scopes, technical reviews, and engineering advisory across these domains are arranged via direct conversation.
+                    I take on custom development projects and technical consulting directly. If you have a specific system or feature you need built, send me a message with details.
                   </p>
                 </div>
                 <Link
                   href="/contact"
                   className="inline-flex items-center justify-center font-mono text-xs uppercase tracking-wider px-4 py-2 border border-[var(--color-ink-primary)] text-[var(--color-ink-primary)] hover:bg-[var(--color-ink-primary)] hover:text-[var(--color-canvas-primary)] transition-colors self-start sm:self-auto shrink-0 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
                 >
-                  Start a Conversation →
+                  Get in Touch →
                 </Link>
               </div>
             </div>
@@ -232,12 +231,12 @@ export default async function ServicesPage() {
                 <span>← Back to Home</span>
               </Link>
               <div className="flex items-center gap-4">
-                <span>EXPLORE SHIVSASTRA:</span>
+                <span>Store:</span>
                 <Link
                   href="/store"
                   className="text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors underline underline-offset-4"
                 >
-                  The Store (Digital Products) →
+                  Visit the Store →
                 </Link>
               </div>
             </div>

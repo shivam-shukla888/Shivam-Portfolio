@@ -10,6 +10,83 @@ import { sendPurchaseDeliveryEmail } from "@/lib/email/purchase-delivery";
 export type OrderStatus = "pending" | "paid" | "failed" | "cancelled" | "refunded";
 export type DeliveryStatus = "pending" | "sent" | "failed";
 
+/**
+ * Strict Order State Machine Definitions
+ *
+ * Rules:
+ * - pending can transition to: paid, failed, cancelled
+ * - paid CANNOT transition to: pending, failed, cancelled (terminal payment state)
+ * - failed/cancelled cannot transition back to pending
+ * - Delivery: pending can transition to: sent, failed; sent cannot revert silently
+ */
+export const VALID_ORDER_TRANSITIONS: Record<OrderStatus, readonly OrderStatus[]> = {
+  pending: ["paid", "failed", "cancelled"],
+  paid: ["paid"], // A paid order remains paid
+  failed: ["failed"],
+  cancelled: ["cancelled"],
+  refunded: ["refunded"],
+};
+
+export const VALID_DELIVERY_TRANSITIONS: Record<DeliveryStatus, readonly DeliveryStatus[]> = {
+  pending: ["sent", "failed"],
+  sent: ["sent"], // Sent delivery must never revert silently
+  failed: ["failed", "sent"], // Failed delivery can be retried to sent
+};
+
+export function canTransitionOrderStatus(current: OrderStatus, next: OrderStatus): boolean {
+  if (current === next) return true;
+  const allowed = VALID_ORDER_TRANSITIONS[current];
+  return allowed ? allowed.includes(next) : false;
+}
+
+export function canTransitionDeliveryStatus(current: DeliveryStatus, next: DeliveryStatus): boolean {
+  if (current === next) return true;
+  const allowed = VALID_DELIVERY_TRANSITIONS[current];
+  return allowed ? allowed.includes(next) : false;
+}
+
+/**
+ * Safe Structured Event Identifiers for Auditing (No PII, No Secrets)
+ */
+export type StoreLifecycleEvent =
+  | "CHECKOUT_STARTED"
+  | "ORDER_CREATED"
+  | "CHECKOUT_OPENED"
+  | "PAYMENT_CALLBACK_RECEIVED"
+  | "PAYMENT_VERIFICATION_STARTED"
+  | "PAYMENT_VERIFIED"
+  | "PAYMENT_VERIFICATION_FAILED"
+  | "WEBHOOK_RECEIVED"
+  | "ORDER_SETTLED"
+  | "DELIVERY_STARTED"
+  | "DELIVERY_SENT"
+  | "DELIVERY_FAILED";
+
+export function logStoreEvent(
+  event: StoreLifecycleEvent,
+  details?: {
+    orderId?: string;
+    productId?: string;
+    status?: string;
+    deliveryStatus?: string;
+    note?: string;
+  }
+): void {
+  const timestamp = new Date().toISOString();
+  console.log(
+    JSON.stringify({
+      tag: "SHIVSASTRA_STORE_AUDIT",
+      event,
+      timestamp,
+      orderRef: details?.orderId ? details.orderId.slice(0, 8) + "..." : undefined,
+      productId: details?.productId,
+      status: details?.status,
+      deliveryStatus: details?.deliveryStatus,
+      note: details?.note,
+    })
+  );
+}
+
 export interface OrderRecord {
   id: string;
   product_id: string;
@@ -59,6 +136,41 @@ export function verifyDeliveryToken(token: string, storedHash: string | null | u
     return crypto.timingSafeEqual(computedBuf, storedBuf);
   } catch {
     return false;
+  }
+}
+
+/**
+ * Finds a recent pending order for the same product and email to prevent duplicate orders
+ * caused by double-clicks, browser retries, or repeated submissions.
+ */
+export async function findRecentPendingOrder(
+  productId: string,
+  customerEmail: string,
+  maxAgeMs: number = 300000 // 5 minutes window
+): Promise<OrderRecord | null> {
+  const client = getSupabaseServerClient();
+  if (!client) return null;
+
+  try {
+    const thresholdIso = new Date(Date.now() - maxAgeMs).toISOString();
+
+    const { data, error } = await client
+      .from("orders")
+      .select("*")
+      .eq("product_id", productId)
+      .eq("customer_email", customerEmail.toLowerCase().trim())
+      .eq("status", "pending")
+      .gte("created_at", thresholdIso)
+      .order("created_at", { ascending: false })
+      .limit(1);
+
+    if (error || !data || data.length === 0) {
+      return null;
+    }
+
+    return data[0] as OrderRecord;
+  } catch {
+    return null;
   }
 }
 
@@ -133,6 +245,49 @@ export async function updateOrderRazorpayId(
 }
 
 /**
+ * Safely updates order status following the strict state machine.
+ * Prevents paid orders from reverting to pending, failed, or cancelled.
+ */
+export async function transitionOrderStatus(
+  orderId: string,
+  nextStatus: OrderStatus
+): Promise<{ success: boolean; order?: OrderRecord; error?: string }> {
+  const client = getSupabaseServerClient();
+  if (!client) {
+    return { success: false, error: "Database unavailable" };
+  }
+
+  const existing = await getOrderById(orderId);
+  if (!existing) {
+    return { success: false, error: "Order not found" };
+  }
+
+  if (existing.status === nextStatus) {
+    return { success: true, order: existing };
+  }
+
+  if (!canTransitionOrderStatus(existing.status, nextStatus)) {
+    return {
+      success: false,
+      error: `Illegal state transition from ${existing.status} to ${nextStatus}`,
+    };
+  }
+
+  const { data, error } = await client
+    .from("orders")
+    .update({ status: nextStatus, updated_at: new Date().toISOString() })
+    .eq("id", orderId)
+    .select("*")
+    .single();
+
+  if (error || !data) {
+    return { success: false, error: error?.message || "Failed to update order status" };
+  }
+
+  return { success: true, order: data as OrderRecord };
+}
+
+/**
  * Resolves internal order by internal UUID.
  */
 export async function getOrderById(orderId: string): Promise<OrderRecord | null> {
@@ -175,6 +330,7 @@ export async function getOrderByRazorpayOrderId(razorpayOrderId: string): Promis
 /**
  * Idempotently marks an order as PAID and initiates digital delivery fulfillment.
  * If already paid, returns existing state and avoids duplicate email dispatch.
+ * Conforms strictly to the Order State Machine and convergence of Webhook + Browser paths.
  */
 export async function markOrderPaidAndFulfill(params: {
   orderId: string;
@@ -202,11 +358,35 @@ export async function markOrderPaidAndFulfill(params: {
 
   // 2. IDEMPOTENCY CHECK: If already paid, do not re-fulfill
   if (existingOrder.status === "paid") {
+    logStoreEvent("ORDER_SETTLED", {
+      orderId: existingOrder.id,
+      status: "paid",
+      deliveryStatus: existingOrder.delivery_status,
+      note: "Idempotent settlement; order was already marked paid",
+    });
+
+    // If caller provided a deliveryToken or needs access, generate/return safely
+    let deliveryToken = params.deliveryToken;
+    if (!deliveryToken && !existingOrder.delivery_token_hash) {
+      const generated = generateDeliveryToken();
+      deliveryToken = generated.token;
+      await client
+        .from("orders")
+        .update({ delivery_token_hash: generated.hash, updated_at: new Date().toISOString() })
+        .eq("id", existingOrder.id);
+    }
+
     return {
       order: existingOrder,
       alreadyPaid: true,
       deliveryEmailSent: existingOrder.delivery_status === "sent",
+      deliveryToken: deliveryToken || params.deliveryToken,
     };
+  }
+
+  // 3. State machine validation: ensure pending -> paid is allowed
+  if (!canTransitionOrderStatus(existingOrder.status, "paid")) {
+    throw new Error(`Invalid state transition: Cannot mark order as paid from status ${existingOrder.status}`);
   }
 
   // Generate delivery token if not supplied
@@ -220,7 +400,7 @@ export async function markOrderPaidAndFulfill(params: {
 
   const now = new Date().toISOString();
 
-  // 3. Transition to PAID
+  // 4. Transition to PAID (atomic update)
   const { data: updatedOrder, error: updateError } = await client
     .from("orders")
     .update({
@@ -240,8 +420,13 @@ export async function markOrderPaidAndFulfill(params: {
   }
 
   const paidOrder = updatedOrder as OrderRecord;
+  logStoreEvent("PAYMENT_VERIFIED", {
+    orderId: paidOrder.id,
+    productId: paidOrder.product_id,
+    status: "paid",
+  });
 
-  // 4. Fetch product details to verify digital asset requirements
+  // 5. Fetch product details to verify digital asset requirements
   const { data: productData } = await client
     .from("products")
     .select("id, title, product_type, storage_asset_path")
@@ -255,7 +440,12 @@ export async function markOrderPaidAndFulfill(params: {
     downloadUrl = `${baseUrl.replace(/\/$/, "")}/api/store/download/${paidOrder.id}?token=${deliveryToken}`;
   }
 
-  // 5. Send Resend confirmation email
+  // 6. Send Resend confirmation email
+  logStoreEvent("DELIVERY_STARTED", {
+    orderId: paidOrder.id,
+    deliveryStatus: "pending",
+  });
+
   let deliveryEmailSent = false;
   try {
     const formattedAmount = formatPrice(paidOrder.amount_cents, paidOrder.currency);
@@ -271,27 +461,53 @@ export async function markOrderPaidAndFulfill(params: {
 
     if (emailResult.success) {
       deliveryEmailSent = true;
-      await client
-        .from("orders")
-        .update({ delivery_status: "sent", updated_at: new Date().toISOString() })
-        .eq("id", paidOrder.id);
-      paidOrder.delivery_status = "sent";
+      if (canTransitionDeliveryStatus(paidOrder.delivery_status, "sent")) {
+        await client
+          .from("orders")
+          .update({ delivery_status: "sent", updated_at: new Date().toISOString() })
+          .eq("id", paidOrder.id);
+        paidOrder.delivery_status = "sent";
+      }
+      logStoreEvent("DELIVERY_SENT", {
+        orderId: paidOrder.id,
+        deliveryStatus: "sent",
+      });
     } else {
       // Do not reverse paid status; mark delivery failed for admin retry
+      if (canTransitionDeliveryStatus(paidOrder.delivery_status, "failed")) {
+        await client
+          .from("orders")
+          .update({ delivery_status: "failed", updated_at: new Date().toISOString() })
+          .eq("id", paidOrder.id);
+        paidOrder.delivery_status = "failed";
+      }
+      logStoreEvent("DELIVERY_FAILED", {
+        orderId: paidOrder.id,
+        deliveryStatus: "failed",
+        note: "Email service reported failure; paid status preserved",
+      });
+    }
+  } catch (err) {
+    console.error("[ORDERS] Delivery email dispatch failed:", err instanceof Error ? err.message : "Unknown");
+    if (canTransitionDeliveryStatus(paidOrder.delivery_status, "failed")) {
       await client
         .from("orders")
         .update({ delivery_status: "failed", updated_at: new Date().toISOString() })
         .eq("id", paidOrder.id);
       paidOrder.delivery_status = "failed";
     }
-  } catch (err) {
-    console.error("[ORDERS] Delivery email dispatch failed:", err);
-    await client
-      .from("orders")
-      .update({ delivery_status: "failed", updated_at: new Date().toISOString() })
-      .eq("id", paidOrder.id);
-    paidOrder.delivery_status = "failed";
+    logStoreEvent("DELIVERY_FAILED", {
+      orderId: paidOrder.id,
+      deliveryStatus: "failed",
+      note: "Email dispatch exception; paid status preserved",
+    });
   }
+
+  logStoreEvent("ORDER_SETTLED", {
+    orderId: paidOrder.id,
+    status: paidOrder.status,
+    deliveryStatus: paidOrder.delivery_status,
+  });
 
   return {
     order: paidOrder,

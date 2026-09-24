@@ -10,14 +10,14 @@ import { getProfileSettings } from "@/lib/profile";
 export const revalidate = 60;
 
 export const metadata = {
-  title: "Contact",
-  description: "Initiate a collaboration or direct engagement with Shivam Shukla.",
+  title: "Contact — Shivam Shukla",
+  description: "Have a project in mind? Tell me what you're building.",
   alternates: {
     canonical: "https://shivsastra.com/contact",
   },
   openGraph: {
     title: "Contact — Shivam Shukla",
-    description: "Initiate a collaboration or direct engagement with Shivam Shukla.",
+    description: "Have a project in mind? Tell me what you're building.",
     url: "https://shivsastra.com/contact",
     type: "website",
   },
@@ -47,13 +47,14 @@ export default async function ContactPage() {
           <InnerPageEntrance delayIndex={0}>
             <div className="space-y-3 max-w-2xl">
               <h1 className="font-display text-4xl sm:text-5xl font-normal tracking-tight text-[var(--color-ink-primary)]">
-                Initiate an Engagement
+                Get in Touch
               </h1>
               <p className="font-sans text-xs text-[var(--color-accent)] font-medium">
-                Direct inquiries for {profile.fullName}
+                Have a project in mind? Tell me what you&apos;re building.
               </p>
               <p className="font-sans text-base text-[var(--color-ink-secondary)] pt-2 leading-relaxed whitespace-pre-wrap">
-                {profile.contactInstructions}
+                {profile.contactInstructions ||
+                  "Send a message using the form or reach out directly by email. I'll review the details and get back to you."}
               </p>
             </div>
           </InnerPageEntrance>
@@ -149,9 +150,9 @@ export default async function ContactPage() {
                 <ContactForm
                   variant="light"
                   labels={{
-                    name: "Name / Organization",
+                    name: "Your Name",
                     email: "Email Address",
-                    brief: "Inquiry Brief",
+                    brief: "Message or Project Details",
                     submit: "Send Message →",
                   }}
                 />

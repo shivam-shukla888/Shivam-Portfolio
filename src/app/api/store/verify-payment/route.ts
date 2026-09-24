@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { verifyPaymentSchema } from "@/lib/validations/checkout";
 import { verifyPaymentSignature, isRazorpayConfigured } from "@/lib/payments/razorpay";
-import { getOrderById, markOrderPaidAndFulfill } from "@/lib/orders";
+import { getOrderById, markOrderPaidAndFulfill, logStoreEvent } from "@/lib/orders";
 
 export const dynamic = "force-dynamic";
 
@@ -26,6 +26,10 @@ export async function POST(req: NextRequest) {
 
     const { orderId, razorpayOrderId, razorpayPaymentId, razorpaySignature } = parseResult.data;
 
+    logStoreEvent("PAYMENT_VERIFICATION_STARTED", {
+      orderId,
+    });
+
     // 2. Fetch trusted internal order record
     const internalOrder = await getOrderById(orderId);
     if (!internalOrder) {
@@ -37,6 +41,10 @@ export async function POST(req: NextRequest) {
 
     // 3. Verify razorpay_order_id matches trusted internal order
     if (internalOrder.razorpay_order_id !== razorpayOrderId) {
+      logStoreEvent("PAYMENT_VERIFICATION_FAILED", {
+        orderId,
+        note: "Order reference mismatch",
+      });
       return NextResponse.json(
         { error: "Order reference mismatch: Razorpay order ID does not match internal record" },
         { status: 400 }
@@ -62,6 +70,10 @@ export async function POST(req: NextRequest) {
     });
 
     if (!isValid) {
+      logStoreEvent("PAYMENT_VERIFICATION_FAILED", {
+        orderId,
+        note: "Cryptographic HMAC signature verification failed",
+      });
       return NextResponse.json(
         { error: "Cryptographic signature verification failed" },
         { status: 400 }

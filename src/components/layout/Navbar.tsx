@@ -77,7 +77,7 @@ export function Navbar() {
                 {isStore && (
                   <span
                     className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] inline-block shrink-0 transition-transform duration-200 group-hover:scale-125 motion-reduce:group-hover:scale-100"
-                    aria-label="Studio Store"
+                    aria-label="Store"
                   />
                 )}
               </Link>
@@ -88,7 +88,7 @@ export function Navbar() {
           <Link
             href="/lab"
             className="text-xs font-sans px-2.5 py-1 border border-[var(--color-hairline)] text-[var(--color-ink-secondary)] hover:border-[var(--color-ink-primary)] hover:text-[var(--color-ink-primary)] transition-[border-color,color,transform] duration-150 active:scale-[0.98] motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
-            title="Personal Lab"
+            title="Lab"
           >
             Lab
           </Link>
@@ -147,11 +147,6 @@ export function Navbar() {
                 )}
               >
                 <span>{link.label}</span>
-                {isStore && (
-                  <span className="text-[10px] font-mono text-[var(--color-accent)] uppercase tracking-wider">
-                    Digital Studio
-                  </span>
-                )}
               </Link>
             );
           })}
@@ -160,7 +155,7 @@ export function Navbar() {
             onClick={() => setIsOpen(false)}
             className="text-xs font-sans text-[var(--color-accent)] font-medium py-2 min-h-[44px] flex items-center"
           >
-            Personal Lab →
+            Lab →
           </Link>
         </nav>
         </>

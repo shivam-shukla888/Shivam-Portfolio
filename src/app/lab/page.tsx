@@ -8,14 +8,14 @@ import { getPublishedLabEntries } from "@/lib/lab";
 export const revalidate = 60;
 
 export const metadata = {
-  title: "Personal Lab",
-  description: "Isolated creative technology and experimental laboratory.",
+  title: "Lab — Shivam Shukla",
+  description: "Personal sandbox for experimental ideas, software builds, and technical notes.",
   alternates: {
     canonical: "https://shivsastra.com/lab",
   },
   openGraph: {
-    title: "Personal Lab — Shivam Shukla",
-    description: "Isolated creative technology and experimental laboratory.",
+    title: "Lab — Shivam Shukla",
+    description: "Personal sandbox for experimental ideas, software builds, and technical notes.",
     url: "https://shivsastra.com/lab",
     type: "website",
   },
@@ -37,15 +37,15 @@ export default async function LabPage() {
           <InnerPageEntrance delayIndex={0}>
             <div className="space-y-4">
               <h1 className="font-display text-4xl sm:text-5xl font-normal tracking-tight text-[var(--color-ink-primary)]">
-                Personal Lab
+                Lab
               </h1>
 
               <div className="p-6 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] space-y-2">
                 <p className="font-sans text-sm text-[var(--color-ink-primary)] font-medium">
-                  Independent explorations & prototypes
+                  Experiments & prototypes
                 </p>
                 <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
-                  A personal sandbox for experimental ideas, software builds, and technical thoughts authored by Shivam Shukla. Operates separately from client engagements.
+                  A personal sandbox for experimental ideas, software builds, and technical notes.
                 </p>
               </div>
             </div>
@@ -57,7 +57,7 @@ export default async function LabPage() {
               {entries.length === 0 ? (
                 <div className="p-8 border border-dashed border-[var(--color-hairline)] text-center space-y-1">
                   <p className="font-sans text-xs text-[var(--color-ink-secondary)]">
-                    [Personal lab artifacts pending]
+                    Lab entries will appear here as I publish experiments.
                   </p>
                 </div>
               ) : (
