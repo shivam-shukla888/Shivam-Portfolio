@@ -19,6 +19,7 @@ import {
   getPublicKnowledgeContext,
   validateAndSanitizeAssistantOutput,
 } from "@/lib/ai/knowledge";
+import { getPublishedDynamicRoutes } from "@/lib/ai/navigation";
 
 // Maximum request body size limit (64 KB) to guard against resource exhaustion
 const MAX_REQUEST_BODY_BYTES = 64 * 1024;
@@ -136,8 +137,9 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     // 8. Generate Completion via Server-Only Groq Client (Phase 12 & 16)
     const rawAnswer = await generateChatCompletion(messages);
 
-    // 9. Output Validation & Sanitization (Phase 14 & 15)
-    const sanitizedAnswer = validateAndSanitizeAssistantOutput(rawAnswer);
+    // 9. Output Validation & Sanitization with Dynamic Route Allowlisting
+    const dynamicRoutes = await getPublishedDynamicRoutes();
+    const sanitizedAnswer = validateAndSanitizeAssistantOutput(rawAnswer, dynamicRoutes);
 
     // Validate outgoing shape with Zod
     const outputParse = assistantResponseSchema.safeParse({

@@ -8,12 +8,16 @@ import { getPublishedServices, ServiceDisplayData } from "@/lib/services";
 import { getPublishedStoreProducts, ProductDisplayData } from "@/lib/products";
 import { getPublishedLabEntries, LabEntryDisplayData } from "@/lib/lab";
 import { MAX_ANSWER_LENGTH } from "@/lib/validations/assistant";
+import {
+  isValidPublicRoute,
+  normalizeHref,
+} from "./navigation";
 
 /**
- * Server-Side System Instruction for ShivSastra AI (Phase 2.4)
+ * Server-Side System Instruction for ShivSastra AI
  * 
  * Strict boundary: Public context only, zero-invention, prompt-injection defense,
- * refusal on missing/private information.
+ * controlled public navigation allowlist, refusal on missing/private information.
  */
 export const SHIVSASTRA_SYSTEM_INSTRUCTION = `You are ShivSastra AI, the official public website assistant for ShivSastra / Shivam Shukla.
 Your purpose is to help visitors understand publicly published information about the website, services, projects, store, personal lab, and collaboration options.
@@ -52,8 +56,26 @@ CRITICAL OPERATING RULES:
 4. EDITORIAL VOICE & STYLE:
    - Maintain a concise, refined, architectural tone reflecting ShivSastra's studio aesthetic.
    - Be helpful, polite, direct, and factual. Avoid marketing hype, excessive adjectives, and sycophantic language.
-   - Use clean, minimal Markdown (bullet points, bold text, links when directing to known routes like /projects, /services, /store, /lab, /contact).
-   - Never claim an action (such as sending an email or booking a meeting) has been completed. Direct visitors to the /contact page for inquiries.`;
+   - Direct visitors to the /contact page for project inquiries or collaboration requests.
+
+5. PUBLIC NAVIGATION & INTERNAL ROUTE SAFETY:
+   - When suggesting where visitors can learn more, view work, or explore the studio, use ONLY verified public routes in canonical Markdown link format: [Label](/path).
+   - The verified public routes are:
+     * Home: [Home](/)
+     * About: [About](/about)
+     * Projects: [Projects](/projects)
+     * Services: [Services](/services)
+     * Store: [Store](/store)
+     * Store (Design): [Design Studio](/store/design)
+     * Store (AI Agents): [AI Agents](/store/ai-agents)
+     * Store (Digital Products): [Digital Products](/store/digital-products)
+     * Contact: [Contact](/contact)
+     * Lab: [Lab](/lab)
+     * Privacy: [Privacy](/privacy)
+   - For specific projects, services, store items, or lab entries, you may link to /projects/[slug], /services/[slug], /store/[slug], or /lab/[slug] ONLY IF that exact slug exists in <public_archive_data>.
+   - If an entity does not have a published slug in <public_archive_data>, refer to it in plain text without a link. NEVER invent fake URLs.
+   - NEVER provide links to /admin, /admin/*, /api/*, or private paths.
+   - NEVER add trailing punctuation, dots, slashes, or brackets to link URLs (e.g. write [About](/about), NEVER [About](/about.) or [About](/about/)).`;
 
 /**
  * Cache container for normalized public knowledge.
@@ -104,7 +126,7 @@ function formatServicesSection(services: ServiceDisplayData[]): string {
   Description: ${s.descriptionMarkdown || "N/A"}
   Engagement Model: ${s.engagementModel || "Direct Studio Engagement"}
   Deliverables: ${deliverables}
-  Route: /services`;
+  Route: /services/${s.slug}`;
   });
 
   return `=== SERVICES & ADVISORY ===\n${items.join("\n\n")}`;
@@ -160,7 +182,7 @@ function formatStoreSection(products: ProductDisplayData[]): string {
   Short Description: ${p.shortDescription || "N/A"}
   Description: ${p.description || "N/A"}
   Features: ${features}${reqs}
-  Route: /store`;
+  Route: /store/${p.slug}`;
   });
 
   return `=== STORE RELEASES ===\n${items.join("\n\n")}`;
@@ -181,22 +203,26 @@ function formatLabSection(labEntries: LabEntryDisplayData[]): string {
   Category: ${l.category}
   Tags: ${tags}
   Notes: ${l.contentMarkdown || "N/A"}
-  Route: /lab`;
+  Route: /lab/${l.slug}`;
   });
 
   return `=== PERSONAL LAB EXPLORATIONS ===\n${items.join("\n\n")}`;
 }
 
-const STATIC_NAVIGATION_SECTION = `=== WEBSITE NAVIGATION & COLLABORATION ===
-The ShivSastra website is organized into the following public sections:
-- / (Home): Personal digital headquarters of Shivam Shukla. Focus areas: Backend Systems, Agentic AI, and AI Security.
-- /about: Background, design philosophy, and verified public profiles.
-- /projects: Published client case studies, engineering builds, and open-source software.
-- /services: High-impact consulting, system architecture, and agentic AI advisory.
-- /store: Curated digital releases, templates, monographs, and developer licenses.
-- /lab: Personal sandbox entries, research notes, and architectural experiments.
-- /contact: Inquiries, collaboration briefs, and advisory scheduling.
-For project commissions, consulting, or inquiries, direct visitors to /contact.`;
+const STATIC_NAVIGATION_SECTION = `=== VERIFIED PUBLIC ROUTE DIRECTORY ===
+The ShivSastra website is organized into the following verified public routes:
+- [Home](/) - Overview of focus areas: Backend Systems, Agentic AI, and AI Security.
+- [About](/about) - Background, design philosophy, and verified public profiles.
+- [Projects](/projects) - Published client case studies, engineering builds, and open-source software.
+- [Services](/services) - High-impact consulting, system architecture, and agentic AI advisory.
+- [Store](/store) - Curated digital releases, templates, monographs, and developer licenses.
+- [Store / Design](/store/design) - Design systems and typography collections.
+- [Store / AI Agents](/store/ai-agents) - Autonomous agents and operational workflows.
+- [Store / Digital Products](/store/digital-products) - Developer toolkits and boilerplates.
+- [Contact](/contact) - Inquiries, collaboration briefs, and advisory scheduling.
+- [Lab](/lab) - Personal sandbox entries, research notes, and architectural experiments.
+- [Privacy](/privacy) - Public privacy policy and infrastructure memorandum.
+Direct project commissions, consulting, or general inquiries to [Contact](/contact).`;
 
 /**
  * Retrieves ONLY public content across existing data layers,
@@ -243,14 +269,7 @@ export function clearKnowledgeCache(): void {
 }
 
 /**
- * Comprehensive Output Validation and Prompt Injection Defense (Phase 2.6 & 15)
- * 
- * Verifies that the AI response:
- * - Is non-empty and within maximum answer length.
- * - Does NOT contain known secret signatures or environment variable dumps.
- * - Does NOT leak internal prompt/instruction markers.
- * - Does NOT execute raw scripts or malicious HTML protocols.
- * - Returns a safe fallback if any anomaly is detected.
+ * Comprehensive Output Validation and Prompt Injection Defense
  */
 const FORBIDDEN_SECRET_PATTERNS = [
   /gsk_[a-zA-Z0-9_-]{20,}/i,
@@ -293,10 +312,42 @@ const FORBIDDEN_INJECTION_PATTERNS = [
   /onload\s*=/i,
 ];
 
-export const SAFE_BOUNDARY_FALLBACK =
-  "I don't have that information published on ShivSastra yet. You can explore the published projects at /projects, services at /services, or reach out directly at /contact.";
+// Verified external profile domains allowlist
+const VERIFIED_EXTERNAL_DOMAINS = [
+  "github.com",
+  "linkedin.com",
+  "contra.com",
+  "x.com",
+  "twitter.com",
+];
 
-export function validateAndSanitizeAssistantOutput(rawAnswer: string): string {
+function isVerifiedExternalDomain(urlStr: string): boolean {
+  try {
+    const parsed = new URL(urlStr);
+    if (parsed.protocol !== "https:") return false;
+    const hostname = parsed.hostname.toLowerCase();
+    return VERIFIED_EXTERNAL_DOMAINS.some(
+      (domain) => hostname === domain || hostname.endsWith(`.${domain}`)
+    );
+  } catch {
+    return false;
+  }
+}
+
+export const SAFE_BOUNDARY_FALLBACK =
+  "I don't have that information published on ShivSastra yet. You can explore the published projects at [Projects](/projects), services at [Services](/services), or reach out directly at [Contact](/contact).";
+
+/**
+ * Validates, sanitizes, and normalizes AI assistant output:
+ * - Neutralizes secrets, prompt leaks, and script injections.
+ * - Normalizes plain-text route declarations ("- Home: /") to verified Markdown links ("- [Home](/)").
+ * - Validates internal links against the verified public route allowlist.
+ * - Neutralizes invalid, private (/admin*, /api*), or fake dynamic links to plain text.
+ */
+export function validateAndSanitizeAssistantOutput(
+  rawAnswer: string,
+  dynamicRoutes?: Iterable<string>
+): string {
   if (typeof rawAnswer !== "string") {
     return SAFE_BOUNDARY_FALLBACK;
   }
@@ -335,5 +386,44 @@ export function validateAndSanitizeAssistantOutput(rawAnswer: string): string {
     }
   }
 
-  return trimmed;
+  // Normalize plain-text route lines: "- Label: /path" -> "- [Label](/path)"
+  let processed = trimmed.replace(
+    /^([*-]\s+)?(?:\*\*)?([A-Za-z0-9\s&—–/]+?)(?:\*\*)?[:–—\-]\s*(?:`|\[)?(\/[a-zA-Z0-9_\-\/.]*)(?:`|\])?(?:\([^)]*\))?$/gm,
+    (match, bullet = "", label, rawPath) => {
+      const normalizedPath = normalizeHref(rawPath);
+      if (isValidPublicRoute(normalizedPath, dynamicRoutes)) {
+        const prefix = bullet.trim() ? bullet : "- ";
+        return `${prefix}[${label.trim()}](${normalizedPath})`;
+      }
+      return match;
+    }
+  );
+
+  // Validate and sanitize all Markdown links [label](url)
+  processed = processed.replace(
+    /\[([^\]]+)\]\(([^)]+)\)/g,
+    (match, label, rawUrl) => {
+      const trimmedUrl = rawUrl.trim();
+
+      // 1. Internal Link: Clean, normalize, and allowlist check
+      if (trimmedUrl.startsWith("/") && !trimmedUrl.startsWith("//")) {
+        const normalizedPath = normalizeHref(trimmedUrl);
+        if (isValidPublicRoute(normalizedPath, dynamicRoutes)) {
+          return `[${label}](${normalizedPath})`;
+        }
+        // Invalid or private route: strip link, keep label text
+        return label;
+      }
+
+      // 2. Verified External Profile (HTTPS only, strictly allowlisted domains)
+      if (trimmedUrl.startsWith("https://") && isVerifiedExternalDomain(trimmedUrl)) {
+        return `[${label}](${trimmedUrl})`;
+      }
+
+      // 3. Untrusted external URL, javascript:, data:, //evil, or malformed: strip link
+      return label;
+    }
+  );
+
+  return processed;
 }

@@ -82,3 +82,35 @@ All incoming text passes through `normalizeChatInput()`:
 1. **Model Hallucination**: While constrained by zero-invention instructions and low temperature (`0.2`), LLMs may occasionally rephrase or omit subtle nuances.
 2. **Semantic Evasion**: Novel adversarial jailbreaks may produce minor off-topic philosophical responses, but cannot access private data or execute server actions.
 3. **Upstream Availability**: Uptime depends on Groq API service availability; fallback produces clean 503/500 notices without exposing provider diagnostics.
+
+---
+
+## 9. Public Navigation Safety
+
+### 9.1 Controlled Route Allowlist
+The AI Assistant is restricted to a server-controlled route registry (`PUBLIC_NAVIGATION` and `STATIC_PUBLIC_ROUTES` in `src/lib/ai/navigation.ts`):
+- Top-level verified routes: `/`, `/about`, `/projects`, `/services`, `/store`, `/contact`, `/lab`, `/privacy`.
+- Verified category routes: `/store/design`, `/store/ai-agents`, `/store/digital-products`.
+- All other arbitrary, private, or invented paths are blocked from becoming clickable links.
+
+### 9.2 Dynamic Route Validation
+For dynamic routes (`/projects/[slug]`, `/services/[slug]`, `/store/[slug]`, `/lab/[slug]`), links are permitted **only if the exact published slug exists in the active database/knowledge snapshot**.
+- Unpublished, draft, or hallucinated slugs are stripped and rendered solely as inert plain text.
+
+### 9.3 Administrative & API Route Exclusion
+Private and internal endpoints are categorically excluded:
+- `/admin` and `/admin/*`
+- `/api/*` (including `/api/assistant`)
+- Directory traversal sequences (`..`, `/.`) and backslash tricks (`\`)
+- Protocol-relative URLs (`//evil.com`) and pseudo-schemes (`javascript:`, `data:`, `vbscript:`)
+
+### 9.4 Internal Link Normalization & Sanitization
+Both server-side (`validateAndSanitizeAssistantOutput`) and client-side (`SafeMarkdown.tsx`):
+- Normalize trailing punctuation (periods, commas, parens, brackets, trailing slashes) that otherwise trigger router 404s.
+- Support both canonical Markdown links (`[Label](/path)`) and plain-text navigational declarations (`- Label: /path`), converting verified targets into accessible Next.js `<Link>` elements.
+- Strip unauthorized or untrusted external domains, restricting external anchors strictly to allowlisted public profiles (Contra, GitHub, LinkedIn, X).
+
+### 9.5 Automated Regression Suites
+- `scripts/test-ai-routes.ts`: 125 test assertions verifying filesystem route existence, allowlist evaluation, malformed link neutralization, and user bug reproduction.
+- `scripts/verify-routes-browser.ts`: Live end-to-end HTTP click-through verification confirming zero 404s across all public routes, mobile user-agents, and live assistant inference responses.
+
