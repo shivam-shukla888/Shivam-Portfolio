@@ -4,7 +4,6 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { SectionContainer } from "@/components/layout/SectionContainer";
-import { buttonStyles } from "@/components/ui/Button";
 import { InnerPageEntrance } from "@/components/layout/InnerPageEntrance";
 import {
   getPublishedStoreProductBySlug,
@@ -15,6 +14,7 @@ import {
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { BackToTop } from "@/components/ui/BackToTop";
 import { ProductFaqAccordion } from "@/components/store/ProductFaqAccordion";
+import { ProductCheckoutAction } from "@/components/store/ProductCheckoutAction";
 
 export const revalidate = 60;
 
@@ -159,23 +159,15 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                 )}
 
                 {/* Commercial Action Bar */}
-                <div className="pt-4 flex flex-col sm:flex-row sm:items-center gap-4">
-                  <Link
-                    href={`/contact?subject=${encodeURIComponent(
-                      `Edition Acquisition Inquiry: ${product.title}`
-                    )}`}
-                    className={buttonStyles({
-                      variant: "primary",
-                      size: "lg",
-                      className: "font-mono text-xs uppercase tracking-wider",
-                    })}
-                  >
-                    Inquire to Acquire Edition →
-                  </Link>
-                  <span className="font-mono text-xs text-[var(--color-ink-secondary)]">
-                    Instant digital fulfillment & commercial license upon release.
-                  </span>
-                </div>
+                <ProductCheckoutAction
+                  productId={product.id}
+                  productSlug={product.slug}
+                  productTitle={product.title}
+                  productType={product.productType}
+                  formattedPrice={product.formattedPrice}
+                  isAvailable={product.isAvailable}
+                  priceInCents={product.priceInCents}
+                />
               </div>
             </div>
           </InnerPageEntrance>

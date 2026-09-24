@@ -355,6 +355,59 @@ export async function getPublishedStoreProductBySlug(
 }
 
 /**
+ * Resolves a single available product by its UUID or identifier.
+ * Unavailable or non-existent products strictly return null.
+ */
+export async function getPublishedStoreProductById(
+  id: string
+): Promise<ProductDisplayData | null> {
+  if (!id || typeof id !== "string") {
+    return null;
+  }
+
+  try {
+    const client = getProductsQueryClient();
+    if (!client) {
+      return null;
+    }
+
+    // Try finding by UUID id first
+    const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id.trim());
+
+    if (isUuid) {
+      const { data, error } = await client
+        .from("public_products")
+        .select(PUBLIC_PRODUCT_COLUMNS)
+        .eq("id", id.trim())
+        .eq("is_available", true)
+        .maybeSingle();
+
+      if (!error && data) {
+        return mapProduct(data as unknown as ProductRow);
+      }
+
+      const fallbackResult = await client
+        .from("products")
+        .select(PUBLIC_PRODUCT_COLUMNS)
+        .eq("id", id.trim())
+        .eq("is_available", true)
+        .maybeSingle();
+
+      if (!fallbackResult.error && fallbackResult.data) {
+        return mapProduct(fallbackResult.data as unknown as ProductRow);
+      }
+    }
+
+    // Fallback search by slug if identifier was provided as slug
+    return getPublishedStoreProductBySlug(id);
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Unknown error";
+    console.error(`[STORE EXCEPTION] ${message}`);
+    return null;
+  }
+}
+
+/**
  * Computes live category counts and total available product counts.
  */
 export async function getStoreCategoryCounts(): Promise<CategoryCounts> {

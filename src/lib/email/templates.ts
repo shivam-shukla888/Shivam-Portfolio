@@ -276,3 +276,167 @@ ShivSastra Studio
 https://shivsastra.vercel.app
 `;
 }
+
+export interface PurchaseDeliveryPayload {
+  customerEmail: string;
+  orderId: string;
+  productTitle: string;
+  productType: string;
+  amountFormatted: string;
+  paidAt: string;
+  downloadUrl?: string | null;
+  supportEmail?: string;
+}
+
+/**
+ * Editorial HTML email for verified customer purchase and digital delivery.
+ * Adheres strictly to ShivSastra editorial design system.
+ */
+export function renderPurchaseDeliveryHtml(payload: PurchaseDeliveryPayload): string {
+  const safeTitle = escapeHtml(payload.productTitle);
+  const safeOrderId = escapeHtml(payload.orderId);
+  const safeType = escapeHtml(payload.productType.replace(/_/g, " ").toUpperCase());
+  const safeAmount = escapeHtml(payload.amountFormatted);
+  const safeDate = escapeHtml(payload.paidAt);
+  const supportEmail = escapeHtml(payload.supportEmail || "contact@shivsastra.com");
+
+  const downloadBlock = payload.downloadUrl
+    ? `
+      <div style="margin: 28px 0; text-align: center;">
+        <a href="${escapeHtml(payload.downloadUrl)}" style="display: inline-block; background-color: #D45A2A; color: #FFFFFF; font-family: 'JetBrains Mono', Monaco, monospace; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; text-decoration: none; padding: 14px 28px; border-radius: 0;">
+          Access Digital Assets ↓
+        </a>
+        <p style="margin: 10px 0 0 0; font-size: 11px; font-family: 'JetBrains Mono', Monaco, monospace; color: #6E6D68;">
+          Temporary delivery access link. Download your files and archive locally.
+        </p>
+      </div>`
+    : `
+      <div style="background-color: #FAF9F6; border: 1px solid #E6E3DC; padding: 16px; margin: 24px 0; font-size: 13px; line-height: 1.6; color: #444446;">
+        Your acquisition order is confirmed. Studio dispatch notes or direct access keys will be transmitted to this email address.
+      </div>`;
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your ShivSastra purchase is ready — ${safeTitle}</title>
+</head>
+<body style="margin: 0; padding: 0; background-color: #FAF9F6; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #111112; -webkit-font-smoothing: antialiased;">
+  <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #FAF9F6; width: 100%; padding: 40px 16px;">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="max-width: 600px; background-color: #FFFFFF; border: 1px solid #E6E3DC; text-align: left;">
+          
+          <!-- Editorial Header -->
+          <tr>
+            <td style="padding: 32px 36px 20px 36px; border-bottom: 2px solid #D45A2A;">
+              <span style="font-family: 'JetBrains Mono', Monaco, monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; color: #D45A2A; font-weight: 600;">
+                SHIVSASTRA // VERIFIED DISPATCH
+              </span>
+              <h1 style="margin: 10px 0 4px 0; font-family: Georgia, serif; font-size: 24px; font-weight: 400; color: #111112; line-height: 1.3;">
+                Acquisition Confirmed
+              </h1>
+              <p style="margin: 0; font-size: 13px; color: #6E6D68;">
+                Order reference: ${safeOrderId}
+              </p>
+            </td>
+          </tr>
+
+          <!-- Body -->
+          <tr>
+            <td style="padding: 32px 36px; font-size: 14px; line-height: 1.7; color: #111112;">
+              <p style="margin: 0 0 16px 0;">
+                Thank you for your acquisition. Your order has been verified and processed by the ShivSastra Studio dispatch system.
+              </p>
+
+              <!-- Order Summary Block -->
+              <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="margin: 20px 0; background-color: #FAF9F6; border: 1px solid #E6E3DC;">
+                <tr>
+                  <td style="padding: 16px; border-bottom: 1px solid #E6E3DC;">
+                    <span style="font-family: 'JetBrains Mono', Monaco, monospace; font-size: 11px; text-transform: uppercase; color: #6E6D68; letter-spacing: 0.08em; display: block;">Edition Title</span>
+                    <strong style="font-size: 15px; color: #111112;">${safeTitle}</strong>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px 16px; border-bottom: 1px solid #E6E3DC;">
+                    <span style="font-family: 'JetBrains Mono', Monaco, monospace; font-size: 11px; text-transform: uppercase; color: #6E6D68; letter-spacing: 0.08em; display: block;">Product Format</span>
+                    <span style="font-family: 'JetBrains Mono', Monaco, monospace; font-size: 12px; color: #111112;">${safeType}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px 16px; border-bottom: 1px solid #E6E3DC;">
+                    <span style="font-family: 'JetBrains Mono', Monaco, monospace; font-size: 11px; text-transform: uppercase; color: #6E6D68; letter-spacing: 0.08em; display: block;">Settled Amount</span>
+                    <strong style="font-family: 'JetBrains Mono', Monaco, monospace; font-size: 14px; color: #D45A2A;">${safeAmount}</strong>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px 16px;">
+                    <span style="font-family: 'JetBrains Mono', Monaco, monospace; font-size: 11px; text-transform: uppercase; color: #6E6D68; letter-spacing: 0.08em; display: block;">Timestamp</span>
+                    <span style="font-family: 'JetBrains Mono', Monaco, monospace; font-size: 11px; color: #6E6D68;">${safeDate}</span>
+                  </td>
+                </tr>
+              </table>
+
+              ${downloadBlock}
+
+              <p style="margin: 24px 0 8px 0; font-size: 13px; color: #444446;">
+                If you have questions, inquiries regarding commercial rights, or need assistance, reach out directly to <a href="mailto:${supportEmail}" style="color: #D45A2A; text-decoration: underline;">${supportEmail}</a>.
+              </p>
+
+              <p style="margin: 20px 0 0 0; color: #6E6D68; font-size: 13px;">
+                Warm regards,<br />
+                <strong style="color: #111112;">Shivam Shukla</strong><br />
+                ShivSastra Studio
+              </p>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="padding: 20px 36px; border-top: 1px solid #E6E3DC; background-color: #FAF9F6; text-align: center;">
+              <p style="margin: 0; font-family: 'JetBrains Mono', Monaco, monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: #9E9D98;">
+                ShivSastra // https://shivsastra.com
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
+}
+
+/**
+ * Plain text fallback for purchase delivery email.
+ */
+export function renderPurchaseDeliveryText(payload: PurchaseDeliveryPayload): string {
+  const downloadSection = payload.downloadUrl
+    ? `DIGITAL ASSET ACCESS:
+${payload.downloadUrl}
+(Temporary delivery link. Please download and archive locally.)`
+    : `Your order is confirmed. Studio dispatch notes or direct access keys will be transmitted to this email address.`;
+
+  return `SHIVSASTRA // VERIFIED DISPATCH
+========================================
+
+Thank you for your acquisition.
+
+Order Reference: ${payload.orderId}
+Product: ${payload.productTitle}
+Format: ${payload.productType}
+Amount: ${payload.amountFormatted}
+Date: ${payload.paidAt}
+
+${downloadSection}
+
+Support & Inquiries: ${payload.supportEmail || "contact@shivsastra.com"}
+
+Warm regards,
+Shivam Shukla
+ShivSastra Studio
+https://shivsastra.com
+`;
+}

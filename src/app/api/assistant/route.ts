@@ -20,6 +20,7 @@ import {
   validateAndSanitizeAssistantOutput,
 } from "@/lib/ai/knowledge";
 import { getPublishedDynamicRoutes } from "@/lib/ai/navigation";
+import { classifySafetyIntent } from "@/lib/ai/safety";
 
 // Maximum request body size limit (64 KB) to guard against resource exhaustion
 const MAX_REQUEST_BODY_BYTES = 64 * 1024;
@@ -95,6 +96,24 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       );
     }
 
+    // 4.5. Deterministic Master AI Safety Guard Classification
+    const safetyCheck = classifySafetyIntent(message);
+    if (!safetyCheck.isSafe && safetyCheck.response) {
+      console.info(
+        `[AI SAFETY GUARD INTERCEPT] Category: ${safetyCheck.category}, Reason: ${safetyCheck.reason}`
+      );
+      return NextResponse.json(
+        { answer: safetyCheck.response },
+        {
+          status: 200,
+          headers: {
+            "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
+            "X-Content-Type-Options": "nosniff",
+          },
+        }
+      );
+    }
+
     // 5. Verify Groq Service Readiness (Phase 13)
     if (!isGroqConfigured()) {
       console.error("[AI SERVICE ERROR] GROQ_API_KEY is not configured.");
@@ -134,8 +153,29 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       content: `<visitor_query>\n${message}\n</visitor_query>`,
     });
 
-    // 8. Generate Completion via Server-Only Groq Client (Phase 12 & 16)
-    const rawAnswer = await generateChatCompletion(messages);
+    // 8. Generate Completion via Server-Only Groq Client with Graceful Fallback
+    let rawAnswer: string;
+    try {
+      rawAnswer = await generateChatCompletion(messages);
+    } catch (groqErr) {
+      console.error(
+        "[AI INFERENCE FALLBACK]",
+        groqErr instanceof Error ? groqErr.message : "Inference provider error"
+      );
+      return NextResponse.json(
+        {
+          answer:
+            "I can only assist with publicly published information on ShivSastra. Please explore our studio work at [Projects](/projects), services at [Services](/services), or reach out directly via [Contact](/contact).",
+        },
+        {
+          status: 200,
+          headers: {
+            "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
+            "X-Content-Type-Options": "nosniff",
+          },
+        }
+      );
+    }
 
     // 9. Output Validation & Sanitization with Dynamic Route Allowlisting
     const dynamicRoutes = await getPublishedDynamicRoutes();

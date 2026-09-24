@@ -180,6 +180,30 @@ export default async function AdminDashboardPage() {
             </Link>
           </div>
         </div>
+
+        {/* 07 Orders */}
+        <div className="p-6 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] space-y-4 flex flex-col justify-between">
+          <div className="space-y-2">
+            <span className="font-mono text-xs text-[var(--color-accent)]">
+              07
+            </span>
+            <h2 className="font-display text-xl text-[var(--color-ink-primary)]">
+              Store Orders
+            </h2>
+            <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
+              Customer acquisition records, Razorpay payment verification, and digital delivery status.
+            </p>
+          </div>
+
+          <div className="pt-2">
+            <Link
+              href="/admin/orders"
+              className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.08em] text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors"
+            >
+              View Orders →
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );
