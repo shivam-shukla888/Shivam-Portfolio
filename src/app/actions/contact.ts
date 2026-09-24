@@ -12,6 +12,7 @@ import {
 } from "@/lib/rate-limit";
 import { verifyTurnstileToken } from "@/lib/turnstile";
 import { getSupabaseServerClient } from "@/lib/supabase/server";
+import { sendContactNotification } from "@/lib/email/contact-notification";
 
 export async function submitContactInquiry(
   _prevState: ContactActionState,
@@ -89,16 +90,21 @@ export async function submitContactInquiry(
       };
     }
 
-    // 5. Persistence via Supabase (with safe unconfigured fallback)
+    // 5. Persistence via Supabase (Database-First: Must succeed before notification)
+    let submissionId = "dev-" + Date.now();
     const supabase = getSupabaseServerClient();
 
     if (supabase) {
-      const { error } = await supabase.from("contact_submissions").insert({
-        name,
-        email,
-        brief,
-        ip_hash: hashedIp,
-      });
+      const { data, error } = await supabase
+        .from("contact_submissions")
+        .insert({
+          name,
+          email,
+          brief,
+          ip_hash: hashedIp,
+        })
+        .select("id")
+        .single();
 
       if (error) {
         console.error(
@@ -109,10 +115,30 @@ export async function submitContactInquiry(
           message: "Unable to record inquiry due to a storage failure. Please try again shortly.",
         };
       }
+
+      if (data?.id) {
+        submissionId = data.id;
+      }
     } else {
       // Safe offline/development fallback notice — zero personal PII logged
       console.info(
         "[CONTACT INFO] Supabase unconfigured. Validated submission accepted in development fallback mode."
+      );
+    }
+
+    // 6. Resend Email Notification (Database-First Semantics)
+    // Email failure must NOT cause the visitor's stored request to disappear.
+    try {
+      await sendContactNotification({
+        submissionId,
+        name,
+        email,
+        brief,
+      });
+    } catch {
+      // Unhandled email dispatch exception is safely suppressed without breaking visitor UX
+      console.error(
+        `[CONTACT EMAIL ERROR] Non-fatal notification failure for submission: ${submissionId}`
       );
     }
 

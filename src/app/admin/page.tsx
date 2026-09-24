@@ -156,6 +156,30 @@ export default async function AdminDashboardPage() {
             </Link>
           </div>
         </div>
+
+        {/* 06 Contact */}
+        <div className="p-6 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] space-y-4 flex flex-col justify-between">
+          <div className="space-y-2">
+            <span className="font-mono text-xs text-[var(--color-accent)]">
+              06
+            </span>
+            <h2 className="font-display text-xl text-[var(--color-ink-primary)]">
+              Contact Inquiries
+            </h2>
+            <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
+              Transmission dispatches, client requests, read/unread states, and response archival.
+            </p>
+          </div>
+
+          <div className="pt-2">
+            <Link
+              href="/admin/contact"
+              className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.08em] text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors"
+            >
+              View Inquiries →
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );
