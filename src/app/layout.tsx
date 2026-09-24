@@ -91,9 +91,18 @@ export default function RootLayout({
       className={`${newsreader.variable} ${inter.variable} ${jetbrainsMono.variable} antialiased`}
     >
       <body className="min-h-screen flex flex-col bg-[var(--color-canvas-primary)] text-[var(--color-ink-primary)] font-body">
+        {/* Accessible Keyboard Skip Link */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2.5 focus:bg-[var(--color-surface-dark)] focus:text-[var(--color-dark-ink-primary)] focus:font-mono focus:text-xs focus:uppercase focus:tracking-wider focus:border focus:border-[var(--color-accent)] focus:outline-none focus:shadow-md"
+        >
+          Skip to content
+        </a>
         <MotionProvider>
           <Navbar />
-          <main className="flex-1 w-full">{children}</main>
+          <main id="main-content" tabIndex={-1} className="flex-1 w-full focus:outline-none">
+            {children}
+          </main>
           <Footer />
           <ShivSastraAssistant />
         </MotionProvider>

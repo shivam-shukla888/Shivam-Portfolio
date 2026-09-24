@@ -66,6 +66,31 @@ body {
   outline-offset: 3px;
 }
 
+/* Accessible skip-link utilities */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.sr-only:focus,
+.focus\:not-sr-only:focus {
+  position: fixed;
+  width: auto;
+  height: auto;
+  padding: 0.625rem 1.25rem;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
 /* Reduced motion preference override */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -75,5 +100,70 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* Production-Quality Print Stylesheet */
+@media print {
+  @page {
+    margin: 15mm;
+    size: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    color: #111112 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #111112 !important;
+    font-size: 11pt !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Hide interactive-only elements, navigation, assistants, and floating widgets */
+  header,
+  #mobile-navigation-menu,
+  #shivsastra-ai-dialog,
+  [aria-label*="ShivSastra AI"],
+  [data-print-hide="true"],
+  button:not([data-print-show="true"]),
+  .print-hide,
+  [role="dialog"] {
+    display: none !important;
+  }
+
+  /* Preserve structure and ensure clean typography */
+  h1, h2, h3, h4 {
+    page-break-after: avoid;
+    break-after: avoid;
+    color: #000000 !important;
+  }
+
+  article,
+  section,
+  table,
+  figure {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Show URLs for external citations */
+  a[href^="http"]:not([href*="shivsastra.com"])::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    font-family: var(--font-mono);
+    color: #555555 !important;
+  }
+
+  img {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
   }
 }

@@ -12,6 +12,9 @@ import {
   getPublishedProductReviews,
   StoreCategory,
 } from "@/lib/products";
+import { ScrollProgress } from "@/components/ui/ScrollProgress";
+import { BackToTop } from "@/components/ui/BackToTop";
+import { ProductFaqAccordion } from "@/components/store/ProductFaqAccordion";
 
 export const revalidate = 60;
 
@@ -75,8 +78,18 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
 
   const filteredRelated = relatedProducts.filter((p) => p.slug !== product.slug).slice(0, 3);
 
+  const updatedDate = product.updatedAt
+    ? new Date(product.updatedAt).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      })
+    : null;
+
   return (
     <article className="w-full pt-16 md:pt-24 pb-20 md:pb-28">
+      <ScrollProgress />
+      <BackToTop />
       <SectionContainer>
         <div className="space-y-16 max-w-4xl mx-auto">
           {/* Header Metadata Block */}
@@ -118,9 +131,16 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                       </span>
                     )}
                   </div>
-                  <span className="font-mono text-xs text-[var(--color-ink-secondary)] uppercase tracking-wider">
-                    {product.productType.replace("_", " ")}
-                  </span>
+                  <div className="flex items-center gap-3">
+                    <span className="font-mono text-xs text-[var(--color-ink-secondary)] uppercase tracking-wider">
+                      {product.productType.replace("_", " ")}
+                    </span>
+                    {updatedDate && (
+                      <span className="font-mono text-xs text-[var(--color-ink-secondary)] border-l border-[var(--color-hairline)] pl-3">
+                        Updated: {updatedDate}
+                      </span>
+                    )}
+                  </div>
                 </div>
 
                 <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-6">
@@ -240,34 +260,8 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
             </section>
           )}
 
-          {/* FAQ Section */}
-          {product.faq && product.faq.length > 0 && (
-            <section className="space-y-6 pt-6 border-t border-[var(--color-hairline)]">
-              <div className="space-y-1">
-                <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--color-accent)]">
-                  QUESTIONS & CLARIFICATIONS
-                </span>
-                <h2 className="font-display text-2xl text-[var(--color-ink-primary)]">
-                  Frequently Asked Questions
-                </h2>
-              </div>
-              <div className="space-y-4">
-                {product.faq.map((item, idx) => (
-                  <div
-                    key={idx}
-                    className="p-6 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] space-y-2"
-                  >
-                    <h3 className="font-sans text-base font-semibold text-[var(--color-ink-primary)]">
-                      {item.question}
-                    </h3>
-                    <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
-                      {item.answer}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </section>
-          )}
+          {/* Expandable FAQ Section */}
+          <ProductFaqAccordion faq={product.faq} />
 
           {/* Attestations & Product Reviews */}
           <section className="space-y-6 pt-6 border-t border-[var(--color-hairline)]">

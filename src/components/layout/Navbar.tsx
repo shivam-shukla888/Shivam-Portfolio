@@ -15,14 +15,16 @@ const NAV_LINKS = [
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const toggleButtonRef = React.useRef<HTMLButtonElement>(null);
 
-  // Close on Escape key and prevent background scroll while drawer is open
+  // Close on Escape key and return focus to toggle button; prevent background scroll
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
       const handleKeyDown = (e: KeyboardEvent) => {
         if (e.key === "Escape") {
           setIsOpen(false);
+          toggleButtonRef.current?.focus();
         }
       };
       window.addEventListener("keydown", handleKeyDown);
@@ -94,6 +96,7 @@ export function Navbar() {
 
         {/* Mobile Menu Toggle Button */}
         <button
+          ref={toggleButtonRef}
           type="button"
           onClick={() => setIsOpen(!isOpen)}
           aria-expanded={isOpen}
@@ -137,7 +140,7 @@ export function Navbar() {
                 href={link.href}
                 onClick={() => setIsOpen(false)}
                 className={cn(
-                  "text-sm font-sans font-medium transition-colors py-2 border-b border-[var(--color-hairline)] flex items-center justify-between",
+                  "text-sm font-sans font-medium transition-colors py-2 min-h-[44px] border-b border-[var(--color-hairline)] flex items-center justify-between",
                   isStore
                     ? "text-[var(--color-ink-primary)] font-semibold"
                     : "text-[var(--color-ink-primary)] hover:text-[var(--color-accent)]"
@@ -155,7 +158,7 @@ export function Navbar() {
           <Link
             href="/lab"
             onClick={() => setIsOpen(false)}
-            className="text-xs font-sans text-[var(--color-accent)] font-medium py-2"
+            className="text-xs font-sans text-[var(--color-accent)] font-medium py-2 min-h-[44px] flex items-center"
           >
             Personal Lab →
           </Link>

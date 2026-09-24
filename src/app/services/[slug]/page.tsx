@@ -6,6 +6,8 @@ import { SectionContainer } from "@/components/layout/SectionContainer";
 import { buttonStyles } from "@/components/ui/Button";
 import { InnerPageEntrance } from "@/components/layout/InnerPageEntrance";
 import { getPublishedServiceBySlug } from "@/lib/services";
+import { ScrollProgress } from "@/components/ui/ScrollProgress";
+import { BackToTop } from "@/components/ui/BackToTop";
 
 export const revalidate = 60;
 
@@ -52,8 +54,18 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
 
   const contactUrl = `/contact?subject=${encodeURIComponent(`Service Inquiry: ${service.title}`)}`;
 
+  const updatedDate = service.updatedAt
+    ? new Date(service.updatedAt).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      })
+    : null;
+
   return (
     <article className="w-full pt-16 md:pt-24 pb-20 md:pb-28">
+      <ScrollProgress />
+      <BackToTop />
       <SectionContainer>
         <div className="space-y-16 max-w-4xl mx-auto">
           {/* Header Metadata Block */}
@@ -75,6 +87,11 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                 {service.programCode && (
                   <span className="font-mono text-xs text-[var(--color-accent)] uppercase tracking-wider">
                     {service.programCode}
+                  </span>
+                )}
+                {updatedDate && (
+                  <span className="font-mono text-xs text-[var(--color-ink-secondary)] border-l border-[var(--color-hairline)] pl-3">
+                    Updated: {updatedDate}
                   </span>
                 )}
               </div>

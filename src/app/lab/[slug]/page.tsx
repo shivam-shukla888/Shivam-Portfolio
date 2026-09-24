@@ -5,6 +5,9 @@ import type { Metadata } from "next";
 import { SectionContainer } from "@/components/layout/SectionContainer";
 import { InnerPageEntrance } from "@/components/layout/InnerPageEntrance";
 import { getPublishedLabEntryBySlug } from "@/lib/lab";
+import { ScrollProgress } from "@/components/ui/ScrollProgress";
+import { BackToTop } from "@/components/ui/BackToTop";
+import { CopyButton } from "@/components/ui/CopyButton";
 
 export const revalidate = 60;
 
@@ -55,6 +58,21 @@ function SafeMarkdownRenderer({ content }: { content: string }) {
   return (
     <div className="space-y-6">
       {blocks.map((block, idx) => {
+        // Fenced code block with CopyButton
+        if (block.startsWith("```") && block.endsWith("```")) {
+          const lines = block.split("\n");
+          const codeBody = lines.slice(1, -1).join("\n");
+          return (
+            <div key={idx} className="relative group my-4">
+              <pre className="p-4 bg-[var(--color-surface-dark)] text-[var(--color-dark-ink-primary)] font-mono text-xs overflow-x-auto border border-[var(--color-dark-hairline)] pr-16 leading-relaxed">
+                <code>{codeBody}</code>
+              </pre>
+              <div className="absolute top-3 right-3">
+                <CopyButton text={codeBody} />
+              </div>
+            </div>
+          );
+        }
         if (block.startsWith("### ")) {
           return (
             <h3
@@ -122,8 +140,26 @@ export default async function LabDetailPage({ params }: LabDetailPageProps) {
     notFound();
   }
 
+  const publishedDate = entry.publishedAt
+    ? new Date(entry.publishedAt).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      })
+    : null;
+
+  const updatedDate = entry.updatedAt
+    ? new Date(entry.updatedAt).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      })
+    : null;
+
   return (
     <article className="w-full pt-16 md:pt-24 pb-20 md:pb-28">
+      <ScrollProgress />
+      <BackToTop />
       <SectionContainer>
         <div className="space-y-12 max-w-3xl mx-auto">
           {/* Header Metadata Block */}
@@ -146,13 +182,14 @@ export default async function LabDetailPage({ params }: LabDetailPageProps) {
                   <span className="font-mono text-xs uppercase text-[var(--color-ink-secondary)]">
                     {entry.status}
                   </span>
-                  {entry.publishedAt && (
+                  {publishedDate && (
                     <span className="font-mono text-xs text-[var(--color-ink-secondary)] border-l border-[var(--color-hairline)] pl-3">
-                      {new Date(entry.publishedAt).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "short",
-                        day: "numeric",
-                      })}
+                      {publishedDate}
+                    </span>
+                  )}
+                  {updatedDate && updatedDate !== publishedDate && (
+                    <span className="font-mono text-xs text-[var(--color-ink-secondary)] border-l border-[var(--color-hairline)] pl-3">
+                      Updated: {updatedDate}
                     </span>
                   )}
                 </div>

@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { normalizeHref, isValidPublicRoute } from "@/lib/ai/navigation";
+import { CopyButton } from "@/components/ui/CopyButton";
 
 interface SafeMarkdownProps {
   content: string;
@@ -180,17 +181,19 @@ export function SafeMarkdown({ content, validRoutes }: SafeMarkdownProps) {
         const trimmed = block.trim();
         if (!trimmed) return null;
 
-        // Fenced code block
+        // Fenced code block with copy action
         if (trimmed.startsWith("```") && trimmed.endsWith("```")) {
           const lines = trimmed.split("\n");
           const codeBody = lines.slice(1, -1).join("\n");
           return (
-            <pre
-              key={bIndex}
-              className="p-3 bg-[var(--color-surface-dark)] text-[var(--color-dark-ink-primary)] font-mono text-[11px] overflow-x-auto border border-[var(--color-dark-hairline)]"
-            >
-              <code>{codeBody}</code>
-            </pre>
+            <div key={bIndex} className="relative group my-2">
+              <pre className="p-3 bg-[var(--color-surface-dark)] text-[var(--color-dark-ink-primary)] font-mono text-[11px] overflow-x-auto border border-[var(--color-dark-hairline)] pr-16">
+                <code>{codeBody}</code>
+              </pre>
+              <div className="absolute top-2 right-2">
+                <CopyButton text={codeBody} />
+              </div>
+            </div>
           );
         }
 

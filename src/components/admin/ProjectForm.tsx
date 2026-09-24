@@ -44,6 +44,16 @@ export function ProjectForm({ initialData, mode }: ProjectFormProps) {
     }
   }, [state.success, mode, state.data?.id, router]);
 
+  // Accessible Escape key dismiss for delete confirmation dialog
+  React.useEffect(() => {
+    if (!showDeleteModal) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setShowDeleteModal(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [showDeleteModal]);
+
   async function handleDelete() {
     if (!initialData?.id) return;
     setIsDeleting(true);
@@ -720,17 +730,22 @@ export function ProjectForm({ initialData, mode }: ProjectFormProps) {
         <div
           role="dialog"
           aria-modal="true"
+          aria-labelledby="delete-project-title"
+          aria-describedby="delete-project-desc"
           className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setShowDeleteModal(false);
+          }}
         >
           <div className="bg-[var(--color-canvas-primary)] border border-[var(--color-hairline)] max-w-md w-full p-6 space-y-6">
             <div className="space-y-2">
               <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--color-accent)]">
                 CONFIRM DELETION
               </span>
-              <h3 className="font-display text-xl text-[var(--color-ink-primary)]">
+              <h3 id="delete-project-title" className="font-display text-xl text-[var(--color-ink-primary)]">
                 Delete this project permanently?
               </h3>
-              <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
+              <p id="delete-project-desc" className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
                 This action is destructive and cannot be undone. The monograph record
                 for &apos;{initialData?.title}&apos; will be purged from the archive.
               </p>

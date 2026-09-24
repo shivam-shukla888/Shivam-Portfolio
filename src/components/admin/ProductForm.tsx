@@ -71,6 +71,16 @@ export function ProductForm({ initialData, mode }: ProductFormProps) {
     }
   }, [state.success, mode, state.data?.id, router]);
 
+  // Accessible Escape key dismiss for delete confirmation dialog
+  React.useEffect(() => {
+    if (!showDeleteModal) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setShowDeleteModal(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [showDeleteModal]);
+
   async function handleDelete() {
     if (!initialData?.id) return;
     setIsDeleting(true);

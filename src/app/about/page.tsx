@@ -5,6 +5,8 @@ import { SectionContainer } from "@/components/layout/SectionContainer";
 import { PageBackground } from "@/components/ui/PageBackground";
 import { InnerPageEntrance } from "@/components/layout/InnerPageEntrance";
 import { getProfileSettings } from "@/lib/profile";
+import { ScrollProgress } from "@/components/ui/ScrollProgress";
+import { BackToTop } from "@/components/ui/BackToTop";
 
 export const revalidate = 60;
 
@@ -27,6 +29,8 @@ export default async function AboutPage() {
 
   return (
     <div className="relative w-full pt-16 md:pt-24 pb-20 md:pb-28 overflow-hidden">
+      <ScrollProgress />
+      <BackToTop />
       <PageBackground
         src="/images/backgrounds/about.webp"
         opacity={0.25}
@@ -78,8 +82,28 @@ export default async function AboutPage() {
             </div>
           </InnerPageEntrance>
 
-          {/* Navigation Action */}
+          {/* Contextual Contact CTA */}
           <InnerPageEntrance delayIndex={2}>
+            <div className="p-8 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+              <div className="space-y-1">
+                <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--color-accent)] font-semibold">
+                  INITIATE DIALOGUE
+                </span>
+                <p className="font-display text-xl text-[var(--color-ink-primary)]">
+                  Have an architectural inquiry or engineering challenge?
+                </p>
+              </div>
+              <Link
+                href="/contact"
+                className="shrink-0 inline-flex items-center justify-center font-mono text-xs uppercase tracking-[0.08em] px-5 py-3 bg-[var(--color-ink-primary)] text-white hover:bg-[var(--color-accent)] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
+              >
+                Direct Inquiry →
+              </Link>
+            </div>
+          </InnerPageEntrance>
+
+          {/* Navigation Action */}
+          <InnerPageEntrance delayIndex={3}>
             <div className="pt-4 border-t border-[var(--color-hairline)]">
               <Link
                 href="/"

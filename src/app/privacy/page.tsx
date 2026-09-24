@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 import { SectionContainer } from "@/components/layout/SectionContainer";
 import { PageBackground } from "@/components/ui/PageBackground";
 import { InnerPageEntrance } from "@/components/layout/InnerPageEntrance";
+import { ScrollProgress } from "@/components/ui/ScrollProgress";
+import { BackToTop } from "@/components/ui/BackToTop";
 
 export const metadata: Metadata = {
   title: "Privacy Policy — Shivam Shukla",
@@ -22,6 +24,8 @@ export const metadata: Metadata = {
 export default function PrivacyPolicyPage() {
   return (
     <div className="relative w-full pt-16 md:pt-24 pb-20 md:pb-28 overflow-hidden">
+      <ScrollProgress />
+      <BackToTop />
       <PageBackground
         src="/images/backgrounds/privacy.webp"
         opacity={0.18}

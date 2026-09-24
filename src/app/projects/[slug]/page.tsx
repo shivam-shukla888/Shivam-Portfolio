@@ -7,6 +7,8 @@ import { SectionContainer } from "@/components/layout/SectionContainer";
 import { buttonStyles } from "@/components/ui/Button";
 import { InnerPageEntrance } from "@/components/layout/InnerPageEntrance";
 import { getPublishedProjectBySlug } from "@/lib/projects";
+import { ScrollProgress } from "@/components/ui/ScrollProgress";
+import { BackToTop } from "@/components/ui/BackToTop";
 
 export const revalidate = 60;
 
@@ -51,8 +53,18 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
     notFound();
   }
 
+  const publishedDate = project.publishedAt
+    ? new Date(project.publishedAt).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      })
+    : null;
+
   return (
     <article className="w-full pt-16 md:pt-24 pb-20 md:pb-28">
+      <ScrollProgress />
+      <BackToTop />
       <SectionContainer>
         <div className="space-y-16 max-w-4xl mx-auto">
           {/* Header Metadata Block */}
@@ -85,6 +97,11 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                   {project.category && (
                     <span className="font-sans text-xs text-[var(--color-ink-secondary)] border-l border-[var(--color-hairline)] pl-3">
                       {project.category}
+                    </span>
+                  )}
+                  {publishedDate && (
+                    <span className="font-mono text-xs text-[var(--color-ink-secondary)] border-l border-[var(--color-hairline)] pl-3">
+                      {publishedDate}
                     </span>
                   )}
                 </div>
