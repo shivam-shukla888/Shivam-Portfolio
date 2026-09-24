@@ -14,13 +14,13 @@ export const metadata: Metadata = {
   description:
     "Software projects, systems, and engineering builds by Shivam Shukla.",
   alternates: {
-    canonical: "https://shivsastra.com/projects",
+    canonical: "https://shivsastra.vercel.app/projects",
   },
   openGraph: {
     title: "Projects — Shivam Shukla",
     description:
       "Software projects, systems, and engineering builds by Shivam Shukla.",
-    url: "https://shivsastra.com/projects",
+    url: "https://shivsastra.vercel.app/projects",
     type: "website",
   },
   twitter: {

@@ -11,12 +11,12 @@ export const metadata = {
   title: "Lab — Shivam Shukla",
   description: "Personal sandbox for experimental ideas, software builds, and technical notes.",
   alternates: {
-    canonical: "https://shivsastra.com/lab",
+    canonical: "https://shivsastra.vercel.app/lab",
   },
   openGraph: {
     title: "Lab — Shivam Shukla",
     description: "Personal sandbox for experimental ideas, software builds, and technical notes.",
-    url: "https://shivsastra.com/lab",
+    url: "https://shivsastra.vercel.app/lab",
     type: "website",
   },
   twitter: {

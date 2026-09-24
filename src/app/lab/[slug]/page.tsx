@@ -37,7 +37,7 @@ export async function generateMetadata({
     title: `${entry.title} | Lab — Shivam Shukla`,
     description: snippet,
     alternates: {
-      canonical: `https://shivsastra.com/lab/${entry.slug}`,
+      canonical: `https://shivsastra.vercel.app/lab/${entry.slug}`,
     },
     openGraph: {
       title: `${entry.title} | Lab — Shivam Shukla`,

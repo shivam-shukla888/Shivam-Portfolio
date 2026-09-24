@@ -13,13 +13,13 @@ export const metadata: Metadata = {
   description:
     "Software engineering and consulting across backend systems, AI agents, and AI application security by Shivam Shukla.",
   alternates: {
-    canonical: "https://shivsastra.com/services",
+    canonical: "https://shivsastra.vercel.app/services",
   },
   openGraph: {
     title: "Services — Shivam Shukla",
     description:
       "Software engineering and consulting across backend systems, AI agents, and AI application security by Shivam Shukla.",
-    url: "https://shivsastra.com/services",
+    url: "https://shivsastra.vercel.app/services",
     type: "website",
   },
   twitter: {

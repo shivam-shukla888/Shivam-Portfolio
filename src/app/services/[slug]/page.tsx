@@ -33,12 +33,12 @@ export async function generateMetadata({
     title: `${service.title} — Services | Shivam Shukla`,
     description: service.summary || undefined,
     alternates: {
-      canonical: `https://shivsastra.com/services/${service.slug}`,
+      canonical: `https://shivsastra.vercel.app/services/${service.slug}`,
     },
     openGraph: {
       title: `${service.title} — Shivam Shukla`,
       description: service.summary || undefined,
-      url: `https://shivsastra.com/services/${service.slug}`,
+      url: `https://shivsastra.vercel.app/services/${service.slug}`,
       type: "article",
     },
     twitter: {
@@ -65,19 +65,19 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://shivsastra.com",
+        item: "https://shivsastra.vercel.app",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Services",
-        item: "https://shivsastra.com/services",
+        item: "https://shivsastra.vercel.app/services",
       },
       {
         "@type": "ListItem",
         position: 3,
         name: service.title,
-        item: `https://shivsastra.com/services/${service.slug}`,
+        item: `https://shivsastra.vercel.app/services/${service.slug}`,
       },
     ],
   };

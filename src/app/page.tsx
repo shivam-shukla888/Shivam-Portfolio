@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   description:
     "Personal website and portfolio of Shivam Shukla. I build backend systems, AI agents, and security-focused software, and sell digital tools via the store.",
   alternates: {
-    canonical: "https://shivsastra.com",
+    canonical: "https://shivsastra.vercel.app",
   },
 };
 
@@ -60,20 +60,20 @@ export default async function HomePage() {
     "@graph": [
       {
         "@type": "Person",
-        "@id": "https://shivsastra.com/#person",
+        "@id": "https://shivsastra.vercel.app/#person",
         name: profile.fullName || "Shivam Shukla",
-        url: "https://shivsastra.com",
+        url: "https://shivsastra.vercel.app",
         description:
           "Building backend systems, AI agents, and security-focused software.",
         sameAs: verifiedSameAs,
       },
       {
         "@type": "WebSite",
-        "@id": "https://shivsastra.com/#website",
-        url: "https://shivsastra.com",
+        "@id": "https://shivsastra.vercel.app/#website",
+        url: "https://shivsastra.vercel.app",
         name: "SHIVSASTRA",
         publisher: {
-          "@id": "https://shivsastra.com/#person",
+          "@id": "https://shivsastra.vercel.app/#person",
         },
         description:
           "Personal website, portfolio, and digital store of Shivam Shukla.",

@@ -34,12 +34,12 @@ export async function generateMetadata({
     title: `${project.title} — Projects | Shivam Shukla`,
     description: project.summary || undefined,
     alternates: {
-      canonical: `https://shivsastra.com/projects/${project.slug}`,
+      canonical: `https://shivsastra.vercel.app/projects/${project.slug}`,
     },
     openGraph: {
       title: `${project.title} — Shivam Shukla`,
       description: project.summary || undefined,
-      url: `https://shivsastra.com/projects/${project.slug}`,
+      url: `https://shivsastra.vercel.app/projects/${project.slug}`,
       type: "article",
       images: project.coverImageUrl ? [{ url: project.coverImageUrl }] : undefined,
     },
@@ -67,19 +67,19 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://shivsastra.com",
+        item: "https://shivsastra.vercel.app",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Projects",
-        item: "https://shivsastra.com/projects",
+        item: "https://shivsastra.vercel.app/projects",
       },
       {
         "@type": "ListItem",
         position: 3,
         name: project.title,
-        item: `https://shivsastra.com/projects/${project.slug}`,
+        item: `https://shivsastra.vercel.app/projects/${project.slug}`,
       },
     ],
   };

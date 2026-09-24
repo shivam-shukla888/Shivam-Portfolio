@@ -136,7 +136,7 @@ export default async function Image() {
               letterSpacing: "0.04em",
             }}
           >
-            https://shivsastra.com
+            https://shivsastra.vercel.app
           </span>
           <span
             style={{

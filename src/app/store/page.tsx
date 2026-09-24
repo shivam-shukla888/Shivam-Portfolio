@@ -16,13 +16,13 @@ export const metadata = {
   description:
     "Digital products, templates, and tools made and sold by Shivam Shukla.",
   alternates: {
-    canonical: "https://shivsastra.com/store",
+    canonical: "https://shivsastra.vercel.app/store",
   },
   openGraph: {
     title: "Store — Shivam Shukla",
     description:
       "Digital products, templates, and tools made and sold by Shivam Shukla.",
-    url: "https://shivsastra.com/store",
+    url: "https://shivsastra.vercel.app/store",
     type: "website",
   },
   twitter: {

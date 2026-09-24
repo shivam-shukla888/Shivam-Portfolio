@@ -13,12 +13,12 @@ export const metadata: Metadata = {
   title: "Terms of Service — Shivam Shukla",
   description: "Terms of service, digital licensing, and usage conditions for SHIVSASTRA by Shivam Shukla.",
   alternates: {
-    canonical: "https://shivsastra.com/terms",
+    canonical: "https://shivsastra.vercel.app/terms",
   },
   openGraph: {
     title: "Terms of Service — Shivam Shukla",
     description: "Terms of service, digital licensing, and usage conditions for SHIVSASTRA by Shivam Shukla.",
-    url: "https://shivsastra.com/terms",
+    url: "https://shivsastra.vercel.app/terms",
     type: "website",
   },
   twitter: {
@@ -69,7 +69,7 @@ export default function TermsPage() {
                 <p>
                   These Terms of Service govern your access to and use of SHIVSASTRA (
                   <span className="font-mono text-xs text-[var(--color-ink-primary)]">
-                    https://shivsastra.com
+                    https://shivsastra.vercel.app
                   </span>
                   ), including all associated digital products, software templates, services, and content operated by Shivam Shukla.
                 </p>

@@ -16,13 +16,13 @@ export const metadata = {
   description:
     "Agent starter code, tool pipelines, and evaluation workflows by Shivam Shukla.",
   alternates: {
-    canonical: "https://shivsastra.com/store/ai-agents",
+    canonical: "https://shivsastra.vercel.app/store/ai-agents",
   },
   openGraph: {
     title: "AI Agents — Store",
     description:
       "Agent starter code, tool pipelines, and evaluation workflows by Shivam Shukla.",
-    url: "https://shivsastra.com/store/ai-agents",
+    url: "https://shivsastra.vercel.app/store/ai-agents",
     type: "website",
   },
   twitter: {

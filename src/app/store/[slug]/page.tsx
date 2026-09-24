@@ -55,7 +55,7 @@ export async function generateMetadata({
       product.description ||
       "Digital product by Shivam Shukla.",
     alternates: {
-      canonical: `https://shivsastra.com/store/${slug}`,
+      canonical: `https://shivsastra.vercel.app/store/${slug}`,
     },
     openGraph: {
       title: `${product.title} — Store`,
@@ -63,7 +63,7 @@ export async function generateMetadata({
         product.shortDescription ||
         product.description ||
         "Digital product by Shivam Shukla.",
-      url: `https://shivsastra.com/store/${slug}`,
+      url: `https://shivsastra.vercel.app/store/${slug}`,
       type: "website",
       images: product.previewImageUrl ? [{ url: product.previewImageUrl }] : undefined,
     },
@@ -116,7 +116,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
       price: product.priceInCents !== null ? (product.priceInCents / 100).toFixed(2) : undefined,
       priceCurrency: product.currency || "INR",
       availability: product.isAvailable ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
-      url: `https://shivsastra.com/store/${slug}`,
+      url: `https://shivsastra.vercel.app/store/${slug}`,
     },
   };
 
@@ -143,25 +143,25 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://shivsastra.com",
+        item: "https://shivsastra.vercel.app",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Store",
-        item: "https://shivsastra.com/store",
+        item: "https://shivsastra.vercel.app/store",
       },
       {
         "@type": "ListItem",
         position: 3,
         name: categoryName,
-        item: `https://shivsastra.com${categoryHref}`,
+        item: `https://shivsastra.vercel.app${categoryHref}`,
       },
       {
         "@type": "ListItem",
         position: 4,
         name: product.title,
-        item: `https://shivsastra.com/store/${product.slug}`,
+        item: `https://shivsastra.vercel.app/store/${product.slug}`,
       },
     ],
   };

@@ -5,7 +5,7 @@ import { getPublishedStoreProducts } from "@/lib/products";
 import { getPublishedLabEntries } from "@/lib/lab";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://shivsastra.com";
+  const baseUrl = "https://shivsastra.vercel.app";
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {

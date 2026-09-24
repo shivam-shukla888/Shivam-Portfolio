@@ -47,11 +47,11 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Shivam Shukla" }],
   creator: "Shivam Shukla",
-  metadataBase: new URL("https://shivsastra.com"),
+  metadataBase: new URL("https://shivsastra.vercel.app"),
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://shivsastra.com",
+    url: "https://shivsastra.vercel.app",
     siteName: "SHIVSASTRA",
     title: "Shivam Shukla — Backend Systems, Agentic AI & AI Security",
     description:

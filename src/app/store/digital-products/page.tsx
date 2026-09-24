@@ -16,13 +16,13 @@ export const metadata = {
   description:
     "Code starter repos, developer templates, and technical downloads by Shivam Shukla.",
   alternates: {
-    canonical: "https://shivsastra.com/store/digital-products",
+    canonical: "https://shivsastra.vercel.app/store/digital-products",
   },
   openGraph: {
     title: "Digital Products — Store",
     description:
       "Code starter repos, developer templates, and technical downloads by Shivam Shukla.",
-    url: "https://shivsastra.com/store/digital-products",
+    url: "https://shivsastra.vercel.app/store/digital-products",
     type: "website",
   },
   twitter: {

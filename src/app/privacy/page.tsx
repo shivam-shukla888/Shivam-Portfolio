@@ -11,12 +11,12 @@ export const metadata: Metadata = {
   title: "Privacy Policy — Shivam Shukla",
   description: "Privacy policy and security practices for SHIVSASTRA, operated by Shivam Shukla.",
   alternates: {
-    canonical: "https://shivsastra.com/privacy",
+    canonical: "https://shivsastra.vercel.app/privacy",
   },
   openGraph: {
     title: "Privacy Policy — Shivam Shukla",
     description: "Privacy policy and security practices for SHIVSASTRA, operated by Shivam Shukla.",
-    url: "https://shivsastra.com/privacy",
+    url: "https://shivsastra.vercel.app/privacy",
     type: "website",
   },
 };
@@ -74,10 +74,10 @@ export default function PrivacyPolicyPage() {
                   </a>
                   , with canonical production domain configuration established for{" "}
                   <a
-                    href="https://shivsastra.com"
+                    href="https://shivsastra.vercel.app"
                     className="font-mono text-xs text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors"
                   >
-                    https://shivsastra.com
+                    https://shivsastra.vercel.app
                   </a>
                   . This Privacy Policy applies to personal information collected through both addresses and related subpaths.
                 </p>

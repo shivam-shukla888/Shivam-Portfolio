@@ -16,13 +16,13 @@ export const metadata = {
   description:
     "Design templates, interaction kits, and UI components by Shivam Shukla.",
   alternates: {
-    canonical: "https://shivsastra.com/store/design",
+    canonical: "https://shivsastra.vercel.app/store/design",
   },
   openGraph: {
     title: "Design & Templates — Store",
     description:
       "Design templates, interaction kits, and UI components by Shivam Shukla.",
-    url: "https://shivsastra.com/store/design",
+    url: "https://shivsastra.vercel.app/store/design",
     type: "website",
   },
   twitter: {

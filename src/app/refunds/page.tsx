@@ -13,12 +13,12 @@ export const metadata: Metadata = {
   title: "Refund Policy — Shivam Shukla",
   description: "Refund and cancellation policy for digital products and custom engineering engagements on SHIVSASTRA.",
   alternates: {
-    canonical: "https://shivsastra.com/refunds",
+    canonical: "https://shivsastra.vercel.app/refunds",
   },
   openGraph: {
     title: "Refund Policy — Shivam Shukla",
     description: "Refund and cancellation policy for digital products and custom engineering engagements on SHIVSASTRA.",
-    url: "https://shivsastra.com/refunds",
+    url: "https://shivsastra.vercel.app/refunds",
     type: "website",
   },
   twitter: {

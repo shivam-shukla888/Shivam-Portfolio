@@ -396,7 +396,7 @@ export function renderPurchaseDeliveryHtml(payload: PurchaseDeliveryPayload): st
           <tr>
             <td style="padding: 20px 36px; border-top: 1px solid #E6E3DC; background-color: #FAF9F6; text-align: center;">
               <p style="margin: 0; font-family: 'JetBrains Mono', Monaco, monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: #9E9D98;">
-                ShivSastra // https://shivsastra.com
+                ShivSastra // https://shivsastra.vercel.app
               </p>
             </td>
           </tr>
@@ -437,6 +437,6 @@ Support & Inquiries: ${payload.supportEmail || "contact@shivsastra.com"}
 Warm regards,
 Shivam Shukla
 ShivSastra Studio
-https://shivsastra.com
+https://shivsastra.vercel.app
 `;
 }

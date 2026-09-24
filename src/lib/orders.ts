@@ -433,7 +433,7 @@ export async function markOrderPaidAndFulfill(params: {
     .eq("id", paidOrder.product_id)
     .maybeSingle();
 
-  const baseUrl = params.baseUrl || process.env.NEXT_PUBLIC_SITE_URL || "https://shivsastra.com";
+  const baseUrl = params.baseUrl || process.env.NEXT_PUBLIC_SITE_URL || "https://shivsastra.vercel.app";
   let downloadUrl: string | null = null;
 
   if (productData?.storage_asset_path && deliveryToken) {
