@@ -11,16 +11,24 @@ import { BackToTop } from "@/components/ui/BackToTop";
 export const revalidate = 60;
 
 export const metadata = {
-  title: "About Shivam Shukla",
-  description: "About Shivam Shukla — Personal Digital Headquarters & Studio.",
+  title: "About — Shivam Shukla",
+  description:
+    "Background, technical approach, and focus areas of Shivam Shukla — backend systems, AI agents, and software security.",
   alternates: {
     canonical: "https://shivsastra.com/about",
   },
   openGraph: {
-    title: "About Shivam Shukla",
-    description: "About Shivam Shukla — Personal Digital Headquarters & Studio.",
+    title: "About — Shivam Shukla",
+    description:
+      "Background, technical approach, and focus areas of Shivam Shukla — backend systems, AI agents, and software security.",
     url: "https://shivsastra.com/about",
     type: "profile",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About — Shivam Shukla",
+    description:
+      "Background, technical approach, and focus areas of Shivam Shukla — backend systems, AI agents, and software security.",
   },
 };
 

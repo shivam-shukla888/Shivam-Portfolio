@@ -18,6 +18,19 @@ export const metadata = {
   alternates: {
     canonical: "https://shivsastra.com/store/ai-agents",
   },
+  openGraph: {
+    title: "AI Agents — Store",
+    description:
+      "Agent starter code, tool pipelines, and evaluation workflows by Shivam Shukla.",
+    url: "https://shivsastra.com/store/ai-agents",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AI Agents — Store",
+    description:
+      "Agent starter code, tool pipelines, and evaluation workflows by Shivam Shukla.",
+  },
 };
 
 export default async function AIAgentsStorePage() {

@@ -18,6 +18,19 @@ export const metadata = {
   alternates: {
     canonical: "https://shivsastra.com/store",
   },
+  openGraph: {
+    title: "Store — Shivam Shukla",
+    description:
+      "Digital products, templates, and tools made and sold by Shivam Shukla.",
+    url: "https://shivsastra.com/store",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Store — Shivam Shukla",
+    description:
+      "Digital products, templates, and tools made and sold by Shivam Shukla.",
+  },
 };
 
 export default async function StorePage() {

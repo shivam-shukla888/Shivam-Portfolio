@@ -21,6 +21,11 @@ export const metadata = {
     url: "https://shivsastra.com/contact",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact — Shivam Shukla",
+    description: "Have a project in mind? Tell me what you're building.",
+  },
 };
 
 export default async function ContactPage() {

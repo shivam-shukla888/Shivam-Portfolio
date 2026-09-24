@@ -23,6 +23,12 @@ export const metadata: Metadata = {
     url: "https://shivsastra.com/projects",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Projects — Shivam Shukla",
+    description:
+      "Software projects, systems, and engineering builds by Shivam Shukla.",
+  },
 };
 
 export default async function ProjectsPage() {

@@ -22,6 +22,12 @@ export const metadata: Metadata = {
     url: "https://shivsastra.com/services",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Services — Shivam Shukla",
+    description:
+      "Software engineering and consulting across backend systems, AI agents, and AI application security by Shivam Shukla.",
+  },
 };
 
 const SERVICE_DOMAINS = [

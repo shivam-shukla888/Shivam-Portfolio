@@ -30,7 +30,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${service.title} — Services & Engagements`,
+    title: `${service.title} — Services | Shivam Shukla`,
     description: service.summary || undefined,
     alternates: {
       canonical: `https://shivsastra.com/services/${service.slug}`,
@@ -40,6 +40,11 @@ export async function generateMetadata({
       description: service.summary || undefined,
       url: `https://shivsastra.com/services/${service.slug}`,
       type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${service.title} — Shivam Shukla`,
+      description: service.summary || undefined,
     },
   };
 }
@@ -51,6 +56,31 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
   if (!service || !service.isActive) {
     notFound();
   }
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://shivsastra.com",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Services",
+        item: "https://shivsastra.com/services",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: service.title,
+        item: `https://shivsastra.com/services/${service.slug}`,
+      },
+    ],
+  };
 
   const contactUrl = `/contact?subject=${encodeURIComponent(`Service Inquiry: ${service.title}`)}`;
 
@@ -64,6 +94,10 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
 
   return (
     <article className="w-full pt-16 md:pt-24 pb-20 md:pb-28">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <ScrollProgress />
       <BackToTop />
       <SectionContainer>

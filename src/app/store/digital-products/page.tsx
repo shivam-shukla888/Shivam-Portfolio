@@ -18,6 +18,19 @@ export const metadata = {
   alternates: {
     canonical: "https://shivsastra.com/store/digital-products",
   },
+  openGraph: {
+    title: "Digital Products — Store",
+    description:
+      "Code starter repos, developer templates, and technical downloads by Shivam Shukla.",
+    url: "https://shivsastra.com/store/digital-products",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Digital Products — Store",
+    description:
+      "Code starter repos, developer templates, and technical downloads by Shivam Shukla.",
+  },
 };
 
 export default async function DigitalProductsStorePage() {

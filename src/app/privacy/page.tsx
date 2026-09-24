@@ -179,13 +179,19 @@ export default function PrivacyPolicyPage() {
                 </p>
               </section>
 
-              {/* 6. Future Functionality */}
+              {/* 6. Digital Product Orders & Payment Processing */}
               <section className="space-y-3">
                 <h2 className="font-display text-xl sm:text-2xl text-[var(--color-ink-primary)] font-normal tracking-tight">
-                  6. Future Functionality
+                  6. Digital Product Orders & Payment Processing
                 </h2>
                 <p>
-                  Certain features, such as digital product checkout or client portal integrations, may be introduced in the future and this Privacy Policy will be updated accordingly prior to activation.
+                  When you purchase a digital product from the SHIVSASTRA Store, we collect your direct email address to generate your order record, issue a purchase receipt, and deliver your secure download token.
+                </p>
+                <p>
+                  Payments are processed directly by our payment gateway partner, Razorpay. Sensitive card numbers, CVVs, and banking credentials are handled exclusively by Razorpay under industry payment standards; SHIVSASTRA servers never receive, store, or process raw payment instruments.
+                </p>
+                <p>
+                  Digital delivery links are protected by single-use signed tokens and download attempt limits stored securely in our database.
                 </p>
               </section>
 
@@ -244,7 +250,7 @@ export default function PrivacyPolicyPage() {
                 href="/contact"
                 className="text-[var(--color-accent)] hover:underline"
               >
-                Initiate an Engagement →
+                Get in touch →
               </Link>
             </div>
           </InnerPageEntrance>

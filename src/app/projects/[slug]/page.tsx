@@ -31,7 +31,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${project.title} — Projects & Case Studies`,
+    title: `${project.title} — Projects | Shivam Shukla`,
     description: project.summary || undefined,
     alternates: {
       canonical: `https://shivsastra.com/projects/${project.slug}`,
@@ -41,6 +41,12 @@ export async function generateMetadata({
       description: project.summary || undefined,
       url: `https://shivsastra.com/projects/${project.slug}`,
       type: "article",
+      images: project.coverImageUrl ? [{ url: project.coverImageUrl }] : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.title} — Shivam Shukla`,
+      description: project.summary || undefined,
     },
   };
 }
@@ -53,6 +59,31 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
     notFound();
   }
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://shivsastra.com",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Projects",
+        item: "https://shivsastra.com/projects",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: project.title,
+        item: `https://shivsastra.com/projects/${project.slug}`,
+      },
+    ],
+  };
+
   const publishedDate = project.publishedAt
     ? new Date(project.publishedAt).toLocaleDateString("en-US", {
         year: "numeric",
@@ -63,6 +94,10 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
 
   return (
     <article className="w-full pt-16 md:pt-24 pb-20 md:pb-28">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <ScrollProgress />
       <BackToTop />
       <SectionContainer>

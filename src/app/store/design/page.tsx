@@ -18,6 +18,19 @@ export const metadata = {
   alternates: {
     canonical: "https://shivsastra.com/store/design",
   },
+  openGraph: {
+    title: "Design & Templates — Store",
+    description:
+      "Design templates, interaction kits, and UI components by Shivam Shukla.",
+    url: "https://shivsastra.com/store/design",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Design & Templates — Store",
+    description:
+      "Design templates, interaction kits, and UI components by Shivam Shukla.",
+  },
 };
 
 export default async function DesignStorePage() {

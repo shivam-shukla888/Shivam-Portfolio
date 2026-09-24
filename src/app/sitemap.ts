@@ -74,6 +74,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.5,
     },
+    {
+      url: `${baseUrl}/terms`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/refunds`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.5,
+    },
   ];
 
   try {
@@ -97,12 +109,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         changeFrequency: "monthly" as const,
         priority: 0.8,
       })),
-      ...products.map((pr) => ({
-        url: `${baseUrl}/store/${pr.slug}`,
-        lastModified: new Date(pr.updatedAt || pr.createdAt || Date.now()),
-        changeFrequency: "weekly" as const,
-        priority: 0.8,
-      })),
+      ...products
+        .filter((pr) => pr.isAvailable)
+        .map((pr) => ({
+          url: `${baseUrl}/store/${pr.slug}`,
+          lastModified: new Date(pr.updatedAt || pr.createdAt || Date.now()),
+          changeFrequency: "weekly" as const,
+          priority: 0.8,
+        })),
       ...lab.map((l) => ({
         url: `${baseUrl}/lab/${l.slug}`,
         lastModified: new Date(l.updatedAt || l.createdAt || Date.now()),

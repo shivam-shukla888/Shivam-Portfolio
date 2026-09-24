@@ -19,6 +19,11 @@ export const metadata = {
     url: "https://shivsastra.com/lab",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Lab — Shivam Shukla",
+    description: "Personal sandbox for experimental ideas, software builds, and technical notes.",
+  },
 };
 
 export default async function LabPage() {

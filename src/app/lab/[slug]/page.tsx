@@ -45,6 +45,11 @@ export async function generateMetadata({
       url: `https://shivsastra.com/lab/${entry.slug}`,
       type: "article",
     },
+    twitter: {
+      card: "summary_large_image",
+      title: `${entry.title} | Lab — Shivam Shukla`,
+      description: snippet,
+    },
   };
 }
 
@@ -140,6 +145,31 @@ export default async function LabDetailPage({ params }: LabDetailPageProps) {
     notFound();
   }
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://shivsastra.com",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Lab",
+        item: "https://shivsastra.com/lab",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: entry.title,
+        item: `https://shivsastra.com/lab/${entry.slug}`,
+      },
+    ],
+  };
+
   const publishedDate = entry.publishedAt
     ? new Date(entry.publishedAt).toLocaleDateString("en-US", {
         year: "numeric",
@@ -158,6 +188,9 @@ export default async function LabDetailPage({ params }: LabDetailPageProps) {
 
   return (
     <article className="w-full pt-16 md:pt-24 pb-20 md:pb-28">
+      <script type="application/ld+json">
+        {JSON.stringify(breadcrumbJsonLd)}
+      </script>
       <ScrollProgress />
       <BackToTop />
       <SectionContainer>

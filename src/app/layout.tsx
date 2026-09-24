@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     default: "Shivam Shukla — Backend Systems, Agentic AI & AI Security",
   },
   description:
-    "Personal digital headquarters of Shivam Shukla. Engineering backend systems, agentic AI workflows, and AI security software — with curated digital releases via SHIVSASTRA Store.",
+    "Backend systems, agentic AI workflows, and software security by Shivam Shukla — with digital products and tools via the SHIVSASTRA Store.",
   keywords: [
     "Shivam Shukla",
     "ShivSastra",
@@ -55,13 +55,13 @@ export const metadata: Metadata = {
     siteName: "SHIVSASTRA",
     title: "Shivam Shukla — Backend Systems, Agentic AI & AI Security",
     description:
-      "Personal digital headquarters of Shivam Shukla. Engineering backend systems, agentic AI workflows, and AI security software — with curated digital releases via SHIVSASTRA Store.",
+      "Backend systems, agentic AI workflows, and software security by Shivam Shukla — with digital products and tools via the SHIVSASTRA Store.",
   },
   twitter: {
     card: "summary_large_image",
     title: "Shivam Shukla — Backend Systems, Agentic AI & AI Security",
     description:
-      "Personal digital headquarters of Shivam Shukla. Engineering backend systems, agentic AI workflows, and AI security software — with curated digital releases via SHIVSASTRA Store.",
+      "Backend systems, agentic AI workflows, and software security by Shivam Shukla — with digital products and tools via the SHIVSASTRA Store.",
   },
   robots: {
     index: true,

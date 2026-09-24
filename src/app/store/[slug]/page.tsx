@@ -57,6 +57,24 @@ export async function generateMetadata({
     alternates: {
       canonical: `https://shivsastra.com/store/${slug}`,
     },
+    openGraph: {
+      title: `${product.title} — Store`,
+      description:
+        product.shortDescription ||
+        product.description ||
+        "Digital product by Shivam Shukla.",
+      url: `https://shivsastra.com/store/${slug}`,
+      type: "website",
+      images: product.previewImageUrl ? [{ url: product.previewImageUrl }] : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${product.title} — Store`,
+      description:
+        product.shortDescription ||
+        product.description ||
+        "Digital product by Shivam Shukla.",
+    },
   };
 }
 
@@ -86,8 +104,78 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
       })
     : null;
 
+  const productJsonLd: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.title,
+    description: product.shortDescription || product.description || undefined,
+    image: product.previewImageUrl || undefined,
+    category: categoryName,
+    offers: {
+      "@type": "Offer",
+      price: product.priceInCents !== null ? (product.priceInCents / 100).toFixed(2) : undefined,
+      priceCurrency: product.currency || "INR",
+      availability: product.isAvailable ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+      url: `https://shivsastra.com/store/${slug}`,
+    },
+  };
+
+  if (reviews.length > 0) {
+    productJsonLd.review = reviews.map((rev) => ({
+      "@type": "Review",
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: rev.rating,
+      },
+      author: {
+        "@type": "Person",
+        name: rev.authorName,
+      },
+      reviewBody: rev.content,
+    }));
+  }
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://shivsastra.com",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Store",
+        item: "https://shivsastra.com/store",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: categoryName,
+        item: `https://shivsastra.com${categoryHref}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 4,
+        name: product.title,
+        item: `https://shivsastra.com/store/${product.slug}`,
+      },
+    ],
+  };
+
   return (
     <article className="w-full pt-16 md:pt-24 pb-20 md:pb-28">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <ScrollProgress />
       <BackToTop />
       <SectionContainer>

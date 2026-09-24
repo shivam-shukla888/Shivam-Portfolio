@@ -26,17 +26,17 @@ export default function ErrorBoundary({ error, reset }: ErrorProps) {
           <div className="flex items-center justify-center sm:justify-start gap-2.5">
             <span className="w-2 h-2 bg-[var(--color-accent)] inline-block shrink-0" />
             <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--color-accent)] font-semibold">
-              EXCEPTION CAPTURED · 500
+              500
             </span>
           </div>
 
           {/* Heading */}
           <div className="space-y-4">
             <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight text-[var(--color-ink-primary)] leading-[1.08]">
-              An unexpected system interruption occurred.
+              Something went wrong.
             </h1>
             <p className="font-sans text-sm sm:text-base text-[var(--color-ink-secondary)] leading-relaxed max-w-xl">
-              The application encountered an unexpected condition while rendering this view. State has been isolated to prevent further disruption.
+              An unexpected error occurred while loading this page. You can try refreshing or returning home.
             </p>
           </div>
 
@@ -48,7 +48,7 @@ export default function ErrorBoundary({ error, reset }: ErrorProps) {
               onClick={() => reset()}
               className="font-mono text-xs uppercase tracking-wider"
             >
-              Retry Operation ↺
+              Try again ↺
             </Button>
             <Link
               href="/"
@@ -58,18 +58,18 @@ export default function ErrorBoundary({ error, reset }: ErrorProps) {
                 className: "font-mono text-xs uppercase tracking-wider",
               })}
             >
-              Return Home →
+              Back home →
             </Link>
           </div>
 
           {/* Reference Colophon */}
           <div className="pt-8 border-t border-[var(--color-hairline)] flex items-center justify-between text-xs font-mono text-[var(--color-ink-secondary)]">
             <span>
-              STATUS: FAIL_SAFE_ISOLATION
+              500 — Application error
               {error.digest ? ` [REF: ${error.digest.slice(0, 8)}]` : ""}
             </span>
             <Link href="/contact" className="hover:text-[var(--color-accent)] transition-colors underline">
-              Contact Support →
+              Get in touch →
             </Link>
           </div>
         </div>

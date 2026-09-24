@@ -29,12 +29,12 @@ const nextConfig: NextConfig = {
   async headers() {
     const cspDirectives = [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://challenges.cloudflare.com",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://challenges.cloudflare.com https://checkout.razorpay.com",
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob: https:",
       "font-src 'self' data:",
-      "connect-src 'self' https: wss: https://challenges.cloudflare.com",
-      "frame-src 'self' https://challenges.cloudflare.com",
+      "connect-src 'self' https: wss: https://challenges.cloudflare.com https://lumberjack.razorpay.com",
+      "frame-src 'self' https://challenges.cloudflare.com https://api.razorpay.com",
       "frame-ancestors 'none'",
       "base-uri 'self'",
       "form-action 'self'",
