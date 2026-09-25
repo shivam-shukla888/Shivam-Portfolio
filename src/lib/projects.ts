@@ -88,60 +88,91 @@ function getProjectsQueryClient(): SupabaseClient | null {
   return null;
 }
 
+export const YOJNA_SETU_PROJECT: Project = {
+  id: "yojna-setu-v2",
+  slug: "yojna-setu",
+  title: "Yojna Setu",
+  editionCode: "YS-V2",
+  summary:
+    "Privacy-Aware Government Scheme Discovery & Eligibility Platform. Multilingual natural language intake coupled with a deterministic, testable rules engine over 82 normalized welfare schemes.",
+  caseStudyMarkdown: null,
+  coverImageUrl: "/images/projects/yojna-setu/cover.svg",
+  category: "Backend Systems · AI Security",
+  techStack: [
+    "Java 21",
+    "Spring Boot",
+    "PostgreSQL",
+    "Supabase",
+    "Groq",
+    "Twilio Boundary",
+  ],
+  projectYear: 2026,
+  liveUrl: null,
+  githubUrl: "https://github.com/shivam-shukla888/Yojna-Setu",
+  isFeatured: true,
+  sortOrder: 1,
+  publishedAt: "2026-09-25T12:00:00Z",
+};
+
 const PUBLIC_PROJECT_COLUMNS =
   "id, slug, title, edition_code, summary, case_study_markdown, cover_image_url, category, tech_stack, project_year, live_url, github_url, is_featured, sort_order, published_at";
 
 /**
  * Fetches all published projects ordered deterministically by sort_order ASC, then created_at DESC.
- * Gracefully degrades to an empty array if Supabase is unconfigured or unreachable.
+ * Seamlessly integrates canonical featured projects (Yojna Setu V2) with live Supabase storage.
  */
 export async function getPublishedProjects(options?: {
   featuredOnly?: boolean;
   limit?: number;
 }): Promise<Project[]> {
+  let projects: Project[] = [];
+
   try {
     const client = getProjectsQueryClient();
-    if (!client) {
-      return [];
-    }
+    if (client) {
+      let query = client
+        .from("projects")
+        .select(PUBLIC_PROJECT_COLUMNS)
+        .not("published_at", "is", null)
+        .order("sort_order", { ascending: true })
+        .order("created_at", { ascending: false });
 
-    let query = client
-      .from("projects")
-      .select(PUBLIC_PROJECT_COLUMNS)
-      .not("published_at", "is", null)
-      .order("sort_order", { ascending: true })
-      .order("created_at", { ascending: false });
-
-    if (options?.featuredOnly) {
-      query = query.eq("is_featured", true);
-    }
-
-    if (options?.limit && options.limit > 0) {
-      query = query.limit(options.limit);
-    }
-
-    const { data, error } = await query;
-
-    if (error || !data) {
-      if (error) {
-        console.error(
-          `[PROJECTS DATA] Query failed: ${error.code || error.message}`
-        );
+      if (options?.featuredOnly) {
+        query = query.eq("is_featured", true);
       }
-      return [];
-    }
 
-    return (data as unknown as ProjectRow[]).map(mapProject);
+      const { data, error } = await query;
+      if (!error && data && Array.isArray(data)) {
+        projects = (data as unknown as ProjectRow[]).map(mapProject);
+      }
+    }
   } catch (err) {
     const message = err instanceof Error ? err.message : "Unknown error";
     console.error(`[PROJECTS EXCEPTION] ${message}`);
-    return [];
   }
+
+  // Ensure canonical Yojna Setu V2 project is present in the archive
+  const hasYojnaSetu = projects.some((p) => p.slug === "yojna-setu");
+  if (!hasYojnaSetu) {
+    if (!options?.featuredOnly || YOJNA_SETU_PROJECT.isFeatured) {
+      projects.unshift(YOJNA_SETU_PROJECT);
+    }
+  }
+
+  // Deterministic sort by sortOrder ASC
+  projects.sort((a, b) => a.sortOrder - b.sortOrder);
+
+  if (options?.limit && options.limit > 0) {
+    projects = projects.slice(0, options.limit);
+  }
+
+  return projects;
 }
 
 /**
  * Resolves a single published project by its slug.
  * Excludes unpublished projects strictly (returns null).
+ * Guarantees resolution for canonical projects (yojna-setu).
  */
 export async function getPublishedProjectBySlug(
   slug: string
@@ -150,32 +181,31 @@ export async function getPublishedProjectBySlug(
     return null;
   }
 
+  const normalizedSlug = slug.trim();
+
   try {
     const client = getProjectsQueryClient();
-    if (!client) {
-      return null;
-    }
+    if (client) {
+      const { data, error } = await client
+        .from("projects")
+        .select(PUBLIC_PROJECT_COLUMNS)
+        .eq("slug", normalizedSlug)
+        .not("published_at", "is", null)
+        .maybeSingle();
 
-    const { data, error } = await client
-      .from("projects")
-      .select(PUBLIC_PROJECT_COLUMNS)
-      .eq("slug", slug.trim())
-      .not("published_at", "is", null)
-      .maybeSingle();
-
-    if (error || !data) {
-      if (error) {
-        console.error(
-          `[PROJECTS DATA] Slug query failed: ${error.code || error.message}`
-        );
+      if (!error && data) {
+        return mapProject(data as unknown as ProjectRow);
       }
-      return null;
     }
-
-    return mapProject(data as unknown as ProjectRow);
   } catch (err) {
     const message = err instanceof Error ? err.message : "Unknown error";
     console.error(`[PROJECTS EXCEPTION] ${message}`);
-    return null;
   }
+
+  // Canonical fallback for Yojna Setu V2
+  if (normalizedSlug === "yojna-setu") {
+    return YOJNA_SETU_PROJECT;
+  }
+
+  return null;
 }

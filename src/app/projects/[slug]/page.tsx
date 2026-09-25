@@ -9,6 +9,7 @@ import { InnerPageEntrance } from "@/components/layout/InnerPageEntrance";
 import { getPublishedProjectBySlug } from "@/lib/projects";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { BackToTop } from "@/components/ui/BackToTop";
+import { YojnaSetuCaseStudy } from "@/components/projects/yojna-setu/YojnaSetuCaseStudy";
 
 export const revalidate = 60;
 
@@ -22,6 +23,32 @@ export async function generateMetadata({
   params,
 }: ProjectPageProps): Promise<Metadata> {
   const { slug } = await params;
+
+  if (slug === "yojna-setu") {
+    return {
+      title: "Yojna Setu — Privacy-Aware Government Scheme Eligibility Platform | SHIVSASTRA",
+      description:
+        "Yojna Setu is a conversational government-scheme discovery system combining multilingual AI extraction with deterministic eligibility rules, normalized scheme data, and security-hardened backend infrastructure.",
+      alternates: {
+        canonical: "https://shivsastra.vercel.app/projects/yojna-setu",
+      },
+      openGraph: {
+        title: "Yojna Setu — Privacy-Aware Government Scheme Discovery Platform",
+        description:
+          "Conversational scheme discovery system combining multilingual AI extraction with deterministic eligibility rules over 82 normalized welfare programs.",
+        url: "https://shivsastra.vercel.app/projects/yojna-setu",
+        type: "article",
+        images: [{ url: "/images/projects/yojna-setu/cover.svg" }],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: "Yojna Setu — Privacy-Aware Government Scheme Discovery Platform",
+        description:
+          "Conversational scheme discovery system combining multilingual AI extraction with deterministic eligibility rules over 82 normalized welfare programs.",
+      },
+    };
+  }
+
   const project = await getPublishedProjectBySlug(slug);
 
   if (!project) {
@@ -83,6 +110,19 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
       },
     ],
   };
+
+  // Bespoke editorial monograph for flagship Yojna Setu V2 case study
+  if (slug === "yojna-setu") {
+    return (
+      <>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        />
+        <YojnaSetuCaseStudy />
+      </>
+    );
+  }
 
   const publishedDate = project.publishedAt
     ? new Date(project.publishedAt).toLocaleDateString("en-US", {

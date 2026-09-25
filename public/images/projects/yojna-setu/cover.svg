@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000">
+  <defs>
+    <style>
+      .serif { font-family: 'Newsreader', Georgia, serif; }
+      .sans { font-family: 'Inter', -apple-system, sans-serif; }
+      .mono { font-family: 'JetBrains Mono', monospace; }
+    </style>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#E6E3DC" stroke-width="0.75" opacity="0.6"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1600" height="1000" fill="#FAF9F6"/>
+  <rect width="1600" height="1000" fill="url(#grid)"/>
+
+  <!-- Outer Editorial Border -->
+  <rect x="40" y="40" width="1520" height="920" fill="none" stroke="#E6E3DC" stroke-width="1.5"/>
+  <rect x="48" y="48" width="1504" height="904" fill="none" stroke="#E6E3DC" stroke-width="0.75"/>
+
+  <!-- Top Metadata Header Bar -->
+  <line x1="40" y1="120" x2="1560" y2="120" stroke="#E6E3DC" stroke-width="1.5"/>
+  <text x="80" y="92" class="mono" font-size="14" fill="#D45A2A" letter-spacing="3" font-weight="600">EDITION 01 // ARCHITECTURAL REBUILD</text>
+  <text x="800" y="92" class="mono" font-size="13" fill="#6E6D68" letter-spacing="2">JAVA 21 · SPRING BOOT · SUPABASE · GROQ</text>
+  <text x="1440" y="92" class="mono" font-size="13" fill="#111112" font-weight="600" text-anchor="end">RELEASE READY V2</text>
+
+  <!-- Center Content Grid -->
+  <!-- Left Column: Title and Narrative -->
+  <g transform="translate(80, 240)">
+    <text x="0" y="0" class="mono" font-size="13" fill="#D45A2A" letter-spacing="3" font-weight="600">PROJECT CODE // YS-V2</text>
+    <text x="0" y="80" class="serif" font-size="82" fill="#111112" font-weight="400" letter-spacing="-1">Yojna Setu</text>
+    <text x="0" y="140" class="sans" font-size="22" fill="#6E6D68" font-weight="400" letter-spacing="0">Privacy-Aware Government Scheme Discovery &amp; Eligibility Platform</text>
+    
+    <line x1="0" y1="200" x2="680" y2="200" stroke="#E6E3DC" stroke-width="1"/>
+
+    <!-- Key Verified Metric Strip -->
+    <g transform="translate(0, 240)">
+      <g>
+        <text x="0" y="0" class="serif" font-size="44" fill="#111112">82</text>
+        <text x="0" y="24" class="mono" font-size="11" fill="#6E6D68" letter-spacing="1">WELFARE SCHEMES</text>
+        <text x="0" y="40" class="mono" font-size="10" fill="#D45A2A">63 Central · 11 State · 8 Phil.</text>
+      </g>
+      <g transform="translate(220, 0)">
+        <text x="0" y="0" class="serif" font-size="44" fill="#111112">42/42</text>
+        <text x="0" y="24" class="mono" font-size="11" fill="#6E6D68" letter-spacing="1">AUTOMATED TESTS</text>
+        <text x="0" y="40" class="mono" font-size="10" fill="#111112">100% Passing Suite</text>
+      </g>
+      <g transform="translate(440, 0)">
+        <text x="0" y="0" class="serif" font-size="44" fill="#111112">&lt;1 ms</text>
+        <text x="0" y="24" class="mono" font-size="11" fill="#6E6D68" letter-spacing="1">OBSERVED SQL QUERY</text>
+        <text x="0" y="40" class="mono" font-size="10" fill="#6E6D68">Supabase PostgreSQL 17</text>
+      </g>
+    </g>
+
+    <!-- Thesis quote -->
+    <g transform="translate(0, 360)">
+      <rect x="0" y="0" width="680" height="70" fill="#F4F2EC" stroke="#E6E3DC" stroke-width="1"/>
+      <text x="24" y="40" class="serif" font-style="italic" font-size="18" fill="#111112">“AI understands citizen language. Deterministic rules decide eligibility.”</text>
+    </g>
+  </g>
+
+  <!-- Right Column: Architectural Flow Diagram Blueprint -->
+  <g transform="translate(860, 180)">
+    <rect x="0" y="0" width="620" height="580" fill="#F4F2EC" stroke="#E6E3DC" stroke-width="1.5"/>
+    <rect x="16" y="16" width="588" height="548" fill="none" stroke="#E6E3DC" stroke-width="0.75" stroke-dasharray="4,4"/>
+
+    <!-- Blueprint Header -->
+    <text x="36" y="52" class="mono" font-size="12" fill="#D45A2A" letter-spacing="2" font-weight="600">SYSTEM ARCHITECTURE // V2 SECURITY PIPELINE</text>
+    <line x1="36" y1="68" x2="584" y2="68" stroke="#E6E3DC" stroke-width="1"/>
+
+    <!-- Nodes -->
+    <!-- Node 1: Citizen Ingestion -->
+    <g transform="translate(36, 92)">
+      <rect width="548" height="58" fill="#FAF9F6" stroke="#111112" stroke-width="1"/>
+      <text x="20" y="26" class="sans" font-size="13" font-weight="600" fill="#111112">CITIZEN INTERACTION LAYER</text>
+      <text x="20" y="44" class="mono" font-size="11" fill="#6E6D68">Multilingual WhatsApp / Browser Demo Session</text>
+      <rect x="460" y="16" width="68" height="26" fill="#111112"/>
+      <text x="494" y="33" class="mono" font-size="10" fill="#FAF9F6" text-anchor="middle">INPUT</text>
+    </g>
+
+    <!-- Connector Arrow -->
+    <line x1="310" y1="150" x2="310" y2="176" stroke="#D45A2A" stroke-width="1.5"/>
+    <polygon points="310,178 306,170 314,170" fill="#D45A2A"/>
+
+    <!-- Node 2: Webhook Security & Ingestion -->
+    <g transform="translate(36, 178)">
+      <rect width="548" height="64" fill="#FAF9F6" stroke="#E6E3DC" stroke-width="1"/>
+      <text x="20" y="26" class="sans" font-size="13" font-weight="600" fill="#111112">WEBHOOK SECURITY BOUNDARY</text>
+      <text x="20" y="46" class="mono" font-size="11" fill="#6E6D68">HMAC Signature · Two-Tier Idempotency · SSRF Media Filter</text>
+    </g>
+
+    <!-- Connector Arrow -->
+    <line x1="310" y1="242" x2="310" y2="268" stroke="#D45A2A" stroke-width="1.5"/>
+    <polygon points="310,270 306,262 314,262" fill="#D45A2A"/>
+
+    <!-- Node 3: AI Boundary -->
+    <g transform="translate(36, 270)">
+      <rect width="548" height="64" fill="#FAF9F6" stroke="#E6E3DC" stroke-width="1"/>
+      <text x="20" y="26" class="sans" font-size="13" font-weight="600" fill="#111112">AI EXTRACTION BOUNDARY (NON-AUTHORITATIVE)</text>
+      <text x="20" y="46" class="mono" font-size="11" fill="#6E6D68">Groq GPT-OSS-20B (Hinglish Slot Filling) · Whisper Turbo</text>
+    </g>
+
+    <!-- Connector Arrow -->
+    <line x1="310" y1="334" x2="310" y2="360" stroke="#D45A2A" stroke-width="1.5"/>
+    <polygon points="310,362 306,354 314,354" fill="#D45A2A"/>
+
+    <!-- Node 4: Deterministic Rules Engine (The Authority) -->
+    <g transform="translate(36, 362)">
+      <rect width="548" height="74" fill="#111112" stroke="#111112" stroke-width="1.5"/>
+      <text x="20" y="28" class="sans" font-size="14" font-weight="600" fill="#FAF9F6">DETERMINISTIC ELIGIBILITY ENGINE</text>
+      <text x="20" y="50" class="mono" font-size="11" fill="#D45A2A">SOLE DECISION AUTHORITY · 100% TEST COVERAGE</text>
+      <text x="20" y="64" class="sans" font-size="10" fill="#E6E3DC">Strict relational predicates (age, income, residency, social category)</text>
+    </g>
+
+    <!-- Connector Arrow -->
+    <line x1="310" y1="436" x2="310" y2="462" stroke="#D45A2A" stroke-width="1.5"/>
+    <polygon points="310,464 306,456 314,456" fill="#D45A2A"/>
+
+    <!-- Node 5: Supabase PostgreSQL 17 Storage -->
+    <g transform="translate(36, 464)">
+      <rect width="548" height="60" fill="#FAF9F6" stroke="#E6E3DC" stroke-width="1"/>
+      <text x="20" y="26" class="sans" font-size="13" font-weight="600" fill="#111112">SUPABASE POSTGRESQL 17</text>
+      <text x="20" y="44" class="mono" font-size="11" fill="#6E6D68">Schema: yojna_setu · 82 Normalized Schemes in 1NF Tables</text>
+    </g>
+  </g>
+
+  <!-- Bottom Editorial Footer Bar -->
+  <line x1="40" y1="880" x2="1560" y2="880" stroke="#E6E3DC" stroke-width="1.5"/>
+  <text x="80" y="918" class="mono" font-size="12" fill="#6E6D68">CASE STUDY &amp; MONOGRAPH // SHIVSASTRA PORTFOLIO</text>
+  <text x="1520" y="918" class="mono" font-size="12" fill="#6E6D68" text-anchor="end">SHIVAM SHUKLA — BACKEND SYSTEMS &amp; AI SECURITY</text>
+</svg>

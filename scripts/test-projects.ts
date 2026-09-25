@@ -32,14 +32,14 @@ export async function runProjectsIntegrationSuite() {
 
   const offlineList = await getPublishedProjects();
   assert(
-    Array.isArray(offlineList) && offlineList.length === 0,
-    "D.1 Unconfigured environment returns empty array for getPublishedProjects"
+    Array.isArray(offlineList) && offlineList.some((p) => p.slug === "yojna-setu"),
+    "D.1 Unconfigured environment returns canonical published projects (yojna-setu)"
   );
 
-  const offlineSlug = await getPublishedProjectBySlug("any-slug");
+  const offlineSlug = await getPublishedProjectBySlug("any-non-existent-slug");
   assert(
     offlineSlug === null,
-    "D.2 Unconfigured environment returns null for getPublishedProjectBySlug"
+    "D.2 Unconfigured environment returns null for non-existent slug query"
   );
 
   // Unreachable / malformed host
@@ -49,14 +49,14 @@ export async function runProjectsIntegrationSuite() {
 
   const networkErrList = await getPublishedProjects();
   assert(
-    Array.isArray(networkErrList) && networkErrList.length === 0,
-    "D.3 Unreachable host degrades gracefully to empty array without throwing"
+    Array.isArray(networkErrList) && networkErrList.some((p) => p.slug === "yojna-setu"),
+    "D.3 Unreachable host degrades gracefully to canonical published projects without throwing"
   );
 
-  const networkErrSlug = await getPublishedProjectBySlug("any-slug");
+  const networkErrSlug = await getPublishedProjectBySlug("any-non-existent-slug");
   assert(
     networkErrSlug === null,
-    "D.4 Unreachable host degrades gracefully to null for slug query without throwing"
+    "D.4 Unreachable host degrades gracefully to null for non-existent slug query without throwing"
   );
 
   // -------------------------------------------------------------
@@ -78,6 +78,15 @@ export async function runProjectsIntegrationSuite() {
   assert(
     nonExistentSlug === null,
     "A.2 Non-existent slug query returns null (triggers notFound)"
+  );
+
+  const yojnaSetuProject = await getPublishedProjectBySlug("yojna-setu");
+  assert(
+    yojnaSetuProject !== null &&
+    yojnaSetuProject.slug === "yojna-setu" &&
+    yojnaSetuProject.title === "Yojna Setu" &&
+    yojnaSetuProject.isFeatured === true,
+    "A.3 Canonical Yojna Setu slug resolves successfully with correct metadata"
   );
 
   // -------------------------------------------------------------

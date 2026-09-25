@@ -101,7 +101,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         url: `${baseUrl}/projects/${p.slug}`,
         lastModified: new Date(p.publishedAt || Date.now()),
         changeFrequency: "monthly" as const,
-        priority: 0.8,
+        priority: p.slug === "yojna-setu" ? 0.9 : 0.8,
       })),
       ...services.map((s) => ({
         url: `${baseUrl}/services/${s.slug}`,
@@ -125,8 +125,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       })),
     ];
 
+    // Ensure yojna-setu is present even if dynamic fetch had an unexpected edge case
+    if (!dynamicRoutes.some((r) => r.url === `${baseUrl}/projects/yojna-setu`)) {
+      dynamicRoutes.unshift({
+        url: `${baseUrl}/projects/yojna-setu`,
+        lastModified: new Date(),
+        changeFrequency: "monthly" as const,
+        priority: 0.9,
+      });
+    }
+
     return [...staticRoutes, ...dynamicRoutes];
   } catch {
-    return staticRoutes;
+    return [
+      ...staticRoutes,
+      {
+        url: `${baseUrl}/projects/yojna-setu`,
+        lastModified: new Date(),
+        changeFrequency: "monthly" as const,
+        priority: 0.9,
+      },
+    ];
   }
 }
