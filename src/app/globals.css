@@ -104,6 +104,36 @@ body {
 }
 
 /* Production-Quality Print Stylesheet */
+/* Desktop Companion Mascot - Subtle Bounded Idle Animation */
+@keyframes mascot-idle-wander {
+  0%, 100% {
+    transform: translate(0px, 0px);
+  }
+  20% {
+    transform: translate(6px, -3px);
+  }
+  40% {
+    transform: translate(6px, 1px);
+  }
+  60% {
+    transform: translate(-5px, -2px);
+  }
+  80% {
+    transform: translate(-5px, 0px);
+  }
+}
+
+.animate-mascot-wander {
+  animation: mascot-idle-wander 16s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-mascot-wander {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
 @media print {
   @page {
     margin: 15mm;

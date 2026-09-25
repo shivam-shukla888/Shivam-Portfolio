@@ -26,14 +26,14 @@ export async function generateMetadata({
 
   if (slug === "yojna-setu") {
     return {
-      title: "Yojna Setu — Privacy-Aware Government Scheme Eligibility Platform | SHIVSASTRA",
+      title: "Yojna Setu — WhatsApp AI Agent for Welfare-Scheme Discovery",
       description:
-        "Yojna Setu is a conversational government-scheme discovery system combining multilingual AI extraction with deterministic eligibility rules, normalized scheme data, and security-hardened backend infrastructure.",
+        "A WhatsApp AI agent for welfare-scheme discovery combining conversational demographic profile extraction with deterministic Java rules over 82 normalized schemes.",
       alternates: {
         canonical: "https://shivsastra.vercel.app/projects/yojna-setu",
       },
       openGraph: {
-        title: "Yojna Setu — Privacy-Aware Government Scheme Discovery Platform",
+        title: "Yojna Setu — WhatsApp AI Agent for Welfare-Scheme Discovery",
         description:
           "Conversational scheme discovery system combining multilingual AI extraction with deterministic eligibility rules over 82 normalized welfare programs.",
         url: "https://shivsastra.vercel.app/projects/yojna-setu",
@@ -42,7 +42,7 @@ export async function generateMetadata({
       },
       twitter: {
         card: "summary_large_image",
-        title: "Yojna Setu — Privacy-Aware Government Scheme Discovery Platform",
+        title: "Yojna Setu — WhatsApp AI Agent for Welfare-Scheme Discovery",
         description:
           "Conversational scheme discovery system combining multilingual AI extraction with deterministic eligibility rules over 82 normalized welfare programs.",
       },
@@ -113,11 +113,30 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
 
   // Bespoke editorial monograph for flagship Yojna Setu V2 case study
   if (slug === "yojna-setu") {
+    const techArticleJsonLd = {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      headline: "Yojna Setu — WhatsApp AI Agent for Welfare-Scheme Discovery",
+      description:
+        "A WhatsApp AI agent for welfare-scheme discovery combining conversational demographic profile extraction with deterministic Java rules over 82 normalized schemes.",
+      author: {
+        "@type": "Person",
+        name: "Shivam Shukla",
+        url: "https://shivsastra.vercel.app",
+      },
+      url: "https://shivsastra.vercel.app/projects/yojna-setu",
+      image: "https://shivsastra.vercel.app/images/projects/yojna-setu/cover.svg",
+    };
+
     return (
       <>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(techArticleJsonLd) }}
         />
         <YojnaSetuCaseStudy />
       </>

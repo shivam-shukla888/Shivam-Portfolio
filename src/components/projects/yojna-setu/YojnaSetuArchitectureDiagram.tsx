@@ -28,7 +28,7 @@ export function YojnaSetuArchitectureDiagram() {
       title: "Java Eligibility Rules",
       channel: "Deterministic Engine",
       description: "Evaluates exact statutory rules: age limits, income ceilings, caste, and state residency criteria.",
-      detail: "The sole authority for qualification decisions. Eliminates hallucinations and string matching bugs.",
+      detail: "The sole authority for qualification decisions. Replaces probabilistic text matching with deterministic relational rules.",
     },
     {
       num: "05",

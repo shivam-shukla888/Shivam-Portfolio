@@ -59,7 +59,7 @@ export const YOJNA_SETU_DATA = {
   status: "Release Ready With Documented Conditions",
   role: "Architecture · Backend · Security · AI Integration",
   summary:
-    "A multilingual government scheme discovery system. AI extracts user profile details from conversational messages, while deterministic Java rules evaluate eligibility over 82 normalized schemes.",
+    "A WhatsApp AI agent for welfare-scheme discovery. Users talk naturally in conversational Hindi or English — AI extracts demographic profile attributes, while deterministic Java rules evaluate eligibility over 82 normalized schemes.",
   coverImageUrl: "/images/projects/yojna-setu/cover.svg",
   githubUrl: "https://github.com/shivam-shukla888/Yojna-Setu",
   repoNote: "Backend repository pending public release.",

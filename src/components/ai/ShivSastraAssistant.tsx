@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { SafeMarkdown } from "./SafeMarkdown";
+import { ShivSastraMascot } from "./ShivSastraMascot";
 
 export interface Message {
   id: string;
@@ -11,10 +12,11 @@ export interface Message {
 }
 
 const SUGGESTED_PROMPTS = [
-  "What does Shivam build?",
-  "Tell me about the services.",
+  "Explain Yojna Setu.",
+  "What projects has Shivam built?",
+  "Show me the security work.",
+  "What technologies were used?",
   "What is available in the store?",
-  "How can I start a project?",
 ];
 
 export function ShivSastraAssistant() {
@@ -157,32 +159,73 @@ export function ShivSastraAssistant() {
 
   return (
     <>
-      {/* 3.1 Editorial Trigger Button */}
-      <button
-        ref={triggerButtonRef}
-        type="button"
-        onClick={() => setIsOpen((prev) => !prev)}
-        aria-expanded={isOpen}
-        aria-controls="shivsastra-ai-dialog"
-        aria-label={isOpen ? "Close ShivSastra AI Assistant" : "Open ShivSastra AI Assistant"}
-        className={cn(
-          "fixed bottom-5 right-5 sm:bottom-8 sm:right-8 z-40",
-          "h-11 px-4 flex items-center gap-2.5",
-          "bg-[var(--color-canvas-primary)] border border-[var(--color-hairline)]",
-          "text-[var(--color-ink-primary)] font-mono text-[11px] tracking-[0.08em] uppercase",
-          "hover:border-[var(--color-ink-primary)] transition-all duration-150 active:scale-[0.98]",
-          "shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
-        )}
-      >
-        <span
+      {/* Global "Ask SHIVSASTRA" Companion Trigger */}
+      {/* Desktop Mascot Trigger: Subtle bounded wander near bottom-right */}
+      <div className="fixed bottom-6 right-6 z-40 hidden sm:block">
+        <button
+          ref={triggerButtonRef}
+          type="button"
+          onClick={() => setIsOpen((prev) => !prev)}
+          aria-expanded={isOpen}
+          aria-controls="shivsastra-ai-dialog"
+          aria-label={isOpen ? "Close SHIVSASTRA Assistant" : "Ask SHIVSASTRA"}
           className={cn(
-            "w-2 h-2 bg-[var(--color-accent)] inline-block transition-transform duration-200",
-            isOpen ? "rotate-45" : "rotate-0"
+            "group relative flex flex-col items-end gap-1.5 focus-visible:outline-none",
+            "animate-mascot-wander cursor-pointer select-none"
           )}
-          aria-hidden="true"
-        />
-        <span>{isOpen ? "Close Assistant" : "Ask ShivSastra"}</span>
-      </button>
+        >
+          {/* Subtle Speech Pill / Indicator */}
+          <div
+            className={cn(
+              "px-2.5 py-1 bg-[var(--color-canvas-primary)] border border-[var(--color-hairline)]",
+              "group-hover:border-[var(--color-ink-primary)] shadow-sm",
+              "flex items-center gap-1.5 transition-all duration-200",
+              "text-[var(--color-ink-primary)] font-mono text-[10px] uppercase tracking-wider",
+              isOpen && "border-[var(--color-accent)] text-[var(--color-accent)]"
+            )}
+          >
+            <span
+              className={cn(
+                "w-1.5 h-1.5 bg-[var(--color-accent)] inline-block transition-transform duration-200",
+                isOpen ? "rotate-45" : "rotate-0"
+              )}
+              aria-hidden="true"
+            />
+            <span>{isOpen ? "Close" : "Ask SHIVSASTRA"}</span>
+          </div>
+
+          {/* Original SHIVSASTRA mascot, created specifically for the portfolio. */}
+          <div
+            className={cn(
+              "relative transition-transform duration-200 group-hover:scale-105 group-active:scale-95",
+              isOpen && "opacity-90"
+            )}
+          >
+            <ShivSastraMascot isOpen={isOpen} size="md" />
+          </div>
+        </button>
+      </div>
+
+      {/* Mobile Mascot Trigger: Compact, unobtrusive floating pill */}
+      <div className="fixed bottom-4 right-4 z-40 sm:hidden">
+        <button
+          type="button"
+          onClick={() => setIsOpen((prev) => !prev)}
+          aria-expanded={isOpen}
+          aria-controls="shivsastra-ai-dialog"
+          aria-label={isOpen ? "Close SHIVSASTRA Assistant" : "Ask SHIVSASTRA"}
+          className={cn(
+            "h-10 px-3 flex items-center gap-2",
+            "bg-[var(--color-canvas-primary)] border border-[var(--color-hairline)]",
+            "text-[var(--color-ink-primary)] font-mono text-[10px] tracking-wider uppercase",
+            "active:scale-95 shadow-md focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]",
+            isOpen && "border-[var(--color-accent)]"
+          )}
+        >
+          <ShivSastraMascot isOpen={isOpen} size="sm" />
+          <span>{isOpen ? "Close" : "Ask SHIVSASTRA"}</span>
+        </button>
+      </div>
 
       {/* 3.2 Architectural Chat Panel */}
       {isOpen && (
@@ -256,7 +299,7 @@ export function ShivSastraAssistant() {
                     Ask a question about my work, projects, or services.
                   </p>
                   <p className="text-xs text-[var(--color-ink-secondary)] leading-relaxed pt-1">
-                    Ask about my background in Backend Systems, Agentic AI, and AI Security, or inquire about projects, services, store products, and lab experiments.
+                    Grounded in verified SHIVSASTRA portfolio content, with unknown information explicitly handled instead of invented.
                   </p>
                 </div>
 

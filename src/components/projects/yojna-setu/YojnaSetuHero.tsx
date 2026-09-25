@@ -38,11 +38,15 @@ export function YojnaSetuHero() {
 
       {/* Main Title & Subtitle */}
       <div className="space-y-4 max-w-4xl">
+        <div className="inline-flex items-center gap-2 px-2.5 py-1 border border-[var(--color-accent)] bg-[var(--color-accent)]/5 font-mono text-[10px] uppercase tracking-wider text-[var(--color-accent)]">
+          <span className="w-1.5 h-1.5 bg-[var(--color-accent)] inline-block" />
+          <span>Core Principle: AI understands. Java decides.</span>
+        </div>
         <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-[4.25rem] font-normal tracking-tight text-[var(--color-ink-primary)] leading-[1.05]">
-          Government Scheme Discovery with Deterministic Eligibility.
+          A WhatsApp AI Agent for Welfare-Scheme Discovery.
         </h1>
         <p className="font-sans text-lg md:text-xl text-[var(--color-ink-secondary)] leading-relaxed max-w-3xl">
-          {data.summary}
+          Talk naturally. Let the agent extract your profile attributes from conversational messages. Deterministic Java rules evaluate eligibility over 82 normalized schemes.
         </p>
       </div>
 

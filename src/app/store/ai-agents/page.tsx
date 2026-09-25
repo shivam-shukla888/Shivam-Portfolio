@@ -8,6 +8,7 @@ import {
   getStoreCategoryCounts,
 } from "@/lib/products";
 import { StoreCatalogView } from "@/components/store/StoreCatalogView";
+import { YojnaSetuShowcase } from "@/components/store/YojnaSetuShowcase";
 
 export const revalidate = 60;
 
@@ -77,18 +78,35 @@ export default async function AIAgentsStorePage() {
             </div>
           </InnerPageEntrance>
 
-          {/* Catalog View */}
+          {/* Featured Engineering Showcase: Yojna Setu */}
           <InnerPageEntrance delayIndex={1}>
-            <StoreCatalogView
-              initialProducts={products}
-              categoryCounts={categoryCounts}
-              activeCategory="ai_agents"
-              showCategoryTabs={false}
-            />
+            <div className="space-y-3">
+              <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-wider text-[var(--color-ink-secondary)]">
+                <span>Featured Engineering Showcase</span>
+                <span className="h-px flex-1 bg-[var(--color-hairline)]" />
+              </div>
+              <YojnaSetuShowcase />
+            </div>
+          </InnerPageEntrance>
+
+          {/* Catalog View */}
+          <InnerPageEntrance delayIndex={2}>
+            <div className="space-y-4 pt-4">
+              <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-wider text-[var(--color-ink-secondary)]">
+                <span>Downloadable Starter Kits & Pipelines</span>
+                <span className="h-px flex-1 bg-[var(--color-hairline)]" />
+              </div>
+              <StoreCatalogView
+                initialProducts={products}
+                categoryCounts={categoryCounts}
+                activeCategory="ai_agents"
+                showCategoryTabs={false}
+              />
+            </div>
           </InnerPageEntrance>
 
           {/* Navigation Links */}
-          <InnerPageEntrance delayIndex={2}>
+          <InnerPageEntrance delayIndex={3}>
             <div className="pt-6 border-t border-[var(--color-hairline)] flex items-center justify-between">
               <Link
                 href="/store"

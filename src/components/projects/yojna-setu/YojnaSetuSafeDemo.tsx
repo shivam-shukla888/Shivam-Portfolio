@@ -253,7 +253,7 @@ export function YojnaSetuSafeDemo() {
 
               <div className="p-3 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)]">
                 <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
-                  <strong>Sole Authority:</strong> Qualification is calculated mathematically by the Java engine over relational database rows. No AI hallucination can grant or deny benefits.
+                  <strong>Sole Authority:</strong> Qualification is calculated mathematically by the Java engine over relational database rows. AI cannot grant or deny benefits.
                 </p>
               </div>
             </div>
