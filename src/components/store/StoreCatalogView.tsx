@@ -197,6 +197,11 @@ export function StoreCatalogView({
             const categoryHref =
               CATEGORY_HREFS[product.category] || "/store";
 
+            const itemHref =
+              product.slug === "yojna-setu"
+                ? "/projects/yojna-setu"
+                : `/store/${product.slug}`;
+
             return (
               <article
                 key={product.id}
@@ -205,7 +210,10 @@ export function StoreCatalogView({
                 <div className="space-y-4">
                   {/* Preview Image or Graphic Frame */}
                   {product.previewImageUrl ? (
-                    <div className="w-full aspect-[16/10] border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] overflow-hidden relative">
+                    <Link
+                      href={itemHref}
+                      className="w-full aspect-[16/10] border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] overflow-hidden relative block"
+                    >
                       <Image
                         src={product.previewImageUrl}
                         alt={product.title}
@@ -214,7 +222,7 @@ export function StoreCatalogView({
                         className="object-cover group-hover:scale-[1.02] transition-transform duration-300 motion-reduce:group-hover:scale-100"
                         sizes="(max-width: 1024px) 100vw, 33vw"
                       />
-                    </div>
+                    </Link>
                   ) : (
                     <div className="w-full aspect-[16/10] border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] p-4 flex flex-col justify-between relative">
                       <span className="font-mono text-[10px] text-[var(--color-ink-secondary)] uppercase tracking-wider">
@@ -243,11 +251,11 @@ export function StoreCatalogView({
                   <div className="space-y-1">
                     {product.isFeatured && (
                       <span className="inline-block font-mono text-[9px] uppercase tracking-wider px-1.5 py-0.5 border border-[var(--color-accent)] text-[var(--color-accent)] bg-[var(--color-accent)]/5 mb-1">
-                        Featured Product
+                        {product.priceInCents === null ? "Featured Agent" : "Featured Product"}
                       </span>
                     )}
                     <h2 className="font-display text-2xl font-normal text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors">
-                      <Link href={`/store/${product.slug}`}>{product.title}</Link>
+                      <Link href={itemHref}>{product.title}</Link>
                     </h2>
                   </div>
 
@@ -280,14 +288,14 @@ export function StoreCatalogView({
                     {product.productType.replace("_", " ")}
                   </span>
                   <Link
-                    href={`/store/${product.slug}`}
+                    href={itemHref}
                     className={buttonStyles({
                       variant: "secondary",
                       size: "sm",
                       className: "font-mono uppercase tracking-wider text-xs group/btn",
                     })}
                   >
-                    <span>View Details</span>
+                    <span>{product.slug === "yojna-setu" ? "View Case Study" : "View Details"}</span>
                     <span className="inline-block transition-transform duration-200 group-hover/btn:translate-x-1 motion-reduce:transform-none ml-1">
                       →
                     </span>

@@ -181,124 +181,153 @@ export interface StoreProductsOptions {
   sort?: "newest" | "price_asc" | "price_desc" | "featured";
 }
 
+export const YOJNA_SETU_STORE_ITEM: ProductDisplayData = {
+  id: "yojna-setu-agent",
+  slug: "yojna-setu",
+  releaseCode: "YS-V2",
+  title: "Yojna Setu",
+  shortDescription:
+    "A WhatsApp AI agent for welfare-scheme discovery. Users talk naturally — AI extracts demographic profile attributes, while deterministic Java rules evaluate eligibility over 82 normalized schemes.",
+  description:
+    "A WhatsApp AI agent for welfare-scheme discovery. Users describe themselves in natural language in conversational Hindi or English — AI extracts demographic attributes, then deterministic Java rules evaluate eligibility over 82 normalized schemes.",
+  priceInCents: null,
+  currency: null,
+  category: "ai_agents",
+  productType: "code_license",
+  features: [
+    "82 normalized schemes (63 Central, 11 State, 8 Philanthropic)",
+    "42/42 automated tests passing · 0 Critical findings",
+    "Deterministic Java eligibility engine (<1 ms)",
+    "Interactive product case study & architecture monograph",
+  ],
+  requirements: "Java 21, Spring Boot 3.2, PostgreSQL 17, Groq Cloud, Twilio",
+  faq: [
+    {
+      question: "Is this a purchasable store product?",
+      answer:
+        "No. Yojna Setu is an open architectural case study and agent engineering showcase, not a commercial paid product.",
+    },
+  ],
+  previewImageUrl: "/images/projects/yojna-setu/evidence-whatsapp-discovery.png",
+  isAvailable: true,
+  isFeatured: true,
+  sortOrder: 1,
+  createdAt: "2026-09-25T12:00:00Z",
+  updatedAt: "2026-09-25T12:00:00Z",
+  formattedPrice: "Case Study",
+};
+
+/**
+ * Authoritative canonical store items.
+ * Single source of truth for portfolio showcases represented inside the store.
+ */
+export const CANONICAL_STORE_PRODUCTS: ProductDisplayData[] = [
+  YOJNA_SETU_STORE_ITEM,
+];
+
 /**
  * Fetches available products ordered deterministically.
+ * Merges canonical store items (Yojna Setu) with live Supabase database products.
  * Queries the public view or public columns strictly; never selects storage_asset_path.
- * Gracefully degrades to an empty array if Supabase is unconfigured or unreachable.
+ * Gracefully degrades to canonical items if Supabase is unconfigured or unreachable.
  */
 export async function getPublishedStoreProducts(
   options?: StoreProductsOptions
 ): Promise<ProductDisplayData[]> {
+  let products: ProductDisplayData[] = [];
+
   try {
     const client = getProductsQueryClient();
-    if (!client) {
-      return [];
-    }
-
-    let query = client
-      .from("public_products")
-      .select(PUBLIC_PRODUCT_COLUMNS)
-      .eq("is_available", true);
-
-    if (options?.category) {
-      query = query.eq("category", options.category);
-    }
-
-    if (options?.isFeatured) {
-      query = query.eq("is_featured", true);
-    }
-
-    if (options?.search && options.search.trim()) {
-      const term = options.search.trim();
-      query = query.or(`title.ilike.%${term}%,description.ilike.%${term}%,short_description.ilike.%${term}%`);
-    }
-
-    switch (options?.sort) {
-      case "price_asc":
-        query = query.order("price_in_cents", { ascending: true }).order("sort_order", { ascending: true });
-        break;
-      case "price_desc":
-        query = query.order("price_in_cents", { ascending: false }).order("sort_order", { ascending: true });
-        break;
-      case "featured":
-        query = query
-          .order("is_featured", { ascending: false })
-          .order("sort_order", { ascending: true })
-          .order("created_at", { ascending: false });
-        break;
-      case "newest":
-      default:
-        query = query.order("sort_order", { ascending: true }).order("created_at", { ascending: false });
-        break;
-    }
-
-    if (options?.limit && options.limit > 0) {
-      query = query.limit(options.limit);
-    }
-
-    const { data, error } = await query;
-
-    if (error || !data) {
-      // If public_products view fails, fallback to products table public columns
-      let fallbackQuery = client
-        .from("products")
+    if (client) {
+      const { data, error } = await client
+        .from("public_products")
         .select(PUBLIC_PRODUCT_COLUMNS)
         .eq("is_available", true);
 
-      if (options?.category) {
-        fallbackQuery = fallbackQuery.eq("category", options.category);
-      }
-      if (options?.isFeatured) {
-        fallbackQuery = fallbackQuery.eq("is_featured", true);
-      }
-      if (options?.search && options.search.trim()) {
-        const term = options.search.trim();
-        fallbackQuery = fallbackQuery.or(`title.ilike.%${term}%,description.ilike.%${term}%,short_description.ilike.%${term}%`);
-      }
+      if (!error && data && Array.isArray(data)) {
+        products = (data as unknown as ProductRow[]).map(mapProduct);
+      } else {
+        const fallback = await client
+          .from("products")
+          .select(PUBLIC_PRODUCT_COLUMNS)
+          .eq("is_available", true);
 
-      switch (options?.sort) {
-        case "price_asc":
-          fallbackQuery = fallbackQuery.order("price_in_cents", { ascending: true }).order("sort_order", { ascending: true });
-          break;
-        case "price_desc":
-          fallbackQuery = fallbackQuery.order("price_in_cents", { ascending: false }).order("sort_order", { ascending: true });
-          break;
-        case "featured":
-          fallbackQuery = fallbackQuery
-            .order("is_featured", { ascending: false })
-            .order("sort_order", { ascending: true })
-            .order("created_at", { ascending: false });
-          break;
-        case "newest":
-        default:
-          fallbackQuery = fallbackQuery.order("sort_order", { ascending: true }).order("created_at", { ascending: false });
-          break;
-      }
-
-      if (options?.limit && options.limit > 0) {
-        fallbackQuery = fallbackQuery.limit(options.limit);
-      }
-
-      const fallbackResult = await fallbackQuery;
-      if (fallbackResult.error || !fallbackResult.data) {
-        if (fallbackResult.error) {
-          console.error(
-            `[STORE DATA] Query failed: ${
-              fallbackResult.error.code || fallbackResult.error.message
-            }`
-          );
+        if (!fallback.error && fallback.data && Array.isArray(fallback.data)) {
+          products = (fallback.data as unknown as ProductRow[]).map(mapProduct);
         }
-        return [];
       }
-      return (fallbackResult.data as unknown as ProductRow[]).map(mapProduct);
     }
-
-    return (data as unknown as ProductRow[]).map(mapProduct);
   } catch (err) {
     const message = err instanceof Error ? err.message : "Unknown error";
     console.error(`[STORE EXCEPTION] ${message}`);
-    return [];
   }
+
+  // Merge canonical store items ensuring single source of truth
+  for (const canonical of CANONICAL_STORE_PRODUCTS) {
+    if (
+      canonical.isAvailable &&
+      !products.some((p) => p.slug === canonical.slug || p.id === canonical.id)
+    ) {
+      products.push(canonical);
+    }
+  }
+
+  // Filter by category
+  if (options?.category) {
+    products = products.filter((p) => p.category === options.category);
+  }
+
+  // Filter by isFeatured
+  if (options?.isFeatured) {
+    products = products.filter((p) => p.isFeatured);
+  }
+
+  // Filter by search query
+  if (options?.search && options.search.trim()) {
+    const term = options.search.trim().toLowerCase();
+    products = products.filter((p) => {
+      const titleMatch = p.title.toLowerCase().includes(term);
+      const descMatch = p.description?.toLowerCase().includes(term) ?? false;
+      const shortDescMatch =
+        p.shortDescription?.toLowerCase().includes(term) ?? false;
+      const codeMatch = p.releaseCode?.toLowerCase().includes(term) ?? false;
+      return titleMatch || descMatch || shortDescMatch || codeMatch;
+    });
+  }
+
+  // Deterministic sorting
+  switch (options?.sort) {
+    case "price_asc":
+      products.sort((a, b) => (a.priceInCents ?? 0) - (b.priceInCents ?? 0));
+      break;
+    case "price_desc":
+      products.sort((a, b) => (b.priceInCents ?? 0) - (a.priceInCents ?? 0));
+      break;
+    case "featured":
+      products.sort((a, b) => {
+        if (a.isFeatured === b.isFeatured) {
+          return a.sortOrder - b.sortOrder;
+        }
+        return a.isFeatured ? -1 : 1;
+      });
+      break;
+    case "newest":
+    default:
+      products.sort((a, b) => {
+        if (a.sortOrder !== b.sortOrder) {
+          return a.sortOrder - b.sortOrder;
+        }
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+      });
+      break;
+  }
+
+  // Limit
+  if (options?.limit && options.limit > 0) {
+    products = products.slice(0, options.limit);
+  }
+
+  return products;
 }
 
 /**
@@ -312,6 +341,14 @@ export async function getPublishedStoreProductBySlug(
     return null;
   }
 
+  const trimmedSlug = slug.trim();
+  const canonical = CANONICAL_STORE_PRODUCTS.find(
+    (p) => p.slug === trimmedSlug && p.isAvailable
+  );
+  if (canonical) {
+    return canonical;
+  }
+
   try {
     const client = getProductsQueryClient();
     if (!client) {
@@ -321,7 +358,7 @@ export async function getPublishedStoreProductBySlug(
     const { data, error } = await client
       .from("public_products")
       .select(PUBLIC_PRODUCT_COLUMNS)
-      .eq("slug", slug.trim())
+      .eq("slug", trimmedSlug)
       .eq("is_available", true)
       .maybeSingle();
 
@@ -329,7 +366,7 @@ export async function getPublishedStoreProductBySlug(
       const fallbackResult = await client
         .from("products")
         .select(PUBLIC_PRODUCT_COLUMNS)
-        .eq("slug", slug.trim())
+        .eq("slug", trimmedSlug)
         .eq("is_available", true)
         .maybeSingle();
 
@@ -365,6 +402,14 @@ export async function getPublishedStoreProductById(
     return null;
   }
 
+  const trimmedId = id.trim();
+  const canonical = CANONICAL_STORE_PRODUCTS.find(
+    (p) => (p.id === trimmedId || p.slug === trimmedId) && p.isAvailable
+  );
+  if (canonical) {
+    return canonical;
+  }
+
   try {
     const client = getProductsQueryClient();
     if (!client) {
@@ -372,13 +417,13 @@ export async function getPublishedStoreProductById(
     }
 
     // Try finding by UUID id first
-    const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id.trim());
+    const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(trimmedId);
 
     if (isUuid) {
       const { data, error } = await client
         .from("public_products")
         .select(PUBLIC_PRODUCT_COLUMNS)
-        .eq("id", id.trim())
+        .eq("id", trimmedId)
         .eq("is_available", true)
         .maybeSingle();
 
@@ -389,7 +434,7 @@ export async function getPublishedStoreProductById(
       const fallbackResult = await client
         .from("products")
         .select(PUBLIC_PRODUCT_COLUMNS)
-        .eq("id", id.trim())
+        .eq("id", trimmedId)
         .eq("is_available", true)
         .maybeSingle();
 
@@ -399,7 +444,7 @@ export async function getPublishedStoreProductById(
     }
 
     // Fallback search by slug if identifier was provided as slug
-    return getPublishedStoreProductBySlug(id);
+    return getPublishedStoreProductBySlug(trimmedId);
   } catch (err) {
     const message = err instanceof Error ? err.message : "Unknown error";
     console.error(`[STORE EXCEPTION] ${message}`);
@@ -409,52 +454,25 @@ export async function getPublishedStoreProductById(
 
 /**
  * Computes live category counts and total available product counts.
+ * Derives counts directly from the authoritative store product catalog.
  */
 export async function getStoreCategoryCounts(): Promise<CategoryCounts> {
-  const counts: CategoryCounts = {
-    design: 0,
-    ai_agents: 0,
-    digital_products: 0,
-    total: 0,
-  };
-
   try {
-    const client = getProductsQueryClient();
-    if (!client) return counts;
-
-    const { data, error } = await client
-      .from("public_products")
-      .select("category")
-      .eq("is_available", true);
-
-    if (error || !data) {
-      const fallback = await client
-        .from("products")
-        .select("category")
-        .eq("is_available", true);
-
-      if (!fallback.error && fallback.data) {
-        for (const row of fallback.data as Array<{ category: StoreCategory }>) {
-          if (row.category === "design") counts.design++;
-          else if (row.category === "ai_agents") counts.ai_agents++;
-          else if (row.category === "digital_products") counts.digital_products++;
-          counts.total++;
-        }
-      }
-      return counts;
-    }
-
-    for (const row of data as Array<{ category: StoreCategory }>) {
-      if (row.category === "design") counts.design++;
-      else if (row.category === "ai_agents") counts.ai_agents++;
-      else if (row.category === "digital_products") counts.digital_products++;
-      counts.total++;
-    }
-
-    return counts;
+    const products = await getPublishedStoreProducts();
+    return {
+      design: products.filter((p) => p.category === "design").length,
+      ai_agents: products.filter((p) => p.category === "ai_agents").length,
+      digital_products: products.filter((p) => p.category === "digital_products").length,
+      total: products.length,
+    };
   } catch (err) {
     console.error("[STORE COUNTS EXCEPTION]", err);
-    return counts;
+    return {
+      design: 0,
+      ai_agents: 0,
+      digital_products: 0,
+      total: 0,
+    };
   }
 }
 
