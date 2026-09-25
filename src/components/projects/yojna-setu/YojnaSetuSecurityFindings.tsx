@@ -3,32 +3,34 @@ import React from "react";
 export function YojnaSetuSecurityFindings() {
   const securityControls = [
     {
-      domain: "WEBHOOK & INGESTION SECURITY",
-      controls: [
-        { name: "HMAC-SHA1 Signature Validation", desc: "Every inbound Twilio webhook request is validated against the provider auth token; forged or unsigned payloads are dropped immediately." },
-        { name: "Two-Tier Idempotency", desc: "Prevents duplicate outbound messages during network retries using an in-memory cache backed by unique constraints on webhook_events." },
-        { name: "Process-Local Rate Limiting", desc: "Bucket4j token bucket limits inbound interactions to 20 RPM per sender to prevent denial-of-wallet and LLM API exhaustion." },
-      ],
+      num: "01",
+      name: "Webhook Verification",
+      summary: "Twilio webhook signatures are checked before processing requests.",
+      detail: "Inbound requests without valid HMAC signatures are immediately dropped, preventing forged or spoofed messages.",
     },
     {
-      domain: "REMOTE MEDIA & SSRF DEFENSE",
-      controls: [
-        { name: "HTTPS-Only Enforcement", desc: "Disallows unencrypted HTTP media links across all inbound voice and image attachments." },
-        { name: "Strict Host Allowlisting", desc: "Only permits media downloads originating from verified Twilio hostnames (api.twilio.com, mcs.us1.twilio.com)." },
-        { name: "DNS Resolution Pre-Flight", desc: "Resolves hostnames to IP addresses prior to connecting, validating against private IPv4/IPv6 address blocks." },
-        { name: "Private & Cloud Metadata Blocking", desc: "Explicitly rejects loopback (127.0.0.1), RFC1918 private ranges, and cloud metadata endpoints (169.254.169.254)." },
-        { name: "Bounded Stream Reading", desc: "Hard limit of 5MB enforced at the stream reader level; streams exceeding 5MB are terminated before memory exhaustion." },
-        { name: "Redirect Re-Validation", desc: "HTTP 3xx redirects are caught and re-evaluated through the complete SSRF validator pipeline before following." },
-      ],
+      num: "02",
+      name: "SSRF Protection",
+      summary: "External media URLs are validated before the server downloads them.",
+      detail: "Restricts media downloads to verified Twilio hosts, blocks private IP ranges and cloud metadata endpoints, and enforces 5MB stream limits.",
     },
     {
-      domain: "DATA PRIVACY & PII SAFEGUARDS",
-      controls: [
-        { name: "SHA-256 Blind Phone Indexing", desc: "Citizen mobile numbers are hashed with a server-side cryptographic salt before storage, preventing plaintext reverse lookups." },
-        { name: "Logback PII Masking Converter", desc: "Custom log converter (PiiMaskingConverter) intercepts all log events and redacts 10-digit mobile numbers and demographic strings." },
-        { name: "Schema Isolation", desc: "All application tables reside within the dedicated yojna_setu PostgreSQL schema on Supabase, isolating data from public schema objects." },
-        { name: "Session & State Reset Workflow", desc: "Sending 'reset' in any conversational turn clears active conversation session state and in-flight demographic parameters." },
-      ],
+      num: "03",
+      name: "PII-Safe Logging",
+      summary: "Sensitive phone numbers and demographic data are masked in logs.",
+      detail: "Phone numbers are stored as salted SHA-256 hashes, and a custom Logback converter masks mobile numbers in application logs.",
+    },
+    {
+      num: "04",
+      name: "Webhook Idempotency",
+      summary: "Repeated webhook deliveries do not create duplicate processing.",
+      detail: "Unique database constraints on webhook event IDs prevent re-processing retried requests or sending duplicate replies.",
+    },
+    {
+      num: "05",
+      name: "Persistent Conversation State",
+      summary: "Conversation state is stored so multi-step conversations survive restarts.",
+      detail: "Multi-turn demographic collection is backed by PostgreSQL sessions rather than volatile in-memory maps.",
     },
   ];
 
@@ -42,45 +44,58 @@ export function YojnaSetuSecurityFindings() {
           06 — SECURITY ENGINEERING
         </span>
         <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-normal text-[var(--color-ink-primary)] tracking-tight">
-          Security as an Engineering Requirement
+          Security Controls
         </h2>
         <p className="font-sans text-base text-[var(--color-ink-secondary)] leading-relaxed max-w-3xl">
-          Rather than relying on marketing claims like &ldquo;unhackable&rdquo; or &ldquo;military-grade,&rdquo; security in Yojna Setu V2 is implemented as a set of verifiable, testable software controls with strict boundary defenses.
+          Key security controls implemented in V2. Instead of generic marketing claims, these represent concrete software defenses built into the backend.
         </p>
       </div>
 
-      <div className="space-y-8">
-        {securityControls.map((group, idx) => (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {securityControls.map((ctrl) => (
           <div
-            key={idx}
-            className="p-6 sm:p-8 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] space-y-6"
+            key={ctrl.num}
+            className="p-6 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] space-y-3 flex flex-col justify-between"
           >
-            <div className="flex items-center justify-between border-b border-[var(--color-hairline)] pb-3">
-              <span className="font-mono text-xs uppercase tracking-wider text-[var(--color-accent)] font-semibold">
-                {group.domain}
+            <div className="space-y-2">
+              <span className="font-mono text-xs text-[var(--color-accent)] font-semibold block">
+                CONTROL {ctrl.num}
               </span>
-              <span className="font-mono text-[11px] text-[var(--color-ink-secondary)]">
-                VERIFIED V2 CONTROLS
-              </span>
+              <h3 className="font-display text-xl text-[var(--color-ink-primary)] font-normal">
+                {ctrl.name}
+              </h3>
+              <p className="font-sans text-xs sm:text-sm text-[var(--color-ink-primary)] font-medium leading-relaxed">
+                {ctrl.summary}
+              </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {group.controls.map((ctrl, cIdx) => (
-                <div
-                  key={cIdx}
-                  className="p-4 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] space-y-2"
-                >
-                  <span className="block font-mono text-xs text-[var(--color-ink-primary)] font-semibold">
-                    {ctrl.name}
-                  </span>
-                  <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
-                    {ctrl.desc}
-                  </p>
-                </div>
-              ))}
+            <div className="pt-3 border-t border-[var(--color-hairline)]">
+              <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
+                {ctrl.detail}
+              </p>
             </div>
           </div>
         ))}
+
+        {/* Security Audit Badge Card */}
+        <div className="p-6 border border-[var(--color-ink-primary)] bg-[var(--color-surface-dark)] text-white space-y-3 flex flex-col justify-between">
+          <div className="space-y-2">
+            <span className="font-mono text-xs text-[var(--color-accent)] font-semibold block">
+              RELEASE GATE STATUS
+            </span>
+            <h3 className="font-display text-xl text-white font-normal">
+              0 Critical / High Findings
+            </h3>
+            <p className="font-sans text-xs sm:text-sm text-neutral-300 leading-relaxed">
+              Verified in the final independent security audit before release.
+            </p>
+          </div>
+          <div className="pt-3 border-t border-[var(--color-dark-hairline)]">
+            <p className="font-mono text-[11px] text-neutral-400">
+              Backend test suites verify webhook HMAC, SSRF revalidation, and session isolation.
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   );

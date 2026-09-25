@@ -89,6 +89,18 @@ export async function runProjectsIntegrationSuite() {
     "A.3 Canonical Yojna Setu slug resolves successfully with correct metadata"
   );
 
+  // Import and verify YOJNA_SETU_DATA simplified structures
+  const { YOJNA_SETU_DATA } = await import("../src/data/projects/yojna-setu-data");
+  const totalCatTests = YOJNA_SETU_DATA.testCategories.reduce((acc, c) => acc + c.count, 0);
+  assert(
+    totalCatTests === 42 && YOJNA_SETU_DATA.testCategories.length === 4,
+    "A.4 Simplified test suite correctly aggregates exactly 42 tests across 4 human categories"
+  );
+  assert(
+    YOJNA_SETU_DATA.forensicAudit.length === 5,
+    "A.5 Forensic audit displays exactly 5 prioritized engineering changes"
+  );
+
   // -------------------------------------------------------------
   // TEST B & C: POPULATED TEST SPECIMEN VERIFICATION
   // (Evaluated when test records are present in the active database)

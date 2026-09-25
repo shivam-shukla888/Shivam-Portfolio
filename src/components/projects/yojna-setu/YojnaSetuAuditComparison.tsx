@@ -11,13 +11,13 @@ export function YojnaSetuAuditComparison() {
           id="audit-heading"
           className="font-mono text-xs uppercase tracking-wider text-[var(--color-accent)] font-semibold"
         >
-          03 — FORENSIC AUDIT &amp; TRANSFORMATION
+          03 — FORENSIC AUDIT &amp; FIXES
         </span>
         <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-normal text-[var(--color-ink-primary)] tracking-tight">
-          From Prototype Risk to Hardened Architecture
+          From Prototype to Hardened Backend
         </h2>
         <p className="font-sans text-base text-[var(--color-ink-secondary)] leading-relaxed max-w-3xl">
-          An initial forensic audit of the legacy prototype revealed vulnerabilities in credentials, state handling, and eligibility correctness. Security and data integrity were treated as non-negotiable engineering requirements for the V2 rebuild.
+          The original prototype had critical security and correctness issues. Here are the 5 key engineering fixes made in V2 to make the backend production-ready.
         </p>
       </div>
 

@@ -12,6 +12,12 @@ export interface YojnaSetuAuditItem {
   hardenedV2: string;
 }
 
+export interface YojnaSetuTestGroup {
+  name: string;
+  count: number;
+  description: string;
+}
+
 export interface YojnaSetuTestCategory {
   className: string;
   testCount: number;
@@ -51,12 +57,12 @@ export const YOJNA_SETU_DATA = {
   projectYear: 2026,
   category: "Backend Systems · AI Security",
   status: "Release Ready With Documented Conditions",
-  role: "System Architecture · Backend Engineering · Security Hardening · AI Integration",
+  role: "Architecture · Backend · Security · AI Integration",
   summary:
-    "Yojna Setu is a multilingual government-scheme discovery and eligibility platform designed to help users understand relevant welfare programs through natural-language interaction while keeping final eligibility decisions deterministic and explainable.",
+    "A multilingual government scheme discovery system. AI extracts user profile details from conversational messages, while deterministic Java rules evaluate eligibility over 82 normalized schemes.",
   coverImageUrl: "/images/projects/yojna-setu/cover.svg",
   githubUrl: "https://github.com/shivam-shukla888/Yojna-Setu",
-  repoNote: "Repository publication pending final release push.",
+  repoNote: "Backend repository pending public release.",
 
   techStack: [
     "Java 21",
@@ -81,8 +87,8 @@ export const YOJNA_SETU_DATA = {
     {
       value: "42/42",
       label: "AUTOMATED TESTS PASSING",
-      sublabel: "100% Pass Rate Across 9 Test Classes",
-      detail: "Independent release-gate verification passed with zero failures.",
+      sublabel: "42 Passing Tests Across Core Suites",
+      detail: "Backend release-gate verification recorded 42/42 passing tests.",
     },
     {
       value: "0 / 0",
@@ -135,65 +141,64 @@ export const YOJNA_SETU_DATA = {
       legacyV1:
         "Plaintext database credentials committed directly in startup shell scripts (start-app.sh).",
       hardenedV2:
-        "Zero secrets in codebase; environment-driven secret injection with strict startup validation and Git history purge.",
+        "Environment-based secrets with strict startup validation and complete Git history cleanup.",
     },
     {
       id: "sec-02",
-      category: "Data Integrity",
-      legacyV1:
-        "Destructive startup routine executing 'DELETE FROM schemes;' on every container restart.",
-      hardenedV2:
-        "Controlled, immutable Flyway migrations managing the dedicated yojna_setu schema on Supabase PostgreSQL 17.",
-    },
-    {
-      id: "sec-03",
       category: "Eligibility Matching Logic",
       legacyV1:
         "Brittle substring evaluation: scheme.getGender().contains(\"MALE\") erroneously returned true for \"FEMALE\".",
       hardenedV2:
-        "Strict relational predicate engine (EligibilityEngine) using typed enums and relational join criteria.",
+        "Deterministic relational rules (EligibilityEngine) using typed enums and database join criteria.",
+    },
+    {
+      id: "sec-03",
+      category: "Media & SSRF Defense",
+      legacyV1:
+        "Unvalidated remote media downloads allowing potential SSRF against private networks and metadata endpoints.",
+      hardenedV2:
+        "SSRF protection: HTTPS enforcement, Twilio host allowlist, private IP blocking, and bounded streaming.",
     },
     {
       id: "sec-04",
-      category: "AI Authority Boundary",
+      category: "Conversation State",
       legacyV1:
-        "LLM directly hallucinated eligibility decisions; raw unvalidated user strings were concatenated into system prompts.",
+        "In-memory ConcurrentHashMap causing state loss across server restarts and cross-thread concurrency issues.",
       hardenedV2:
-        "Strict isolation: Groq LLM performs fuzzy demographic slot-filling only; the Java engine retains 100% deterministic decision authority.",
+        "Persistent database-backed conversation state machine (ConversationSession) with session recovery.",
     },
     {
       id: "sec-05",
-      category: "Media & SSRF Defense",
-      legacyV1:
-        "Unvalidated remote media downloads allowing server-side request forgery against private networks and metadata endpoints.",
-      hardenedV2:
-        "Multi-layer SSRF filter: HTTPS enforcement, exact Twilio host allowlist, DNS/IP resolution validation, cloud metadata blocking, and 5MB bounded streaming.",
-    },
-    {
-      id: "sec-06",
-      category: "Privacy & PII Protection",
-      legacyV1:
-        "Plaintext citizen phone numbers and demographic responses logged to standard output.",
-      hardenedV2:
-        "Privacy-aware blind phone indexing: SHA-256 phone hashing with secret pepper; Logback PiiMaskingConverter automatically masks sensitive tokens.",
-    },
-    {
-      id: "sec-07",
-      category: "Session & Concurrency",
-      legacyV1:
-        "In-memory ConcurrentHashMap causing state loss across server restarts and cross-thread concurrency leaks.",
-      hardenedV2:
-        "Persistent database-backed finite state machine (ConversationSession) with transactional session recovery.",
-    },
-    {
-      id: "sec-08",
       category: "Webhook Idempotency",
       legacyV1:
-        "Retried provider webhooks generated duplicate outbound messages and corrupted multi-step conversational state.",
+        "Retried provider webhooks generated duplicate outbound messages and corrupted multi-step state.",
       hardenedV2:
-        "Two-tier idempotency: high-speed in-memory LRU cache backed by durable webhook_events database uniqueness constraints.",
+        "Idempotency layer: in-memory cache backed by unique constraints on webhook_events in PostgreSQL.",
     },
   ] as YojnaSetuAuditItem[],
+
+  testCategories: [
+    {
+      name: "Eligibility Rules",
+      count: 6,
+      description: "Deterministic age bounds, income ceilings, gender matching, and state residency rules.",
+    },
+    {
+      name: "Webhook Security",
+      count: 7,
+      description: "HMAC signature verification, replay protection, and provider response formatting.",
+    },
+    {
+      name: "Media / SSRF Security",
+      count: 16,
+      description: "Host allowlisting, private IP blocking, 5MB bounded streaming, and redirect re-validation.",
+    },
+    {
+      name: "Conversation Flow",
+      count: 13,
+      description: "Multi-turn state transitions, slot clarification, legacy endpoint removal, and container startup.",
+    },
+  ] as YojnaSetuTestGroup[],
 
   testingMatrix: [
     {

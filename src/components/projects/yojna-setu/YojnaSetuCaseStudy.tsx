@@ -65,7 +65,7 @@ export function YojnaSetuCaseStudy() {
                 The Engineering Takeaway
               </h3>
               <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
-                Yojna Setu V2 proves that generative AI and public-sector reliability are not mutually exclusive. By restricting language models to natural-language comprehension and delegating all statutory authority to a deterministic relational engine, the system delivers intuitive citizen accessibility without sacrificing legal correctness, privacy, or auditability.
+                The main takeaway from Yojna Setu is separating what AI is good at from what software rules must guarantee. The LLM handles messy, multilingual conversational input, while deterministic Java code and relational database queries evaluate welfare eligibility with complete predictability.
               </p>
             </div>
 

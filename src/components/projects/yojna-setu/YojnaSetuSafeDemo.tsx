@@ -6,7 +6,7 @@ import { YOJNA_SETU_DATA, YojnaSetuDemoScenario } from "@/data/projects/yojna-se
 export function YojnaSetuSafeDemo() {
   const { demoScenarios } = YOJNA_SETU_DATA;
   const [selectedId, setSelectedId] = useState<string>(demoScenarios[0].id);
-  const [activeTab, setActiveTab] = useState<"input" | "ai_extraction" | "rules_engine" | "results">("results");
+  const [activeStep, setActiveStep] = useState<"message" | "profile" | "eligibility" | "schemes">("schemes");
 
   const currentScenario: YojnaSetuDemoScenario =
     demoScenarios.find((s) => s.id === selectedId) || demoScenarios[0];
@@ -22,15 +22,20 @@ export function YojnaSetuSafeDemo() {
           >
             09 — INTERACTIVE PORTFOLIO DEMO
           </span>
-          <span className="font-mono text-[10px] px-2.5 py-1 border border-[var(--color-ink-primary)] bg-[var(--color-canvas-primary)] text-[var(--color-ink-primary)] font-medium">
-            PORTFOLIO DEMO · CLIENT-SIDE SIMULATOR
-          </span>
+          <div className="flex items-center gap-2">
+            <span className="font-mono text-[10px] px-2.5 py-1 border border-[var(--color-ink-primary)] bg-[var(--color-canvas-primary)] text-[var(--color-ink-primary)] font-medium">
+              PORTFOLIO DEMO · CLIENT-SIDE SIMULATOR
+            </span>
+            <span className="font-mono text-[10px] px-2 py-0.5 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] text-[var(--color-ink-secondary)]">
+              ZERO CREDENTIALS OR PII TRANSMITTED
+            </span>
+          </div>
         </div>
         <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-normal text-[var(--color-ink-primary)] tracking-tight">
-          Deterministic Rules &amp; Slot-Filling Simulator
+          How Intake &amp; Eligibility Work in Practice
         </h2>
         <p className="font-sans text-base text-[var(--color-ink-secondary)] leading-relaxed max-w-3xl">
-          Simulating deterministic rule matching and AI-boundary extraction based on verified scheme criteria. Zero credentials or PII transmitted. Simulated portfolio experience — not a live government service. Select a demographic profile below to observe how unstructured citizen language is parsed into structured parameters and resolved against the scheme dataset.
+          Simulated portfolio experience — not a live government service. Select a sample persona below to walk through the 4 steps: from citizen message to extracted profile, rule checks, and matched schemes.
         </p>
       </div>
 
@@ -43,7 +48,7 @@ export function YojnaSetuSafeDemo() {
               key={scenario.id}
               onClick={() => {
                 setSelectedId(scenario.id);
-                setActiveTab("results");
+                setActiveStep("schemes");
               }}
               className={`p-4 border text-left transition-[border-color,background-color] duration-150 cursor-pointer ${
                 isSelected
@@ -52,7 +57,7 @@ export function YojnaSetuSafeDemo() {
               }`}
             >
               <span className="block font-mono text-[10px] uppercase tracking-wider text-[var(--color-accent)] mb-1">
-                {"SCENARIO //"}
+                {"PERSONA //"}
               </span>
               <span className="block font-display text-lg text-[var(--color-ink-primary)] font-normal leading-tight">
                 {scenario.title}
@@ -67,139 +72,202 @@ export function YojnaSetuSafeDemo() {
 
       {/* Simulator Workspace */}
       <div className="border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)]">
-        {/* Navigation Step Tabs */}
+        {/* 4-Step Navigation Tabs */}
         <div className="p-2 border-b border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] flex flex-wrap gap-2">
           <button
-            onClick={() => setActiveTab("input")}
+            onClick={() => setActiveStep("message")}
             className={`px-3 py-1.5 font-mono text-xs cursor-pointer border ${
-              activeTab === "input"
+              activeStep === "message"
                 ? "border-[var(--color-ink-primary)] bg-[var(--color-ink-primary)] text-white"
                 : "border-[var(--color-hairline)] text-[var(--color-ink-secondary)] hover:text-[var(--color-ink-primary)]"
             }`}
           >
-            1. INBOUND MESSAGE
+            STEP 1 · USER MESSAGE
           </button>
           <button
-            onClick={() => setActiveTab("ai_extraction")}
+            onClick={() => setActiveStep("profile")}
             className={`px-3 py-1.5 font-mono text-xs cursor-pointer border ${
-              activeTab === "ai_extraction"
+              activeStep === "profile"
                 ? "border-[var(--color-ink-primary)] bg-[var(--color-ink-primary)] text-white"
                 : "border-[var(--color-hairline)] text-[var(--color-ink-secondary)] hover:text-[var(--color-ink-primary)]"
             }`}
           >
-            2. AI SLOT EXTRACTION (JSON)
+            STEP 2 · PROFILE EXTRACTED
           </button>
           <button
-            onClick={() => setActiveTab("rules_engine")}
+            onClick={() => setActiveStep("eligibility")}
             className={`px-3 py-1.5 font-mono text-xs cursor-pointer border ${
-              activeTab === "rules_engine"
+              activeStep === "eligibility"
                 ? "border-[var(--color-ink-primary)] bg-[var(--color-ink-primary)] text-white"
                 : "border-[var(--color-hairline)] text-[var(--color-ink-secondary)] hover:text-[var(--color-ink-primary)]"
             }`}
           >
-            3. RELATIONAL RULES ENGINE
+            STEP 3 · ELIGIBILITY CHECK
           </button>
           <button
-            onClick={() => setActiveTab("results")}
+            onClick={() => setActiveStep("schemes")}
             className={`px-3 py-1.5 font-mono text-xs cursor-pointer border ${
-              activeTab === "results"
+              activeStep === "schemes"
                 ? "border-[var(--color-ink-primary)] bg-[var(--color-ink-primary)] text-white"
                 : "border-[var(--color-hairline)] text-[var(--color-ink-secondary)] hover:text-[var(--color-ink-primary)]"
             }`}
           >
-            4. MATCHED SCHEMES ({currentScenario.matchedSchemes.length})
+            STEP 4 · MATCHING SCHEMES ({currentScenario.matchedSchemes.length})
           </button>
         </div>
 
         {/* Tab Content Display */}
         <div className="p-6 sm:p-8">
-          {activeTab === "input" && (
+          {/* STEP 1: User Message */}
+          {activeStep === "message" && (
             <div className="space-y-4 max-w-2xl">
               <span className="font-mono text-xs uppercase tracking-wider text-[var(--color-accent)] font-semibold">
-                {"STEP 1 // NATURAL LANGUAGE INTAKE"}
+                STEP 1 · CITIZEN INBOUND MESSAGE
               </span>
-              <div className="p-4 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] space-y-2">
-                <span className="font-mono text-[11px] text-[var(--color-ink-secondary)]">
-                  Citizen Inbound Message (Hinglish/Natural Language):
+              <div className="p-5 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] space-y-2">
+                <span className="font-mono text-[11px] text-[var(--color-ink-secondary)] block">
+                  Natural Language (Hindi / Hinglish / English):
                 </span>
-                <p className="font-serif italic text-base md:text-lg text-[var(--color-ink-primary)] leading-relaxed">
+                <p className="font-serif italic text-lg text-[var(--color-ink-primary)] leading-relaxed">
                   &ldquo;{currentScenario.samplePrompt}&rdquo;
                 </p>
               </div>
               <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
-                Notice that the message contains unstructured parameters (age, state, occupation, income) mixed with conversational greetings. The Groq LLM boundary is invoked to isolate these tokens.
+                The user does not need to fill out rigid dropdowns. They can describe their background in ordinary conversational phrasing. The Groq LLM parses this message in the next step.
               </p>
             </div>
           )}
 
-          {activeTab === "ai_extraction" && (
+          {/* STEP 2: Profile Extracted */}
+          {activeStep === "profile" && (
             <div className="space-y-4">
-              <span className="font-mono text-xs uppercase tracking-wider text-[var(--color-accent)] font-semibold">
-                {"STEP 2 // GROQ EXTRACTION CONTRACT (NON-AUTHORITATIVE)"}
-              </span>
-              <div className="p-4 border border-[var(--color-hairline)] bg-[var(--color-surface-dark)] text-green-400 font-mono text-xs overflow-x-auto">
-                <pre>{JSON.stringify(currentScenario.extractedSlots, null, 2)}</pre>
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <span className="font-mono text-xs uppercase tracking-wider text-[var(--color-accent)] font-semibold">
+                  STEP 2 · PROFILE EXTRACTED BY AI
+                </span>
+                <span className="font-mono text-[11px] text-[var(--color-ink-secondary)]">
+                  GROQ CLOUD (NON-AUTHORITATIVE)
+                </span>
               </div>
-              <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
-                The language model outputs strictly validated JSON according to the schema contract. Zero business logic or eligibility filtering is executed in this layer.
-              </p>
-            </div>
-          )}
 
-          {activeTab === "rules_engine" && (
-            <div className="space-y-4">
-              <span className="font-mono text-xs uppercase tracking-wider text-[var(--color-accent)] font-semibold">
-                {"STEP 3 // DETERMINISTIC JOIN PREDICATES (JAVA & POSTGRESQL)"}
-              </span>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-xs font-mono">
-                <div className="p-3 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)]">
-                  <span className="text-[var(--color-ink-secondary)] block">AGE PREDICATE</span>
-                  <span className="text-[var(--color-ink-primary)] font-semibold">
-                    min_age &lt;= {currentScenario.demographics.age} &amp;&amp; max_age &gt;= {currentScenario.demographics.age}
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+                <div className="p-3 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] space-y-1">
+                  <span className="font-mono text-[10px] uppercase text-[var(--color-ink-secondary)] block">AGE</span>
+                  <span className="font-sans text-sm font-semibold text-[var(--color-ink-primary)]">
+                    {currentScenario.demographics.age} years
                   </span>
                 </div>
-                <div className="p-3 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)]">
-                  <span className="text-[var(--color-ink-secondary)] block">STATE RESIDENCY</span>
-                  <span className="text-[var(--color-ink-primary)] font-semibold">
-                    state IN (&apos;ALL&apos;, &apos;{currentScenario.demographics.state}&apos;)
+                <div className="p-3 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] space-y-1">
+                  <span className="font-mono text-[10px] uppercase text-[var(--color-ink-secondary)] block">STATE</span>
+                  <span className="font-sans text-sm font-semibold text-[var(--color-ink-primary)]">
+                    {currentScenario.demographics.state}
                   </span>
                 </div>
-                <div className="p-3 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)]">
-                  <span className="text-[var(--color-ink-secondary)] block">INCOME CEILING</span>
-                  <span className="text-[var(--color-ink-primary)] font-semibold">
-                    max_income &gt;= {currentScenario.demographics.annualIncome}
+                <div className="p-3 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] space-y-1">
+                  <span className="font-mono text-[10px] uppercase text-[var(--color-ink-secondary)] block">OCCUPATION</span>
+                  <span className="font-sans text-sm font-semibold text-[var(--color-ink-primary)]">
+                    {currentScenario.demographics.occupation}
                   </span>
                 </div>
-                <div className="p-3 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)]">
-                  <span className="text-[var(--color-ink-secondary)] block">GENDER JOIN</span>
-                  <span className="text-[var(--color-ink-primary)] font-semibold">
-                    scheme_genders.gender = &apos;{currentScenario.demographics.gender.toUpperCase()}&apos;
+                <div className="p-3 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] space-y-1">
+                  <span className="font-mono text-[10px] uppercase text-[var(--color-ink-secondary)] block">INCOME</span>
+                  <span className="font-sans text-sm font-semibold text-[var(--color-ink-primary)]">
+                    {currentScenario.demographics.annualIncome}
                   </span>
                 </div>
-                <div className="p-3 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)]">
-                  <span className="text-[var(--color-ink-secondary)] block">CASTE JOIN</span>
-                  <span className="text-[var(--color-ink-primary)] font-semibold">
-                    scheme_castes.caste = &apos;{currentScenario.demographics.caste.toUpperCase()}&apos;
+                <div className="p-3 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] space-y-1">
+                  <span className="font-mono text-[10px] uppercase text-[var(--color-ink-secondary)] block">GENDER</span>
+                  <span className="font-sans text-sm font-semibold text-[var(--color-ink-primary)]">
+                    {currentScenario.demographics.gender}
                   </span>
                 </div>
-                <div className="p-3 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)]">
-                  <span className="text-[var(--color-ink-secondary)] block">OCCUPATION JOIN</span>
-                  <span className="text-[var(--color-ink-primary)] font-semibold">
-                    scheme_occupations.occ = &apos;{currentScenario.demographics.occupation.toUpperCase()}&apos;
+                <div className="p-3 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] space-y-1">
+                  <span className="font-mono text-[10px] uppercase text-[var(--color-ink-secondary)] block">CATEGORY</span>
+                  <span className="font-sans text-sm font-semibold text-[var(--color-ink-primary)]">
+                    {currentScenario.demographics.caste}
                   </span>
                 </div>
               </div>
+
+              <div className="p-3 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)]">
+                <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
+                  <strong>Bounded Role:</strong> The AI extracts these structured profile parameters. It does not evaluate scheme rules or decide qualification.
+                </p>
+              </div>
             </div>
           )}
 
-          {activeTab === "results" && (
+          {/* STEP 3: Eligibility Check */}
+          {activeStep === "eligibility" && (
+            <div className="space-y-4">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <span className="font-mono text-xs uppercase tracking-wider text-[var(--color-accent)] font-semibold">
+                  STEP 3 · DETERMINISTIC JAVA ELIGIBILITY RULES
+                </span>
+                <span className="font-mono text-[11px] text-[var(--color-ink-secondary)]">
+                  JAVA 21 &amp; POSTGRESQL 17
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="p-4 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-[10px] uppercase text-[var(--color-ink-secondary)]">AGE CHECK</span>
+                    <span className="text-[var(--color-accent)] font-mono text-xs font-bold">✓ PASS</span>
+                  </div>
+                  <p className="font-sans text-xs text-[var(--color-ink-primary)]">
+                    Age {currentScenario.demographics.age} satisfies min/max age rules for matched schemes.
+                  </p>
+                </div>
+
+                <div className="p-4 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-[10px] uppercase text-[var(--color-ink-secondary)]">STATE RESIDENCY</span>
+                    <span className="text-[var(--color-accent)] font-mono text-xs font-bold">✓ PASS</span>
+                  </div>
+                  <p className="font-sans text-xs text-[var(--color-ink-primary)]">
+                    Matches schemes in {currentScenario.demographics.state} and nationwide central schemes.
+                  </p>
+                </div>
+
+                <div className="p-4 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-[10px] uppercase text-[var(--color-ink-secondary)]">INCOME CEILING</span>
+                    <span className="text-[var(--color-accent)] font-mono text-xs font-bold">✓ PASS</span>
+                  </div>
+                  <p className="font-sans text-xs text-[var(--color-ink-primary)]">
+                    Income {currentScenario.demographics.annualIncome} is within statutory maximum limits.
+                  </p>
+                </div>
+
+                <div className="p-4 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-[10px] uppercase text-[var(--color-ink-secondary)]">OCCUPATION &amp; CASTE</span>
+                    <span className="text-[var(--color-accent)] font-mono text-xs font-bold">✓ PASS</span>
+                  </div>
+                  <p className="font-sans text-xs text-[var(--color-ink-primary)]">
+                    Role ({currentScenario.demographics.occupation}) matches relational child table criteria.
+                  </p>
+                </div>
+              </div>
+
+              <div className="p-3 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)]">
+                <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
+                  <strong>Sole Authority:</strong> Qualification is calculated mathematically by the Java engine over relational database rows. No AI hallucination can grant or deny benefits.
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* STEP 4: Matching Schemes */}
+          {activeStep === "schemes" && (
             <div className="space-y-6">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <span className="font-mono text-xs uppercase tracking-wider text-[var(--color-accent)] font-semibold">
-                  {`STEP 4 // DETERMINISTIC SCHEME RECOMMENDATIONS (${currentScenario.matchedSchemes.length} MATCHES)`}
+                  STEP 4 · MATCHING SCHEMES ({currentScenario.matchedSchemes.length} QUALIFIED)
                 </span>
                 <span className="font-mono text-[11px] text-[var(--color-ink-secondary)]">
-                  FROM 82 NORMALIZED SCHEMES
+                  FILTERED FROM 82 NORMALIZED SCHEMES
                 </span>
               </div>
 
@@ -218,13 +286,13 @@ export function YojnaSetuSafeDemo() {
                       </span>
                     </div>
 
-                    <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
+                    <p className="font-sans text-xs sm:text-sm text-[var(--color-ink-secondary)] leading-relaxed">
                       <strong>Benefit:</strong> {scheme.benefit}
                     </p>
 
                     <div className="p-3 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] space-y-1">
                       <span className="font-mono text-[10px] uppercase text-[var(--color-ink-primary)] font-semibold block">
-                        DETERMINISTIC QUALIFICATION REASON:
+                        WHY THIS CITIZEN QUALIFIES:
                       </span>
                       <p className="font-sans text-xs text-[var(--color-ink-secondary)]">
                         {scheme.eligibilityReason}

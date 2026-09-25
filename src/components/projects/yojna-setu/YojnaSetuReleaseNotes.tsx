@@ -11,13 +11,13 @@ export function YojnaSetuReleaseNotes() {
           id="release-heading"
           className="font-mono text-xs uppercase tracking-wider text-[var(--color-accent)] font-semibold"
         >
-          08 — RELEASE CONDITIONS &amp; TRANSPARENCY
+          08 — RELEASE STATUS &amp; BOUNDARIES
         </span>
         <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-normal text-[var(--color-ink-primary)] tracking-tight">
-          Release Gate: Documented Verification Conditions
+          Release Status &amp; Known Boundaries
         </h2>
         <p className="font-sans text-base text-[var(--color-ink-secondary)] leading-relaxed max-w-3xl">
-          Engineering integrity requires complete transparency about project status. The independent release gate classified Yojna Setu V2 as <strong>Release Ready With Documented Conditions</strong>. Below are the verified achievements alongside explicit verification conditions.
+          What is verified in V2, and what known limitations remain. The independent release gate classified Yojna Setu V2 as <strong>Release Ready With Documented Conditions</strong>.
         </p>
       </div>
 

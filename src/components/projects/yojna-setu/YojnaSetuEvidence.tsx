@@ -83,25 +83,25 @@ export function YojnaSetuEvidence() {
       <div className="p-6 sm:p-8 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] space-y-6">
         <div className="space-y-2">
           <span className="font-mono text-xs uppercase tracking-wider text-[var(--color-accent)] font-semibold">
-            CHRONOLOGICAL INTERACTION JOURNEY
+            CONVERSATIONAL WALKTHROUGH
           </span>
           <h3 className="font-display text-2xl text-[var(--color-ink-primary)]">
-            How The Conversational Pipeline Resolves Citizen Demographics
+            The 3-Step WhatsApp Experience
           </h3>
           <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed max-w-3xl">
-            The screenshots record an unbroken 9-step interaction sequence. Natural language allows citizens to express their situation without navigating bureaucratic dropdowns, while the underlying engine progressively collects the necessary relational predicates:
+            The screenshots record an actual conversation. The user talks naturally in Hinglish, the bot asks for any missing profile detail, and the backend returns matching schemes with deadlines and documents:
           </p>
         </div>
 
         <ol className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2 list-none">
           <li className="space-y-2 p-4 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)]">
             <span className="font-mono text-xs font-semibold text-[var(--color-accent)]">
-              PHASE I: INTAKE &amp; DISAMBIGUATION
+              PHASE I: INTAKE &amp; CLARIFICATION
             </span>
             <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
-              1. Citizen sends <code className="font-mono text-[11px] bg-[var(--color-canvas-secondary)] px-1 py-0.5">Reset</code>.<br />
-              2. Citizen provides unformatted Hinglish text containing age, state, student occupation, income, and religion.<br />
-              3. System identifies missing gender slot and prompts for exact clarification.
+              1. User sends <code className="font-mono text-[11px] bg-[var(--color-canvas-secondary)] px-1 py-0.5">Reset</code> to start fresh.<br />
+              2. User provides unformatted Hinglish with age, state, student occupation, income, and religion.<br />
+              3. System identifies missing gender and asks for clarification (&ldquo;Aap purush hain ya mahila?&rdquo;).
             </p>
           </li>
 
@@ -110,9 +110,9 @@ export function YojnaSetuEvidence() {
               PHASE II: SCHEME EVALUATION
             </span>
             <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
-              4. Citizen replies <code className="font-mono text-[11px] bg-[var(--color-canvas-secondary)] px-1 py-0.5">Purush</code>.<br />
+              4. User replies <code className="font-mono text-[11px] bg-[var(--color-canvas-secondary)] px-1 py-0.5">Purush</code>.<br />
               5. All demographic criteria are satisfied; rules engine filters 82 schemes down to 5 qualified programs.<br />
-              6. Citizen receives verified scheme titles with direct portal application URLs.
+              6. User receives verified scheme titles with direct portal application URLs.
             </p>
           </li>
 
@@ -121,17 +121,17 @@ export function YojnaSetuEvidence() {
               PHASE III: GUIDANCE &amp; CHECKLISTS
             </span>
             <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
-              7. Citizen requests <code className="font-mono text-[11px] bg-[var(--color-canvas-secondary)] px-1 py-0.5">Deadline</code>, receiving upcoming cutoff dates.<br />
-              8. Citizen requests <code className="font-mono text-[11px] bg-[var(--color-canvas-secondary)] px-1 py-0.5">Documents</code>.<br />
-              9. System details the necessary identity and verification paperwork for each scheme.
+              7. User sends <code className="font-mono text-[11px] bg-[var(--color-canvas-secondary)] px-1 py-0.5">Deadline</code>, receiving upcoming cutoff dates.<br />
+              8. User sends <code className="font-mono text-[11px] bg-[var(--color-canvas-secondary)] px-1 py-0.5">Documents</code>.<br />
+              9. System details the required identity and verification paperwork for each scheme.
             </p>
           </li>
         </ol>
 
         <div className="pt-2 border-t border-[var(--color-hairline)]">
           <p className="font-mono text-xs text-[var(--color-ink-secondary)] leading-relaxed">
-            <strong className="text-[var(--color-ink-primary)]">Architecture Distinction:</strong>{" "}
-            These captures represent authentic product behavior recorded during early conversational pipeline testing. The V2 engineering rebuild retained this conversational model while replacing the entire underlying backend with the hardened, testable, and defense-in-depth architecture documented below.
+            <strong className="text-[var(--color-ink-primary)]">Context:</strong>{" "}
+            These captures show the front-facing WhatsApp conversation from prototype testing. In V2, the entire backend was rebuilt from scratch with the deterministic Java rules engine and security controls explained below.
           </p>
         </div>
       </div>

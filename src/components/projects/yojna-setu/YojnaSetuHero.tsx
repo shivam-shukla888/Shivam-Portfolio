@@ -39,7 +39,7 @@ export function YojnaSetuHero() {
       {/* Main Title & Subtitle */}
       <div className="space-y-4 max-w-4xl">
         <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-[4.25rem] font-normal tracking-tight text-[var(--color-ink-primary)] leading-[1.05]">
-          Government Scheme Discovery, Rebuilt Around Deterministic Eligibility.
+          Government Scheme Discovery with Deterministic Eligibility.
         </h1>
         <p className="font-sans text-lg md:text-xl text-[var(--color-ink-secondary)] leading-relaxed max-w-3xl">
           {data.summary}
@@ -62,16 +62,16 @@ export function YojnaSetuHero() {
             STACK
           </span>
           <p className="font-mono text-xs text-[var(--color-ink-primary)] leading-normal">
-            Java 21 · Spring Boot · PostgreSQL · Groq
+            Java · Spring Boot · PostgreSQL · Groq
           </p>
         </div>
 
         <div>
           <span className="block font-mono text-[11px] uppercase tracking-wider text-[var(--color-ink-secondary)] mb-1">
-            VERIFIED STATUS
+            STATUS
           </span>
           <p className="font-mono text-xs text-[var(--color-accent)] font-medium leading-normal">
-            {data.status}
+            Release Ready (Documented Conditions)
           </p>
         </div>
 
@@ -80,7 +80,7 @@ export function YojnaSetuHero() {
             CHANNEL
           </span>
           <p className="font-sans text-xs text-[var(--color-ink-primary)] leading-normal">
-            WhatsApp Provider Abstraction / Browser Demo
+            WhatsApp + Portfolio Demo
           </p>
         </div>
       </div>

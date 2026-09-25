@@ -14,7 +14,7 @@ export function YojnaSetuMetrics() {
           {"01 // VERIFIED SYSTEM BENCHMARKS"}
         </span>
         <span className="font-mono text-[11px] text-[var(--color-ink-secondary)]">
-          INDEPENDENT RELEASE GATE VERIFICATION
+          VERIFIED PROJECT METRICS
         </span>
       </div>
 
