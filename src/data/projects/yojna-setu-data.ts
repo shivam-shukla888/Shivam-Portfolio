@@ -55,7 +55,7 @@ export const YOJNA_SETU_DATA = {
   title: "Yojna Setu",
   editionCode: "YS-V2",
   projectYear: 2026,
-  category: "Backend Systems · AI Security",
+  category: "AI + Deterministic Systems",
   status: "Release Ready With Documented Conditions",
   role: "Architecture · Backend · Security · AI Integration",
   summary:

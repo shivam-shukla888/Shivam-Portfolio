@@ -94,17 +94,17 @@ export const YOJNA_SETU_PROJECT: Project = {
   title: "Yojna Setu",
   editionCode: "YS-V2",
   summary:
-    "Privacy-Aware Government Scheme Discovery & Eligibility Platform. Multilingual natural language intake coupled with a deterministic, testable rules engine over 82 normalized welfare schemes.",
+    "AI + deterministic systems architecture. Natural-language input → conversational extraction → structured criteria → deterministic eligibility engine → relational data. AI handles language; application logic handles decisions. Tested over 82 welfare schemes with 42/42 verified tests.",
   caseStudyMarkdown: null,
   coverImageUrl: "/images/projects/yojna-setu/cover.svg",
-  category: "Backend Systems · AI Security",
+  category: "AI + Deterministic Systems",
   techStack: [
+    "Groq API",
+    "Rules Engine",
     "Java 21",
     "Spring Boot",
     "PostgreSQL",
-    "Supabase",
-    "Groq",
-    "Twilio Boundary",
+    "AWS EC2",
   ],
   projectYear: 2026,
   liveUrl: null,
@@ -120,33 +120,34 @@ export const REALGUARD_PROJECT: Project = {
   title: "RealGuard",
   editionCode: "RG-AI",
   summary:
-    "WhatsApp real estate assistant for buyer lead qualification, RERA registry verification, fraud-detection checks, dynamic EMI loan profiling, and site-visit scheduling.",
+    "AI automation and conversational workflows for real estate. WhatsApp conversational input → Groq parameter extraction → Java business logic → RERA lookup → in-app EMI calculation → CRM persistence → broker workflow. The LLM extracts parameters while application logic handles authoritative calculations.",
   caseStudyMarkdown: `### Overview
-RealGuard is a WhatsApp assistant that helps real estate brokers qualify buyer leads, verify RERA registration data, schedule site visits, and answer property inquiries through conversational messaging.
+RealGuard is an AI automation and conversational workflow assistant that connects WhatsApp messaging to verified business logic for real estate brokers.
 
 ### Architecture & Conversational Flow
-1. **WhatsApp Webhook Intake**: Prospective buyers initiate inquiries via WhatsApp messages received through Twilio API webhooks.
-2. **Spring Boot Backend**: Validates incoming webhook signatures, manages user conversation sessions, and routes requests to appropriate service handlers.
-3. **Groq LLM Extraction**: Extracts user budget, preferred locations, property types, and timeline from conversational text into structured parameters.
-4. **RERA Verification & Fraud Detection**: Executes lookup queries against project and agent registry records to flag unverified or suspicious listings.
-5. **Dynamic EMI Calculation**: Computes mortgage estimates, interest amortization, and monthly EMI figures directly within the conversation loop using application math.
-6. **Data & Notification Layer**: Persists client records and interaction history in MySQL via Hibernate ORM and sends instant notification summaries to brokers.
+The system enforces strict separation between conversational interpretation and authoritative domain calculations:
 
-### Key Engineering Highlights
-- **Conversational Buyer Qualification**: Converts unstructured user messages into structured buyer profiles with score ratings.
-- **RERA Compliance Checks**: Queries registered project IDs to help verify developer claims and protect prospective buyers.
-- **In-Chat Mortgage Estimation**: Calculates principal, interest rate, tenure, and monthly EMI breakdown directly inside chat.
-- **Broker Notifications & Scheduling**: Automates site-visit booking and dispatches alert messages to assigned sales agents.
+1. **WhatsApp Webhook Intake**: Prospective buyers message through WhatsApp via Twilio webhooks.
+2. **Conversational Parameter Extraction**: Groq API (Llama 3) parses unstructured chat to extract budget, preferred locality, BHK requirements, and timeframe into structured JSON parameters.
+3. **Java Business Logic Routing**: Spring Boot services validate incoming parameters against application boundaries and route to specific sub-modules.
+4. **RERA Registry Lookup**: Queries registered project records to cross-reference developer legitimacy against official regulatory records.
+5. **Deterministic EMI Calculation**: Computes loan interest, tenure amortization, and monthly EMI figures strictly within deterministic application code — the LLM never performs financial calculations.
+6. **CRM Persistence & Broker Notification**: Stores buyer records and interaction history in MySQL via Hibernate ORM and dispatches structured lead summaries to real estate brokers.
 
-### Implementation & Deployment
-Built with Java 17 and Spring Boot following clean MVC architecture. Data persistence is managed with MySQL and Hibernate ORM. Conversational extraction is powered by the Groq API using structured prompt templates.`,
+### Key Engineering Lessons
+- **AI for Extraction, Code for Math**: Language models interpret conversational nuance, but authoritative financial calculations and compliance rules belong strictly in verified application code.
+- **Webhook Integrity**: Spring Boot verifies Twilio webhook signatures before processing messages to prevent forged broker dispatch events.
+- **Structured Lead Qualification**: Normalizes free-form text conversations into standardized relational CRM records without requiring rigid UI forms.
+
+### Implementation Stack
+Engineered with Java 17, Spring Boot, MySQL, Hibernate ORM, Twilio WhatsApp API, and Groq API.`,
   coverImageUrl: "/images/projects/realguard/realguard.png",
-  category: "Backend Systems · AI Automation",
+  category: "AI Automation · Conversational Workflows",
   techStack: [
-    "Java",
-    "Spring Boot",
-    "Groq LLM",
+    "AI Automation",
     "Twilio WhatsApp API",
+    "Groq LLM",
+    "Spring Boot",
     "MySQL",
     "Hibernate ORM",
   ],
@@ -164,39 +165,32 @@ export const QUICKEATS_PROJECT: Project = {
   title: "QuickEats",
   editionCode: "QE-AI",
   summary:
-    "Full-stack food ordering platform featuring Spring Boot 3 REST APIs, Spring Security JWT rotation, server-side price tampering protection, WebSocket order tracking, and Groq Llama 3 assistance.",
+    "AI-assisted product engineering and application security system. Highlights include server-side price recalculation, ownership validation, JWT refresh-token rotation, real-time STOMP order updates, and conversational AI assistance. Verified with 71 executable @Test methods across 23 backend test classes.",
   caseStudyMarkdown: `### Overview
-QuickEats is a full-stack food ordering and delivery system engineered with Spring Boot 3, React 18, and Groq Llama 3. The platform addresses core food delivery challenges: server-side price validation to prevent client-side price manipulation, WebSocket rider tracking, and AI-assisted menu recommendations.
+QuickEats is an ordering and delivery system engineered to solve critical application security and real-time state synchronization challenges in food delivery.
 
-### Architecture & Flow
-1. **Frontend Client**: Built with React 18, Vite, and Tailwind CSS. Features an intuitive food ordering flow, cart management, and silent background JWT token refreshes.
-2. **Backend REST APIs**: Powered by Spring Boot 3.2.3 and Java 17, providing modular controllers for authentication, menu catalogs, orders, and customer support.
-3. **Database & ORM**: PostgreSQL, MySQL 8, and H2 support with Hibernate ORM for relational mapping and entity relationships.
-4. **Security & Authentication**: Spring Security 6 with JJWT. Implements short-lived access tokens, database-backed refresh token rotation, IDOR protections, and role-based access control.
-5. **Real-Time WebSockets**: Spring WebSocket with STOMP and SockJS broadcasts order status progression (PENDING ➔ PREPARING ➔ OUT_FOR_DELIVERY ➔ DELIVERED).
-6. **AI Recommendations & Support**: Groq API (Llama 3) provides dynamic menu suggestions and a contextually grounded order support chatbot.
+### Key Engineering Lessons & Security Mechanisms
+- **Server-Side Price Recalculation**: The order service strictly ignores client-supplied item prices. Total amounts are calculated exclusively on the server by looking up authoritative database prices, preventing cart tampering attacks.
+- **Ownership & IDOR Validation**: Strict entity-level ownership validation guarantees that customers can only view, modify, or track orders tied to their authenticated account.
+- **JWT Authentication & Refresh Token Rotation**: Implements stateless short-lived JWT access tokens paired with database-backed refresh token rotation and revocation.
+- **Real-Time Order Updates**: Bi-directional STOMP WebSockets over SockJS broadcast order lifecycle progression (PENDING ➔ PREPARING ➔ OUT_FOR_DELIVERY ➔ DELIVERED) and live simulated delivery coordinates.
+- **Conversational AI Assistance**: Groq API (Llama 3) powers conversational food recommendations and customer support grounded in verified order context.
+- **Verified Automated Test Suite**: Backed by 71 executable @Test methods across 23 backend test classes covering security controls, price recalculation logic, IDOR protections, and database transactions.
 
-### Key Engineering Highlights
-- **Server-Side Price Tampering Prevention**: The order service ignores client-supplied item prices, performing authoritative database price lookups to calculate total amounts.
-- **Privilege Escalation & IDOR Defense**: Strict ownership checks enforce that customers can only view, modify, or cancel their own orders and profile data.
-- **Real-Time Order Tracking**: Bi-directional WebSocket channels broadcast status updates and simulated courier coordinates.
-- **Groq Llama 3 AI Chatbot & Upsells**: Context-aware customer assistance and menu recommendations based on user order history.
-- **Automated Test Coverage**: 71 executable @Test methods across 23 backend test classes covering order security, IDOR validation, server-side price recalculation, and database fallbacks.
-
-### Implementation & Deployment
-Engineered as a multi-tier Java application with automated test suites, Docker configuration, and CI pipeline automation.`,
+### Architecture
+- **Backend**: Spring Boot 3.2.3, Java 17, Spring Security 6, JJWT
+- **Persistence**: PostgreSQL, MySQL 8, and Hibernate ORM
+- **Real-Time**: Spring WebSocket with STOMP and SockJS
+- **AI Integration**: Groq API (Llama 3) for contextual menu assistance`,
   coverImageUrl: "/images/projects/quickeats/preview.svg",
-  category: "Full-Stack · Backend & AI",
+  category: "Product Engineering · Application Security",
   techStack: [
-    "Java 17",
+    "Product Engineering",
+    "Application Security",
     "Spring Boot 3",
-    "Spring Security",
-    "PostgreSQL",
-    "MySQL",
-    "Hibernate ORM",
     "WebSockets",
-    "Groq API",
-    "React 18",
+    "Groq Llama 3",
+    "PostgreSQL",
   ],
   projectYear: 2025,
   liveUrl: null,

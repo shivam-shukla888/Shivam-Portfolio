@@ -16,7 +16,7 @@ export function Footer() {
               Developer & Creator
             </p>
             <p className="text-sm text-[var(--color-dark-ink-secondary)] max-w-sm leading-relaxed font-sans pt-2">
-              Backend systems, AI agents, and software security. Building projects and digital tools in public.
+              AI agents, AI security, automation, and digital products. Practical systems and developer resources.
             </p>
           </div>
 
@@ -32,13 +32,13 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white">
-                  About
+                <Link href="/projects" className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white">
+                  Work
                 </Link>
               </li>
               <li>
-                <Link href="/projects" className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white">
-                  Projects
+                <Link href="/about" className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white">
+                  About
                 </Link>
               </li>
               <li>
@@ -50,23 +50,11 @@ export function Footer() {
                 <Link href="/store" className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white">
                   Store
                 </Link>
-                <ul className="pl-2 pt-1 space-y-1 text-[11px] text-[var(--color-dark-ink-secondary)]/80">
-                  <li>
-                    <Link href="/store/design" className="hover:text-white transition-colors">
-                      Design & Templates
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/store/ai-agents" className="hover:text-white transition-colors">
-                      AI Agents
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/store/digital-products" className="hover:text-white transition-colors">
-                      Digital Products
-                    </Link>
-                  </li>
-                </ul>
+              </li>
+              <li>
+                <Link href="/resume" className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white">
+                  Resume
+                </Link>
               </li>
               <li>
                 <Link href="/contact" className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white">
@@ -138,15 +126,13 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <a
-                  href="/Resume.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  href="/resume"
                   className="text-[var(--color-accent)] hover:text-white transition-colors flex items-center gap-1 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white"
                 >
-                  <span>Resume (PDF)</span>
-                  <span className="text-[10px]">↓</span>
-                </a>
+                  <span>Resume</span>
+                  <span className="text-[10px]">→</span>
+                </Link>
               </li>
             </ul>
           </div>

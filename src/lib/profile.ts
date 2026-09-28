@@ -43,11 +43,11 @@ export interface ProfileDisplayData {
  */
 export const PROFILE_FALLBACK: ProfileDisplayData = {
   fullName: "Shivam Shukla",
-  positioningStatement: "Backend Systems · Agentic AI · AI Security",
+  positioningStatement: "AI Agents · AI Security · Automation · Digital Products",
   heroSupportingText:
-    "I build backend systems, AI agents, and security-focused software — and create digital tools along the way.",
+    "I build AI agents, automation systems, and developer products. From conversational workflows and backend systems to AI security and practical digital resources.",
   aboutMarkdown:
-    "I'm a Backend & AI Developer and 2026 CSE graduate. I specialize in Java, Spring Boot, relational database modeling, and LLM integrations (Groq API, prompt engineering) to build practical systems with deterministic verification. My projects focus on solving real-world challenges for citizens, home buyers, and local businesses through conversational messaging and clean backend architectures.",
+    "I build software products, AI agent workflows, and automation systems with a focus on AI security. I care about building practical systems rather than AI demos — separating language extraction from deterministic backend logic. While Java and Spring Boot form my core engineering background, Python drives my current work with LLM APIs, agent orchestration, and developer tooling. Along the way, I turn repeatable engineering patterns into open developer templates and digital resources.",
   contactInstructions:
     "Have a project in mind or want to collaborate? Send me a message with details, and I'll get back to you promptly.",
   availabilityStatus: "Available for Software Engineering Roles & Select Client Projects",

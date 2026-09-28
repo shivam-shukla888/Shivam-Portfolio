@@ -10,24 +10,24 @@ import { getPublishedProjects } from "@/lib/projects";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Projects — Shivam Shukla",
+  title: "Work & Projects — Shivam Shukla",
   description:
-    "Software projects, systems, and engineering builds by Shivam Shukla.",
+    "Verified software systems, AI agents, and engineering builds by Shivam Shukla — AI agents, automation, and security.",
   alternates: {
     canonical: "https://shivsastra.vercel.app/projects",
   },
   openGraph: {
-    title: "Projects — Shivam Shukla",
+    title: "Work & Projects — Shivam Shukla",
     description:
-      "Software projects, systems, and engineering builds by Shivam Shukla.",
+      "Verified software systems, AI agents, and engineering builds by Shivam Shukla — AI agents, automation, and security.",
     url: "https://shivsastra.vercel.app/projects",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Projects — Shivam Shukla",
+    title: "Work & Projects — Shivam Shukla",
     description:
-      "Software projects, systems, and engineering builds by Shivam Shukla.",
+      "Verified software systems, AI agents, and engineering builds by Shivam Shukla — AI agents, automation, and security.",
   },
 };
 
@@ -59,10 +59,10 @@ export default async function ProjectsPage() {
                 </Link>
               </div>
               <h1 className="font-display text-4xl sm:text-5xl font-normal tracking-tight text-[var(--color-ink-primary)]">
-                Projects
+                Selected Work
               </h1>
               <p className="font-sans text-sm md:text-base text-[var(--color-ink-secondary)] leading-relaxed max-w-3xl">
-                Selected software builds and projects across backend systems, AI agents, and security.
+                Verified software builds across AI agents, conversational automation, application security, and deterministic systems.
               </p>
             </div>
           </InnerPageEntrance>

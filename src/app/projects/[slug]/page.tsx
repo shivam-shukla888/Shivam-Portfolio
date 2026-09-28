@@ -27,14 +27,14 @@ export async function generateMetadata({
 
   if (slug === "yojna-setu") {
     return {
-      title: "Yojna Setu — WhatsApp AI Agent for Welfare-Scheme Discovery",
+      title: "Yojna Setu — AI + Deterministic Systems | Shivam Shukla",
       description:
-        "A WhatsApp AI agent for welfare-scheme discovery combining conversational demographic profile extraction with deterministic Java rules over 82 normalized schemes.",
+        "AI + deterministic systems welfare discovery platform. Natural language intake coupled with a deterministic rules engine over 82 welfare schemes.",
       alternates: {
         canonical: "https://shivsastra.vercel.app/projects/yojna-setu",
       },
       openGraph: {
-        title: "Yojna Setu — WhatsApp AI Agent for Welfare-Scheme Discovery",
+        title: "Yojna Setu — AI + Deterministic Systems | Shivam Shukla",
         description:
           "Conversational scheme discovery system combining multilingual AI extraction with deterministic eligibility rules over 82 normalized welfare programs.",
         url: "https://shivsastra.vercel.app/projects/yojna-setu",
@@ -43,7 +43,7 @@ export async function generateMetadata({
       },
       twitter: {
         card: "summary_large_image",
-        title: "Yojna Setu — WhatsApp AI Agent for Welfare-Scheme Discovery",
+        title: "Yojna Setu — AI + Deterministic Systems | Shivam Shukla",
         description:
           "Conversational scheme discovery system combining multilingual AI extraction with deterministic eligibility rules over 82 normalized welfare programs.",
       },
@@ -52,50 +52,50 @@ export async function generateMetadata({
 
   if (slug === "realguard") {
     return {
-      title: "RealGuard — WhatsApp Real Estate Assistant | Shivam Shukla",
+      title: "RealGuard — AI Automation & Conversational Workflows | Shivam Shukla",
       description:
-        "WhatsApp assistant that helps real estate brokers qualify buyer leads, verify RERA compliance, and calculate in-chat mortgages.",
+        "AI automation and conversational workflows for real estate. WhatsApp conversational extraction coupled with deterministic calculations and RERA registry lookup.",
       alternates: {
         canonical: "https://shivsastra.vercel.app/projects/realguard",
       },
       openGraph: {
-        title: "RealGuard — WhatsApp Real Estate Assistant | Shivam Shukla",
+        title: "RealGuard — AI Automation & Conversational Workflows | Shivam Shukla",
         description:
-          "WhatsApp assistant automating buyer lead qualification, RERA registry verification, and dynamic EMI loan profiling.",
+          "AI automation and conversational workflows for real estate. WhatsApp conversational extraction coupled with deterministic calculations and RERA registry lookup.",
         url: "https://shivsastra.vercel.app/projects/realguard",
         type: "article",
         images: [{ url: "/images/projects/realguard/realguard.png" }],
       },
       twitter: {
         card: "summary_large_image",
-        title: "RealGuard — WhatsApp Real Estate Assistant | Shivam Shukla",
+        title: "RealGuard — AI Automation & Conversational Workflows | Shivam Shukla",
         description:
-          "WhatsApp assistant automating buyer lead qualification, RERA registry verification, and dynamic EMI loan profiling.",
+          "AI automation and conversational workflows for real estate. WhatsApp conversational extraction coupled with deterministic calculations and RERA registry lookup.",
       },
     };
   }
 
   if (slug === "quickeats") {
     return {
-      title: "QuickEats — Full-Stack Food Ordering Platform | Shivam Shukla",
+      title: "QuickEats — Product Engineering & App Security | Shivam Shukla",
       description:
-        "Full-stack food ordering platform built with Spring Boot 3, Spring Security JWT rotation, WebSockets, and Groq Llama 3 assistance.",
+        "AI-assisted food ordering platform featuring server-side price recalculation, ownership validation, JWT rotation, STOMP WebSockets, and Groq Llama 3.",
       alternates: {
         canonical: "https://shivsastra.vercel.app/projects/quickeats",
       },
       openGraph: {
-        title: "QuickEats — Full-Stack Food Ordering Platform | Shivam Shukla",
+        title: "QuickEats — Product Engineering & App Security | Shivam Shukla",
         description:
-          "Full-stack food ordering platform built with Spring Boot 3, Spring Security JWT rotation, WebSockets, and Groq Llama 3 assistance.",
+          "AI-assisted food ordering platform featuring server-side price recalculation, ownership validation, JWT rotation, STOMP WebSockets, and Groq Llama 3.",
         url: "https://shivsastra.vercel.app/projects/quickeats",
         type: "article",
         images: [{ url: "/images/projects/quickeats/preview.svg" }],
       },
       twitter: {
         card: "summary_large_image",
-        title: "QuickEats — Full-Stack Food Ordering Platform | Shivam Shukla",
+        title: "QuickEats — Product Engineering & App Security | Shivam Shukla",
         description:
-          "Full-stack food ordering platform built with Spring Boot 3, Spring Security JWT rotation, WebSockets, and Groq Llama 3 assistance.",
+          "AI-assisted food ordering platform featuring server-side price recalculation, ownership validation, JWT rotation, STOMP WebSockets, and Groq Llama 3.",
       },
     };
   }

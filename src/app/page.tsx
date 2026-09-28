@@ -23,37 +23,36 @@ import {
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Shivam Shukla — Backend Systems, Agentic AI & Java Engineer",
+  title: "Shivam Shukla — AI Agents, AI Security & Developer Products",
   description:
-    "Personal website and portfolio of Shivam Shukla. I build backend systems, AI agents, and security-focused software with Java, Spring Boot, and LLM integrations.",
+    "Personal website of Shivam Shukla. I build AI agents, automation systems, and developer products with Python, backend architectures, and AI security.",
   keywords: [
     "Shivam Shukla",
-    "Java Developer",
-    "Spring Boot Developer",
-    "Backend Developer",
-    "AI Developer",
-    "AI Agent Development",
-    "Full Stack Developer",
-    "React",
-    "LLM Integration",
+    "AI Agents",
+    "AI Security",
+    "AI Automation",
+    "Developer Products",
+    "Python",
+    "Prompt Injection Defense",
+    "Backend Systems",
     "Software Engineer",
   ],
   alternates: {
     canonical: "https://shivsastra.vercel.app",
   },
   openGraph: {
-    title: "Shivam Shukla — Backend Systems, Agentic AI & Java Engineer",
+    title: "Shivam Shukla — AI Agents, AI Security & Developer Products",
     description:
-      "Personal portfolio of Shivam Shukla. Building backend systems, AI agents, and security-focused software.",
+      "I build AI agents, automation systems, and developer products. From conversational workflows and backend systems to AI security and practical digital resources.",
     url: "https://shivsastra.vercel.app",
     type: "website",
     images: [{ url: "/images/shivam-shukla.jpg" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Shivam Shukla — Backend Systems, Agentic AI & Java Engineer",
+    title: "Shivam Shukla — AI Agents, AI Security & Developer Products",
     description:
-      "Personal portfolio of Shivam Shukla. Building backend systems, AI agents, and security-focused software.",
+      "I build AI agents, automation systems, and developer products. From conversational workflows and backend systems to AI security and practical digital resources.",
   },
 };
 
@@ -94,22 +93,22 @@ export default async function HomePage() {
         "@id": "https://shivsastra.vercel.app/#person",
         name: profile.fullName || "Shivam Shukla",
         url: "https://shivsastra.vercel.app",
-        jobTitle: "Backend & AI Developer",
+        jobTitle: "AI Agent & Security Builder",
         alumniOf: "SRMS College of Engineering, Technology & Research",
         knowsAbout: [
+          "AI Agents",
+          "AI Security",
+          "AI Automation",
+          "Python",
+          "Prompt Injection Defense",
           "Java",
           "Spring Boot",
-          "Hibernate ORM",
           "PostgreSQL",
-          "MySQL",
-          "AI Agents",
-          "Groq API",
-          "Twilio API",
-          "React",
           "REST APIs",
+          "Digital Products",
         ],
         description:
-          "Building backend systems, AI agents, and security-focused software.",
+          "Building AI agents, automation systems, and security-focused developer products.",
         sameAs: verifiedSameAs,
       },
       {
@@ -164,7 +163,7 @@ export default async function HomePage() {
             }
             positioning={
               <p className="font-mono text-xs sm:text-sm uppercase tracking-[0.14em] text-[var(--color-accent)] font-semibold">
-                Backend Systems · Agentic AI · AI Security
+                AI Agents · AI Security · Automation · Digital Products
               </p>
             }
             narrative={
@@ -187,21 +186,19 @@ export default async function HomePage() {
                     →
                   </span>
                 </Link>
-                <a
-                  href="/Resume.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  href="/resume"
                   className={buttonStyles({
                     variant: "secondary",
                     size: "lg",
                     className: "w-full sm:w-auto font-mono text-xs uppercase tracking-wider border-[var(--color-ink-primary)] group",
                   })}
                 >
-                  <span>Download Resume</span>
-                  <span className="inline-block transition-transform duration-200 group-hover:translate-y-0.5 motion-reduce:transform-none ml-1.5">
-                    ↓
+                  <span>Resume</span>
+                  <span className="inline-block transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transform-none ml-1.5">
+                    →
                   </span>
-                </a>
+                </Link>
                 <Link
                   href="/store"
                   className="font-mono text-xs uppercase tracking-wider px-4 py-3 text-[var(--color-ink-secondary)] hover:text-[var(--color-accent)] transition-colors text-center"
@@ -230,7 +227,7 @@ export default async function HomePage() {
                     About Me
                   </h2>
                   <p className="font-sans text-xs text-[var(--color-accent)] font-medium">
-                    Backend & AI Developer · 2026 CSE Graduate
+                    AI Agent &amp; Security Builder · Digital Products
                   </p>
                 </div>
 
@@ -267,10 +264,10 @@ export default async function HomePage() {
                     PHILOSOPHY &amp; FOCUS
                   </span>
                   <p className="font-sans text-base sm:text-lg text-[var(--color-ink-primary)] leading-relaxed">
-                    I&apos;m a Backend &amp; AI Developer and 2026 CSE graduate. I specialize in Java, Spring Boot, relational database modeling, and LLM integrations (Groq API, prompt engineering) to build practical systems with deterministic verification.
+                    I build software products, practical AI agents, and automation systems with a focus on AI security. I care about building practical systems rather than AI demos — separating language extraction from deterministic backend logic.
                   </p>
                   <p className="font-sans text-sm sm:text-base text-[var(--color-ink-secondary)] leading-relaxed">
-                    My projects focus on solving real-world challenges for citizens, home buyers, and local businesses through conversational messaging and clean backend architectures.
+                    While Java and Spring Boot remain a solid engineering foundation of my work, Python is my primary language for AI agent orchestration, tool calling, and automation. Along the way, I turn repeatable engineering patterns into open developer templates and digital resources.
                   </p>
                 </div>
 
@@ -278,25 +275,25 @@ export default async function HomePage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="p-6 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] space-y-2">
                     <span className="font-mono text-[11px] text-[var(--color-accent)] font-semibold uppercase tracking-wider">
-                      Work Experience
+                      Engineering Foundation
                     </span>
                     <h3 className="font-display text-lg text-[var(--color-ink-primary)]">
-                      Java &amp; Spring Boot Intern
+                      Backend &amp; Systems
                     </h3>
                     <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
-                      Soft Pro (2025) · Developed RESTful APIs following MVC architecture with Java, Spring Boot, Hibernate ORM, and MySQL.
+                      Engineering background in Python, Java, and Spring Boot, combining relational data modeling with modern LLM tool integrations.
                     </p>
                   </div>
 
                   <div className="p-6 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] space-y-2">
                     <span className="font-mono text-[11px] text-[var(--color-accent)] font-semibold uppercase tracking-wider">
-                      Engineering Builds
+                      Shipped Systems
                     </span>
                     <h3 className="font-display text-lg text-[var(--color-ink-primary)]">
-                      3 Shipped Systems
+                      3 Working Systems
                     </h3>
                     <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
-                      Built Yojna Setu, RealGuard, and QuickEats combining Spring Boot backends with Groq AI workflows.
+                      Built Yojna Setu (AI + deterministic rules), RealGuard (AI automation), and QuickEats (AI-assisted product engineering &amp; security).
                     </p>
                   </div>
                 </div>
@@ -311,14 +308,12 @@ export default async function HomePage() {
                       →
                     </span>
                   </Link>
-                  <a
-                    href="/Resume.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <Link
+                    href="/resume"
                     className="font-mono text-xs uppercase tracking-wider text-[var(--color-ink-secondary)] hover:text-[var(--color-ink-primary)] transition-colors underline underline-offset-4"
                   >
-                    View Resume (PDF) ↗
-                  </a>
+                    View Resume →
+                  </Link>
                 </div>
               </div>
             </div>
@@ -339,7 +334,7 @@ export default async function HomePage() {
                   Selected Work
                 </h2>
                 <p className="font-sans text-xs text-[var(--color-accent)] font-medium">
-                  Full-stack systems built with Java, Spring Boot, Groq LLMs, and WebSockets.
+                  Practical systems built with AI agents, deterministic rules engines, and application security.
                 </p>
               </div>
               <Link
@@ -869,7 +864,7 @@ export default async function HomePage() {
                     </div>
                     <div className="flex justify-between py-1 border-b border-[var(--color-hairline)]">
                       <span>Primary Stack:</span>
-                      <span className="font-semibold text-[var(--color-ink-primary)]">Java, SQL, TypeScript</span>
+                      <span className="font-semibold text-[var(--color-ink-primary)]">Python, AI Agents, Java, SQL</span>
                     </div>
                     <div className="flex justify-between py-1 border-b border-[var(--color-hairline)]">
                       <span>Featured Work:</span>
@@ -895,26 +890,24 @@ export default async function HomePage() {
                       MISSION
                     </span>
                     <h3 className="font-display text-2xl text-[var(--color-ink-primary)]">
-                      Building Practical AI for Bharat
+                      Practical Systems Over AI Demos
                     </h3>
                     <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
-                      I believe conversational interfaces like WhatsApp provide the most direct access for citizens and local businesses. My approach combines conversational LLMs for natural language parsing with deterministic Java business logic so application behavior remains predictable, testable, and maintainable.
+                      I believe language models must be coupled with deterministic application logic. Conversational LLMs interpret unstructured user intent, while deterministic code and relational models enforce validation, compliance, and authoritative calculations.
                     </p>
                   </div>
 
                   <div className="pt-4 flex flex-wrap items-center gap-4 border-t border-[var(--color-hairline)]">
-                    <a
-                      href="/Resume.pdf"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <Link
+                      href="/resume"
                       className={buttonStyles({
                         variant: "primary",
                         size: "md",
                         className: "font-mono text-xs uppercase tracking-wider",
                       })}
                     >
-                      Download Resume (PDF) ↓
-                    </a>
+                      Resume →
+                    </Link>
                     <Link
                       href="/contact"
                       className="font-mono text-xs uppercase tracking-wider text-[var(--color-ink-secondary)] hover:text-[var(--color-ink-primary)] transition-colors"
@@ -973,21 +966,19 @@ export default async function HomePage() {
                 </div>
 
                 <div className="pt-4 flex flex-wrap items-center gap-3">
-                  <a
-                    href="/Resume.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <Link
+                    href="/resume"
                     className={buttonStyles({
                       variant: "dark-inverse",
                       size: "md",
                       className: "group",
                     })}
                   >
-                    <span>Download Resume</span>
-                    <span className="inline-block transition-transform duration-200 group-hover:translate-y-0.5 motion-reduce:transform-none ml-1.5">
-                      ↓
+                    <span>Resume</span>
+                    <span className="inline-block transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transform-none ml-1.5">
+                      →
                     </span>
-                  </a>
+                  </Link>
                   <Link
                     href="/contact"
                     className="font-mono text-xs uppercase tracking-wider px-4 py-2 border border-[var(--color-dark-hairline)] text-[var(--color-dark-ink-secondary)] hover:text-white hover:border-white transition-colors"

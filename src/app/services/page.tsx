@@ -11,14 +11,14 @@ export const revalidate = 60;
 export const metadata: Metadata = {
   title: "Services — Shivam Shukla",
   description:
-    "Software engineering and consulting across backend systems, AI agents, and AI application security by Shivam Shukla.",
+    "Practical software engineering and consulting across AI agents, AI automation, AI security, and digital products by Shivam Shukla.",
   alternates: {
     canonical: "https://shivsastra.vercel.app/services",
   },
   openGraph: {
     title: "Services — Shivam Shukla",
     description:
-      "Software engineering and consulting across backend systems, AI agents, and AI application security by Shivam Shukla.",
+      "Practical software engineering and consulting across AI agents, AI automation, AI security, and digital products by Shivam Shukla.",
     url: "https://shivsastra.vercel.app/services",
     type: "website",
   },
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Services — Shivam Shukla",
     description:
-      "Software engineering and consulting across backend systems, AI agents, and AI application security by Shivam Shukla.",
+      "Practical software engineering and consulting across AI agents, AI automation, AI security, and digital products by Shivam Shukla.",
   },
 };
 
@@ -55,7 +55,7 @@ export default async function ServicesPage() {
                   href="/store"
                   className="font-mono text-xs text-[var(--color-ink-secondary)] hover:text-[var(--color-accent)] transition-colors inline-flex items-center gap-1"
                 >
-                  <span>Looking for digital products or tools? Visit the Store</span>
+                  <span>Looking for templates or blueprints? Visit the Store</span>
                   <span>→</span>
                 </Link>
               </div>
@@ -63,7 +63,7 @@ export default async function ServicesPage() {
                 Services
               </h1>
               <p className="font-sans text-sm md:text-base text-[var(--color-ink-secondary)] leading-relaxed max-w-3xl">
-                I work with clients on custom software development and consulting across backend systems, AI agents, and AI security.
+                Practical engineering across AI agents, workflow automation, AI security guardrails, digital products, and backend systems.
               </p>
             </div>
           </InnerPageEntrance>

@@ -15,14 +15,14 @@ export const revalidate = 60;
 export const metadata = {
   title: "About — Shivam Shukla",
   description:
-    "Background, education, career experience, and technical approach of Shivam Shukla — backend systems, AI agents, and software security.",
+    "Background, technical approach, and direction of Shivam Shukla — AI agents, AI security, automation, and digital products.",
   alternates: {
     canonical: "https://shivsastra.vercel.app/about",
   },
   openGraph: {
     title: "About — Shivam Shukla",
     description:
-      "Background, education, career experience, and technical approach of Shivam Shukla — backend systems, AI agents, and software security.",
+      "Background, technical approach, and direction of Shivam Shukla — AI agents, AI security, automation, and digital products.",
     url: "https://shivsastra.vercel.app/about",
     type: "profile",
     images: [{ url: "/images/shivam-shukla.jpg" }],
@@ -31,7 +31,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "About — Shivam Shukla",
     description:
-      "Background, education, career experience, and technical approach of Shivam Shukla — backend systems, AI agents, and software security.",
+      "Background, technical approach, and direction of Shivam Shukla — AI agents, AI security, automation, and digital products.",
   },
 };
 
@@ -63,7 +63,7 @@ export default async function AboutPage() {
                 About Me
               </h1>
               <p className="font-sans text-xs text-[var(--color-accent)] font-medium">
-                Engineering Background, Career Journey &amp; Core Principles
+                AI Agents · AI Security · Automation · Digital Products
               </p>
             </div>
           </InnerPageEntrance>
@@ -84,18 +84,16 @@ export default async function AboutPage() {
                   />
                 </div>
                 <div className="pt-2">
-                  <a
-                    href="/Resume.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <Link
+                    href="/resume"
                     className={buttonStyles({
                       variant: "primary",
                       size: "md",
                       className: "w-full font-mono text-xs uppercase tracking-wider justify-center",
                     })}
                   >
-                    Download Resume (PDF) ↓
-                  </a>
+                    View Resume →
+                  </Link>
                 </div>
               </div>
 
@@ -103,13 +101,13 @@ export default async function AboutPage() {
               <div className="md:col-span-7 space-y-6">
                 <div className="p-8 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] space-y-4">
                   <p className="font-display text-xl sm:text-2xl text-[var(--color-ink-primary)] leading-relaxed italic">
-                    &ldquo;I build backend systems and practical AI workflows — combining natural language understanding with deterministic logic.&rdquo;
+                    &ldquo;I build software products, AI agents, and automation systems — prioritizing AI security and deterministic application logic over flashy demos.&rdquo;
                   </p>
                   <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
-                    I&apos;m a Backend &amp; AI Developer and 2026 Computer Science Engineering graduate. I specialize in Java, Spring Boot, and LLM integrations (Groq API, prompt engineering) to build reliable applications with clear separation of concerns.
+                    I&apos;m a software builder and 2026 Computer Science Engineering graduate. I build practical software products, working with AI agent workflows, tool calling, and workflow automation. I care deeply about AI security — ensuring that user inputs are validated, data boundaries are preserved, and language models never execute authoritative transactions without deterministic controls.
                   </p>
                   <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
-                    My projects focus on solving real challenges for citizens, home buyers, and vendors through accessible WhatsApp messaging and structured backend services.
+                    Backend engineering is the foundation of everything I build. Java and Spring Boot form my core systems background from coursework and internship experience, while Python is my primary programming language for current work in AI agent integration, LLM pipelines, and automation scripting. Along the way, I turn repeatable engineering patterns into open developer templates and digital resources.
                   </p>
                 </div>
 
@@ -118,10 +116,13 @@ export default async function AboutPage() {
                     HOW I WORK
                   </span>
                   <p className="leading-relaxed">
-                    1. <strong className="text-[var(--color-ink-primary)]">AI Extracts. Code Decides:</strong> LLMs are useful for parsing unstructured human intent, but business logic, compliance rules, and financial calculations belong strictly in deterministic code.
+                    1. <strong className="text-[var(--color-ink-primary)]">AI Extracts. Code Decides:</strong> LLMs are valuable for interpreting messy, natural-language human intent, but business logic, compliance rules, and financial calculations belong strictly in deterministic code.
                   </p>
                   <p className="leading-relaxed">
-                    2. <strong className="text-[var(--color-ink-primary)]">Defensive Engineering:</strong> From server-side price recalculation to IDOR ownership checks, applications should validate data authority on the server rather than trusting client state.
+                    2. <strong className="text-[var(--color-ink-primary)]">AI Security &amp; Defensive Boundaries:</strong> From prompt-injection defense and schema validation to server-side price recalculation and IDOR checks, applications must enforce server-side authority rather than trusting client or prompt state.
+                  </p>
+                  <p className="leading-relaxed">
+                    3. <strong className="text-[var(--color-ink-primary)]">Practical Products Over AI Demos:</strong> I focus on building systems that solve concrete problems — from citizens discovering welfare schemes via WhatsApp to brokers qualifying leads.
                   </p>
                 </div>
               </div>
@@ -271,14 +272,12 @@ export default async function AboutPage() {
                 </p>
               </div>
               <div className="flex flex-wrap items-center gap-3">
-                <a
-                  href="/Resume.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  href="/resume"
                   className="font-mono text-xs uppercase tracking-wider px-4 py-2.5 border border-[var(--color-hairline)] text-[var(--color-ink-primary)] hover:border-[var(--color-ink-primary)] transition-colors"
                 >
-                  Resume ↓
-                </a>
+                  Resume →
+                </Link>
                 <Link
                   href="/contact"
                   className={buttonStyles({
