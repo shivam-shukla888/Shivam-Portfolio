@@ -137,6 +137,17 @@ export function Footer() {
                   <span className="text-[10px] text-[var(--color-accent)]">↗</span>
                 </a>
               </li>
+              <li>
+                <a
+                  href="/Resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[var(--color-accent)] hover:text-white transition-colors flex items-center gap-1 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white"
+                >
+                  <span>Resume (PDF)</span>
+                  <span className="text-[10px]">↓</span>
+                </a>
+              </li>
             </ul>
           </div>
 

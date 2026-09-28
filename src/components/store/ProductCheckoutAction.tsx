@@ -138,20 +138,20 @@ export function ProductCheckoutAction({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [step]);
 
-  // If product is not available, render disabled state
+  // If product is not available or non-commercial (case study or in development), render transparent status
   if (!isAvailable || priceInCents === null || priceInCents <= 0) {
     return (
       <div className="pt-4 flex flex-col sm:flex-row sm:items-center gap-4">
-        <Button
-          variant="secondary"
-          size="lg"
-          disabled
-          className="font-mono text-xs uppercase tracking-wider opacity-60 cursor-not-allowed min-h-[44px]"
+        <a
+          href={`/contact?subject=${encodeURIComponent(`Inquiry regarding ${productTitle}`)}`}
+          className="inline-flex items-center justify-center font-mono text-xs uppercase tracking-wider px-5 py-3 border border-[var(--color-ink-primary)] text-[var(--color-ink-primary)] hover:bg-[var(--color-ink-primary)] hover:text-[var(--color-canvas-primary)] transition-colors min-h-[44px]"
         >
-          Product Unavailable
-        </Button>
+          {formattedPrice === "Case Study" ? "Read Architecture Blueprint →" : "Inquire About Release →"}
+        </a>
         <span className="font-mono text-xs text-[var(--color-ink-secondary)]">
-          This product is currently unavailable.
+          {formattedPrice === "Case Study"
+            ? "Open architectural case study and agent engineering showcase."
+            : "Resource currently in development. No payment or checkout required."}
         </span>
       </div>
     );

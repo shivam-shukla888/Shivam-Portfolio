@@ -114,12 +114,110 @@ export const YOJNA_SETU_PROJECT: Project = {
   publishedAt: "2026-09-25T12:00:00Z",
 };
 
+export const REALGUARD_PROJECT: Project = {
+  id: "realguard",
+  slug: "realguard",
+  title: "RealGuard",
+  editionCode: "RG-AI",
+  summary:
+    "WhatsApp real estate assistant for buyer lead qualification, RERA registry verification, fraud-detection checks, dynamic EMI loan profiling, and site-visit scheduling.",
+  caseStudyMarkdown: `### Overview
+RealGuard is a WhatsApp assistant that helps real estate brokers qualify buyer leads, verify RERA registration data, schedule site visits, and answer property inquiries through conversational messaging.
+
+### Architecture & Conversational Flow
+1. **WhatsApp Webhook Intake**: Prospective buyers initiate inquiries via WhatsApp messages received through Twilio API webhooks.
+2. **Spring Boot Backend**: Validates incoming webhook signatures, manages user conversation sessions, and routes requests to appropriate service handlers.
+3. **Groq LLM Extraction**: Extracts user budget, preferred locations, property types, and timeline from conversational text into structured parameters.
+4. **RERA Verification & Fraud Detection**: Executes lookup queries against project and agent registry records to flag unverified or suspicious listings.
+5. **Dynamic EMI Calculation**: Computes mortgage estimates, interest amortization, and monthly EMI figures directly within the conversation loop using application math.
+6. **Data & Notification Layer**: Persists client records and interaction history in MySQL via Hibernate ORM and sends instant notification summaries to brokers.
+
+### Key Engineering Highlights
+- **Conversational Buyer Qualification**: Converts unstructured user messages into structured buyer profiles with score ratings.
+- **RERA Compliance Checks**: Queries registered project IDs to help verify developer claims and protect prospective buyers.
+- **In-Chat Mortgage Estimation**: Calculates principal, interest rate, tenure, and monthly EMI breakdown directly inside chat.
+- **Broker Notifications & Scheduling**: Automates site-visit booking and dispatches alert messages to assigned sales agents.
+
+### Implementation & Deployment
+Built with Java 17 and Spring Boot following clean MVC architecture. Data persistence is managed with MySQL and Hibernate ORM. Conversational extraction is powered by the Groq API using structured prompt templates.`,
+  coverImageUrl: "/images/projects/realguard/realguard.png",
+  category: "Backend Systems · AI Automation",
+  techStack: [
+    "Java",
+    "Spring Boot",
+    "Groq LLM",
+    "Twilio WhatsApp API",
+    "MySQL",
+    "Hibernate ORM",
+  ],
+  projectYear: 2025,
+  liveUrl: null,
+  githubUrl: "https://github.com/shivam-shukla888/RealGuard",
+  isFeatured: true,
+  sortOrder: 2,
+  publishedAt: "2025-11-15T12:00:00Z",
+};
+
+export const QUICKEATS_PROJECT: Project = {
+  id: "quickeats",
+  slug: "quickeats",
+  title: "QuickEats",
+  editionCode: "QE-AI",
+  summary:
+    "Full-stack food ordering platform featuring Spring Boot 3 REST APIs, Spring Security JWT rotation, server-side price tampering protection, WebSocket order tracking, and Groq Llama 3 assistance.",
+  caseStudyMarkdown: `### Overview
+QuickEats is a full-stack food ordering and delivery system engineered with Spring Boot 3, React 18, and Groq Llama 3. The platform addresses core food delivery challenges: server-side price validation to prevent client-side price manipulation, WebSocket rider tracking, and AI-assisted menu recommendations.
+
+### Architecture & Flow
+1. **Frontend Client**: Built with React 18, Vite, and Tailwind CSS. Features an intuitive food ordering flow, cart management, and silent background JWT token refreshes.
+2. **Backend REST APIs**: Powered by Spring Boot 3.2.3 and Java 17, providing modular controllers for authentication, menu catalogs, orders, and customer support.
+3. **Database & ORM**: PostgreSQL, MySQL 8, and H2 support with Hibernate ORM for relational mapping and entity relationships.
+4. **Security & Authentication**: Spring Security 6 with JJWT. Implements short-lived access tokens, database-backed refresh token rotation, IDOR protections, and role-based access control.
+5. **Real-Time WebSockets**: Spring WebSocket with STOMP and SockJS broadcasts order status progression (PENDING ➔ PREPARING ➔ OUT_FOR_DELIVERY ➔ DELIVERED).
+6. **AI Recommendations & Support**: Groq API (Llama 3) provides dynamic menu suggestions and a contextually grounded order support chatbot.
+
+### Key Engineering Highlights
+- **Server-Side Price Tampering Prevention**: The order service ignores client-supplied item prices, performing authoritative database price lookups to calculate total amounts.
+- **Privilege Escalation & IDOR Defense**: Strict ownership checks enforce that customers can only view, modify, or cancel their own orders and profile data.
+- **Real-Time Order Tracking**: Bi-directional WebSocket channels broadcast status updates and simulated courier coordinates.
+- **Groq Llama 3 AI Chatbot & Upsells**: Context-aware customer assistance and menu recommendations based on user order history.
+- **Automated Test Coverage**: 71 executable @Test methods across 23 backend test classes covering order security, IDOR validation, server-side price recalculation, and database fallbacks.
+
+### Implementation & Deployment
+Engineered as a multi-tier Java application with automated test suites, Docker configuration, and CI pipeline automation.`,
+  coverImageUrl: "/images/projects/quickeats/preview.svg",
+  category: "Full-Stack · Backend & AI",
+  techStack: [
+    "Java 17",
+    "Spring Boot 3",
+    "Spring Security",
+    "PostgreSQL",
+    "MySQL",
+    "Hibernate ORM",
+    "WebSockets",
+    "Groq API",
+    "React 18",
+  ],
+  projectYear: 2025,
+  liveUrl: null,
+  githubUrl: "https://github.com/shivam-shukla888/QuickEats-Ordering-System",
+  isFeatured: true,
+  sortOrder: 3,
+  publishedAt: "2025-10-20T12:00:00Z",
+};
+
+export const CANONICAL_PROJECTS: Project[] = [
+  YOJNA_SETU_PROJECT,
+  REALGUARD_PROJECT,
+  QUICKEATS_PROJECT,
+];
+
 const PUBLIC_PROJECT_COLUMNS =
   "id, slug, title, edition_code, summary, case_study_markdown, cover_image_url, category, tech_stack, project_year, live_url, github_url, is_featured, sort_order, published_at";
 
 /**
  * Fetches all published projects ordered deterministically by sort_order ASC, then created_at DESC.
- * Seamlessly integrates canonical featured projects (Yojna Setu V2) with live Supabase storage.
+ * Integrates canonical featured projects (Yojna Setu, RealGuard, QuickEats) with database storage.
  */
 export async function getPublishedProjects(options?: {
   featuredOnly?: boolean;
@@ -151,11 +249,13 @@ export async function getPublishedProjects(options?: {
     console.error(`[PROJECTS EXCEPTION] ${message}`);
   }
 
-  // Ensure canonical Yojna Setu V2 project is present in the archive
-  const hasYojnaSetu = projects.some((p) => p.slug === "yojna-setu");
-  if (!hasYojnaSetu) {
-    if (!options?.featuredOnly || YOJNA_SETU_PROJECT.isFeatured) {
-      projects.unshift(YOJNA_SETU_PROJECT);
+  // Ensure canonical projects (Yojna Setu, RealGuard, QuickEats) are present
+  for (const canonical of CANONICAL_PROJECTS) {
+    const exists = projects.some((p) => p.slug === canonical.slug);
+    if (!exists) {
+      if (!options?.featuredOnly || canonical.isFeatured) {
+        projects.push(canonical);
+      }
     }
   }
 
@@ -172,7 +272,7 @@ export async function getPublishedProjects(options?: {
 /**
  * Resolves a single published project by its slug.
  * Excludes unpublished projects strictly (returns null).
- * Guarantees resolution for canonical projects (yojna-setu).
+ * Guarantees resolution for canonical projects (yojna-setu, realguard, quickeats).
  */
 export async function getPublishedProjectBySlug(
   slug: string
@@ -181,7 +281,7 @@ export async function getPublishedProjectBySlug(
     return null;
   }
 
-  const normalizedSlug = slug.trim();
+  const normalizedSlug = slug.trim().toLowerCase();
 
   try {
     const client = getProjectsQueryClient();
@@ -202,9 +302,12 @@ export async function getPublishedProjectBySlug(
     console.error(`[PROJECTS EXCEPTION] ${message}`);
   }
 
-  // Canonical fallback for Yojna Setu V2
-  if (normalizedSlug === "yojna-setu") {
-    return YOJNA_SETU_PROJECT;
+  // Canonical fallback matching
+  const canonical = CANONICAL_PROJECTS.find(
+    (p) => p.slug === normalizedSlug
+  );
+  if (canonical) {
+    return canonical;
   }
 
   return null;

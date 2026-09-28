@@ -19,10 +19,8 @@ import {
   checkRateLimit,
   checkInMemoryRateLimit,
   hashClientIdentifier,
-  extractClientIp,
   clearRateLimitStore,
   getStoreSize,
-  pruneExpiredEntries,
 } from "../src/lib/rate-limit";
 import { submitContactInquiry } from "../src/app/actions/contact";
 import { initialContactState } from "../src/lib/validations/contact";

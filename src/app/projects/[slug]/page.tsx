@@ -10,6 +10,7 @@ import { getPublishedProjectBySlug } from "@/lib/projects";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { BackToTop } from "@/components/ui/BackToTop";
 import { YojnaSetuCaseStudy } from "@/components/projects/yojna-setu/YojnaSetuCaseStudy";
+import { CaseStudyBody } from "@/components/projects/CaseStudyBody";
 
 export const revalidate = 60;
 
@@ -45,6 +46,56 @@ export async function generateMetadata({
         title: "Yojna Setu — WhatsApp AI Agent for Welfare-Scheme Discovery",
         description:
           "Conversational scheme discovery system combining multilingual AI extraction with deterministic eligibility rules over 82 normalized welfare programs.",
+      },
+    };
+  }
+
+  if (slug === "realguard") {
+    return {
+      title: "RealGuard — WhatsApp Real Estate Assistant | Shivam Shukla",
+      description:
+        "WhatsApp assistant that helps real estate brokers qualify buyer leads, verify RERA compliance, and calculate in-chat mortgages.",
+      alternates: {
+        canonical: "https://shivsastra.vercel.app/projects/realguard",
+      },
+      openGraph: {
+        title: "RealGuard — WhatsApp Real Estate Assistant | Shivam Shukla",
+        description:
+          "WhatsApp assistant automating buyer lead qualification, RERA registry verification, and dynamic EMI loan profiling.",
+        url: "https://shivsastra.vercel.app/projects/realguard",
+        type: "article",
+        images: [{ url: "/images/projects/realguard/realguard.png" }],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: "RealGuard — WhatsApp Real Estate Assistant | Shivam Shukla",
+        description:
+          "WhatsApp assistant automating buyer lead qualification, RERA registry verification, and dynamic EMI loan profiling.",
+      },
+    };
+  }
+
+  if (slug === "quickeats") {
+    return {
+      title: "QuickEats — Full-Stack Food Ordering Platform | Shivam Shukla",
+      description:
+        "Full-stack food ordering platform built with Spring Boot 3, Spring Security JWT rotation, WebSockets, and Groq Llama 3 assistance.",
+      alternates: {
+        canonical: "https://shivsastra.vercel.app/projects/quickeats",
+      },
+      openGraph: {
+        title: "QuickEats — Full-Stack Food Ordering Platform | Shivam Shukla",
+        description:
+          "Full-stack food ordering platform built with Spring Boot 3, Spring Security JWT rotation, WebSockets, and Groq Llama 3 assistance.",
+        url: "https://shivsastra.vercel.app/projects/quickeats",
+        type: "article",
+        images: [{ url: "/images/projects/quickeats/preview.svg" }],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: "QuickEats — Full-Stack Food Ordering Platform | Shivam Shukla",
+        description:
+          "Full-stack food ordering platform built with Spring Boot 3, Spring Security JWT rotation, WebSockets, and Groq Llama 3 assistance.",
       },
     };
   }
@@ -291,13 +342,11 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
 
               {/* Case Study Content (Strictly Conditional) */}
               {project.caseStudyMarkdown && (
-                <section className="space-y-6 pt-4">
-                  <span className="font-sans text-xs uppercase tracking-[0.08em] text-[var(--color-ink-secondary)] font-medium">
-                    Case Study & Architecture
+                <section className="space-y-6 pt-4 border-t border-[var(--color-hairline)]">
+                  <span className="font-mono text-xs uppercase tracking-[0.12em] text-[var(--color-accent)] font-semibold block">
+                    Engineering Deep Dive & Architecture
                   </span>
-                  <div className="font-sans text-base md:text-lg text-[var(--color-ink-primary)] leading-relaxed whitespace-pre-wrap">
-                    {project.caseStudyMarkdown}
-                  </div>
+                  <CaseStudyBody markdown={project.caseStudyMarkdown} />
                 </section>
               )}
             </div>

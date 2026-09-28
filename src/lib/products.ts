@@ -197,7 +197,7 @@ export const YOJNA_SETU_STORE_ITEM: ProductDisplayData = {
   features: [
     "82 normalized schemes (63 Central, 11 State, 8 Philanthropic)",
     "42/42 automated tests passing · 0 Critical findings",
-    "Deterministic Java eligibility engine (<1 ms)",
+    "Deterministic Java eligibility engine with indexed queries",
     "Interactive product case study & architecture monograph",
   ],
   requirements: "Java 21, Spring Boot 3.2, PostgreSQL 17, Groq Cloud, Twilio",
@@ -217,12 +217,86 @@ export const YOJNA_SETU_STORE_ITEM: ProductDisplayData = {
   formattedPrice: "Case Study",
 };
 
+export const SPRING_BOOT_STARTER_ITEM: ProductDisplayData = {
+  id: "spring-boot-starter-boilerplate",
+  slug: "spring-boot-starter",
+  releaseCode: "SB3-KIT",
+  title: "Spring Boot 3 API Boilerplate",
+  shortDescription:
+    "Structured backend starter featuring Spring Boot 3, Spring Security 6, JWT rotation, database migrations, rate limiting, and clean MVC architecture.",
+  description:
+    "A clean architectural starter kit for Java & Spring Boot developers. Includes established patterns for stateless JWT rotation, ownership checks (IDOR defenses), PostgreSQL migrations, Docker configurations, and integration test setups.",
+  priceInCents: null,
+  currency: null,
+  category: "digital_products",
+  productType: "template",
+  features: [
+    "Spring Boot 3.2+ with Java 17/21 baseline",
+    "Stateless Spring Security 6 with JWT refresh token rotation",
+    "Hibernate ORM entity mappings & PostgreSQL configuration",
+    "Automated unit & integration test suites with mock frameworks",
+  ],
+  requirements: "Java 17+, Maven 3.8+, Docker (optional)",
+  faq: [
+    {
+      question: "What is the availability status of this template?",
+      answer:
+        "This template is currently in active development based on the architecture refined in QuickEats and Yojna Setu. It will be released directly upon completion.",
+    },
+  ],
+  previewImageUrl: "/images/quickeats.svg",
+  isAvailable: true,
+  isFeatured: false,
+  sortOrder: 2,
+  createdAt: "2026-09-26T12:00:00Z",
+  updatedAt: "2026-09-26T12:00:00Z",
+  formattedPrice: "Upcoming",
+};
+
+export const EDITORIAL_PORTFOLIO_ITEM: ProductDisplayData = {
+  id: "editorial-portfolio-template",
+  slug: "editorial-portfolio",
+  releaseCode: "PF-KIT",
+  title: "Editorial Developer Portfolio Kit",
+  shortDescription:
+    "A typographic, Swiss-inspired Next.js portfolio template built with Tailwind CSS, micro-interactions, accessible components, and zero AI fluff.",
+  description:
+    "Handcrafted portfolio template engineered with Next.js App Router, Tailwind CSS, Motion spring interactions, and zero-compromise accessibility. Includes clean project case study layouts and verified profile integrations.",
+  priceInCents: null,
+  currency: null,
+  category: "design",
+  productType: "template",
+  features: [
+    "Next.js App Router with React 19 & TypeScript",
+    "Swiss editorial typography & dark mode palette",
+    "Subtle spring-damped micro-interactions with reduced-motion support",
+    "Semantic HTML layout structure with zero layout shift",
+  ],
+  requirements: "Node.js 18+, Next.js 15/16",
+  faq: [
+    {
+      question: "Is this template ready for download?",
+      answer:
+        "This template is currently being packaged into a reusable open-source starter repo. Pre-release inquiries can be submitted via the contact page.",
+    },
+  ],
+  previewImageUrl: "/images/backgrounds/store-design.webp",
+  isAvailable: true,
+  isFeatured: false,
+  sortOrder: 3,
+  createdAt: "2026-09-26T12:00:00Z",
+  updatedAt: "2026-09-26T12:00:00Z",
+  formattedPrice: "Upcoming",
+};
+
 /**
  * Authoritative canonical store items.
  * Single source of truth for portfolio showcases represented inside the store.
  */
 export const CANONICAL_STORE_PRODUCTS: ProductDisplayData[] = [
   YOJNA_SETU_STORE_ITEM,
+  SPRING_BOOT_STARTER_ITEM,
+  EDITORIAL_PORTFOLIO_ITEM,
 ];
 
 /**

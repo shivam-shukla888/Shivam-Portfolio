@@ -9,19 +9,51 @@ import { buttonStyles } from "@/components/ui/Button";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { getProfileSettings } from "@/lib/profile";
 import { getPublishedProjects } from "@/lib/projects";
-import { getPublishedServices } from "@/lib/services";
 import { PageBackground } from "@/components/ui/PageBackground";
 import { HomeHeroMotion } from "@/components/home/HomeHeroMotion";
 import { HomeSectionReveal } from "@/components/home/HomeSectionReveal";
+import {
+  CERTIFICATIONS,
+  SKILL_CATEGORIES,
+  SERVICES_CATALOG,
+  FOCUS_AREAS,
+  DIGITAL_PRODUCTS_PREVIEWS,
+} from "@/data/portfolio-data";
 
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Shivam Shukla — Backend Systems, Agentic AI & AI Security",
+  title: "Shivam Shukla — Backend Systems, Agentic AI & Java Engineer",
   description:
-    "Personal website and portfolio of Shivam Shukla. I build backend systems, AI agents, and security-focused software, and sell digital tools via the store.",
+    "Personal website and portfolio of Shivam Shukla. I build backend systems, AI agents, and security-focused software with Java, Spring Boot, and LLM integrations.",
+  keywords: [
+    "Shivam Shukla",
+    "Java Developer",
+    "Spring Boot Developer",
+    "Backend Developer",
+    "AI Developer",
+    "AI Agent Development",
+    "Full Stack Developer",
+    "React",
+    "LLM Integration",
+    "Software Engineer",
+  ],
   alternates: {
     canonical: "https://shivsastra.vercel.app",
+  },
+  openGraph: {
+    title: "Shivam Shukla — Backend Systems, Agentic AI & Java Engineer",
+    description:
+      "Personal portfolio of Shivam Shukla. Building backend systems, AI agents, and security-focused software.",
+    url: "https://shivsastra.vercel.app",
+    type: "website",
+    images: [{ url: "/images/shivam-shukla.jpg" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Shivam Shukla — Backend Systems, Agentic AI & Java Engineer",
+    description:
+      "Personal portfolio of Shivam Shukla. Building backend systems, AI agents, and security-focused software.",
   },
 };
 
@@ -37,14 +69,13 @@ const HeroVisual = dynamic(
 );
 
 export default async function HomePage() {
-  const [profile, allProjects, allServices] = await Promise.all([
+  const [profile, allProjects] = await Promise.all([
     getProfileSettings(),
     getPublishedProjects(),
-    getPublishedServices({ limit: 3 }),
   ]);
 
-  const featured = allProjects.filter((p) => p.isFeatured);
-  const selectedProjects = (featured.length > 0 ? featured : allProjects).slice(0, 3);
+  // Featured 3 projects: Yojna Setu, RealGuard, QuickEats
+  const selectedProjects = allProjects.slice(0, 3);
 
   // Verified social profiles for Schema.org Person structured data
   const verifiedSameAs = [
@@ -63,6 +94,20 @@ export default async function HomePage() {
         "@id": "https://shivsastra.vercel.app/#person",
         name: profile.fullName || "Shivam Shukla",
         url: "https://shivsastra.vercel.app",
+        jobTitle: "Backend & AI Developer",
+        alumniOf: "SRMS College of Engineering, Technology & Research",
+        knowsAbout: [
+          "Java",
+          "Spring Boot",
+          "Hibernate ORM",
+          "PostgreSQL",
+          "MySQL",
+          "AI Agents",
+          "Groq API",
+          "Twilio API",
+          "React",
+          "REST APIs",
+        ],
         description:
           "Building backend systems, AI agents, and security-focused software.",
         sameAs: verifiedSameAs,
@@ -76,7 +121,7 @@ export default async function HomePage() {
           "@id": "https://shivsastra.vercel.app/#person",
         },
         description:
-          "Personal website, portfolio, and digital store of Shivam Shukla.",
+          "Personal portfolio, engineering archive, and digital resources of Shivam Shukla.",
       },
     ],
   };
@@ -90,7 +135,7 @@ export default async function HomePage() {
       />
 
       {/* =======================================================
-          HERO
+          1. HERO
           ======================================================= */}
       <section className="relative w-full border-b border-[var(--color-hairline)] pt-16 md:pt-24 pb-20 md:pb-32 overflow-hidden">
         <PageBackground
@@ -114,7 +159,7 @@ export default async function HomePage() {
             }
             title={
               <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-normal tracking-tight text-[var(--color-ink-primary)] leading-[1.05]">
-                Shivam Shukla
+                {profile.fullName}
               </h1>
             }
             positioning={
@@ -124,7 +169,7 @@ export default async function HomePage() {
             }
             narrative={
               <p className="font-sans text-base md:text-lg text-[var(--color-ink-secondary)] leading-relaxed max-w-[62ch]">
-                I build backend systems, AI agents, and security-focused software — and create digital tools along the way.
+                {profile.heroSupportingText}
               </p>
             }
             ctas={
@@ -142,18 +187,26 @@ export default async function HomePage() {
                     →
                   </span>
                 </Link>
-                <Link
-                  href="/store"
+                <a
+                  href="/Resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={buttonStyles({
                     variant: "secondary",
                     size: "lg",
                     className: "w-full sm:w-auto font-mono text-xs uppercase tracking-wider border-[var(--color-ink-primary)] group",
                   })}
                 >
-                  <span>Visit Store</span>
-                  <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none ml-1.5">
-                    →
+                  <span>Download Resume</span>
+                  <span className="inline-block transition-transform duration-200 group-hover:translate-y-0.5 motion-reduce:transform-none ml-1.5">
+                    ↓
                   </span>
+                </a>
+                <Link
+                  href="/store"
+                  className="font-mono text-xs uppercase tracking-wider px-4 py-3 text-[var(--color-ink-secondary)] hover:text-[var(--color-accent)] transition-colors text-center"
+                >
+                  Visit Store →
                 </Link>
               </div>
             }
@@ -163,252 +216,154 @@ export default async function HomePage() {
       </section>
 
       {/* =======================================================
-          WHAT I BUILD (Technical Disciplines)
+          2. ABOUT (Authentic Developer Introduction)
           ======================================================= */}
-      <section className="w-full border-b border-[var(--color-hairline)] py-20 md:py-28 bg-[var(--color-canvas-primary)]">
+      <section id="about" className="w-full border-b border-[var(--color-hairline)] py-20 md:py-28 bg-[var(--color-canvas-primary)]">
         <HomeSectionReveal>
           <SectionContainer>
-          <div className="space-y-12">
-            <div className="space-y-4 max-w-2xl">
-              <SectionLabel name="What I Build" />
-              <h2 className="font-display text-3xl md:text-4xl font-normal tracking-tight text-[var(--color-ink-primary)]">
-                What I Build
-              </h2>
-              <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
-                My work focuses on backend development, practical AI agents, and software security.
-              </p>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+              {/* Left Column: Portrait & Key Details */}
+              <div className="lg:col-span-5 space-y-6">
+                <div className="space-y-3">
+                  <SectionLabel name="About" />
+                  <h2 className="font-display text-3xl sm:text-4xl font-normal tracking-tight text-[var(--color-ink-primary)]">
+                    About Me
+                  </h2>
+                  <p className="font-sans text-xs text-[var(--color-accent)] font-medium">
+                    Backend & AI Developer · 2026 CSE Graduate
+                  </p>
+                </div>
+
+                <div className="relative aspect-[4/5] max-w-[320px] border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] overflow-hidden">
+                  <Image
+                    src="/images/shivam-shukla.jpg"
+                    alt="Shivam Shukla — Portrait"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 320px"
+                    priority
+                  />
+                </div>
+
+                <div className="p-5 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] space-y-3 font-mono text-xs text-[var(--color-ink-secondary)]">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[var(--color-accent)] font-semibold">EDUCATION</span>
+                    <span>2022 – 2026</span>
+                  </div>
+                  <p className="font-sans text-xs text-[var(--color-ink-primary)]">
+                    B.Tech in Computer Science Engineering
+                    <br />
+                    <span className="text-[var(--color-ink-secondary)] text-[11px]">
+                      SRMS CET&R, Bareilly (Affiliated to AKTU)
+                    </span>
+                  </p>
+                </div>
+              </div>
+
+              {/* Right Column: Authentic Story & Highlights */}
+              <div className="lg:col-span-7 space-y-8">
+                <div className="p-8 md:p-10 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] space-y-4">
+                  <span className="font-mono text-xs uppercase tracking-wider text-[var(--color-accent)] font-semibold block">
+                    PHILOSOPHY &amp; FOCUS
+                  </span>
+                  <p className="font-sans text-base sm:text-lg text-[var(--color-ink-primary)] leading-relaxed">
+                    I&apos;m a Backend &amp; AI Developer and 2026 CSE graduate. I specialize in Java, Spring Boot, relational database modeling, and LLM integrations (Groq API, prompt engineering) to build practical systems with deterministic verification.
+                  </p>
+                  <p className="font-sans text-sm sm:text-base text-[var(--color-ink-secondary)] leading-relaxed">
+                    My projects focus on solving real-world challenges for citizens, home buyers, and local businesses through conversational messaging and clean backend architectures.
+                  </p>
+                </div>
+
+                {/* Practical Milestone Cards */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="p-6 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] space-y-2">
+                    <span className="font-mono text-[11px] text-[var(--color-accent)] font-semibold uppercase tracking-wider">
+                      Work Experience
+                    </span>
+                    <h3 className="font-display text-lg text-[var(--color-ink-primary)]">
+                      Java &amp; Spring Boot Intern
+                    </h3>
+                    <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
+                      Soft Pro (2025) · Developed RESTful APIs following MVC architecture with Java, Spring Boot, Hibernate ORM, and MySQL.
+                    </p>
+                  </div>
+
+                  <div className="p-6 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] space-y-2">
+                    <span className="font-mono text-[11px] text-[var(--color-accent)] font-semibold uppercase tracking-wider">
+                      Engineering Builds
+                    </span>
+                    <h3 className="font-display text-lg text-[var(--color-ink-primary)]">
+                      3 Shipped Systems
+                    </h3>
+                    <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
+                      Built Yojna Setu, RealGuard, and QuickEats combining Spring Boot backends with Groq AI workflows.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="pt-2 flex flex-wrap items-center gap-4">
+                  <Link
+                    href="/about"
+                    className="inline-flex items-center gap-1.5 font-sans font-medium text-xs text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors group"
+                  >
+                    <span>Read complete background</span>
+                    <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">
+                      →
+                    </span>
+                  </Link>
+                  <a
+                    href="/Resume.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-mono text-xs uppercase tracking-wider text-[var(--color-ink-secondary)] hover:text-[var(--color-ink-primary)] transition-colors underline underline-offset-4"
+                  >
+                    View Resume (PDF) ↗
+                  </a>
+                </div>
+              </div>
             </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {/* Discipline 1: Backend Systems */}
-              <div className="border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] p-8 space-y-4 flex flex-col justify-between">
-                <div className="space-y-3">
-                  <span className="font-mono text-xs text-[var(--color-accent)] uppercase tracking-wider font-semibold">
-                    Backend Development
-                  </span>
-                  <h3 className="font-display text-2xl text-[var(--color-ink-primary)]">
-                    Backend Systems
-                  </h3>
-                  <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
-                    I build APIs, backend services, database-backed applications, and the infrastructure around them.
-                  </p>
-                </div>
-                <div className="pt-4 border-t border-[var(--color-hairline)] font-mono text-[11px] text-[var(--color-ink-secondary)]">
-                  APIs · Databases · System Architecture
-                </div>
-              </div>
-
-              {/* Discipline 2: Agentic AI */}
-              <div className="border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] p-8 space-y-4 flex flex-col justify-between">
-                <div className="space-y-3">
-                  <span className="font-mono text-xs text-[var(--color-accent)] uppercase tracking-wider font-semibold">
-                    AI Agents
-                  </span>
-                  <h3 className="font-display text-2xl text-[var(--color-ink-primary)]">
-                    Agentic AI
-                  </h3>
-                  <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
-                    I build AI agents and LLM-based workflows that connect models with useful application logic and tools.
-                  </p>
-                </div>
-                <div className="pt-4 border-t border-[var(--color-hairline)] font-mono text-[11px] text-[var(--color-ink-secondary)]">
-                  AI Agents · LLM Workflows · Tool Integration
-                </div>
-              </div>
-
-              {/* Discipline 3: AI Security */}
-              <div className="border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] p-8 space-y-4 flex flex-col justify-between">
-                <div className="space-y-3">
-                  <span className="font-mono text-xs text-[var(--color-accent)] uppercase tracking-wider font-semibold">
-                    Software Security
-                  </span>
-                  <h3 className="font-display text-2xl text-[var(--color-ink-primary)]">
-                    AI Security
-                  </h3>
-                  <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
-                    I work on security for AI applications, including input validation, prompt-injection protection, access control, and safe system design.
-                  </p>
-                </div>
-                <div className="pt-4 border-t border-[var(--color-hairline)] font-mono text-[11px] text-[var(--color-ink-secondary)]">
-                  Access Control · Input Validation · System Safety
-                </div>
-              </div>
-            </div>
-          </div>
-        </SectionContainer>
+          </SectionContainer>
         </HomeSectionReveal>
       </section>
 
       {/* =======================================================
-          STORE
+          3. SELECTED WORK (Yojna Setu + RealGuard + QuickEats)
           ======================================================= */}
-      <section id="store" className="w-full border-b border-[var(--color-hairline)] py-20 md:py-28 bg-[var(--color-canvas-secondary)]">
+      <section id="work" className="w-full border-b border-[var(--color-hairline)] py-20 md:py-28 bg-[var(--color-canvas-secondary)]">
         <HomeSectionReveal>
           <SectionContainer>
-          <div className="space-y-12">
-            {/* Header: Swiss Asymmetrical Composition */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pb-8 border-b border-[var(--color-hairline)]">
-              <div className="lg:col-span-5 space-y-3">
-                <SectionLabel name="Store" />
-                <h2 className="font-display text-4xl sm:text-5xl font-normal tracking-tight text-[var(--color-ink-primary)]">
-                  Store
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-12 border-b border-[var(--color-hairline)]">
+              <div className="space-y-4">
+                <SectionLabel name="Selected Work" />
+                <h2 className="font-display text-3xl md:text-4xl font-normal tracking-tight text-[var(--color-ink-primary)]">
+                  Selected Work
                 </h2>
                 <p className="font-sans text-xs text-[var(--color-accent)] font-medium">
-                  Digital products I make and sell.
+                  Full-stack systems built with Java, Spring Boot, Groq LLMs, and WebSockets.
                 </p>
               </div>
-
-              <div className="lg:col-span-7 space-y-4">
-                <p className="font-sans text-base text-[var(--color-ink-secondary)] leading-relaxed max-w-xl">
-                  Digital products, templates, and tools built from my own projects and workflows. Available for developers, founders, and creators.
-                </p>
-              </div>
-            </div>
-
-            {/* Exactly Three Category Panels */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {/* Category 1: Design Studio */}
               <Link
-                href="/store/design"
-                className="border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] p-8 space-y-4 hover:border-[var(--color-ink-primary)] hover:-translate-y-[2px] transition-[border-color,transform] duration-200 ease-out group flex flex-col justify-between motion-reduce:hover:translate-y-0"
+                href="/projects"
+                className="inline-flex items-center gap-1.5 font-sans font-medium text-xs text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors group focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
               >
-                <div className="space-y-3">
-                  <span className="font-mono text-xs text-[var(--color-accent)] uppercase tracking-wider font-semibold">
-                    Templates
-                  </span>
-                  <h3 className="font-display text-2xl text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors">
-                    Design & Templates
-                  </h3>
-                  <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
-                    Logos · Design · Templates
-                  </p>
-                  <p className="font-sans text-xs text-[var(--color-ink-secondary)]/80 leading-relaxed pt-1">
-                    Interaction kits, typography systems, and web templates.
-                  </p>
-                </div>
-                <div className="pt-4 border-t border-[var(--color-hairline)] flex items-center justify-between font-mono text-xs text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)]">
-                  <span>Browse Design</span>
-                  <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none">
-                    →
-                  </span>
-                </div>
-              </Link>
-
-              {/* Category 2: AI Agents */}
-              <Link
-                href="/store/ai-agents"
-                className="border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] p-8 space-y-4 hover:border-[var(--color-ink-primary)] hover:-translate-y-[2px] transition-[border-color,transform] duration-200 ease-out group flex flex-col justify-between motion-reduce:hover:translate-y-0"
-              >
-                <div className="space-y-3">
-                  <span className="font-mono text-xs text-[var(--color-accent)] uppercase tracking-wider font-semibold">
-                    Agent Tools
-                  </span>
-                  <h3 className="font-display text-2xl text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors">
-                    AI Agents
-                  </h3>
-                  <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
-                    AI agents · Tools · Workflows
-                  </p>
-                  <p className="font-sans text-xs text-[var(--color-ink-secondary)]/80 leading-relaxed pt-1">
-                    Agent starter code, tool pipelines, and evaluation workflows.
-                  </p>
-                </div>
-                <div className="pt-4 border-t border-[var(--color-hairline)] flex items-center justify-between font-mono text-xs text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)]">
-                  <span>Browse AI Agents</span>
-                  <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none">
-                    →
-                  </span>
-                </div>
-              </Link>
-
-              {/* Category 3: Digital Products */}
-              <Link
-                href="/store/digital-products"
-                className="border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] p-8 space-y-4 hover:border-[var(--color-ink-primary)] hover:-translate-y-[2px] transition-[border-color,transform] duration-200 ease-out group flex flex-col justify-between motion-reduce:hover:translate-y-0"
-              >
-                <div className="space-y-3">
-                  <span className="font-mono text-xs text-[var(--color-accent)] uppercase tracking-wider font-semibold">
-                    Downloads
-                  </span>
-                  <h3 className="font-display text-2xl text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors">
-                    Digital Products
-                  </h3>
-                  <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
-                    Code starters · Downloads · Tools
-                  </p>
-                  <p className="font-sans text-xs text-[var(--color-ink-secondary)]/80 leading-relaxed pt-1">
-                    Code starter repos, developer templates, and technical downloads.
-                  </p>
-                </div>
-                <div className="pt-4 border-t border-[var(--color-hairline)] flex items-center justify-between font-mono text-xs text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)]">
-                  <span>Browse Products</span>
-                  <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none">
-                    →
-                  </span>
-                </div>
+                <span>View all projects</span>
+                <span className="transition-transform duration-150 group-hover:translate-x-1">→</span>
               </Link>
             </div>
 
-            {/* Prominent Visit Store CTA */}
-            <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-[var(--color-hairline)]">
-              <span className="font-mono text-xs text-[var(--color-ink-secondary)]">
-                Browse all digital products, templates, and tools.
-              </span>
-              <Link
-                href="/store"
-                className={buttonStyles({
-                  variant: "primary",
-                  size: "lg",
-                  className: "w-full sm:w-auto font-mono text-xs uppercase tracking-wider group",
-                })}
-              >
-                <span>Visit Store</span>
-                <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none ml-1.5">
-                  →
-                </span>
-              </Link>
-            </div>
-          </div>
-        </SectionContainer>
-        </HomeSectionReveal>
-      </section>
-
-      {/* =======================================================
-          SELECTED WORK (Projects)
-          ======================================================= */}
-      <section id="work" className="w-full border-b border-[var(--color-hairline)] py-20 md:py-28">
-        <HomeSectionReveal>
-          <SectionContainer>
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-12 border-b border-[var(--color-hairline)]">
-            <div className="space-y-4">
-              <SectionLabel name="Selected Work" />
-              <h2 className="font-display text-3xl md:text-4xl font-normal tracking-tight text-[var(--color-ink-primary)]">
-                Selected Work
-              </h2>
-              <p className="font-sans text-xs text-[var(--color-accent)] font-medium">
-                Projects by {profile.fullName}
-              </p>
-            </div>
-            <Link
-              href="/projects"
-              className="inline-flex items-center gap-1.5 font-sans font-medium text-xs text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors group focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
-            >
-              <span>View all projects</span>
-              <span className="transition-transform duration-150 group-hover:translate-x-1">→</span>
-            </Link>
-          </div>
-
-          <div className="divide-y divide-[var(--color-hairline)]">
-            {selectedProjects.length > 0 ? (
-              selectedProjects.map((project) => (
-                <div
+            <div className="divide-y divide-[var(--color-hairline)]">
+              {selectedProjects.map((project) => (
+                <article
                   key={project.id}
                   className="py-12 md:py-16 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center group"
                 >
                   {/* Large Editorial Visual Frame */}
                   <div className="lg:col-span-7">
                     {project.coverImageUrl ? (
-                      <div className="w-full aspect-[16/10] border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] overflow-hidden group-hover:border-[var(--color-ink-primary)] transition-colors relative">
+                      <Link
+                        href={`/projects/${project.slug}`}
+                        className="w-full aspect-[16/10] border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] overflow-hidden group-hover:border-[var(--color-ink-primary)] transition-colors relative block"
+                      >
                         <Image
                           src={project.coverImageUrl}
                           alt={project.title}
@@ -417,11 +372,11 @@ export default async function HomePage() {
                           className="object-cover group-hover:scale-[1.015] transition-transform duration-300 motion-reduce:group-hover:scale-100"
                           sizes="(max-width: 1024px) 100vw, 58vw"
                         />
-                      </div>
+                      </Link>
                     ) : (
-                      <div className="w-full aspect-[16/10] border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] flex items-center justify-center p-6 md:p-8 group-hover:border-[var(--color-ink-primary)] transition-colors">
+                      <div className="w-full aspect-[16/10] border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] flex items-center justify-center p-6 md:p-8">
                         <span className="font-sans text-xs text-[var(--color-ink-secondary)]">
-                          [Project visual pending]
+                          [Project visual]
                         </span>
                       </div>
                     )}
@@ -429,375 +384,632 @@ export default async function HomePage() {
 
                   {/* Project Narrative & Details */}
                   <div className="lg:col-span-5 space-y-4 lg:pl-4">
-                    {project.editionCode && (
-                      <span className="font-mono text-xs text-[var(--color-accent)]">
-                        {project.editionCode}
-                      </span>
-                    )}
+                    <div className="flex flex-wrap items-center gap-3">
+                      {project.editionCode && (
+                        <span className="font-mono text-xs text-[var(--color-accent)] font-semibold">
+                          {project.editionCode}
+                        </span>
+                      )}
+                      {project.projectYear && (
+                        <span className="font-mono text-xs text-[var(--color-ink-secondary)] border-l border-[var(--color-hairline)] pl-3">
+                          {project.projectYear}
+                        </span>
+                      )}
+                      {project.category && (
+                        <span className="font-sans text-xs text-[var(--color-ink-secondary)] border-l border-[var(--color-hairline)] pl-3">
+                          {project.category}
+                        </span>
+                      )}
+                    </div>
+
                     <h3 className="font-display text-2xl md:text-3xl font-normal tracking-tight text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors duration-200">
-                      {project.title}
+                      <Link href={`/projects/${project.slug}`}>
+                        {project.title}
+                      </Link>
                     </h3>
+
                     <p className="font-sans text-sm md:text-base text-[var(--color-ink-secondary)] leading-relaxed">
-                      {project.summary || "[Project description pending]"}
+                      {project.summary}
                     </p>
+
                     {project.techStack.length > 0 && (
                       <div className="flex flex-wrap gap-2 pt-1">
                         {project.techStack.map((tech) => (
                           <span
                             key={tech}
-                            className="font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 border border-[var(--color-hairline)] text-[var(--color-ink-secondary)] bg-[var(--color-canvas-secondary)]"
+                            className="font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 border border-[var(--color-hairline)] text-[var(--color-ink-secondary)] bg-[var(--color-canvas-primary)]"
                           >
                             {tech}
                           </span>
                         ))}
                       </div>
                     )}
-                    <div className="pt-3">
+
+                    <div className="pt-4 flex flex-wrap items-center gap-4">
                       <Link
                         href={`/projects/${project.slug}`}
-                        className="inline-flex items-center gap-1.5 font-sans font-medium text-xs text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
+                        className={buttonStyles({
+                          variant: "primary",
+                          size: "sm",
+                          className: "font-mono uppercase tracking-wider text-xs group/btn",
+                        })}
                       >
-                        <span>View project</span>
-                        <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none">
+                        <span>View Case Study</span>
+                        <span className="inline-block transition-transform duration-200 group-hover/btn:translate-x-1 motion-reduce:transform-none ml-1">
+                          →
+                        </span>
+                      </Link>
+
+                      {project.githubUrl && (
+                        <a
+                          href={project.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-mono text-xs uppercase tracking-wider text-[var(--color-ink-secondary)] hover:text-[var(--color-ink-primary)] transition-colors flex items-center gap-1"
+                        >
+                          <span>GitHub</span>
+                          <span>↗</span>
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </SectionContainer>
+        </HomeSectionReveal>
+      </section>
+
+      {/* =======================================================
+          4. SKILLS / TECHNOLOGY (Intelligently Categorized)
+          ======================================================= */}
+      <section id="skills" className="w-full border-b border-[var(--color-hairline)] py-20 md:py-28 bg-[var(--color-canvas-primary)]">
+        <HomeSectionReveal>
+          <SectionContainer>
+            <div className="space-y-12">
+              <div className="space-y-4 max-w-2xl">
+                <SectionLabel name="Skills & Tech Stack" />
+                <h2 className="font-display text-3xl md:text-4xl font-normal tracking-tight text-[var(--color-ink-primary)]">
+                  Technical Stack
+                </h2>
+                <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
+                  Demonstrated technologies categorized by practical implementation evidence:
+                </p>
+                <div className="flex flex-wrap items-center gap-3 pt-1 font-mono text-[11px] text-[var(--color-ink-secondary)]">
+                  <span className="inline-flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)]" />
+                    <strong className="text-[var(--color-ink-primary)]">Core:</strong> Primary stack in shipped repositories
+                  </span>
+                  <span className="text-[var(--color-hairline)] select-none">·</span>
+                  <span className="inline-flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-ink-secondary)]" />
+                    <strong className="text-[var(--color-ink-primary)]">Working:</strong> Integrated in project features
+                  </span>
+                  <span className="text-[var(--color-hairline)] select-none">·</span>
+                  <span className="inline-flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full border border-[var(--color-hairline)]" />
+                    <strong className="text-[var(--color-ink-primary)]">Exposure:</strong> Course simulation or exploratory
+                  </span>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {SKILL_CATEGORIES.map((cat, idx) => (
+                  <div
+                    key={idx}
+                    className="border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] p-6 space-y-4 flex flex-col justify-between"
+                  >
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <h3 className="font-display text-xl text-[var(--color-ink-primary)]">
+                          {cat.title}
+                        </h3>
+                        <span className="font-mono text-[10px] text-[var(--color-accent)] font-semibold">
+                          0{idx + 1}
+                        </span>
+                      </div>
+                      <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
+                        {cat.description}
+                      </p>
+                    </div>
+
+                    <div className="pt-3 border-t border-[var(--color-hairline)] flex flex-wrap gap-2">
+                      {cat.skills.map((skill, sIdx) => (
+                        <span
+                          key={sIdx}
+                          className="inline-flex items-center gap-1.5 font-mono text-[11px] px-2.5 py-1 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] text-[var(--color-ink-primary)]"
+                        >
+                          {skill.icon && (
+                            <Image
+                              src={skill.icon}
+                              alt=""
+                              width={12}
+                              height={12}
+                              className="w-3 h-3 object-contain shrink-0"
+                            />
+                          )}
+                          <span>{skill.name}</span>
+                          <span
+                            className={`text-[9px] uppercase tracking-wider px-1 py-0.2 font-sans rounded-none ${
+                              skill.tier === "Core"
+                                ? "text-[var(--color-accent)] font-semibold"
+                                : skill.tier === "Working"
+                                ? "text-[var(--color-ink-secondary)]"
+                                : "text-[var(--color-ink-secondary)] opacity-60"
+                            }`}
+                          >
+                            [{skill.tier}]
+                          </span>
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </SectionContainer>
+        </HomeSectionReveal>
+      </section>
+
+      {/* =======================================================
+          5. WHAT I DO (Services & Engineering Disciplines)
+          ======================================================= */}
+      <section id="services" className="w-full border-b border-[var(--color-hairline)] py-20 md:py-28 bg-[var(--color-canvas-secondary)]">
+        <HomeSectionReveal>
+          <SectionContainer>
+            <div className="space-y-12">
+              <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-8 border-b border-[var(--color-hairline)]">
+                <div className="space-y-3">
+                  <SectionLabel name="What I Do" />
+                  <h2 className="font-display text-3xl md:text-4xl font-normal tracking-tight text-[var(--color-ink-primary)]">
+                    Services &amp; Capabilities
+                  </h2>
+                  <p className="font-sans text-xs text-[var(--color-accent)] font-medium">
+                    End-to-end engineering demonstrated through working code.
+                  </p>
+                </div>
+                <Link
+                  href="/services"
+                  className="font-mono text-xs uppercase tracking-wider text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors inline-flex items-center gap-1"
+                >
+                  <span>View Services Overview</span>
+                  <span>→</span>
+                </Link>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {SERVICES_CATALOG.map((srv) => (
+                  <div
+                    key={srv.id}
+                    className="border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] p-8 space-y-6 flex flex-col justify-between group hover:border-[var(--color-ink-primary)] transition-colors"
+                  >
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <span className="font-mono text-xs text-[var(--color-accent)] font-semibold tracking-wider">
+                          {srv.code}
+                        </span>
+                        <span className="font-mono text-[11px] text-[var(--color-ink-secondary)]">
+                          {srv.engagement}
+                        </span>
+                      </div>
+                      <h3 className="font-display text-2xl font-normal text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors">
+                        {srv.title}
+                      </h3>
+                      <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
+                        {srv.summary}
+                      </p>
+
+                      <div className="space-y-2 pt-2 border-t border-[var(--color-hairline)]">
+                        <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--color-accent)] font-semibold block">
+                          Key Deliverables
+                        </span>
+                        <ul className="space-y-1.5 font-sans text-xs text-[var(--color-ink-primary)]">
+                          {srv.deliverables.map((item, dIdx) => (
+                            <li key={dIdx} className="flex items-start gap-2">
+                              <span className="text-[var(--color-accent)] select-none">—</span>
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div className="pt-4 border-t border-[var(--color-hairline)] flex items-center justify-between">
+                      <Link
+                        href={`/contact?subject=${encodeURIComponent(srv.subject)}`}
+                        className="font-mono text-xs uppercase tracking-wider text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors inline-flex items-center gap-1.5"
+                      >
+                        <span>Discuss a Project</span>
+                        <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">
                           →
                         </span>
                       </Link>
                     </div>
                   </div>
-                </div>
-              ))
-            ) : (
-              /* Refined Empty State */
-              <div className="py-16 md:py-20 text-center space-y-3">
-                <p className="font-display text-2xl text-[var(--color-ink-primary)]">
-                  Projects will be listed here as I publish them.
-                </p>
-                <p className="font-sans text-xs text-[var(--color-ink-secondary)] max-w-md mx-auto">
-                  I&apos;m adding projects here as I finish and publish them.
-                </p>
-              </div>
-            )}
-          </div>
-        </SectionContainer>
-        </HomeSectionReveal>
-      </section>
-
-      {/* =======================================================
-          SERVICES
-          ======================================================= */}
-      <section id="services" className="w-full border-b border-[var(--color-hairline)] py-20 md:py-28">
-        <HomeSectionReveal>
-          <SectionContainer>
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-12 border-b border-[var(--color-hairline)]">
-            <div className="space-y-4">
-              <SectionLabel name="Services" />
-              <h2 className="font-display text-3xl md:text-4xl font-normal tracking-tight text-[var(--color-ink-primary)]">
-                Services
-              </h2>
-              <p className="font-sans text-xs text-[var(--color-accent)] font-medium">
-                Work with me on custom software and AI systems.
-              </p>
-            </div>
-            <div className="flex items-center gap-4">
-              <Link
-                href="/services"
-                className="inline-flex items-center gap-1.5 font-sans font-medium text-xs text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors group focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
-              >
-                <span>View all services</span>
-                <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none">
-                  →
-                </span>
-              </Link>
-            </div>
-          </div>
-
-          {allServices.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[var(--color-hairline)] pt-8">
-              {allServices.map((service) => (
-                <div
-                  key={service.id}
-                  className="py-8 md:py-0 md:px-8 first:pl-0 last:pr-0 space-y-4 flex flex-col justify-between group"
-                >
-                  <div className="space-y-3">
-                    {service.programCode && (
-                      <span className="font-mono text-xs text-[var(--color-accent)] uppercase tracking-wider block">
-                        {service.programCode}
-                      </span>
-                    )}
-                    <h3 className="font-display text-2xl font-normal text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors duration-200">
-                      {service.title}
-                    </h3>
-                    <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
-                      {service.summary}
-                    </p>
-                  </div>
-                  <div className="pt-4">
-                    <Link
-                      href={`/services/${service.slug}`}
-                      className="inline-flex items-center gap-1.5 font-sans font-medium text-xs text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
-                    >
-                      <span>View details</span>
-                      <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none">
-                        →
-                      </span>
-                    </Link>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            /* Clear Practical Fallback Scopes */
-            <div className="space-y-10 pt-8">
-              <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[var(--color-hairline)] border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)]">
-                {/* 1: Backend Systems */}
-                <div className="p-8 space-y-4 flex flex-col justify-between group">
-                  <div className="space-y-3">
-                    <span className="font-mono text-xs text-[var(--color-accent)] font-semibold uppercase tracking-wider">
-                      Backend Systems
-                    </span>
-                    <h3 className="font-display text-2xl text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors duration-200">
-                      Backend Systems
-                    </h3>
-                    <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
-                      I build APIs, backend services, database-backed applications, and the systems around them.
-                    </p>
-                  </div>
-                  <div className="pt-4 border-t border-[var(--color-hairline)] space-y-3">
-                    <span className="font-mono text-[11px] text-[var(--color-ink-secondary)] block">
-                      APIs & Databases
-                    </span>
-                    <Link
-                      href="/contact?subject=Backend%20Systems%20Inquiry"
-                      className="inline-flex items-center gap-1.5 font-sans font-medium text-xs text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors group/link"
-                    >
-                      <span>Discuss a Project</span>
-                      <span className="inline-block transition-transform duration-200 group-hover/link:translate-x-1 motion-reduce:transform-none">
-                        →
-                      </span>
-                    </Link>
-                  </div>
-                </div>
-
-                {/* 2: Agentic AI */}
-                <div className="p-8 space-y-4 flex flex-col justify-between group">
-                  <div className="space-y-3">
-                    <span className="font-mono text-xs text-[var(--color-accent)] font-semibold uppercase tracking-wider">
-                      Agentic AI
-                    </span>
-                    <h3 className="font-display text-2xl text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors duration-200">
-                      Agentic AI
-                    </h3>
-                    <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
-                      I build AI agents and LLM-based workflows that connect models with useful application logic.
-                    </p>
-                  </div>
-                  <div className="pt-4 border-t border-[var(--color-hairline)] space-y-3">
-                    <span className="font-mono text-[11px] text-[var(--color-ink-secondary)] block">
-                      Agents & Workflows
-                    </span>
-                    <Link
-                      href="/contact?subject=Agentic%20AI%20Inquiry"
-                      className="inline-flex items-center gap-1.5 font-sans font-medium text-xs text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors group/link"
-                    >
-                      <span>Discuss a Project</span>
-                      <span className="inline-block transition-transform duration-200 group-hover/link:translate-x-1 motion-reduce:transform-none">
-                        →
-                      </span>
-                    </Link>
-                  </div>
-                </div>
-
-                {/* 3: AI Security */}
-                <div className="p-8 space-y-4 flex flex-col justify-between group">
-                  <div className="space-y-3">
-                    <span className="font-mono text-xs text-[var(--color-accent)] font-semibold uppercase tracking-wider">
-                      AI Security
-                    </span>
-                    <h3 className="font-display text-2xl text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors duration-200">
-                      AI Security
-                    </h3>
-                    <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
-                      I work on security for AI applications, including input validation, prompt-injection protection, and safe system design.
-                    </p>
-                  </div>
-                  <div className="pt-4 border-t border-[var(--color-hairline)] space-y-3">
-                    <span className="font-mono text-[11px] text-[var(--color-ink-secondary)] block">
-                      Security & Validation
-                    </span>
-                    <Link
-                      href="/contact?subject=AI%20Security%20Inquiry"
-                      className="inline-flex items-center gap-1.5 font-sans font-medium text-xs text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors group/link"
-                    >
-                      <span>Discuss a Project</span>
-                      <span className="inline-block transition-transform duration-200 group-hover/link:translate-x-1 motion-reduce:transform-none">
-                        →
-                      </span>
-                    </Link>
-                  </div>
-                </div>
+                ))}
               </div>
 
-              {/* Distinction Banner: Work With Shivam vs Buy From Shivam */}
+              {/* Distinction Banner: Custom Work vs Store Products */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)]">
                 <div className="space-y-1">
                   <span className="font-mono text-xs uppercase tracking-wider text-[var(--color-accent)] font-semibold block">
-                    Custom Work vs Store Products
+                    Custom Engineering vs Digital Resources
                   </span>
-                  <p className="font-sans text-xs text-[var(--color-ink-secondary)] max-w-xl">
-                    Services are for custom development where you work with me directly. For ready-to-use digital tools and templates, visit the Store.
+                  <p className="font-sans text-xs text-[var(--color-ink-secondary)] max-w-xl leading-relaxed">
+                    Services are for custom development where you work with me directly. For downloadable architecture blueprints and developer resources, explore the Store.
                   </p>
                 </div>
-                <div className="flex items-center gap-3 shrink-0">
-                  <Link
-                    href="/contact"
-                    className="font-mono text-xs uppercase tracking-wider px-4 py-2 border border-[var(--color-ink-primary)] text-[var(--color-ink-primary)] hover:bg-[var(--color-ink-primary)] hover:text-[var(--color-canvas-primary)] hover:-translate-y-[1px] active:translate-y-0 active:scale-[0.98] transition-[color,background-color,border-color,transform] duration-150 group motion-reduce:hover:translate-y-0 motion-reduce:active:scale-100"
-                  >
-                    <span>Get in Touch</span>
-                    <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none ml-1.5">
-                      →
-                    </span>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          )}
-        </SectionContainer>
-        </HomeSectionReveal>
-      </section>
-
-      {/* =======================================================
-          ABOUT (About Preview)
-          ======================================================= */}
-      <section id="about" className="w-full border-b border-[var(--color-hairline)] py-20 md:py-28">
-        <HomeSectionReveal>
-          <SectionContainer>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
-            <div className="lg:col-span-4 space-y-6">
-              <div className="space-y-4">
-                <SectionLabel name="About" />
-                <h2 className="font-display text-3xl md:text-4xl font-normal tracking-tight text-[var(--color-ink-primary)]">
-                  About Me
-                </h2>
-                <p className="font-sans text-xs text-[var(--color-accent)] font-medium">
-                  {profile.fullName}
-                </p>
-              </div>
-
-              {/* Portrait */}
-              <div className="space-y-2">
-                <div className="relative aspect-[4/5] max-w-[280px] border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] overflow-hidden">
-                  <Image
-                    src="/images/shivam-shukla.jpg"
-                    alt={`${profile.fullName} — Portrait`}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 280px"
-                    priority
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="lg:col-span-8 space-y-6">
-              <div className="p-8 md:p-12 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)]">
-                <p className="font-display text-2xl md:text-3xl text-[var(--color-ink-primary)] leading-relaxed italic whitespace-pre-wrap">
-                  {profile.aboutMarkdown && profile.aboutMarkdown !== "[ABOUT CONTENT PENDING]"
-                    ? profile.aboutMarkdown
-                    : "I build software focused on reliability, clear architecture, and practical use. I spend most of my time working on backend systems, AI agents, and software security."}
-                </p>
-              </div>
-
-              <div className="pt-2 flex justify-start">
                 <Link
-                  href="/about"
-                  className="inline-flex items-center gap-1.5 font-sans font-medium text-xs text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors group focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
+                  href="/store"
+                  className="font-mono text-xs uppercase tracking-wider px-4 py-2 border border-[var(--color-ink-primary)] text-[var(--color-ink-primary)] hover:bg-[var(--color-ink-primary)] hover:text-[var(--color-canvas-primary)] transition-colors shrink-0"
                 >
-                  <span>Read more about me</span>
-                  <span className="transition-transform duration-150 group-hover:translate-x-1">
-                    →
-                  </span>
+                  Explore Store →
                 </Link>
               </div>
             </div>
-          </div>
-        </SectionContainer>
+          </SectionContainer>
         </HomeSectionReveal>
       </section>
 
       {/* =======================================================
-          CONTACT
+          6. CERTIFICATIONS (Verified Credentials)
+          ======================================================= */}
+      <section id="certifications" className="w-full border-b border-[var(--color-hairline)] py-20 md:py-28 bg-[var(--color-canvas-primary)]">
+        <HomeSectionReveal>
+          <SectionContainer>
+            <div className="space-y-12">
+              <div className="space-y-3 max-w-2xl">
+                <SectionLabel name="Certifications" />
+                <h2 className="font-display text-3xl md:text-4xl font-normal tracking-tight text-[var(--color-ink-primary)]">
+                  Certifications &amp; Credentials
+                </h2>
+                <p className="font-sans text-xs text-[var(--color-accent)] font-medium">
+                  Verified coursework, cloud credentials, and engineering job simulations.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {CERTIFICATIONS.map((cert) => (
+                  <div
+                    key={cert.id}
+                    className="border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] p-6 md:p-8 space-y-5 flex flex-col justify-between hover:border-[var(--color-ink-primary)] transition-colors group"
+                  >
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between text-xs font-mono">
+                        <span className="text-[var(--color-accent)] font-semibold uppercase tracking-wider">
+                          VERIFIED
+                        </span>
+                        <span className="text-[var(--color-ink-secondary)]">✓ Certificate</span>
+                      </div>
+                      <h3 className="font-display text-xl text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors">
+                        {cert.title}
+                      </h3>
+                      <p className="font-mono text-xs text-[var(--color-ink-secondary)] font-medium">
+                        {cert.issuer}
+                      </p>
+                      <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed pt-1">
+                        {cert.description}
+                      </p>
+                    </div>
+
+                    <div className="pt-4 border-t border-[var(--color-hairline)]">
+                      <a
+                        href={cert.certificateUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-mono text-xs uppercase tracking-wider text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors inline-flex items-center gap-1.5"
+                      >
+                        <span>View Certificate</span>
+                        <span>↗</span>
+                      </a>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </SectionContainer>
+        </HomeSectionReveal>
+      </section>
+
+      {/* =======================================================
+          7. DIGITAL PRODUCTS & TEMPLATES (Legitimate Resources)
+          ======================================================= */}
+      <section id="store" className="w-full border-b border-[var(--color-hairline)] py-20 md:py-28 bg-[var(--color-canvas-secondary)]">
+        <HomeSectionReveal>
+          <SectionContainer>
+            <div className="space-y-12">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pb-8 border-b border-[var(--color-hairline)]">
+                <div className="lg:col-span-5 space-y-3">
+                  <SectionLabel name="Store & Templates" />
+                  <h2 className="font-display text-4xl sm:text-5xl font-normal tracking-tight text-[var(--color-ink-primary)]">
+                    Digital Products
+                  </h2>
+                  <p className="font-sans text-xs text-[var(--color-accent)] font-medium">
+                    Architectural blueprints, developer boilerplates, and templates.
+                  </p>
+                </div>
+                <div className="lg:col-span-7 space-y-2">
+                  <p className="font-sans text-sm sm:text-base text-[var(--color-ink-secondary)] leading-relaxed max-w-xl">
+                    Resources distilled from my own working systems. Strictly zero fabricated sales or fake reviews — published openly as they are finalized.
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {DIGITAL_PRODUCTS_PREVIEWS.map((prod) => (
+                  <div
+                    key={prod.id}
+                    className="border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] p-6 md:p-8 space-y-5 flex flex-col justify-between hover:border-[var(--color-ink-primary)] transition-colors group"
+                  >
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between text-xs font-mono">
+                        <span className="text-[var(--color-accent)] uppercase tracking-wider font-semibold">
+                          {prod.category.replace("_", " ")}
+                        </span>
+                        <span
+                          className={`px-2 py-0.5 text-[10px] font-mono border ${
+                            prod.status === "Case Study"
+                              ? "border-[var(--color-accent)] text-[var(--color-accent)] bg-[var(--color-accent)]/5"
+                              : "border-[var(--color-hairline)] text-[var(--color-ink-secondary)]"
+                          }`}
+                        >
+                          {prod.status}
+                        </span>
+                      </div>
+
+                      <h3 className="font-display text-xl text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors">
+                        {prod.title}
+                      </h3>
+
+                      <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
+                        {prod.summary}
+                      </p>
+
+                      <div className="pt-2 flex flex-wrap gap-1.5">
+                        {prod.tech.map((t, idx) => (
+                          <span
+                            key={idx}
+                            className="font-mono text-[10px] px-2 py-0.5 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] text-[var(--color-ink-secondary)]"
+                          >
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="pt-4 border-t border-[var(--color-hairline)] flex items-center justify-between">
+                      {prod.link ? (
+                        <Link
+                          href={prod.link}
+                          className="font-mono text-xs uppercase tracking-wider text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors inline-flex items-center gap-1.5"
+                        >
+                          <span>Explore Blueprint</span>
+                          <span>→</span>
+                        </Link>
+                      ) : (
+                        <span className="font-mono text-xs text-[var(--color-ink-secondary)]">
+                          Release Pending
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-[var(--color-hairline)]">
+                <span className="font-mono text-xs text-[var(--color-ink-secondary)]">
+                  Looking for custom templates or backend integrations?
+                </span>
+                <Link
+                  href="/store"
+                  className={buttonStyles({
+                    variant: "primary",
+                    size: "md",
+                    className: "w-full sm:w-auto font-mono text-xs uppercase tracking-wider",
+                  })}
+                >
+                  Visit Full Store Catalog →
+                </Link>
+              </div>
+            </div>
+          </SectionContainer>
+        </HomeSectionReveal>
+      </section>
+
+      {/* =======================================================
+          8. ENGINEERING COMMAND CENTER / CURRENT FOCUS
+          ======================================================= */}
+      <section id="focus" className="w-full border-b border-[var(--color-hairline)] py-20 md:py-28 bg-[var(--color-canvas-primary)]">
+        <HomeSectionReveal>
+          <SectionContainer>
+            <div className="space-y-12">
+              <div className="space-y-3 max-w-2xl">
+                <SectionLabel name="Command Center" />
+                <h2 className="font-display text-3xl md:text-4xl font-normal tracking-tight text-[var(--color-ink-primary)]">
+                  Current Focus &amp; Activity
+                </h2>
+                <p className="font-sans text-xs text-[var(--color-accent)] font-medium">
+                  What I&apos;m building, exploring, and shipping right now.
+                </p>
+              </div>
+
+              {/* 4 Focus Areas */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {FOCUS_AREAS.map((item) => (
+                  <div
+                    key={item.id}
+                    className="border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] p-6 space-y-3"
+                  >
+                    <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--color-accent)] font-semibold block">
+                      {item.category}
+                    </span>
+                    <h3 className="font-display text-xl text-[var(--color-ink-primary)]">
+                      {item.title}
+                    </h3>
+                    <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              {/* GitHub Activity & Mission Summary Card */}
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-6 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] p-8">
+                <div className="md:col-span-5 space-y-4">
+                  <span className="font-mono text-xs uppercase tracking-wider text-[var(--color-accent)] font-semibold block">
+                    OPEN SOURCE ACTIVITY
+                  </span>
+                  <h3 className="font-display text-2xl text-[var(--color-ink-primary)]">
+                    GitHub Engineering Hub
+                  </h3>
+                  <div className="space-y-2 font-mono text-xs text-[var(--color-ink-secondary)]">
+                    <div className="flex justify-between py-1 border-b border-[var(--color-hairline)]">
+                      <span>GitHub:</span>
+                      <span className="font-semibold text-[var(--color-ink-primary)]">@shivam-shukla888</span>
+                    </div>
+                    <div className="flex justify-between py-1 border-b border-[var(--color-hairline)]">
+                      <span>Primary Stack:</span>
+                      <span className="font-semibold text-[var(--color-ink-primary)]">Java, SQL, TypeScript</span>
+                    </div>
+                    <div className="flex justify-between py-1 border-b border-[var(--color-hairline)]">
+                      <span>Featured Work:</span>
+                      <span className="font-semibold text-[var(--color-ink-primary)]">Yojna Setu, RealGuard, QuickEats</span>
+                    </div>
+                  </div>
+                  <div className="pt-2">
+                    <a
+                      href="https://github.com/shivam-shukla888"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-mono text-xs uppercase tracking-wider text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors inline-flex items-center gap-1.5"
+                    >
+                      <span>Explore GitHub Profile</span>
+                      <span>↗</span>
+                    </a>
+                  </div>
+                </div>
+
+                <div className="md:col-span-7 space-y-4 md:border-l md:border-[var(--color-hairline)] md:pl-8 flex flex-col justify-between">
+                  <div className="space-y-3">
+                    <span className="font-mono text-xs uppercase tracking-wider text-[var(--color-accent)] font-semibold block">
+                      MISSION
+                    </span>
+                    <h3 className="font-display text-2xl text-[var(--color-ink-primary)]">
+                      Building Practical AI for Bharat
+                    </h3>
+                    <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
+                      I believe conversational interfaces like WhatsApp provide the most direct access for citizens and local businesses. My approach combines conversational LLMs for natural language parsing with deterministic Java business logic so application behavior remains predictable, testable, and maintainable.
+                    </p>
+                  </div>
+
+                  <div className="pt-4 flex flex-wrap items-center gap-4 border-t border-[var(--color-hairline)]">
+                    <a
+                      href="/Resume.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={buttonStyles({
+                        variant: "primary",
+                        size: "md",
+                        className: "font-mono text-xs uppercase tracking-wider",
+                      })}
+                    >
+                      Download Resume (PDF) ↓
+                    </a>
+                    <Link
+                      href="/contact"
+                      className="font-mono text-xs uppercase tracking-wider text-[var(--color-ink-secondary)] hover:text-[var(--color-ink-primary)] transition-colors"
+                    >
+                      Get in Touch →
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </SectionContainer>
+        </HomeSectionReveal>
+      </section>
+
+      {/* =======================================================
+          9. CONTACT
           ======================================================= */}
       <section id="contact" className="w-full bg-[var(--color-surface-dark)] text-white py-20 md:py-32">
         <HomeSectionReveal>
           <SectionContainer>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-            <div className="lg:col-span-5 space-y-5">
-              <SectionLabel name="Contact" dark />
-              <h2 className="font-display text-4xl sm:text-5xl font-normal tracking-tight text-white leading-tight">
-                Get in Touch
-              </h2>
-              <p className="font-sans text-xs text-[var(--color-accent)] font-medium">
-                Send a message to discuss a project or question.
-              </p>
-              <p className="font-sans text-sm text-[var(--color-dark-ink-secondary)] leading-relaxed max-w-md whitespace-pre-wrap">
-                {profile.contactInstructions && profile.contactInstructions !== "[CONTACT DETAILS PENDING]"
-                  ? profile.contactInstructions
-                  : "Have a project in mind? Tell me what you're building, and I'll get back to you."}
-              </p>
-              <div className="pt-2 space-y-2 font-mono text-xs text-[var(--color-dark-ink-secondary)]">
-                {profile.email && (
-                  <div>
-                    <span className="text-[var(--color-accent)] uppercase tracking-wider text-[10px]">Email: </span>
-                    <a
-                      href={`mailto:${profile.email}`}
-                      className="hover:text-white transition-colors underline break-all"
-                    >
-                      {profile.email}
-                    </a>
-                  </div>
-                )}
-                {profile.phone && (
-                  <div>
-                    <span className="text-[var(--color-accent)] uppercase tracking-wider text-[10px]">Phone: </span>
-                    <a
-                      href={`tel:${profile.phone}`}
-                      className="hover:text-white transition-colors underline"
-                    >
-                      {profile.phone}
-                    </a>
-                  </div>
-                )}
-              </div>
-              <div className="pt-2">
-                <Link
-                  href="/contact"
-                  className={buttonStyles({
-                    variant: "dark-inverse",
-                    size: "md",
-                    className: "group",
-                  })}
-                >
-                  <span>Go to Contact Page</span>
-                  <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none ml-1.5">
-                    →
-                  </span>
-                </Link>
-              </div>
-            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+              <div className="lg:col-span-5 space-y-5">
+                <SectionLabel name="Contact" dark />
+                <h2 className="font-display text-4xl sm:text-5xl font-normal tracking-tight text-white leading-tight">
+                  Get in Touch
+                </h2>
+                <p className="font-sans text-xs text-[var(--color-accent)] font-medium">
+                  Direct inquiry for software engineering roles &amp; select projects.
+                </p>
+                <p className="font-sans text-sm text-[var(--color-dark-ink-secondary)] leading-relaxed max-w-md">
+                  {profile.contactInstructions}
+                </p>
+                <div className="pt-2 space-y-2 font-mono text-xs text-[var(--color-dark-ink-secondary)]">
+                  {profile.email && (
+                    <div>
+                      <span className="text-[var(--color-accent)] uppercase tracking-wider text-[10px]">Email: </span>
+                      <a
+                        href={`mailto:${profile.email}`}
+                        className="hover:text-white transition-colors underline break-all"
+                      >
+                        {profile.email}
+                      </a>
+                    </div>
+                  )}
+                  {profile.phone && (
+                    <div>
+                      <span className="text-[var(--color-accent)] uppercase tracking-wider text-[10px]">Phone: </span>
+                      <a
+                        href={`tel:${profile.phone}`}
+                        className="hover:text-white transition-colors underline"
+                      >
+                        {profile.phone}
+                      </a>
+                    </div>
+                  )}
+                </div>
 
-            <div className="lg:col-span-7">
-              <ContactForm
-                variant="dark"
-                labels={{
-                  name: "Your Name",
-                  email: "Email Address",
-                  brief: "Message or Project Details",
-                  submit: "Send Message →",
-                }}
-              />
+                <div className="pt-4 flex flex-wrap items-center gap-3">
+                  <a
+                    href="/Resume.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={buttonStyles({
+                      variant: "dark-inverse",
+                      size: "md",
+                      className: "group",
+                    })}
+                  >
+                    <span>Download Resume</span>
+                    <span className="inline-block transition-transform duration-200 group-hover:translate-y-0.5 motion-reduce:transform-none ml-1.5">
+                      ↓
+                    </span>
+                  </a>
+                  <Link
+                    href="/contact"
+                    className="font-mono text-xs uppercase tracking-wider px-4 py-2 border border-[var(--color-dark-hairline)] text-[var(--color-dark-ink-secondary)] hover:text-white hover:border-white transition-colors"
+                  >
+                    Full Contact Page →
+                  </Link>
+                </div>
+              </div>
+
+              <div className="lg:col-span-7">
+                <ContactForm
+                  variant="dark"
+                  labels={{
+                    name: "Your Name",
+                    email: "Email Address",
+                    brief: "Message or Project Details",
+                    submit: "Send Message →",
+                  }}
+                />
+              </div>
             </div>
-          </div>
-        </SectionContainer>
+          </SectionContainer>
         </HomeSectionReveal>
       </section>
     </div>

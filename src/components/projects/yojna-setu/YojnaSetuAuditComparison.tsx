@@ -17,7 +17,7 @@ export function YojnaSetuAuditComparison() {
           From Prototype to Hardened Backend
         </h2>
         <p className="font-sans text-base text-[var(--color-ink-secondary)] leading-relaxed max-w-3xl">
-          The original prototype had critical security and correctness issues. Here are the 5 key engineering fixes made in V2 to make the backend production-ready.
+          The original prototype had critical security and correctness issues. Here are the 5 key engineering fixes made in V2 to harden the backend architecture.
         </p>
       </div>
 

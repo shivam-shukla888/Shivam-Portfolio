@@ -43,11 +43,14 @@ export interface ProfileDisplayData {
  */
 export const PROFILE_FALLBACK: ProfileDisplayData = {
   fullName: "Shivam Shukla",
-  positioningStatement: "[PERSONAL POSITIONING PENDING]",
-  heroSupportingText: "[SHORT SUPPORTING CONTENT PENDING]",
-  aboutMarkdown: "[ABOUT CONTENT PENDING]",
-  contactInstructions: "[CONTACT DETAILS PENDING]",
-  availabilityStatus: null,
+  positioningStatement: "Backend Systems · Agentic AI · AI Security",
+  heroSupportingText:
+    "I build backend systems, AI agents, and security-focused software — and create digital tools along the way.",
+  aboutMarkdown:
+    "I'm a Backend & AI Developer and 2026 CSE graduate. I specialize in Java, Spring Boot, relational database modeling, and LLM integrations (Groq API, prompt engineering) to build practical systems with deterministic verification. My projects focus on solving real-world challenges for citizens, home buyers, and local businesses through conversational messaging and clean backend architectures.",
+  contactInstructions:
+    "Have a project in mind or want to collaborate? Send me a message with details, and I'll get back to you promptly.",
+  availabilityStatus: "Available for Software Engineering Roles & Select Client Projects",
   email: "theshivamshukla.4uu@gmail.com",
   phone: "8887780625",
   contraUrl: "https://contra.com/shivam_shukla_7duxsdr7/work",

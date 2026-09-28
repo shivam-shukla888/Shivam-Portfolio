@@ -92,6 +92,16 @@ export function Navbar() {
           >
             Lab
           </Link>
+
+          {/* Resume link */}
+          <a
+            href="/Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs font-mono uppercase tracking-wider px-2.5 py-1 bg-[var(--color-ink-primary)] text-[var(--color-canvas-primary)] hover:bg-[var(--color-accent)] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
+          >
+            Resume ↓
+          </a>
         </nav>
 
         {/* Mobile Menu Toggle Button */}
@@ -153,10 +163,21 @@ export function Navbar() {
           <Link
             href="/lab"
             onClick={() => setIsOpen(false)}
-            className="text-xs font-sans text-[var(--color-accent)] font-medium py-2 min-h-[44px] flex items-center"
+            className="text-xs font-sans text-[var(--color-accent)] font-medium py-2 min-h-[44px] flex items-center justify-between"
           >
-            Lab →
+            <span>Lab</span>
+            <span>→</span>
           </Link>
+          <a
+            href="/Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setIsOpen(false)}
+            className="text-xs font-mono uppercase tracking-wider text-[var(--color-ink-primary)] font-semibold py-2 min-h-[44px] flex items-center justify-between"
+          >
+            <span>Download Resume</span>
+            <span>↓</span>
+          </a>
         </nav>
         </>
       )}

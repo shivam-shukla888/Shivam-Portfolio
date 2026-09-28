@@ -35,7 +35,7 @@ export function YojnaSetuArchitectureDiagram() {
       title: "PostgreSQL Database",
       channel: "Supabase (yojna_setu Schema)",
       description: "Stores 82 normalized schemes, criteria tables, conversation state, and webhook deduplication records.",
-      detail: "Indexed relational queries resolve matching schemes in <1 ms direct execution.",
+      detail: "Indexed relational queries evaluate criteria directly against structured B-Tree indices.",
     },
   ];
 

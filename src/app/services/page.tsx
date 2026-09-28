@@ -30,38 +30,7 @@ export const metadata: Metadata = {
   },
 };
 
-const SERVICE_DOMAINS = [
-  {
-    key: "backend-systems",
-    domain: "Backend Systems",
-    title: "Backend Systems",
-    summary:
-      "I build APIs, backend services, database-backed applications, and the systems around them.",
-    engagement: "APIs · Databases · System Architecture",
-    ctaSubject: "Backend Systems Inquiry",
-    ctaLabel: "Discuss a project",
-  },
-  {
-    key: "agentic-ai",
-    domain: "Agentic AI",
-    title: "Agentic AI",
-    summary:
-      "I build AI agents and LLM-based workflows that connect models with useful application logic.",
-    engagement: "AI Agents · LLM Workflows · Tool Integration",
-    ctaSubject: "Agentic AI Inquiry",
-    ctaLabel: "Discuss an AI project",
-  },
-  {
-    key: "ai-security",
-    domain: "AI Security",
-    title: "AI Security",
-    summary:
-      "I work on security for AI applications, including input validation, prompt-injection protection, access control, and safe system design.",
-    engagement: "Input Validation · Access Control · System Safety",
-    ctaSubject: "AI Security Inquiry",
-    ctaLabel: "Discuss AI security",
-  },
-];
+import { SERVICES_CATALOG } from "@/data/portfolio-data";
 
 export default async function ServicesPage() {
   const services = await getPublishedServices();
@@ -165,41 +134,53 @@ export default async function ServicesPage() {
           ) : (
             /* Practical Deliverables Architecture */
             <div className="space-y-8">
-              <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[var(--color-hairline)] border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)]">
-                {SERVICE_DOMAINS.map((domain) => (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {SERVICES_CATALOG.map((srv) => (
                   <div
-                    key={domain.key}
-                    className="p-8 space-y-6 flex flex-col justify-between"
+                    key={srv.id}
+                    className="p-8 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] space-y-6 flex flex-col justify-between"
                   >
                     <div className="space-y-4">
                       <div className="flex items-center justify-between">
                         <span className="font-mono text-xs text-[var(--color-accent)] font-semibold uppercase tracking-wider">
-                          {domain.domain}
+                          {srv.code}
+                        </span>
+                        <span className="font-mono text-[11px] text-[var(--color-ink-secondary)]">
+                          {srv.engagement}
                         </span>
                       </div>
                       <h2 className="font-display text-2xl font-normal text-[var(--color-ink-primary)]">
-                        {domain.title}
+                        {srv.title}
                       </h2>
                       <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
-                        {domain.summary}
+                        {srv.summary}
                       </p>
+
+                      <div className="space-y-2 pt-2 border-t border-[var(--color-hairline)]">
+                        <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--color-accent)] font-semibold block">
+                          Key Deliverables
+                        </span>
+                        <ul className="space-y-1.5 font-sans text-xs text-[var(--color-ink-primary)]">
+                          {srv.deliverables.map((item, dIdx) => (
+                            <li key={dIdx} className="flex items-start gap-2">
+                              <span className="text-[var(--color-accent)] select-none">—</span>
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
 
-                    <div className="space-y-4 pt-4 border-t border-[var(--color-hairline)]">
-                      <div className="font-mono text-[11px] text-[var(--color-ink-secondary)]">
-                        {domain.engagement}
-                      </div>
-                      <div>
-                        <Link
-                          href={`/contact?subject=${encodeURIComponent(domain.ctaSubject)}`}
-                          className="inline-flex items-center gap-1.5 font-sans font-medium text-xs text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors group focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
-                        >
-                          <span>{domain.ctaLabel}</span>
-                          <span className="transition-transform duration-150 group-hover:translate-x-1">
-                            →
-                          </span>
-                        </Link>
-                      </div>
+                    <div className="pt-4 border-t border-[var(--color-hairline)]">
+                      <Link
+                        href={`/contact?subject=${encodeURIComponent(srv.subject)}`}
+                        className="inline-flex items-center gap-1.5 font-sans font-medium text-xs text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors group focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
+                      >
+                        <span>Discuss a Project</span>
+                        <span className="transition-transform duration-150 group-hover:translate-x-1">
+                          →
+                        </span>
+                      </Link>
                     </div>
                   </div>
                 ))}

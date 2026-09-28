@@ -97,11 +97,11 @@ export const YOJNA_SETU_DATA = {
       detail: "Verified in release-gate security audit with zero high-severity findings.",
     },
     {
-      value: "<1 ms",
-      label: "OBSERVED DIRECT SQL QUERY",
-      sublabel: "Supabase PostgreSQL 17 Indexed Execution",
+      value: "B-Tree",
+      label: "INDEXED RULES EVALUATION",
+      sublabel: "PostgreSQL Relational Indexing",
       detail:
-        "<1 ms reflects observed direct SQL query execution in the verification environment, not end-to-end application latency.",
+        "Eligibility rules are evaluated through indexed relational criteria queries rather than unstructured prompt context or table scans.",
     },
   ] as YojnaSetuMetric[],
 

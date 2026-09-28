@@ -82,10 +82,10 @@ export function YojnaSetuShowcase() {
               </div>
               <div className="space-y-0.5">
                 <span className="font-mono text-lg font-medium text-[var(--color-ink-primary)]">
-                  &lt;1 ms
+                  B-Tree
                 </span>
                 <span className="block font-mono text-[9px] uppercase tracking-wider text-[var(--color-ink-secondary)]">
-                  SQL Query
+                  Indexed Rules
                 </span>
               </div>
             </div>

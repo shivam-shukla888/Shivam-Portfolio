@@ -235,7 +235,7 @@ The ShivSastra website is organized into the following verified public routes:
 - [Services](/services) - High-impact consulting, system architecture, and agentic AI advisory.
 - [Store](/store) - Curated digital releases, templates, monographs, and developer licenses.
 - [Store / Design](/store/design) - Design systems and typography collections.
-- [Store / AI Agents](/store/ai-agents) - Autonomous agents and operational workflows.
+- [Store / AI Agents](/store/ai-agents) - Conversational AI workflows and agent architectures.
 - [Store / Digital Products](/store/digital-products) - Developer toolkits and boilerplates.
 - [Contact](/contact) - Inquiries, collaboration briefs, and advisory scheduling.
 - [Lab](/lab) - Personal sandbox entries, research notes, and architectural experiments.

@@ -74,7 +74,7 @@ export const PUBLIC_NAVIGATION: Record<string, NavigationDestination> = {
   storeAiAgents: {
     label: "AI Agents Store",
     href: "/store/ai-agents",
-    description: "Autonomous agents and operational workflows",
+    description: "Conversational AI workflows and agent architectures",
   },
   storeDigitalProducts: {
     label: "Digital Products Store",
