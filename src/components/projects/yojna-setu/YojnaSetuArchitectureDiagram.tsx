@@ -124,20 +124,16 @@ export function YojnaSetuArchitectureDiagram() {
         <div className="p-4 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
           <div className="flex flex-wrap items-center gap-2 text-[var(--color-ink-primary)]">
             <span className="font-semibold">Pipeline Flow:</span>
-            <span>User</span>
+            <span>Natural-language intake</span>
             <span className="text-[var(--color-accent)]">→</span>
-            <span>WhatsApp</span>
+            <span>Structured criteria</span>
             <span className="text-[var(--color-accent)]">→</span>
-            <span>AI extracts profile details</span>
-            <span className="text-[var(--color-accent)]">→</span>
-            <span className="font-semibold text-[var(--color-accent)]">Java eligibility rules</span>
+            <span className="font-semibold text-[var(--color-accent)]">Deterministic Java rules</span>
             <span className="text-[var(--color-accent)]">→</span>
             <span>PostgreSQL</span>
-            <span className="text-[var(--color-accent)]">→</span>
-            <span>Scheme results</span>
           </div>
           <span className="text-[var(--color-ink-secondary)]">
-            5 Stages · Complete Boundary Separation
+            B-Tree Indexed Rules Evaluation
           </span>
         </div>
       </div>

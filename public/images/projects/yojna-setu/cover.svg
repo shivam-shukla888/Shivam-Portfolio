@@ -46,9 +46,9 @@
         <text x="0" y="40" class="mono" font-size="10" fill="#111112">100% Passing Suite</text>
       </g>
       <g transform="translate(440, 0)">
-        <text x="0" y="0" class="serif" font-size="44" fill="#111112">&lt;1 ms</text>
-        <text x="0" y="24" class="mono" font-size="11" fill="#6E6D68" letter-spacing="1">OBSERVED SQL QUERY</text>
-        <text x="0" y="40" class="mono" font-size="10" fill="#6E6D68">Supabase PostgreSQL 17</text>
+        <text x="0" y="0" class="serif" font-size="44" fill="#111112">B-Tree</text>
+        <text x="0" y="24" class="mono" font-size="11" fill="#6E6D68" letter-spacing="1">INDEXED RULES EVALUATION</text>
+        <text x="0" y="40" class="mono" font-size="10" fill="#6E6D68">PostgreSQL Relational Indexing</text>
       </g>
     </g>
 

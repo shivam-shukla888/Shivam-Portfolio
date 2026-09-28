@@ -94,7 +94,7 @@ export const YOJNA_SETU_PROJECT: Project = {
   title: "Yojna Setu",
   editionCode: "YS-V2",
   summary:
-    "AI + deterministic systems architecture. Natural-language input → conversational extraction → structured criteria → deterministic eligibility engine → relational data. AI handles language; application logic handles decisions. Tested over 82 welfare schemes with 42/42 verified tests.",
+    "AI + deterministic systems architecture. Natural-language intake → structured criteria → deterministic Java rules → PostgreSQL. AI handles language; application logic handles decisions. Tested over 82 welfare schemes with 42/42 verified tests.",
   caseStudyMarkdown: null,
   coverImageUrl: "/images/projects/yojna-setu/cover.svg",
   category: "AI + Deterministic Systems",
