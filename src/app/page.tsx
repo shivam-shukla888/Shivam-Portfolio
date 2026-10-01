@@ -4,6 +4,7 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import type { Metadata } from "next";
 import { SectionContainer } from "@/components/layout/SectionContainer";
+import { SectionLabel } from "@/components/ui/SectionLabel";
 import { buttonStyles } from "@/components/ui/Button";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { getProfileSettings } from "@/lib/profile";
@@ -11,10 +12,10 @@ import { getPublishedProjects } from "@/lib/projects";
 import { PageBackground } from "@/components/ui/PageBackground";
 import { HomeHeroMotion } from "@/components/home/HomeHeroMotion";
 import { HomeSectionReveal } from "@/components/home/HomeSectionReveal";
-import { EditorialServices } from "@/components/home/EditorialServices";
 import {
   CERTIFICATIONS,
   SKILL_CATEGORIES,
+  SERVICES_CATALOG,
   FOCUS_AREAS,
   DIGITAL_PRODUCTS_PREVIEWS,
 } from "@/data/portfolio-data";
@@ -22,38 +23,36 @@ import {
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "ShivSastra — Engineering, AI Agents & Security Architecture | Shivam Shukla",
+  title: "Shivam Shukla — AI Agents, AI Security & Developer Products",
   description:
-    "Digital headquarters and engineering archive of Shivam Shukla. Building AI agents, deterministic welfare engines, and security-hardened backend systems.",
+    "Personal website of Shivam Shukla. I build AI agents, automation systems, and developer products with Python, backend architectures, and AI security.",
   keywords: [
     "Shivam Shukla",
-    "ShivSastra",
     "AI Agents",
     "AI Security",
     "AI Automation",
     "Developer Products",
     "Python",
-    "Java",
-    "Spring Boot",
     "Prompt Injection Defense",
     "Backend Systems",
+    "Software Engineer",
   ],
   alternates: {
     canonical: "https://shivsastra.vercel.app",
   },
   openGraph: {
-    title: "ShivSastra — Engineering, AI Agents & Security Architecture",
+    title: "Shivam Shukla — AI Agents, AI Security & Developer Products",
     description:
-      "Digital headquarters of Shivam Shukla. Practical AI agents, deterministic backend logic, and application security.",
+      "I build AI agents, automation systems, and developer products. From conversational workflows and backend systems to AI security and practical digital resources.",
     url: "https://shivsastra.vercel.app",
     type: "website",
     images: [{ url: "/images/shivam-shukla.jpg" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "ShivSastra — Engineering, AI Agents & Security Architecture",
+    title: "Shivam Shukla — AI Agents, AI Security & Developer Products",
     description:
-      "Digital headquarters of Shivam Shukla. Practical AI agents, deterministic backend logic, and application security.",
+      "I build AI agents, automation systems, and developer products. From conversational workflows and backend systems to AI security and practical digital resources.",
   },
 };
 
@@ -63,9 +62,7 @@ const HeroVisual = dynamic(
   {
     ssr: true,
     loading: () => (
-      <div className="w-full max-w-[440px] aspect-square border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] flex items-center justify-center p-8">
-        <span className="font-mono text-xs text-[var(--color-ink-secondary)]">[SYSTEM VISUAL]</span>
-      </div>
+      <div className="w-full max-w-[440px] aspect-square border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] flex items-center justify-center p-8" />
     ),
   }
 );
@@ -76,10 +73,10 @@ export default async function HomePage() {
     getPublishedProjects(),
   ]);
 
-  const yojnaSetu = allProjects.find((p) => p.slug === "yojna-setu") || allProjects[0];
-  const realGuard = allProjects.find((p) => p.slug === "realguard") || allProjects[1];
-  const quickEats = allProjects.find((p) => p.slug === "quickeats") || allProjects[2];
+  // Featured 3 projects: Yojna Setu, RealGuard, QuickEats
+  const selectedProjects = allProjects.slice(0, 3);
 
+  // Verified social profiles for Schema.org Person structured data
   const verifiedSameAs = [
     profile.contraUrl,
     profile.linkedinUrl,
@@ -137,95 +134,76 @@ export default async function HomePage() {
       />
 
       {/* =======================================================
-          1. HERO — TYPOGRAPHY AS ARCHITECTURE
+          1. HERO
           ======================================================= */}
-      <section className="relative w-full border-b border-[var(--color-hairline)] pt-14 md:pt-20 pb-20 md:pb-28 overflow-hidden bg-[var(--color-canvas-primary)]">
+      <section className="relative w-full border-b border-[var(--color-hairline)] pt-16 md:pt-24 pb-20 md:pb-32 overflow-hidden">
         <PageBackground
           src="/images/backgrounds/homepage.webp"
           priority
-          opacity={0.4}
+          opacity={0.55}
           position="right"
           overlayVariant="hero-left-quiet"
         />
         <SectionContainer className="relative z-1">
           <HomeHeroMotion
             overview={
-              <div className="flex flex-wrap items-center gap-3 font-mono text-xs">
-                <span className="text-[var(--color-accent)] font-semibold tracking-widest uppercase">
-                  SHIVSASTRA // DIGITAL HEADQUARTERS
-                </span>
-                <span className="text-[var(--color-hairline)] select-none">·</span>
-                <span className="text-[var(--color-ink-secondary)]">2026 EDITION</span>
+              <div className="flex flex-wrap items-baseline gap-4">
+                <SectionLabel name="Overview" />
                 {profile.availabilityStatus && (
-                  <>
-                    <span className="text-[var(--color-hairline)] select-none">·</span>
-                    <span className="text-[var(--color-ink-primary)] font-medium">
-                      {profile.availabilityStatus}
-                    </span>
-                  </>
+                  <span className="font-mono text-xs text-[var(--color-accent)] border-l border-[var(--color-hairline)] pl-4">
+                    {profile.availabilityStatus}
+                  </span>
                 )}
               </div>
             }
             title={
-              <div className="space-y-3">
-                <div className="font-mono text-xs uppercase tracking-[0.2em] text-[var(--color-ink-secondary)]">
-                  {profile.fullName || "SHIVAM SHUKLA"}
-                </div>
-                <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-normal tracking-tight text-[var(--color-ink-primary)] leading-[1.02]">
-                  Building systems with structure, security &amp; intent.
-                </h1>
-              </div>
+              <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-normal tracking-tight text-[var(--color-ink-primary)] leading-[1.05]">
+                {profile.fullName}
+              </h1>
             }
             positioning={
-              <div className="flex flex-wrap items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-[var(--color-accent)] font-semibold pt-1">
-                <span>[ AI AGENTS ]</span>
-                <span className="text-[var(--color-hairline)] select-none">·</span>
-                <span>[ AI SECURITY ]</span>
-                <span className="text-[var(--color-hairline)] select-none">·</span>
-                <span>[ DETERMINISTIC SYSTEMS ]</span>
-                <span className="text-[var(--color-hairline)] select-none">·</span>
-                <span>[ DIGITAL PRODUCTS ]</span>
-              </div>
+              <p className="font-mono text-xs sm:text-sm uppercase tracking-[0.14em] text-[var(--color-accent)] font-semibold">
+                AI Agents · AI Security · Automation · Digital Products
+              </p>
             }
             narrative={
               <p className="font-sans text-base md:text-lg text-[var(--color-ink-secondary)] leading-relaxed max-w-[62ch]">
-                {profile.heroSupportingText ||
-                  "Separating natural language interpretation from deterministic execution. Building resilient agent orchestration, citizen welfare discovery engines, and security-hardened backend architectures."}
+                {profile.heroSupportingText}
               </p>
             }
             ctas={
-              <div className="pt-2 flex flex-wrap items-center gap-4">
+              <div className="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
                 <Link
                   href="#work"
                   className={buttonStyles({
                     variant: "primary",
-                    size: "md",
-                    className: "font-mono text-xs uppercase tracking-wider group",
+                    size: "lg",
+                    className: "w-full sm:w-auto font-mono text-xs uppercase tracking-wider group",
                   })}
                 >
-                  <span>Explore Selected Work</span>
-                  <span className="inline-block transition-transform duration-200 group-hover:translate-y-0.5 ml-1.5">
-                    ↓
-                  </span>
-                </Link>
-                <Link
-                  href="/about"
-                  className={buttonStyles({
-                    variant: "secondary",
-                    size: "md",
-                    className: "font-mono text-xs uppercase tracking-wider border-[var(--color-ink-primary)] group",
-                  })}
-                >
-                  <span>Editorial Profile</span>
-                  <span className="inline-block transition-transform duration-200 group-hover:translate-x-0.5 ml-1.5">
+                  <span>See My Work</span>
+                  <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none ml-1.5">
                     →
                   </span>
                 </Link>
                 <Link
                   href="/resume"
-                  className="font-mono text-xs uppercase tracking-wider px-3 py-2 text-[var(--color-ink-secondary)] hover:text-[var(--color-accent)] transition-colors border border-[var(--color-hairline)]"
+                  className={buttonStyles({
+                    variant: "secondary",
+                    size: "lg",
+                    className: "w-full sm:w-auto font-mono text-xs uppercase tracking-wider border-[var(--color-ink-primary)] group",
+                  })}
                 >
-                  Resume ↓
+                  <span>Resume</span>
+                  <span className="inline-block transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transform-none ml-1.5">
+                    →
+                  </span>
+                </Link>
+                <Link
+                  href="/store"
+                  className="font-mono text-xs uppercase tracking-wider px-4 py-3 text-[var(--color-ink-secondary)] hover:text-[var(--color-accent)] transition-colors text-center"
+                >
+                  Visit Store →
                 </Link>
               </div>
             }
@@ -235,124 +213,106 @@ export default async function HomePage() {
       </section>
 
       {/* =======================================================
-          2. ABOUT — EDITORIAL PROFILE
+          2. ABOUT (Authentic Developer Introduction)
           ======================================================= */}
       <section id="about" className="w-full border-b border-[var(--color-hairline)] py-20 md:py-28 bg-[var(--color-canvas-primary)]">
         <HomeSectionReveal>
           <SectionContainer>
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-              {/* Left Column: Portrait & Verified Education */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+              {/* Left Column: Portrait & Key Details */}
               <div className="lg:col-span-5 space-y-6">
                 <div className="space-y-3">
-                  <div className="font-mono text-xs uppercase tracking-widest text-[var(--color-accent)] font-semibold flex items-center gap-2">
-                    <span>01</span>
-                    <span>EDITORIAL PROFILE</span>
-                  </div>
+                  <SectionLabel name="About" />
                   <h2 className="font-display text-3xl sm:text-4xl font-normal tracking-tight text-[var(--color-ink-primary)]">
-                    Shivam Shukla
+                    About Me
                   </h2>
-                  <p className="font-sans text-xs text-[var(--color-ink-secondary)]">
-                    AI Agent &amp; Security Builder · Backend Systems
+                  <p className="font-sans text-xs text-[var(--color-accent)] font-medium">
+                    AI Agent &amp; Security Builder · Digital Products
                   </p>
                 </div>
 
-                <div className="relative aspect-[4/5] max-w-[340px] border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] overflow-hidden">
+                <div className="relative aspect-[4/5] max-w-[320px] border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] overflow-hidden">
                   <Image
                     src="/images/shivam-shukla.jpg"
-                    alt="Shivam Shukla — Creative Technologist & Backend Engineer"
+                    alt="Shivam Shukla — Portrait"
                     fill
-                    className="object-cover grayscale contrast-105"
-                    sizes="(max-width: 768px) 100vw, 340px"
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 320px"
                     priority
                   />
-                  <div className="absolute bottom-0 inset-x-0 bg-black/60 backdrop-blur-xs p-3 font-mono text-[10px] text-white/90 flex justify-between">
-                    <span>BAREILLY, UP, INDIA</span>
-                    <span>SRMS CET&amp;R // 2026</span>
-                  </div>
                 </div>
 
-                <div className="p-5 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] space-y-2 font-mono text-xs">
-                  <div className="flex items-center justify-between text-[var(--color-accent)] font-semibold">
-                    <span>ACADEMIC FOUNDATION</span>
+                <div className="p-5 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] space-y-3 font-mono text-xs text-[var(--color-ink-secondary)]">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[var(--color-accent)] font-semibold">EDUCATION</span>
                     <span>2022 – 2026</span>
                   </div>
                   <p className="font-sans text-xs text-[var(--color-ink-primary)]">
-                    B.Tech in Computer Science &amp; Engineering
-                  </p>
-                  <p className="font-sans text-[11px] text-[var(--color-ink-secondary)]">
-                    SRMS College of Engineering, Technology &amp; Research (Affiliated to AKTU)
+                    B.Tech in Computer Science Engineering
+                    <br />
+                    <span className="text-[var(--color-ink-secondary)] text-[11px]">
+                      SRMS CET&R, Bareilly (Affiliated to AKTU)
+                    </span>
                   </p>
                 </div>
               </div>
 
-              {/* Right Column: Statement & Philosophical Breakdown */}
+              {/* Right Column: Authentic Story & Highlights */}
               <div className="lg:col-span-7 space-y-8">
                 <div className="p-8 md:p-10 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] space-y-4">
                   <span className="font-mono text-xs uppercase tracking-wider text-[var(--color-accent)] font-semibold block">
-                    PHILOSOPHICAL MANIFESTO
+                    PHILOSOPHY &amp; FOCUS
                   </span>
-                  <h3 className="font-display text-2xl sm:text-3xl font-normal text-[var(--color-ink-primary)] leading-tight">
-                    &ldquo;AI extracts unstructured intent. Deterministic code enforces rules, security, and truth.&rdquo;
-                  </h3>
+                  <p className="font-sans text-base sm:text-lg text-[var(--color-ink-primary)] leading-relaxed">
+                    I build software products, practical AI agents, and automation systems with a focus on AI security. I care about building practical systems rather than AI demos — separating language extraction from deterministic backend logic.
+                  </p>
                   <p className="font-sans text-sm sm:text-base text-[var(--color-ink-secondary)] leading-relaxed">
-                    I reject the paradigm of treating language models as universal application backends. In mission-critical workflows, language models belong at the edge as semantic interpreters, while deterministic code, typed schemas, and relational engines handle transactions, validation, and security boundaries.
+                    While Java and Spring Boot remain a solid engineering foundation of my work, Python is my primary language for AI agent orchestration, tool calling, and automation. Along the way, I turn repeatable engineering patterns into open developer templates and digital resources.
                   </p>
                 </div>
 
-                {/* 3 Structured Pillars */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  <div className="p-5 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] space-y-2">
-                    <span className="font-mono text-[10px] text-[var(--color-accent)] font-semibold uppercase">
-                      PILLAR 01
+                {/* Practical Milestone Cards */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="p-6 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] space-y-2">
+                    <span className="font-mono text-[11px] text-[var(--color-accent)] font-semibold uppercase tracking-wider">
+                      Engineering Foundation
                     </span>
-                    <h4 className="font-display text-base font-normal text-[var(--color-ink-primary)]">
-                      Backend Rigor
-                    </h4>
+                    <h3 className="font-display text-lg text-[var(--color-ink-primary)]">
+                      Backend &amp; Systems
+                    </h3>
                     <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
-                      Java 17, Spring Boot, PostgreSQL, and Python forming fault-tolerant relational foundations.
+                      Engineering background in Python, Java, and Spring Boot, combining relational data modeling with modern LLM tool integrations.
                     </p>
                   </div>
 
-                  <div className="p-5 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] space-y-2">
-                    <span className="font-mono text-[10px] text-[var(--color-accent)] font-semibold uppercase">
-                      PILLAR 02
+                  <div className="p-6 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] space-y-2">
+                    <span className="font-mono text-[11px] text-[var(--color-accent)] font-semibold uppercase tracking-wider">
+                      Shipped Systems
                     </span>
-                    <h4 className="font-display text-base font-normal text-[var(--color-ink-primary)]">
-                      AI Security
-                    </h4>
+                    <h3 className="font-display text-lg text-[var(--color-ink-primary)]">
+                      3 Working Systems
+                    </h3>
                     <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
-                      Prompt injection isolation, IDOR defense, and server-side authorization guardrails.
-                    </p>
-                  </div>
-
-                  <div className="p-5 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] space-y-2">
-                    <span className="font-mono text-[10px] text-[var(--color-accent)] font-semibold uppercase">
-                      PILLAR 03
-                    </span>
-                    <h4 className="font-display text-base font-normal text-[var(--color-ink-primary)]">
-                      Working Artifacts
-                    </h4>
-                    <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
-                      Open-sourced architectures, developer blueprints, and verifiable production repos.
+                      Built Yojna Setu (AI + deterministic rules), RealGuard (AI automation), and QuickEats (AI-assisted product engineering &amp; security).
                     </p>
                   </div>
                 </div>
 
-                <div className="pt-2 flex flex-wrap items-center gap-5">
+                <div className="pt-2 flex flex-wrap items-center gap-4">
                   <Link
                     href="/about"
                     className="inline-flex items-center gap-1.5 font-sans font-medium text-xs text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors group"
                   >
-                    <span>Read complete background &amp; philosophy</span>
+                    <span>Read complete background</span>
                     <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">
                       →
                     </span>
                   </Link>
                   <Link
-                    href="/experience"
+                    href="/resume"
                     className="font-mono text-xs uppercase tracking-wider text-[var(--color-ink-secondary)] hover:text-[var(--color-ink-primary)] transition-colors underline underline-offset-4"
                   >
-                    Career Timeline →
+                    View Resume →
                   </Link>
                 </div>
               </div>
@@ -362,398 +322,168 @@ export default async function HomePage() {
       </section>
 
       {/* =======================================================
-          3. SELECTED WORK — MASTERCLASS EDITORIAL CASE STUDIES
+          3. SELECTED WORK (Yojna Setu + RealGuard + QuickEats)
           ======================================================= */}
       <section id="work" className="w-full border-b border-[var(--color-hairline)] py-20 md:py-28 bg-[var(--color-canvas-secondary)]">
         <HomeSectionReveal>
           <SectionContainer>
-            {/* Section Header */}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-12 border-b border-[var(--color-hairline)]">
-              <div className="space-y-3">
-                <div className="font-mono text-xs uppercase tracking-widest text-[var(--color-accent)] font-semibold flex items-center gap-2">
-                  <span>02</span>
-                  <span>SELECTED WORK</span>
-                </div>
-                <h2 className="font-display text-4xl sm:text-5xl font-normal tracking-tight text-[var(--color-ink-primary)]">
-                  Architectural Case Studies
+              <div className="space-y-4">
+                <SectionLabel name="Selected Work" />
+                <h2 className="font-display text-3xl md:text-4xl font-normal tracking-tight text-[var(--color-ink-primary)]">
+                  Selected Work
                 </h2>
                 <p className="font-sans text-xs text-[var(--color-accent)] font-medium">
-                  Verified systems built with AI agent orchestration, deterministic rule engines, and security-first engineering.
+                  Practical systems built with AI agents, deterministic rules engines, and application security.
                 </p>
               </div>
               <Link
                 href="/projects"
-                className="font-mono text-xs uppercase tracking-wider text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors inline-flex items-center gap-1.5 border border-[var(--color-hairline)] px-3 py-1.5 bg-[var(--color-canvas-primary)]"
+                className="inline-flex items-center gap-1.5 font-sans font-medium text-xs text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors group focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
               >
-                <span>Full Systems Archive</span>
-                <span>→</span>
+                <span>View all projects</span>
+                <span className="transition-transform duration-150 group-hover:translate-x-1">→</span>
               </Link>
             </div>
 
-            {/* CASE STUDY 01: YOJNA SETU (Flagship Horizontal Magazine Spread) */}
-            {yojnaSetu && (
-              <article className="py-16 border-b border-[var(--color-hairline)] space-y-8">
-                <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-4">
-                  <div className="flex items-baseline gap-4">
-                    <span className="font-mono text-3xl sm:text-4xl text-[var(--color-accent)] font-semibold">
-                      01
-                    </span>
-                    <div>
-                      <span className="font-mono text-[11px] uppercase tracking-widest text-[var(--color-ink-secondary)]">
-                        AI AGENT // DETERMINISTIC WELFARE ENGINE
-                      </span>
-                      <h3 className="font-display text-3xl sm:text-4xl md:text-5xl font-normal text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors">
-                        <Link href={`/projects/${yojnaSetu.slug}`}>
-                          {yojnaSetu.title}
-                        </Link>
-                      </h3>
-                    </div>
-                  </div>
-                  <div className="font-mono text-xs text-[var(--color-ink-secondary)] flex items-center gap-3">
-                    <span>2026 EDITION</span>
-                    <span>·</span>
-                    <span>GROQ + SPRING BOOT</span>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-                  {/* Visual Left Frame */}
+            <div className="divide-y divide-[var(--color-hairline)]">
+              {selectedProjects.map((project) => (
+                <article
+                  key={project.id}
+                  className="py-12 md:py-16 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center group"
+                >
+                  {/* Large Editorial Visual Frame */}
                   <div className="lg:col-span-7">
-                    <Link
-                      href={`/projects/${yojnaSetu.slug}`}
-                      className="relative block w-full aspect-[16/10] border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] overflow-hidden group"
-                    >
-                      {yojnaSetu.coverImageUrl ? (
+                    {project.coverImageUrl ? (
+                      <Link
+                        href={`/projects/${project.slug}`}
+                        className="w-full aspect-[16/10] border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] overflow-hidden group-hover:border-[var(--color-ink-primary)] transition-colors relative block"
+                      >
                         <Image
-                          src={yojnaSetu.coverImageUrl}
-                          alt={yojnaSetu.title}
+                          src={project.coverImageUrl}
+                          alt={project.title}
                           fill
                           unoptimized
-                          className="object-cover group-hover:scale-[1.015] transition-transform duration-300"
+                          className="object-cover group-hover:scale-[1.015] transition-transform duration-300 motion-reduce:group-hover:scale-100"
                           sizes="(max-width: 1024px) 100vw, 58vw"
                         />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center p-8 font-mono text-xs text-[var(--color-ink-secondary)]">
-                          [YOJNA SETU ARCHITECTURE]
-                        </div>
-                      )}
-                    </Link>
-                  </div>
-
-                  {/* Architecture Table Right */}
-                  <div className="lg:col-span-5 flex flex-col justify-between border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] p-6 md:p-8 space-y-6">
-                    <div className="space-y-4">
-                      <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--color-accent)] font-semibold block">
-                        SYSTEM ARCHITECTURE &amp; GOAL
-                      </span>
-                      <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
-                        {yojnaSetu.summary}
-                      </p>
-
-                      <div className="space-y-2 pt-2 border-t border-[var(--color-hairline)] font-mono text-xs">
-                        <div className="flex justify-between py-1 border-b border-[var(--color-hairline)]/60">
-                          <span className="text-[var(--color-ink-secondary)]">Intent Engine:</span>
-                          <span className="text-[var(--color-ink-primary)]">Groq Llama 3 (Entity Extraction)</span>
-                        </div>
-                        <div className="flex justify-between py-1 border-b border-[var(--color-hairline)]/60">
-                          <span className="text-[var(--color-ink-secondary)]">Rule Engine:</span>
-                          <span className="text-[var(--color-ink-primary)]">Spring Boot 3 (Deterministic)</span>
-                        </div>
-                        <div className="flex justify-between py-1 border-b border-[var(--color-hairline)]/60">
-                          <span className="text-[var(--color-ink-secondary)]">Database:</span>
-                          <span className="text-[var(--color-ink-primary)]">PostgreSQL (Indexed Criteria)</span>
-                        </div>
-                        <div className="flex justify-between py-1 border-b border-[var(--color-hairline)]/60">
-                          <span className="text-[var(--color-ink-secondary)]">Channel:</span>
-                          <span className="text-[var(--color-ink-primary)]">Twilio WhatsApp Messaging Bus</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="flex flex-wrap items-center gap-4 pt-2">
-                      <Link
-                        href={`/projects/${yojnaSetu.slug}`}
-                        className={buttonStyles({
-                          variant: "primary",
-                          size: "sm",
-                          className: "font-mono uppercase tracking-wider text-xs",
-                        })}
-                      >
-                        Read Full Case Study →
                       </Link>
-                      {yojnaSetu.githubUrl && (
-                        <a
-                          href={yojnaSetu.githubUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="font-mono text-xs uppercase tracking-wider text-[var(--color-ink-secondary)] hover:text-[var(--color-ink-primary)] transition-colors inline-flex items-center gap-1"
-                        >
-                          <span>Repository</span>
-                          <span>↗</span>
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </article>
-            )}
-
-            {/* CASE STUDY 02: REALGUARD (Asymmetric Split: Text Left, Visual Right) */}
-            {realGuard && (
-              <article className="py-16 border-b border-[var(--color-hairline)] space-y-8">
-                <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-4">
-                  <div className="flex items-baseline gap-4">
-                    <span className="font-mono text-3xl sm:text-4xl text-[var(--color-accent)] font-semibold">
-                      02
-                    </span>
-                    <div>
-                      <span className="font-mono text-[11px] uppercase tracking-widest text-[var(--color-ink-secondary)]">
-                        AI AUTOMATION // COMPLIANCE WORKFLOW
-                      </span>
-                      <h3 className="font-display text-3xl sm:text-4xl md:text-5xl font-normal text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors">
-                        <Link href={`/projects/${realGuard.slug}`}>
-                          {realGuard.title}
-                        </Link>
-                      </h3>
-                    </div>
-                  </div>
-                  <div className="font-mono text-xs text-[var(--color-ink-secondary)] flex items-center gap-3">
-                    <span>2026 EDITION</span>
-                    <span>·</span>
-                    <span>PYTHON + FASTAPI + WHATSAPP</span>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-                  {/* Narrative Left */}
-                  <div className="lg:col-span-5 flex flex-col justify-between border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] p-6 md:p-8 space-y-6">
-                    <div className="space-y-4">
-                      <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--color-accent)] font-semibold block">
-                        AUTOMATED REAL ESTATE INTAKE
-                      </span>
-                      <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
-                        {realGuard.summary}
-                      </p>
-
-                      <div className="space-y-2 pt-2 border-t border-[var(--color-hairline)] font-mono text-xs">
-                        <div className="flex justify-between py-1 border-b border-[var(--color-hairline)]/60">
-                          <span className="text-[var(--color-ink-secondary)]">Intake Bus:</span>
-                          <span className="text-[var(--color-ink-primary)]">FastAPI Webhook Listener</span>
-                        </div>
-                        <div className="flex justify-between py-1 border-b border-[var(--color-hairline)]/60">
-                          <span className="text-[var(--color-ink-secondary)]">Verification:</span>
-                          <span className="text-[var(--color-ink-primary)]">UP RERA Validation Rules</span>
-                        </div>
-                        <div className="flex justify-between py-1 border-b border-[var(--color-hairline)]/60">
-                          <span className="text-[var(--color-ink-secondary)]">Financial Engine:</span>
-                          <span className="text-[var(--color-ink-primary)]">Deterministic EMI Calculation</span>
-                        </div>
+                    ) : (
+                      <div className="w-full aspect-[16/10] border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] flex items-center justify-center p-6 md:p-8">
+                        <span className="font-sans text-xs text-[var(--color-ink-secondary)]">
+                          [Project visual]
+                        </span>
                       </div>
+                    )}
+                  </div>
+
+                  {/* Project Narrative & Details */}
+                  <div className="lg:col-span-5 space-y-4 lg:pl-4">
+                    <div className="flex flex-wrap items-center gap-3">
+                      {project.editionCode && (
+                        <span className="font-mono text-xs text-[var(--color-accent)] font-semibold">
+                          {project.editionCode}
+                        </span>
+                      )}
+                      {project.projectYear && (
+                        <span className="font-mono text-xs text-[var(--color-ink-secondary)] border-l border-[var(--color-hairline)] pl-3">
+                          {project.projectYear}
+                        </span>
+                      )}
+                      {project.category && (
+                        <span className="font-sans text-xs text-[var(--color-ink-secondary)] border-l border-[var(--color-hairline)] pl-3">
+                          {project.category}
+                        </span>
+                      )}
                     </div>
 
-                    <div className="flex flex-wrap items-center gap-4 pt-2">
-                      <Link
-                        href={`/projects/${realGuard.slug}`}
-                        className={buttonStyles({
-                          variant: "primary",
-                          size: "sm",
-                          className: "font-mono uppercase tracking-wider text-xs",
-                        })}
-                      >
-                        Read Full Case Study →
+                    <h3 className="font-display text-2xl md:text-3xl font-normal tracking-tight text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors duration-200">
+                      <Link href={`/projects/${project.slug}`}>
+                        {project.title}
                       </Link>
-                      {realGuard.githubUrl && (
-                        <a
-                          href={realGuard.githubUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="font-mono text-xs uppercase tracking-wider text-[var(--color-ink-secondary)] hover:text-[var(--color-ink-primary)] transition-colors inline-flex items-center gap-1"
-                        >
-                          <span>Repository</span>
-                          <span>↗</span>
-                        </a>
-                      )}
-                    </div>
-                  </div>
+                    </h3>
 
-                  {/* Visual Right Frame */}
-                  <div className="lg:col-span-7">
-                    <Link
-                      href={`/projects/${realGuard.slug}`}
-                      className="relative block w-full aspect-[16/10] border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] overflow-hidden group"
-                    >
-                      {realGuard.coverImageUrl ? (
-                        <Image
-                          src={realGuard.coverImageUrl}
-                          alt={realGuard.title}
-                          fill
-                          unoptimized
-                          className="object-cover group-hover:scale-[1.015] transition-transform duration-300"
-                          sizes="(max-width: 1024px) 100vw, 58vw"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center p-8 font-mono text-xs text-[var(--color-ink-secondary)]">
-                          [REALGUARD COMPLIANCE WORKFLOW]
-                        </div>
-                      )}
-                    </Link>
-                  </div>
-                </div>
-              </article>
-            )}
+                    <p className="font-sans text-sm md:text-base text-[var(--color-ink-secondary)] leading-relaxed">
+                      {project.summary}
+                    </p>
 
-            {/* CASE STUDY 03: QUICKEATS (Backend Bento & Security Snapshot) */}
-            {quickEats && (
-              <article className="pt-16 space-y-8">
-                <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-4">
-                  <div className="flex items-baseline gap-4">
-                    <span className="font-mono text-3xl sm:text-4xl text-[var(--color-accent)] font-semibold">
-                      03
-                    </span>
-                    <div>
-                      <span className="font-mono text-[11px] uppercase tracking-widest text-[var(--color-ink-secondary)]">
-                        BACKEND ENGINEERING // APPLICATION SECURITY AUDIT
-                      </span>
-                      <h3 className="font-display text-3xl sm:text-4xl md:text-5xl font-normal text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors">
-                        <Link href={`/projects/${quickEats.slug}`}>
-                          {quickEats.title}
-                        </Link>
-                      </h3>
-                    </div>
-                  </div>
-                  <div className="font-mono text-xs text-[var(--color-ink-secondary)] flex items-center gap-3">
-                    <span>2026 EDITION</span>
-                    <span>·</span>
-                    <span>SPRING BOOT + JWT + IDOR DEFENSE</span>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-                  {/* Visual Left */}
-                  <div className="lg:col-span-6">
-                    <Link
-                      href={`/projects/${quickEats.slug}`}
-                      className="relative block w-full aspect-[16/11] border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] overflow-hidden group"
-                    >
-                      {quickEats.coverImageUrl ? (
-                        <Image
-                          src={quickEats.coverImageUrl}
-                          alt={quickEats.title}
-                          fill
-                          unoptimized
-                          className="object-cover group-hover:scale-[1.015] transition-transform duration-300"
-                          sizes="(max-width: 1024px) 100vw, 50vw"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center p-8 font-mono text-xs text-[var(--color-ink-secondary)]">
-                          [QUICKEATS SYSTEM BLUEPRINT]
-                        </div>
-                      )}
-                    </Link>
-                  </div>
-
-                  {/* Security Defense Bento Right */}
-                  <div className="lg:col-span-6 flex flex-col justify-between border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] p-6 md:p-8 space-y-6">
-                    <div className="space-y-4">
-                      <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--color-accent)] font-semibold block">
-                        SECURITY THREAT MODELS MITIGATED
-                      </span>
-                      <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
-                        {quickEats.summary}
-                      </p>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-                        <div className="p-3 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] space-y-1">
-                          <span className="font-mono text-[10px] text-[var(--color-accent)] font-semibold block">
-                            DEFENSE 01
+                    {project.techStack.length > 0 && (
+                      <div className="flex flex-wrap gap-2 pt-1">
+                        {project.techStack.map((tech) => (
+                          <span
+                            key={tech}
+                            className="font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 border border-[var(--color-hairline)] text-[var(--color-ink-secondary)] bg-[var(--color-canvas-primary)]"
+                          >
+                            {tech}
                           </span>
-                          <div className="font-sans text-xs font-medium text-[var(--color-ink-primary)]">
-                            Server-Side Price Calculation
-                          </div>
-                          <p className="font-sans text-[11px] text-[var(--color-ink-secondary)]">
-                            Prevents client-side price payload tampering before charging.
-                          </p>
-                        </div>
-
-                        <div className="p-3 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] space-y-1">
-                          <span className="font-mono text-[10px] text-[var(--color-accent)] font-semibold block">
-                            DEFENSE 02
-                          </span>
-                          <div className="font-sans text-xs font-medium text-[var(--color-ink-primary)]">
-                            IDOR Access Prevention
-                          </div>
-                          <p className="font-sans text-[11px] text-[var(--color-ink-secondary)]">
-                            Multi-tenant order scoping prevents cross-account data leakage.
-                          </p>
-                        </div>
+                        ))}
                       </div>
-                    </div>
+                    )}
 
-                    <div className="flex flex-wrap items-center gap-4 pt-2">
+                    <div className="pt-4 flex flex-wrap items-center gap-4">
                       <Link
-                        href={`/projects/${quickEats.slug}`}
+                        href={`/projects/${project.slug}`}
                         className={buttonStyles({
                           variant: "primary",
                           size: "sm",
-                          className: "font-mono uppercase tracking-wider text-xs",
+                          className: "font-mono uppercase tracking-wider text-xs group/btn",
                         })}
                       >
-                        Read Full Case Study →
+                        <span>View Case Study</span>
+                        <span className="inline-block transition-transform duration-200 group-hover/btn:translate-x-1 motion-reduce:transform-none ml-1">
+                          →
+                        </span>
                       </Link>
-                      {quickEats.githubUrl && (
+
+                      {project.githubUrl && (
                         <a
-                          href={quickEats.githubUrl}
+                          href={project.githubUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="font-mono text-xs uppercase tracking-wider text-[var(--color-ink-secondary)] hover:text-[var(--color-ink-primary)] transition-colors inline-flex items-center gap-1"
+                          className="font-mono text-xs uppercase tracking-wider text-[var(--color-ink-secondary)] hover:text-[var(--color-ink-primary)] transition-colors flex items-center gap-1"
                         >
-                          <span>Repository</span>
+                          <span>GitHub</span>
                           <span>↗</span>
                         </a>
                       )}
                     </div>
                   </div>
-                </div>
-              </article>
-            )}
+                </article>
+              ))}
+            </div>
           </SectionContainer>
         </HomeSectionReveal>
       </section>
 
       {/* =======================================================
-          4. TECHNICAL STACK — TIERED MATRIX
+          4. SKILLS / TECHNOLOGY (Intelligently Categorized)
           ======================================================= */}
       <section id="skills" className="w-full border-b border-[var(--color-hairline)] py-20 md:py-28 bg-[var(--color-canvas-primary)]">
         <HomeSectionReveal>
           <SectionContainer>
             <div className="space-y-12">
-              <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-[var(--color-hairline)]">
-                <div className="space-y-3 max-w-2xl">
-                  <div className="font-mono text-xs uppercase tracking-widest text-[var(--color-accent)] font-semibold flex items-center gap-2">
-                    <span>03</span>
-                    <span>ENGINEERING STACK</span>
-                  </div>
-                  <h2 className="font-display text-4xl sm:text-5xl font-normal tracking-tight text-[var(--color-ink-primary)]">
-                    Technical Architecture Matrix
-                  </h2>
-                  <p className="font-sans text-xs text-[var(--color-ink-secondary)]">
-                    Categorized by verified production deployment and implementation depth.
-                  </p>
-                </div>
-                <div className="flex flex-wrap items-center gap-3 font-mono text-[11px] text-[var(--color-ink-secondary)]">
+              <div className="space-y-4 max-w-2xl">
+                <SectionLabel name="Skills & Tech Stack" />
+                <h2 className="font-display text-3xl md:text-4xl font-normal tracking-tight text-[var(--color-ink-primary)]">
+                  Technical Stack
+                </h2>
+                <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
+                  Demonstrated technologies categorized by practical implementation evidence:
+                </p>
+                <div className="flex flex-wrap items-center gap-3 pt-1 font-mono text-[11px] text-[var(--color-ink-secondary)]">
                   <span className="inline-flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-none bg-[var(--color-accent)]" />
-                    <strong className="text-[var(--color-ink-primary)]">Core:</strong> Shipped Repos
+                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)]" />
+                    <strong className="text-[var(--color-ink-primary)]">Core:</strong> Primary stack in shipped repositories
                   </span>
-                  <span className="text-[var(--color-hairline)]">/</span>
+                  <span className="text-[var(--color-hairline)] select-none">·</span>
                   <span className="inline-flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-none bg-[var(--color-ink-secondary)]" />
-                    <strong className="text-[var(--color-ink-primary)]">Working:</strong> Integrated
+                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-ink-secondary)]" />
+                    <strong className="text-[var(--color-ink-primary)]">Working:</strong> Integrated in project features
                   </span>
-                  <span className="text-[var(--color-hairline)]">/</span>
+                  <span className="text-[var(--color-hairline)] select-none">·</span>
                   <span className="inline-flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-none border border-[var(--color-hairline)]" />
-                    <strong className="text-[var(--color-ink-primary)]">Exposure:</strong> Simulation
+                    <span className="w-1.5 h-1.5 rounded-full border border-[var(--color-hairline)]" />
+                    <strong className="text-[var(--color-ink-primary)]">Exposure:</strong> Course simulation or exploratory
                   </span>
                 </div>
               </div>
@@ -762,14 +492,14 @@ export default async function HomePage() {
                 {SKILL_CATEGORIES.map((cat, idx) => (
                   <div
                     key={idx}
-                    className="border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] p-6 space-y-5 flex flex-col justify-between"
+                    className="border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] p-6 space-y-4 flex flex-col justify-between"
                   >
                     <div className="space-y-3">
-                      <div className="flex items-center justify-between border-b border-[var(--color-hairline)] pb-3">
+                      <div className="flex items-center justify-between">
                         <h3 className="font-display text-xl text-[var(--color-ink-primary)]">
                           {cat.title}
                         </h3>
-                        <span className="font-mono text-xs text-[var(--color-accent)] font-semibold">
+                        <span className="font-mono text-[10px] text-[var(--color-accent)] font-semibold">
                           0{idx + 1}
                         </span>
                       </div>
@@ -778,17 +508,26 @@ export default async function HomePage() {
                       </p>
                     </div>
 
-                    <div className="pt-3 flex flex-wrap gap-1.5">
+                    <div className="pt-3 border-t border-[var(--color-hairline)] flex flex-wrap gap-2">
                       {cat.skills.map((skill, sIdx) => (
                         <span
                           key={sIdx}
                           className="inline-flex items-center gap-1.5 font-mono text-[11px] px-2.5 py-1 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] text-[var(--color-ink-primary)]"
                         >
+                          {skill.icon && (
+                            <Image
+                              src={skill.icon}
+                              alt=""
+                              width={12}
+                              height={12}
+                              className="w-3 h-3 object-contain shrink-0"
+                            />
+                          )}
                           <span>{skill.name}</span>
                           <span
-                            className={`text-[9px] uppercase tracking-wider font-mono ${
+                            className={`text-[9px] uppercase tracking-wider px-1 py-0.2 font-sans rounded-none ${
                               skill.tier === "Core"
-                                ? "text-[var(--color-accent)] font-bold"
+                                ? "text-[var(--color-accent)] font-semibold"
                                 : skill.tier === "Working"
                                 ? "text-[var(--color-ink-secondary)]"
                                 : "text-[var(--color-ink-secondary)] opacity-60"
@@ -808,58 +547,119 @@ export default async function HomePage() {
       </section>
 
       {/* =======================================================
-          5. SERVICES & CAPABILITIES — EDITORIAL ROWS
+          5. WHAT I DO (Services & Engineering Disciplines)
           ======================================================= */}
       <section id="services" className="w-full border-b border-[var(--color-hairline)] py-20 md:py-28 bg-[var(--color-canvas-secondary)]">
         <HomeSectionReveal>
           <SectionContainer>
             <div className="space-y-12">
-              <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-[var(--color-hairline)]">
+              <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-8 border-b border-[var(--color-hairline)]">
                 <div className="space-y-3">
-                  <div className="font-mono text-xs uppercase tracking-widest text-[var(--color-accent)] font-semibold flex items-center gap-2">
-                    <span>04</span>
-                    <span>CAPABILITIES</span>
-                  </div>
-                  <h2 className="font-display text-4xl sm:text-5xl font-normal tracking-tight text-[var(--color-ink-primary)]">
-                    Services &amp; Architecture Practice
+                  <SectionLabel name="What I Do" />
+                  <h2 className="font-display text-3xl md:text-4xl font-normal tracking-tight text-[var(--color-ink-primary)]">
+                    Services &amp; Capabilities
                   </h2>
                   <p className="font-sans text-xs text-[var(--color-accent)] font-medium">
-                    Direct engineering engagements for client systems, security audits, and agent workflows.
+                    End-to-end engineering demonstrated through working code.
                   </p>
                 </div>
                 <Link
                   href="/services"
-                  className="font-mono text-xs uppercase tracking-wider text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors inline-flex items-center gap-1.5 border border-[var(--color-hairline)] px-3 py-1.5 bg-[var(--color-canvas-primary)]"
+                  className="font-mono text-xs uppercase tracking-wider text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors inline-flex items-center gap-1"
                 >
-                  <span>Services Overview</span>
+                  <span>View Services Overview</span>
                   <span>→</span>
                 </Link>
               </div>
 
-              {/* Interactive Editorial Capability Rows */}
-              <EditorialServices />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {SERVICES_CATALOG.map((srv) => (
+                  <div
+                    key={srv.id}
+                    className="border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] p-8 space-y-6 flex flex-col justify-between group hover:border-[var(--color-ink-primary)] transition-colors"
+                  >
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <span className="font-mono text-xs text-[var(--color-accent)] font-semibold tracking-wider">
+                          {srv.code}
+                        </span>
+                        <span className="font-mono text-[11px] text-[var(--color-ink-secondary)]">
+                          {srv.engagement}
+                        </span>
+                      </div>
+                      <h3 className="font-display text-2xl font-normal text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors">
+                        {srv.title}
+                      </h3>
+                      <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
+                        {srv.summary}
+                      </p>
+
+                      <div className="space-y-2 pt-2 border-t border-[var(--color-hairline)]">
+                        <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--color-accent)] font-semibold block">
+                          Key Deliverables
+                        </span>
+                        <ul className="space-y-1.5 font-sans text-xs text-[var(--color-ink-primary)]">
+                          {srv.deliverables.map((item, dIdx) => (
+                            <li key={dIdx} className="flex items-start gap-2">
+                              <span className="text-[var(--color-accent)] select-none">—</span>
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div className="pt-4 border-t border-[var(--color-hairline)] flex items-center justify-between">
+                      <Link
+                        href={`/contact?subject=${encodeURIComponent(srv.subject)}`}
+                        className="font-mono text-xs uppercase tracking-wider text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors inline-flex items-center gap-1.5"
+                      >
+                        <span>Discuss a Project</span>
+                        <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">
+                          →
+                        </span>
+                      </Link>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Distinction Banner: Custom Work vs Store Products */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)]">
+                <div className="space-y-1">
+                  <span className="font-mono text-xs uppercase tracking-wider text-[var(--color-accent)] font-semibold block">
+                    Custom Engineering vs Digital Resources
+                  </span>
+                  <p className="font-sans text-xs text-[var(--color-ink-secondary)] max-w-xl leading-relaxed">
+                    Services are for custom development where you work with me directly. For downloadable architecture blueprints and developer resources, explore the Store.
+                  </p>
+                </div>
+                <Link
+                  href="/store"
+                  className="font-mono text-xs uppercase tracking-wider px-4 py-2 border border-[var(--color-ink-primary)] text-[var(--color-ink-primary)] hover:bg-[var(--color-ink-primary)] hover:text-[var(--color-canvas-primary)] transition-colors shrink-0"
+                >
+                  Explore Store →
+                </Link>
+              </div>
             </div>
           </SectionContainer>
         </HomeSectionReveal>
       </section>
 
       {/* =======================================================
-          6. CERTIFICATIONS — VERIFIED CREDENTIALS
+          6. CERTIFICATIONS (Verified Credentials)
           ======================================================= */}
       <section id="certifications" className="w-full border-b border-[var(--color-hairline)] py-20 md:py-28 bg-[var(--color-canvas-primary)]">
         <HomeSectionReveal>
           <SectionContainer>
             <div className="space-y-12">
               <div className="space-y-3 max-w-2xl">
-                <div className="font-mono text-xs uppercase tracking-widest text-[var(--color-accent)] font-semibold flex items-center gap-2">
-                  <span>05</span>
-                  <span>CREDENTIALS</span>
-                </div>
-                <h2 className="font-display text-4xl sm:text-5xl font-normal tracking-tight text-[var(--color-ink-primary)]">
-                  Verified Certifications
+                <SectionLabel name="Certifications" />
+                <h2 className="font-display text-3xl md:text-4xl font-normal tracking-tight text-[var(--color-ink-primary)]">
+                  Certifications &amp; Credentials
                 </h2>
-                <p className="font-sans text-xs text-[var(--color-ink-secondary)]">
-                  Cloud architecture, software engineering job simulations, and verified algorithmic problem solving.
+                <p className="font-sans text-xs text-[var(--color-accent)] font-medium">
+                  Verified coursework, cloud credentials, and engineering job simulations.
                 </p>
               </div>
 
@@ -870,11 +670,11 @@ export default async function HomePage() {
                     className="border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] p-6 md:p-8 space-y-5 flex flex-col justify-between hover:border-[var(--color-ink-primary)] transition-colors group"
                   >
                     <div className="space-y-3">
-                      <div className="flex items-center justify-between text-xs font-mono border-b border-[var(--color-hairline)] pb-3">
+                      <div className="flex items-center justify-between text-xs font-mono">
                         <span className="text-[var(--color-accent)] font-semibold uppercase tracking-wider">
-                          OFFICIAL RECORD
+                          VERIFIED
                         </span>
-                        <span className="text-[var(--color-ink-secondary)]">✓ VERIFIED</span>
+                        <span className="text-[var(--color-ink-secondary)]">✓ Certificate</span>
                       </div>
                       <h3 className="font-display text-xl text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors">
                         {cert.title}
@@ -894,7 +694,7 @@ export default async function HomePage() {
                         rel="noopener noreferrer"
                         className="font-mono text-xs uppercase tracking-wider text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors inline-flex items-center gap-1.5"
                       >
-                        <span>Inspect Certificate</span>
+                        <span>View Certificate</span>
                         <span>↗</span>
                       </a>
                     </div>
@@ -907,28 +707,25 @@ export default async function HomePage() {
       </section>
 
       {/* =======================================================
-          7. DIGITAL PRODUCTS & TEMPLATES
+          7. DIGITAL PRODUCTS & TEMPLATES (Legitimate Resources)
           ======================================================= */}
       <section id="store" className="w-full border-b border-[var(--color-hairline)] py-20 md:py-28 bg-[var(--color-canvas-secondary)]">
         <HomeSectionReveal>
           <SectionContainer>
             <div className="space-y-12">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pb-8 border-b border-[var(--color-hairline)]">
-                <div className="lg:col-span-6 space-y-3">
-                  <div className="font-mono text-xs uppercase tracking-widest text-[var(--color-accent)] font-semibold flex items-center gap-2">
-                    <span>06</span>
-                    <span>DIGITAL BLUEPRINTS</span>
-                  </div>
+                <div className="lg:col-span-5 space-y-3">
+                  <SectionLabel name="Store & Templates" />
                   <h2 className="font-display text-4xl sm:text-5xl font-normal tracking-tight text-[var(--color-ink-primary)]">
-                    Developer Templates &amp; Blueprints
+                    Digital Products
                   </h2>
                   <p className="font-sans text-xs text-[var(--color-accent)] font-medium">
-                    Architectural boilerplates distilled directly from working production code.
+                    Architectural blueprints, developer boilerplates, and templates.
                   </p>
                 </div>
-                <div className="lg:col-span-6 space-y-2">
-                  <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
-                    Zero fake reviews, zero manufactured metrics. Clean, typed, and structured blueprints for engineers building deterministic agents and secure backends.
+                <div className="lg:col-span-7 space-y-2">
+                  <p className="font-sans text-sm sm:text-base text-[var(--color-ink-secondary)] leading-relaxed max-w-xl">
+                    Resources distilled from my own working systems. Strictly zero fabricated sales or fake reviews — published openly as they are finalized.
                   </p>
                 </div>
               </div>
@@ -940,7 +737,7 @@ export default async function HomePage() {
                     className="border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] p-6 md:p-8 space-y-5 flex flex-col justify-between hover:border-[var(--color-ink-primary)] transition-colors group"
                   >
                     <div className="space-y-3">
-                      <div className="flex items-center justify-between text-xs font-mono border-b border-[var(--color-hairline)] pb-3">
+                      <div className="flex items-center justify-between text-xs font-mono">
                         <span className="text-[var(--color-accent)] uppercase tracking-wider font-semibold">
                           {prod.category.replace("_", " ")}
                         </span>
@@ -975,7 +772,7 @@ export default async function HomePage() {
                       </div>
                     </div>
 
-                    <div className="pt-4 border-t border-[var(--color-hairline)]">
+                    <div className="pt-4 border-t border-[var(--color-hairline)] flex items-center justify-between">
                       {prod.link ? (
                         <Link
                           href={prod.link}
@@ -996,14 +793,14 @@ export default async function HomePage() {
 
               <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-[var(--color-hairline)]">
                 <span className="font-mono text-xs text-[var(--color-ink-secondary)]">
-                  Ready to deploy these architectures in your own stack?
+                  Looking for custom templates or backend integrations?
                 </span>
                 <Link
                   href="/store"
                   className={buttonStyles({
                     variant: "primary",
                     size: "md",
-                    className: "font-mono text-xs uppercase tracking-wider",
+                    className: "w-full sm:w-auto font-mono text-xs uppercase tracking-wider",
                   })}
                 >
                   Visit Full Store Catalog →
@@ -1022,18 +819,16 @@ export default async function HomePage() {
           <SectionContainer>
             <div className="space-y-12">
               <div className="space-y-3 max-w-2xl">
-                <div className="font-mono text-xs uppercase tracking-widest text-[var(--color-accent)] font-semibold flex items-center gap-2">
-                  <span>07</span>
-                  <span>COMMAND CENTER</span>
-                </div>
-                <h2 className="font-display text-4xl sm:text-5xl font-normal tracking-tight text-[var(--color-ink-primary)]">
-                  Current Focus &amp; GitHub Hub
+                <SectionLabel name="Command Center" />
+                <h2 className="font-display text-3xl md:text-4xl font-normal tracking-tight text-[var(--color-ink-primary)]">
+                  Current Focus &amp; Activity
                 </h2>
                 <p className="font-sans text-xs text-[var(--color-accent)] font-medium">
-                  Active engineering domains, research topics, and public repositories.
+                  What I&apos;m building, exploring, and shipping right now.
                 </p>
               </div>
 
+              {/* 4 Focus Areas */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {FOCUS_AREAS.map((item) => (
                   <div
@@ -1053,26 +848,26 @@ export default async function HomePage() {
                 ))}
               </div>
 
-              {/* GitHub Hub Card */}
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-8 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] p-8 md:p-10">
+              {/* GitHub Activity & Mission Summary Card */}
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-6 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] p-8">
                 <div className="md:col-span-5 space-y-4">
                   <span className="font-mono text-xs uppercase tracking-wider text-[var(--color-accent)] font-semibold block">
-                    OPEN REPOSITORIES
+                    OPEN SOURCE ACTIVITY
                   </span>
-                  <h3 className="font-display text-3xl text-[var(--color-ink-primary)]">
-                    GitHub Engineering Archive
+                  <h3 className="font-display text-2xl text-[var(--color-ink-primary)]">
+                    GitHub Engineering Hub
                   </h3>
                   <div className="space-y-2 font-mono text-xs text-[var(--color-ink-secondary)]">
-                    <div className="flex justify-between py-1.5 border-b border-[var(--color-hairline)]">
-                      <span>Account:</span>
+                    <div className="flex justify-between py-1 border-b border-[var(--color-hairline)]">
+                      <span>GitHub:</span>
                       <span className="font-semibold text-[var(--color-ink-primary)]">@shivam-shukla888</span>
                     </div>
-                    <div className="flex justify-between py-1.5 border-b border-[var(--color-hairline)]">
-                      <span>Primary Langs:</span>
-                      <span className="font-semibold text-[var(--color-ink-primary)]">Python, Java, TypeScript</span>
+                    <div className="flex justify-between py-1 border-b border-[var(--color-hairline)]">
+                      <span>Primary Stack:</span>
+                      <span className="font-semibold text-[var(--color-ink-primary)]">Python, AI Agents, Java, SQL</span>
                     </div>
-                    <div className="flex justify-between py-1.5 border-b border-[var(--color-hairline)]">
-                      <span>Featured Repos:</span>
+                    <div className="flex justify-between py-1 border-b border-[var(--color-hairline)]">
+                      <span>Featured Work:</span>
                       <span className="font-semibold text-[var(--color-ink-primary)]">Yojna Setu, RealGuard, QuickEats</span>
                     </div>
                   </div>
@@ -1081,9 +876,9 @@ export default async function HomePage() {
                       href="https://github.com/shivam-shukla888"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-mono text-xs uppercase tracking-wider text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors inline-flex items-center gap-1.5 border border-[var(--color-hairline)] px-3 py-1.5 bg-[var(--color-canvas-primary)]"
+                      className="font-mono text-xs uppercase tracking-wider text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors inline-flex items-center gap-1.5"
                     >
-                      <span>Open GitHub Profile</span>
+                      <span>Explore GitHub Profile</span>
                       <span>↗</span>
                     </a>
                   </div>
@@ -1092,13 +887,13 @@ export default async function HomePage() {
                 <div className="md:col-span-7 space-y-4 md:border-l md:border-[var(--color-hairline)] md:pl-8 flex flex-col justify-between">
                   <div className="space-y-3">
                     <span className="font-mono text-xs uppercase tracking-wider text-[var(--color-accent)] font-semibold block">
-                      CORE OPERATING STANDARD
+                      MISSION
                     </span>
                     <h3 className="font-display text-2xl text-[var(--color-ink-primary)]">
-                      Deterministic Execution Over Probabilistic Guesses
+                      Practical Systems Over AI Demos
                     </h3>
                     <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
-                      AI is exceptionally effective at parsing freeform human dialogue, classifying intents, and converting conversational prose into schema-bound payloads. But business calculations, permission checks, and transactional state must remain strictly in typed code.
+                      I believe language models must be coupled with deterministic application logic. Conversational LLMs interpret unstructured user intent, while deterministic code and relational models enforce validation, compliance, and authoritative calculations.
                     </p>
                   </div>
 
@@ -1111,13 +906,13 @@ export default async function HomePage() {
                         className: "font-mono text-xs uppercase tracking-wider",
                       })}
                     >
-                      Download Resume ↓
+                      Resume →
                     </Link>
                     <Link
                       href="/contact"
                       className="font-mono text-xs uppercase tracking-wider text-[var(--color-ink-secondary)] hover:text-[var(--color-ink-primary)] transition-colors"
                     >
-                      Initiate Direct Inquiry →
+                      Get in Touch →
                     </Link>
                   </div>
                 </div>
@@ -1128,56 +923,46 @@ export default async function HomePage() {
       </section>
 
       {/* =======================================================
-          9. CONTACT — ARCHITECTURAL DARK BLOCK
+          9. CONTACT
           ======================================================= */}
       <section id="contact" className="w-full bg-[var(--color-surface-dark)] text-white py-20 md:py-32">
         <HomeSectionReveal>
           <SectionContainer>
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-              <div className="lg:col-span-5 space-y-6">
-                <div className="space-y-2">
-                  <span className="font-mono text-xs uppercase tracking-widest text-[var(--color-accent)] font-semibold">
-                    08 // INQUIRIES
-                  </span>
-                  <h2 className="font-display text-4xl sm:text-5xl font-normal tracking-tight text-white leading-tight">
-                    Initiate Direct Inquiry
-                  </h2>
-                </div>
+              <div className="lg:col-span-5 space-y-5">
+                <SectionLabel name="Contact" dark />
+                <h2 className="font-display text-4xl sm:text-5xl font-normal tracking-tight text-white leading-tight">
+                  Get in Touch
+                </h2>
                 <p className="font-sans text-xs text-[var(--color-accent)] font-medium">
-                  Direct communication channel for engineering roles, AI security audits, and system architecture.
+                  Direct inquiry for software engineering roles &amp; select projects.
                 </p>
                 <p className="font-sans text-sm text-[var(--color-dark-ink-secondary)] leading-relaxed max-w-md">
-                  {profile.contactInstructions ||
-                    "I respond to serious engineering inquiries within 24 to 48 hours. Please detail project requirements, expected timeline, and technical stack."}
+                  {profile.contactInstructions}
                 </p>
-
-                <div className="pt-2 space-y-3 font-mono text-xs text-[var(--color-dark-ink-secondary)] border-t border-[var(--color-dark-hairline)]">
+                <div className="pt-2 space-y-2 font-mono text-xs text-[var(--color-dark-ink-secondary)]">
                   {profile.email && (
-                    <div className="flex justify-between py-1 border-b border-[var(--color-dark-hairline)]/60">
-                      <span className="text-[var(--color-accent)] uppercase tracking-wider text-[10px]">Email:</span>
+                    <div>
+                      <span className="text-[var(--color-accent)] uppercase tracking-wider text-[10px]">Email: </span>
                       <a
                         href={`mailto:${profile.email}`}
-                        className="hover:text-white transition-colors underline break-all text-white/90"
+                        className="hover:text-white transition-colors underline break-all"
                       >
                         {profile.email}
                       </a>
                     </div>
                   )}
                   {profile.phone && (
-                    <div className="flex justify-between py-1 border-b border-[var(--color-dark-hairline)]/60">
-                      <span className="text-[var(--color-accent)] uppercase tracking-wider text-[10px]">Phone:</span>
+                    <div>
+                      <span className="text-[var(--color-accent)] uppercase tracking-wider text-[10px]">Phone: </span>
                       <a
                         href={`tel:${profile.phone}`}
-                        className="hover:text-white transition-colors underline text-white/90"
+                        className="hover:text-white transition-colors underline"
                       >
                         {profile.phone}
                       </a>
                     </div>
                   )}
-                  <div className="flex justify-between py-1">
-                    <span className="text-[var(--color-accent)] uppercase tracking-wider text-[10px]">Location:</span>
-                    <span className="text-white/90">Bareilly, UP, India [UTC+05:30]</span>
-                  </div>
                 </div>
 
                 <div className="pt-4 flex flex-wrap items-center gap-3">
@@ -1190,15 +975,15 @@ export default async function HomePage() {
                     })}
                   >
                     <span>Resume</span>
-                    <span className="inline-block transition-transform duration-200 group-hover:translate-x-0.5 ml-1.5">
-                      ↓
+                    <span className="inline-block transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transform-none ml-1.5">
+                      →
                     </span>
                   </Link>
                   <Link
                     href="/contact"
                     className="font-mono text-xs uppercase tracking-wider px-4 py-2 border border-[var(--color-dark-hairline)] text-[var(--color-dark-ink-secondary)] hover:text-white hover:border-white transition-colors"
                   >
-                    Dedicated Contact Page →
+                    Full Contact Page →
                   </Link>
                 </div>
               </div>
@@ -1207,10 +992,10 @@ export default async function HomePage() {
                 <ContactForm
                   variant="dark"
                   labels={{
-                    name: "Your Name / Organization",
+                    name: "Your Name",
                     email: "Email Address",
-                    brief: "Brief technical specification or inquiry details",
-                    submit: "Dispatch Transmission →",
+                    brief: "Message or Project Details",
+                    submit: "Send Message →",
                   }}
                 />
               </div>

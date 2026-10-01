@@ -8,24 +8,21 @@ import { getPublishedLabEntries } from "@/lib/lab";
 export const revalidate = 60;
 
 export const metadata = {
-  title: "Lab & Research Archive — ShivSastra | Shivam Shukla",
-  description:
-    "Experimental engineering laboratory, system prototypes, prompt injection research, and active sandboxes by Shivam Shukla.",
+  title: "Lab — Shivam Shukla",
+  description: "Personal sandbox for experimental ideas, software builds, and technical notes.",
   alternates: {
     canonical: "https://shivsastra.vercel.app/lab",
   },
   openGraph: {
-    title: "Lab & Research Archive — ShivSastra | Shivam Shukla",
-    description:
-      "Experimental engineering laboratory, system prototypes, prompt injection research, and active sandboxes by Shivam Shukla.",
+    title: "Lab — Shivam Shukla",
+    description: "Personal sandbox for experimental ideas, software builds, and technical notes.",
     url: "https://shivsastra.vercel.app/lab",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Lab & Research Archive — ShivSastra | Shivam Shukla",
-    description:
-      "Experimental engineering laboratory, system prototypes, prompt injection research, and active sandboxes by Shivam Shukla.",
+    title: "Lab — Shivam Shukla",
+    description: "Personal sandbox for experimental ideas, software builds, and technical notes.",
   },
 };
 
@@ -33,122 +30,39 @@ export default async function LabPage() {
   const entries = await getPublishedLabEntries();
 
   return (
-    <div className="relative w-full pt-16 md:pt-24 pb-20 md:pb-28 overflow-hidden bg-[var(--color-canvas-primary)]">
+    <div className="relative w-full pt-16 md:pt-24 pb-20 md:pb-28 overflow-hidden">
       <PageBackground
         src="/images/backgrounds/lab.webp"
-        opacity={0.28}
+        opacity={0.24}
         position="top"
       />
       <SectionContainer>
-        <div className="space-y-16">
-          {/* Header Block — Editorial Research Masthead */}
+        <div className="max-w-3xl space-y-10">
+          {/* Header Block */}
           <InnerPageEntrance delayIndex={0}>
-            <div className="space-y-4 pb-8 border-b border-[var(--color-hairline)]">
-              <div className="flex flex-wrap items-center justify-between gap-4 font-mono text-xs">
-                <span className="uppercase tracking-widest text-[var(--color-accent)] font-semibold">
-                  /LAB // EXPERIMENTAL ARCHIVE
-                </span>
-                <span className="text-[var(--color-ink-secondary)]">
-                  COORD: 28.3670°N, 79.4304°E [BAREILLY, UP]
-                </span>
-              </div>
-              <h1 className="font-display text-4xl sm:text-6xl md:text-7xl font-normal tracking-tight text-[var(--color-ink-primary)] leading-[1.05]">
-                Engineering Laboratory &amp; Sandbox
+            <div className="space-y-4">
+              <h1 className="font-display text-4xl sm:text-5xl font-normal tracking-tight text-[var(--color-ink-primary)]">
+                Lab
               </h1>
-              <p className="font-sans text-base md:text-lg text-[var(--color-ink-secondary)] leading-relaxed max-w-3xl">
-                A technical testing ground for prototype architectures, prompt-injection defense heuristics, and active agent experiments.
-              </p>
+
+              <div className="p-6 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] space-y-2">
+                <p className="font-sans text-sm text-[var(--color-ink-primary)] font-medium">
+                  Experiments & prototypes
+                </p>
+                <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
+                  A personal sandbox for experimental ideas, software builds, and technical notes.
+                </p>
+              </div>
             </div>
           </InnerPageEntrance>
 
-          {/* Active Research Tracks (Bento Neo-Brutalist Layout) */}
+          {/* Catalog Entries or Editorial Placeholder */}
           <InnerPageEntrance delayIndex={1}>
-            <div className="space-y-6">
-              <div className="flex items-center justify-between border-b border-[var(--color-hairline)] pb-3 font-mono text-xs">
-                <span className="text-[var(--color-accent)] uppercase tracking-wider font-semibold">
-                  ACTIVE RESEARCH TRACKS
-                </span>
-                <span className="text-[var(--color-ink-secondary)]">STATUS: IN PROGRESS</span>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {/* Track 01 */}
-                <div className="border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] p-6 md:p-8 space-y-4 flex flex-col justify-between">
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between font-mono text-xs">
-                      <span className="text-[var(--color-accent)] font-semibold">TRACK 01</span>
-                      <span className="text-[var(--color-ink-secondary)]">SECURITY</span>
-                    </div>
-                    <h2 className="font-display text-2xl text-[var(--color-ink-primary)]">
-                      Prompt Injection Defense Heuristics
-                    </h2>
-                    <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
-                      Investigating multi-stage classification boundaries to sanitize unstructured user prompts before tool calling or database evaluation.
-                    </p>
-                  </div>
-                  <div className="pt-3 border-t border-[var(--color-hairline)] font-mono text-[10px] text-[var(--color-ink-secondary)]">
-                    DISCIPLINE: AI SECURITY &amp; SANITIZATION
-                  </div>
-                </div>
-
-                {/* Track 02 */}
-                <div className="border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] p-6 md:p-8 space-y-4 flex flex-col justify-between">
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between font-mono text-xs">
-                      <span className="text-[var(--color-accent)] font-semibold">TRACK 02</span>
-                      <span className="text-[var(--color-ink-secondary)]">SYSTEMS</span>
-                    </div>
-                    <h2 className="font-display text-2xl text-[var(--color-ink-primary)]">
-                      WhatsApp Webhook Throughput &amp; State
-                    </h2>
-                    <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
-                      Benchmarking asynchronous FastAPI webhook receivers with session persistence for multi-turn citizen eligibility discovery.
-                    </p>
-                  </div>
-                  <div className="pt-3 border-t border-[var(--color-hairline)] font-mono text-[10px] text-[var(--color-ink-secondary)]">
-                    DISCIPLINE: BACKEND &amp; AUTOMATION
-                  </div>
-                </div>
-
-                {/* Track 03 */}
-                <div className="border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] p-6 md:p-8 space-y-4 flex flex-col justify-between">
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between font-mono text-xs">
-                      <span className="text-[var(--color-accent)] font-semibold">TRACK 03</span>
-                      <span className="text-[var(--color-ink-secondary)]">COMPLIANCE</span>
-                    </div>
-                    <h2 className="font-display text-2xl text-[var(--color-ink-primary)]">
-                      Automated RERA Rule Verification
-                    </h2>
-                    <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
-                      Designing deterministic validation matrices for real estate compliance, checking regulatory registration numbers against local datasets.
-                    </p>
-                  </div>
-                  <div className="pt-3 border-t border-[var(--color-hairline)] font-mono text-[10px] text-[var(--color-ink-secondary)]">
-                    DISCIPLINE: DETERMINISTIC RULES ENGINE
-                  </div>
-                </div>
-              </div>
-            </div>
-          </InnerPageEntrance>
-
-          {/* Published Catalog Entries */}
-          <InnerPageEntrance delayIndex={2}>
-            <div className="space-y-6">
-              <div className="flex items-center justify-between border-b border-[var(--color-hairline)] pb-3 font-mono text-xs">
-                <span className="text-[var(--color-accent)] uppercase tracking-wider font-semibold">
-                  PUBLISHED DOSSIERS &amp; ENTRIES
-                </span>
-                <span className="text-[var(--color-ink-secondary)]">COUNT: {entries.length}</span>
-              </div>
-
+            <div>
               {entries.length === 0 ? (
-                <div className="p-10 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] text-center space-y-2">
-                  <div className="font-mono text-xs uppercase tracking-wider text-[var(--color-accent)] font-semibold">
-                    [NO ACTIVE DOSSIERS RELEASED PUBLICLY]
-                  </div>
-                  <p className="font-sans text-xs text-[var(--color-ink-secondary)] max-w-md mx-auto leading-relaxed">
-                    Prototypes and experiment writeups are released here as testing benchmarks achieve verifiable reproducibility.
+                <div className="p-8 border border-dashed border-[var(--color-hairline)] text-center space-y-1">
+                  <p className="font-sans text-xs text-[var(--color-ink-secondary)]">
+                    Lab entries will appear here as I publish experiments.
                   </p>
                 </div>
               ) : (
@@ -207,9 +121,9 @@ export default async function LabPage() {
                       <div className="pt-2">
                         <Link
                           href={`/lab/${entry.slug}`}
-                          className="inline-flex items-center gap-1.5 font-sans font-medium text-xs text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors"
+                          className="inline-flex items-center gap-1.5 font-sans font-medium text-xs text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
                         >
-                          <span>Inspect Entry</span>
+                          <span>Read Entry</span>
                           <span className="transition-transform duration-150 group-hover:translate-x-1">→</span>
                         </Link>
                       </div>
@@ -221,28 +135,14 @@ export default async function LabPage() {
           </InnerPageEntrance>
 
           {/* Navigation Return */}
-          <InnerPageEntrance delayIndex={3}>
-            <div className="pt-8 border-t border-[var(--color-hairline)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 font-mono text-xs text-[var(--color-ink-secondary)]">
+          <InnerPageEntrance delayIndex={2}>
+            <div className="pt-4">
               <Link
                 href="/"
-                className="inline-flex items-center gap-1.5 hover:text-[var(--color-ink-primary)] transition-colors"
+                className="inline-flex items-center gap-1.5 font-sans text-xs text-[var(--color-ink-secondary)] hover:text-[var(--color-ink-primary)] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
               >
-                <span>← Return to Headquarters</span>
+                <span>← Back to Home</span>
               </Link>
-              <div className="flex items-center gap-4">
-                <Link
-                  href="/projects"
-                  className="hover:text-[var(--color-ink-primary)] transition-colors"
-                >
-                  Selected Work →
-                </Link>
-                <Link
-                  href="/store"
-                  className="text-[var(--color-accent)] hover:underline"
-                >
-                  Explore Store Blueprints →
-                </Link>
-              </div>
             </div>
           </InnerPageEntrance>
         </div>
