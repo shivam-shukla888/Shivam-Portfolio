@@ -219,7 +219,7 @@ export function StoreCatalogView({
                         alt={product.title}
                         fill
                         unoptimized
-                        className="object-cover grayscale contrast-[1.05] group-hover:scale-[1.02] group-hover:grayscale-0 transition-all duration-300 motion-reduce:group-hover:scale-100"
+                        className="object-cover group-hover:scale-[1.02] transition-transform duration-300 motion-reduce:group-hover:scale-100"
                         sizes="(max-width: 1024px) 100vw, 33vw"
                       />
                     </Link>

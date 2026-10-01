@@ -67,65 +67,57 @@ export default async function ProjectsPage() {
             </div>
           </InnerPageEntrance>
 
-          {/* Projects List */}
+          {/* Projects List or Refined Editorial Empty State */}
           <InnerPageEntrance delayIndex={1}>
-            <div className="divide-y divide-[#E5E5E5]">
+            <div className="divide-y divide-[var(--color-hairline)]">
             {projects.length > 0 ? (
-              projects.map((project, idx) => (
-                <article
+              projects.map((project) => (
+                <div
                   key={project.id}
-                  className="py-12 md:py-16 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center group"
+                  className="py-12 md:py-16 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center"
                 >
                   <div className="lg:col-span-6">
                     {project.coverImageUrl ? (
-                      <Link
-                        href={`/projects/${project.slug}`}
-                        className="w-full aspect-[16/10] border border-[#E5E5E5] bg-[#F8F9FA] overflow-hidden relative block group-hover:border-[#2C3480] transition-colors"
-                      >
+                      <div className="w-full aspect-[16/10] border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] overflow-hidden relative">
                         <Image
                           src={project.coverImageUrl}
                           alt={project.title}
                           fill
                           unoptimized
-                          className="object-cover grayscale contrast-[1.05] group-hover:scale-[1.02] transition-all duration-500 motion-reduce:group-hover:scale-100"
+                          className="object-cover"
                           sizes="(max-width: 1024px) 100vw, 50vw"
                         />
-                      </Link>
+                      </div>
                     ) : (
-                      <div className="w-full aspect-[16/10] border border-[#E5E5E5] bg-[#F8F9FA] flex items-center justify-center p-6">
-                        <span className="font-mono text-xs text-[#777777]">
-                          [Project visual]
+                      <div className="w-full aspect-[16/10] border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] flex items-center justify-center p-6">
+                        <span className="font-sans text-xs text-[var(--color-ink-secondary)]">
+                          [Project visual pending]
                         </span>
                       </div>
                     )}
                   </div>
                   <div className="lg:col-span-6 space-y-4">
                     <div className="flex flex-wrap items-center gap-3">
-                      <span className="font-mono text-xs text-[#2C3480] font-bold">
-                        0{idx + 1}
-                      </span>
                       {project.editionCode && (
-                        <span className="font-mono text-xs text-[#2C3480] border-l border-[#E5E5E5] pl-3">
+                        <span className="font-mono text-xs text-[var(--color-accent)]">
                           {project.editionCode}
                         </span>
                       )}
                       {project.projectYear && (
-                        <span className="font-mono text-xs text-[#777777] border-l border-[#E5E5E5] pl-3">
+                        <span className="font-mono text-xs text-[var(--color-ink-secondary)] border-l border-[var(--color-hairline)] pl-3">
                           {project.projectYear}
                         </span>
                       )}
                       {project.category && (
-                        <span className="font-mono text-xs uppercase tracking-wider text-[#555555] border-l border-[#E5E5E5] pl-3">
+                        <span className="font-sans text-xs text-[var(--color-ink-secondary)] border-l border-[var(--color-hairline)] pl-3">
                           {project.category}
                         </span>
                       )}
                     </div>
-                    <h2 className="font-display text-2xl md:text-3xl font-normal text-[#000000] group-hover:text-[#2C3480] transition-colors">
-                      <Link href={`/projects/${project.slug}`}>
-                        {project.title}
-                      </Link>
+                    <h2 className="font-display text-2xl md:text-3xl font-normal text-[var(--color-ink-primary)]">
+                      {project.title}
                     </h2>
-                    <p className="font-sans text-sm md:text-base text-[#555555] leading-relaxed">
+                    <p className="font-sans text-sm md:text-base text-[var(--color-ink-secondary)] leading-relaxed">
                       {project.summary}
                     </p>
                     {project.techStack.length > 0 && (
@@ -133,7 +125,7 @@ export default async function ProjectsPage() {
                         {project.techStack.map((tech) => (
                           <span
                             key={tech}
-                            className="font-mono text-[10px] uppercase tracking-wider px-2.5 py-1 border border-[#E5E5E5] text-[#555555] bg-[#F8F9FA]"
+                            className="font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 border border-[var(--color-hairline)] text-[var(--color-ink-secondary)] bg-[var(--color-canvas-secondary)]"
                           >
                             {tech}
                           </span>
@@ -143,10 +135,10 @@ export default async function ProjectsPage() {
                     <div className="pt-2 flex flex-wrap items-center gap-4">
                       <Link
                         href={`/projects/${project.slug}`}
-                        className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider text-[#000000] hover:text-[#2C3480] transition-colors group/link"
+                        className="inline-flex items-center gap-1.5 font-sans font-medium text-xs text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors group focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
                       >
                         <span>View Case Study</span>
-                        <span className="transition-transform duration-150 group-hover/link:translate-x-1">
+                        <span className="transition-transform duration-150 group-hover:translate-x-1">
                           →
                         </span>
                       </Link>
@@ -155,7 +147,7 @@ export default async function ProjectsPage() {
                           href={project.liveUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="font-mono text-xs uppercase tracking-wider text-[#777777] hover:text-[#000000] transition-colors"
+                          className="font-sans text-xs text-[var(--color-ink-secondary)] hover:text-[var(--color-accent)] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
                         >
                           Live site ↗
                         </a>
@@ -165,14 +157,14 @@ export default async function ProjectsPage() {
                           href={project.githubUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="font-mono text-xs uppercase tracking-wider text-[#777777] hover:text-[#000000] transition-colors"
+                          className="font-sans text-xs text-[var(--color-ink-secondary)] hover:text-[var(--color-accent)] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
                         >
                           Source code ↗
                         </a>
                       )}
                     </div>
                   </div>
-                </article>
+                </div>
               ))
             ) : (
               /* Refined Editorial Empty State (Zero Fake Cards) */

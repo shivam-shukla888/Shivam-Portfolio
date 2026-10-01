@@ -23,13 +23,13 @@ export function buttonStyles({
 
   const variantStyles = {
     primary:
-      "bg-[#2C3480] text-white border border-[#2C3480] hover:bg-[#000000] hover:border-[#000000] hover:text-white",
+      "bg-[var(--color-ink-primary)] text-[var(--color-canvas-primary)] border border-[var(--color-ink-primary)] hover:bg-[var(--color-accent)] hover:border-[var(--color-accent)] hover:text-white",
     secondary:
-      "bg-white text-[#000000] border border-[#000000] hover:bg-[#000000] hover:text-white hover:border-[#000000]",
+      "bg-transparent text-[var(--color-ink-primary)] border border-[var(--color-ink-primary)] hover:bg-[var(--color-ink-primary)] hover:text-[var(--color-canvas-primary)]",
     accent:
-      "bg-[#2C3480] text-white border border-[#2C3480] hover:bg-[#1E2560] hover:border-[#1E2560]",
+      "bg-[var(--color-accent)] text-white border border-[var(--color-accent)] hover:bg-[var(--color-ink-primary)] hover:border-[var(--color-ink-primary)]",
     "dark-inverse":
-      "bg-white text-[#000000] border border-white hover:bg-[#2C3480] hover:border-[#2C3480] hover:text-white focus-visible:ring-white",
+      "bg-white text-[var(--color-surface-dark)] border border-white hover:bg-[var(--color-accent)] hover:border-[var(--color-accent)] hover:text-white focus-visible:ring-white",
   };
 
   const sizeStyles = {

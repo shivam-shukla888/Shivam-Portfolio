@@ -55,11 +55,11 @@ export function renderOwnerNotificationHtml(payload: ContactEmailPayload): strin
           
           <!-- Editorial Header -->
           <tr>
-            <td style="padding: 32px 36px 20px 36px; border-bottom: 2px solid #2C3480;">
+            <td style="padding: 32px 36px 20px 36px; border-bottom: 2px solid #D45A2A;">
               <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                   <td>
-                    <span style="font-family: 'JetBrains Mono', Monaco, 'Courier New', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; color: #2C3480; font-weight: 600;">
+                    <span style="font-family: 'JetBrains Mono', Monaco, 'Courier New', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; color: #D45A2A; font-weight: 600;">
                       SHIVSASTRA // DISPATCH ARCHIVE
                     </span>
                     <h1 style="margin: 10px 0 4px 0; font-family: Georgia, 'Times New Roman', serif; font-size: 24px; font-weight: 400; color: #111112; line-height: 1.3;">
@@ -91,7 +91,7 @@ export function renderOwnerNotificationHtml(payload: ContactEmailPayload): strin
                     Email:
                   </td>
                   <td style="color: #111112; padding: 4px 0;">
-                    <a href="mailto:${safeEmail}" style="color: #2C3480; text-decoration: none;">${safeEmail}</a>
+                    <a href="mailto:${safeEmail}" style="color: #D45A2A; text-decoration: none;">${safeEmail}</a>
                   </td>
                 </tr>
                 <tr>
@@ -125,7 +125,7 @@ export function renderOwnerNotificationHtml(payload: ContactEmailPayload): strin
               </div>
 
               <!-- Quick Reply Instruction -->
-              <div style="margin-top: 32px; padding: 18px 20px; border-left: 3px solid #2C3480; background-color: #F4F2EC;">
+              <div style="margin-top: 32px; padding: 18px 20px; border-left: 3px solid #D45A2A; background-color: #F4F2EC;">
                 <p style="margin: 0 0 6px 0; font-size: 13px; font-weight: 600; color: #111112;">
                   Direct Reply Configured:
                 </p>
@@ -200,8 +200,8 @@ export function renderVisitorAutoReplyHtml(payload: ContactEmailPayload): string
         <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="max-width: 600px; background-color: #FFFFFF; border: 1px solid #E6E3DC; text-align: left;">
           
           <tr>
-            <td style="padding: 32px 36px 20px 36px; border-bottom: 2px solid #2C3480;">
-              <span style="font-family: 'JetBrains Mono', Monaco, monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; color: #2C3480; font-weight: 600;">
+            <td style="padding: 32px 36px 20px 36px; border-bottom: 2px solid #D45A2A;">
+              <span style="font-family: 'JetBrains Mono', Monaco, monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; color: #D45A2A; font-weight: 600;">
                 SHIVSASTRA
               </span>
               <h1 style="margin: 10px 0 4px 0; font-family: Georgia, serif; font-size: 24px; font-weight: 400; color: #111112; line-height: 1.3;">
@@ -303,7 +303,7 @@ export function renderPurchaseDeliveryHtml(payload: PurchaseDeliveryPayload): st
   const downloadBlock = payload.downloadUrl
     ? `
       <div style="margin: 28px 0; text-align: center;">
-        <a href="${escapeHtml(payload.downloadUrl)}" style="display: inline-block; background-color: #2C3480; color: #FFFFFF; font-family: 'JetBrains Mono', Monaco, monospace; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; text-decoration: none; padding: 14px 28px; border-radius: 0;">
+        <a href="${escapeHtml(payload.downloadUrl)}" style="display: inline-block; background-color: #D45A2A; color: #FFFFFF; font-family: 'JetBrains Mono', Monaco, monospace; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; text-decoration: none; padding: 14px 28px; border-radius: 0;">
           Access Digital Assets ↓
         </a>
         <p style="margin: 10px 0 0 0; font-size: 11px; font-family: 'JetBrains Mono', Monaco, monospace; color: #6E6D68;">
@@ -330,8 +330,8 @@ export function renderPurchaseDeliveryHtml(payload: PurchaseDeliveryPayload): st
           
           <!-- Editorial Header -->
           <tr>
-            <td style="padding: 32px 36px 20px 36px; border-bottom: 2px solid #2C3480;">
-              <span style="font-family: 'JetBrains Mono', Monaco, monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; color: #2C3480; font-weight: 600;">
+            <td style="padding: 32px 36px 20px 36px; border-bottom: 2px solid #D45A2A;">
+              <span style="font-family: 'JetBrains Mono', Monaco, monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; color: #D45A2A; font-weight: 600;">
                 SHIVSASTRA // VERIFIED DISPATCH
               </span>
               <h1 style="margin: 10px 0 4px 0; font-family: Georgia, serif; font-size: 24px; font-weight: 400; color: #111112; line-height: 1.3;">
@@ -367,7 +367,7 @@ export function renderPurchaseDeliveryHtml(payload: PurchaseDeliveryPayload): st
                 <tr>
                   <td style="padding: 12px 16px; border-bottom: 1px solid #E6E3DC;">
                     <span style="font-family: 'JetBrains Mono', Monaco, monospace; font-size: 11px; text-transform: uppercase; color: #6E6D68; letter-spacing: 0.08em; display: block;">Settled Amount</span>
-                    <strong style="font-family: 'JetBrains Mono', Monaco, monospace; font-size: 14px; color: #2C3480;">${safeAmount}</strong>
+                    <strong style="font-family: 'JetBrains Mono', Monaco, monospace; font-size: 14px; color: #D45A2A;">${safeAmount}</strong>
                   </td>
                 </tr>
                 <tr>
@@ -381,7 +381,7 @@ export function renderPurchaseDeliveryHtml(payload: PurchaseDeliveryPayload): st
               ${downloadBlock}
 
               <p style="margin: 24px 0 8px 0; font-size: 13px; color: #444446;">
-                If you have questions, inquiries regarding commercial rights, or need assistance, reach out directly to <a href="mailto:${supportEmail}" style="color: #2C3480; text-decoration: underline;">${supportEmail}</a>.
+                If you have questions, inquiries regarding commercial rights, or need assistance, reach out directly to <a href="mailto:${supportEmail}" style="color: #D45A2A; text-decoration: underline;">${supportEmail}</a>.
               </p>
 
               <p style="margin: 20px 0 0 0; color: #6E6D68; font-size: 13px;">

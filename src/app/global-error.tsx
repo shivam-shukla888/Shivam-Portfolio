@@ -21,8 +21,8 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
         style={{
           margin: 0,
           padding: 0,
-          backgroundColor: "#FFFFFF",
-          color: "#000000",
+          backgroundColor: "#FAF9F6",
+          color: "#111112",
           fontFamily: "system-ui, -apple-system, sans-serif",
           display: "flex",
           minHeight: "100vh",
@@ -49,7 +49,7 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
               style={{
                 width: "8px",
                 height: "8px",
-                backgroundColor: "#2C3480",
+                backgroundColor: "#D45A2A",
                 display: "inline-block",
               }}
             />
@@ -57,7 +57,7 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
               style={{
                 fontSize: "12px",
                 fontFamily: "monospace",
-                color: "#2C3480",
+                color: "#D45A2A",
                 textTransform: "uppercase",
                 letterSpacing: "0.1em",
                 fontWeight: 600,
@@ -83,7 +83,7 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
             style={{
               fontSize: "14px",
               lineHeight: 1.6,
-              color: "#555555",
+              color: "#6E6D68",
               marginBottom: "28px",
             }}
           >
@@ -95,15 +95,14 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
               type="button"
               onClick={() => reset()}
               style={{
-                padding: "12px 22px",
-                backgroundColor: "#2C3480",
-                color: "#FFFFFF",
+                padding: "10px 18px",
+                backgroundColor: "#111112",
+                color: "#FAF9F6",
                 border: "none",
                 fontSize: "12px",
                 fontFamily: "monospace",
                 textTransform: "uppercase",
                 cursor: "pointer",
-                fontWeight: 600,
               }}
             >
               Try Again ↺
@@ -111,17 +110,16 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
             <Link
               href="/"
               style={{
-                padding: "12px 22px",
+                padding: "10px 18px",
                 backgroundColor: "transparent",
-                color: "#000000",
-                border: "1px solid #000000",
+                color: "#111112",
+                border: "1px solid #E6E3DC",
                 fontSize: "12px",
                 fontFamily: "monospace",
                 textTransform: "uppercase",
                 textDecoration: "none",
                 display: "inline-flex",
                 alignItems: "center",
-                fontWeight: 500,
               }}
             >
               Back Home →

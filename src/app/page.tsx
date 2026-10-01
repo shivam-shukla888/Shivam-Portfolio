@@ -134,46 +134,40 @@ export default async function HomePage() {
       />
 
       {/* =======================================================
-          1. HERO (Editorial Typography-First Composition)
+          1. HERO
           ======================================================= */}
-      <section className="relative w-full border-b border-[var(--color-hairline)] pt-16 md:pt-24 pb-20 md:pb-32 overflow-hidden bg-white">
+      <section className="relative w-full border-b border-[var(--color-hairline)] pt-16 md:pt-24 pb-20 md:pb-32 overflow-hidden">
         <PageBackground
           src="/images/backgrounds/homepage.webp"
           priority
-          opacity={0.35}
+          opacity={0.55}
           position="right"
           overlayVariant="hero-left-quiet"
         />
         <SectionContainer className="relative z-1">
           <HomeHeroMotion
             overview={
-              <div className="flex flex-wrap items-center gap-3">
-                <span className="font-mono text-xs uppercase tracking-[0.16em] text-[#2C3480] font-semibold flex items-center gap-2">
-                  <span className="w-2 h-2 bg-[#2C3480] inline-block shrink-0" aria-hidden="true" />
-                  SHIVSASTRA / DIGITAL HEADQUARTERS
-                </span>
+              <div className="flex flex-wrap items-baseline gap-4">
+                <SectionLabel name="Overview" />
                 {profile.availabilityStatus && (
-                  <span className="font-mono text-[11px] text-[#555555] border-l border-[#E5E5E5] pl-3">
+                  <span className="font-mono text-xs text-[var(--color-accent)] border-l border-[var(--color-hairline)] pl-4">
                     {profile.availabilityStatus}
                   </span>
                 )}
               </div>
             }
             title={
-              <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-[5.25rem] font-normal tracking-tight text-[#000000] leading-[1.04]">
-                Technology,<br />
-                security &amp;<br />
-                ideas — built<br />
-                with intent.
+              <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-normal tracking-tight text-[var(--color-ink-primary)] leading-[1.05]">
+                {profile.fullName}
               </h1>
             }
             positioning={
-              <p className="font-mono text-xs sm:text-sm uppercase tracking-[0.14em] text-[#2C3480] font-semibold">
+              <p className="font-mono text-xs sm:text-sm uppercase tracking-[0.14em] text-[var(--color-accent)] font-semibold">
                 AI Agents · AI Security · Automation · Digital Products
               </p>
             }
             narrative={
-              <p className="font-sans text-base md:text-lg text-[#555555] leading-relaxed max-w-[58ch]">
+              <p className="font-sans text-base md:text-lg text-[var(--color-ink-secondary)] leading-relaxed max-w-[62ch]">
                 {profile.heroSupportingText}
               </p>
             }
@@ -187,27 +181,27 @@ export default async function HomePage() {
                     className: "w-full sm:w-auto font-mono text-xs uppercase tracking-wider group",
                   })}
                 >
-                  <span>View Work</span>
+                  <span>See My Work</span>
                   <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none ml-1.5">
                     →
                   </span>
                 </Link>
                 <Link
-                  href="#about"
+                  href="/resume"
                   className={buttonStyles({
                     variant: "secondary",
                     size: "lg",
-                    className: "w-full sm:w-auto font-mono text-xs uppercase tracking-wider group",
+                    className: "w-full sm:w-auto font-mono text-xs uppercase tracking-wider border-[var(--color-ink-primary)] group",
                   })}
                 >
-                  <span>About</span>
+                  <span>Resume</span>
                   <span className="inline-block transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transform-none ml-1.5">
                     →
                   </span>
                 </Link>
                 <Link
                   href="/store"
-                  className="font-mono text-xs uppercase tracking-wider px-4 py-3 text-[#555555] hover:text-[#2C3480] transition-colors text-center"
+                  className="font-mono text-xs uppercase tracking-wider px-4 py-3 text-[var(--color-ink-secondary)] hover:text-[var(--color-accent)] transition-colors text-center"
                 >
                   Visit Store →
                 </Link>
@@ -219,93 +213,86 @@ export default async function HomePage() {
       </section>
 
       {/* =======================================================
-          2. ABOUT (Editorial Split Layout)
+          2. ABOUT (Authentic Developer Introduction)
           ======================================================= */}
-      <section id="about" className="w-full border-b border-[var(--color-hairline)] py-20 md:py-28 bg-white">
+      <section id="about" className="w-full border-b border-[var(--color-hairline)] py-20 md:py-28 bg-[var(--color-canvas-primary)]">
         <HomeSectionReveal>
           <SectionContainer>
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-              {/* Left Column: Editorial Statement, B&W Portrait & Education */}
-              <div className="lg:col-span-5 space-y-8">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+              {/* Left Column: Portrait & Key Details */}
+              <div className="lg:col-span-5 space-y-6">
                 <div className="space-y-3">
-                  <div className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 bg-[#2C3480] inline-block" />
-                    <SectionLabel name="About" index="01 / ABOUT" />
-                  </div>
-                  <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-[#000000] leading-[1.12]">
-                    I build software<br />
-                    where intelligence<br />
-                    meets structure.
+                  <SectionLabel name="About" />
+                  <h2 className="font-display text-3xl sm:text-4xl font-normal tracking-tight text-[var(--color-ink-primary)]">
+                    About Me
                   </h2>
-                  <p className="font-mono text-xs text-[#2C3480] font-semibold uppercase tracking-wider">
+                  <p className="font-sans text-xs text-[var(--color-accent)] font-medium">
                     AI Agent &amp; Security Builder · Digital Products
                   </p>
                 </div>
 
-                <div className="relative aspect-[4/5] max-w-[320px] border border-[#E5E5E5] bg-[#F8F9FA] overflow-hidden group">
+                <div className="relative aspect-[4/5] max-w-[320px] border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] overflow-hidden">
                   <Image
                     src="/images/shivam-shukla.jpg"
                     alt="Shivam Shukla — Portrait"
                     fill
-                    className="object-cover grayscale contrast-[1.05] group-hover:grayscale-0 transition-all duration-500"
+                    className="object-cover"
                     sizes="(max-width: 768px) 100vw, 320px"
                     priority
                   />
-                  <div className="absolute inset-0 border border-transparent group-hover:border-[#2C3480] transition-colors pointer-events-none" />
                 </div>
 
-                <div className="p-5 border border-[#E5E5E5] bg-[#F8F9FA] space-y-2 font-mono text-xs text-[#555555]">
+                <div className="p-5 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] space-y-3 font-mono text-xs text-[var(--color-ink-secondary)]">
                   <div className="flex items-center justify-between">
-                    <span className="text-[#2C3480] font-semibold">EDUCATION</span>
+                    <span className="text-[var(--color-accent)] font-semibold">EDUCATION</span>
                     <span>2022 – 2026</span>
                   </div>
-                  <p className="font-sans text-xs text-[#000000]">
+                  <p className="font-sans text-xs text-[var(--color-ink-primary)]">
                     B.Tech in Computer Science Engineering
                     <br />
-                    <span className="text-[#555555] text-[11px]">
-                      SRMS CET&amp;R, Bareilly (Affiliated to AKTU)
+                    <span className="text-[var(--color-ink-secondary)] text-[11px]">
+                      SRMS CET&R, Bareilly (Affiliated to AKTU)
                     </span>
                   </p>
                 </div>
               </div>
 
               {/* Right Column: Authentic Story & Highlights */}
-              <div className="lg:col-span-7 space-y-8 lg:pt-8">
-                <div className="p-8 md:p-10 border border-[#E5E5E5] bg-[#F8F9FA] space-y-4 relative">
-                  <div className="w-1 h-8 bg-[#2C3480] absolute left-0 top-10" />
-                  <span className="font-mono text-xs uppercase tracking-wider text-[#2C3480] font-semibold block">
+              <div className="lg:col-span-7 space-y-8">
+                <div className="p-8 md:p-10 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] space-y-4">
+                  <span className="font-mono text-xs uppercase tracking-wider text-[var(--color-accent)] font-semibold block">
                     PHILOSOPHY &amp; FOCUS
                   </span>
-                  <p className="font-sans text-base sm:text-lg text-[#000000] leading-relaxed">
+                  <p className="font-sans text-base sm:text-lg text-[var(--color-ink-primary)] leading-relaxed">
                     I build software products, practical AI agents, and automation systems with a focus on AI security. I care about building practical systems rather than AI demos — separating language extraction from deterministic backend logic.
                   </p>
-                  <p className="font-sans text-sm sm:text-base text-[#555555] leading-relaxed">
+                  <p className="font-sans text-sm sm:text-base text-[var(--color-ink-secondary)] leading-relaxed">
                     While Java and Spring Boot remain a solid engineering foundation of my work, Python is my primary language for AI agent orchestration, tool calling, and automation. Along the way, I turn repeatable engineering patterns into open developer templates and digital resources.
                   </p>
                 </div>
 
                 {/* Practical Milestone Cards */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="p-6 border border-[#E5E5E5] bg-white space-y-2 group hover:border-[#2C3480] transition-colors">
-                    <span className="font-mono text-[11px] text-[#2C3480] font-semibold uppercase tracking-wider">
+                  <div className="p-6 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] space-y-2">
+                    <span className="font-mono text-[11px] text-[var(--color-accent)] font-semibold uppercase tracking-wider">
                       Engineering Foundation
                     </span>
-                    <h3 className="font-display text-lg text-[#000000]">
+                    <h3 className="font-display text-lg text-[var(--color-ink-primary)]">
                       Backend &amp; Systems
                     </h3>
-                    <p className="font-sans text-xs text-[#555555] leading-relaxed">
+                    <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
                       Engineering background in Python, Java, and Spring Boot, combining relational data modeling with modern LLM tool integrations.
                     </p>
                   </div>
 
-                  <div className="p-6 border border-[#E5E5E5] bg-white space-y-2 group hover:border-[#2C3480] transition-colors">
-                    <span className="font-mono text-[11px] text-[#2C3480] font-semibold uppercase tracking-wider">
+                  <div className="p-6 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] space-y-2">
+                    <span className="font-mono text-[11px] text-[var(--color-accent)] font-semibold uppercase tracking-wider">
                       Shipped Systems
                     </span>
-                    <h3 className="font-display text-lg text-[#000000]">
+                    <h3 className="font-display text-lg text-[var(--color-ink-primary)]">
                       3 Working Systems
                     </h3>
-                    <p className="font-sans text-xs text-[#555555] leading-relaxed">
+                    <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
                       Built Yojna Setu (AI + deterministic rules), RealGuard (AI automation), and QuickEats (AI-assisted product engineering &amp; security).
                     </p>
                   </div>
@@ -314,7 +301,7 @@ export default async function HomePage() {
                 <div className="pt-2 flex flex-wrap items-center gap-4">
                   <Link
                     href="/about"
-                    className="inline-flex items-center gap-1.5 font-sans font-medium text-xs text-[#000000] hover:text-[#2C3480] transition-colors group"
+                    className="inline-flex items-center gap-1.5 font-sans font-medium text-xs text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors group"
                   >
                     <span>Read complete background</span>
                     <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">
@@ -323,7 +310,7 @@ export default async function HomePage() {
                   </Link>
                   <Link
                     href="/resume"
-                    className="font-mono text-xs uppercase tracking-wider text-[#555555] hover:text-[#000000] transition-colors underline underline-offset-4"
+                    className="font-mono text-xs uppercase tracking-wider text-[var(--color-ink-secondary)] hover:text-[var(--color-ink-primary)] transition-colors underline underline-offset-4"
                   >
                     View Resume →
                   </Link>
@@ -335,90 +322,88 @@ export default async function HomePage() {
       </section>
 
       {/* =======================================================
-          3. SELECTED WORK (Strategic Dramatic Black Feature Section)
+          3. SELECTED WORK (Yojna Setu + RealGuard + QuickEats)
           ======================================================= */}
-      <section id="work" className="w-full border-b border-[#1F1F1F] py-20 md:py-32 bg-[#000000] text-white">
+      <section id="work" className="w-full border-b border-[var(--color-hairline)] py-20 md:py-28 bg-[var(--color-canvas-secondary)]">
         <HomeSectionReveal>
           <SectionContainer>
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-12 border-b border-[#1F1F1F]">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-12 border-b border-[var(--color-hairline)]">
               <div className="space-y-4">
-                <div className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-[#2C3480] inline-block" />
-                  <SectionLabel name="Selected Work" index="02 / SELECTED WORK" dark />
-                </div>
-                <h2 className="font-display text-4xl sm:text-5xl font-normal tracking-tight text-white">
+                <SectionLabel name="Selected Work" />
+                <h2 className="font-display text-3xl md:text-4xl font-normal tracking-tight text-[var(--color-ink-primary)]">
                   Selected Work
                 </h2>
-                <p className="font-sans text-xs text-[#8E9BFF] font-medium">
+                <p className="font-sans text-xs text-[var(--color-accent)] font-medium">
                   Practical systems built with AI agents, deterministic rules engines, and application security.
                 </p>
               </div>
               <Link
                 href="/projects"
-                className="inline-flex items-center gap-1.5 font-sans font-medium text-xs text-white/80 hover:text-white transition-colors group focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white"
+                className="inline-flex items-center gap-1.5 font-sans font-medium text-xs text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors group focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
               >
                 <span>View all projects</span>
-                <span className="transition-transform duration-150 group-hover:translate-x-1 text-[#8E9BFF]">→</span>
+                <span className="transition-transform duration-150 group-hover:translate-x-1">→</span>
               </Link>
             </div>
 
-            <div className="divide-y divide-[#1F1F1F]">
-              {selectedProjects.map((project, idx) => (
+            <div className="divide-y divide-[var(--color-hairline)]">
+              {selectedProjects.map((project) => (
                 <article
                   key={project.id}
-                  className="py-14 md:py-20 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center group"
+                  className="py-12 md:py-16 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center group"
                 >
-                  {/* High Contrast Editorial Visual Frame */}
+                  {/* Large Editorial Visual Frame */}
                   <div className="lg:col-span-7">
                     {project.coverImageUrl ? (
                       <Link
                         href={`/projects/${project.slug}`}
-                        className="w-full aspect-[16/10] border border-[#1F1F1F] bg-[#0A0A0A] overflow-hidden group-hover:border-[#2C3480] transition-colors relative block"
+                        className="w-full aspect-[16/10] border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] overflow-hidden group-hover:border-[var(--color-ink-primary)] transition-colors relative block"
                       >
                         <Image
                           src={project.coverImageUrl}
                           alt={project.title}
                           fill
                           unoptimized
-                          className="object-cover grayscale contrast-[1.08] group-hover:scale-[1.025] transition-all duration-500 motion-reduce:group-hover:scale-100"
+                          className="object-cover group-hover:scale-[1.015] transition-transform duration-300 motion-reduce:group-hover:scale-100"
                           sizes="(max-width: 1024px) 100vw, 58vw"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
                       </Link>
                     ) : (
-                      <div className="w-full aspect-[16/10] border border-[#1F1F1F] bg-[#0A0A0A] flex items-center justify-center p-6 md:p-8">
-                        <span className="font-mono text-xs text-[#666666]">
+                      <div className="w-full aspect-[16/10] border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] flex items-center justify-center p-6 md:p-8">
+                        <span className="font-sans text-xs text-[var(--color-ink-secondary)]">
                           [Project visual]
                         </span>
                       </div>
                     )}
                   </div>
 
-                  {/* Project Details & Metadata */}
-                  <div className="lg:col-span-5 space-y-5 lg:pl-4">
+                  {/* Project Narrative & Details */}
+                  <div className="lg:col-span-5 space-y-4 lg:pl-4">
                     <div className="flex flex-wrap items-center gap-3">
-                      <span className="font-mono text-xs text-[#8E9BFF] font-bold">
-                        0{idx + 1}
-                      </span>
                       {project.editionCode && (
-                        <span className="font-mono text-xs text-[#8E9BFF] border-l border-[#222222] pl-3">
+                        <span className="font-mono text-xs text-[var(--color-accent)] font-semibold">
                           {project.editionCode}
                         </span>
                       )}
+                      {project.projectYear && (
+                        <span className="font-mono text-xs text-[var(--color-ink-secondary)] border-l border-[var(--color-hairline)] pl-3">
+                          {project.projectYear}
+                        </span>
+                      )}
                       {project.category && (
-                        <span className="font-mono text-xs uppercase tracking-wider text-[#888888] border-l border-[#222222] pl-3">
+                        <span className="font-sans text-xs text-[var(--color-ink-secondary)] border-l border-[var(--color-hairline)] pl-3">
                           {project.category}
                         </span>
                       )}
                     </div>
 
-                    <h3 className="font-display text-3xl sm:text-4xl font-normal tracking-tight text-white group-hover:text-[#8E9BFF] transition-colors duration-200">
+                    <h3 className="font-display text-2xl md:text-3xl font-normal tracking-tight text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors duration-200">
                       <Link href={`/projects/${project.slug}`}>
                         {project.title}
                       </Link>
                     </h3>
 
-                    <p className="font-sans text-sm md:text-base text-[#888888] leading-relaxed">
+                    <p className="font-sans text-sm md:text-base text-[var(--color-ink-secondary)] leading-relaxed">
                       {project.summary}
                     </p>
 
@@ -427,7 +412,7 @@ export default async function HomePage() {
                         {project.techStack.map((tech) => (
                           <span
                             key={tech}
-                            className="font-mono text-[10px] uppercase tracking-wider px-2.5 py-1 border border-[#222222] text-[#AAAAAA] bg-[#0D0D0D]"
+                            className="font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 border border-[var(--color-hairline)] text-[var(--color-ink-secondary)] bg-[var(--color-canvas-primary)]"
                           >
                             {tech}
                           </span>
@@ -445,7 +430,7 @@ export default async function HomePage() {
                         })}
                       >
                         <span>View Case Study</span>
-                        <span className="inline-block transition-transform duration-200 group-hover/btn:translate-x-1 motion-reduce:transform-none ml-1.5">
+                        <span className="inline-block transition-transform duration-200 group-hover/btn:translate-x-1 motion-reduce:transform-none ml-1">
                           →
                         </span>
                       </Link>
@@ -455,7 +440,7 @@ export default async function HomePage() {
                           href={project.githubUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="font-mono text-xs uppercase tracking-wider text-[#888888] hover:text-white transition-colors flex items-center gap-1"
+                          className="font-mono text-xs uppercase tracking-wider text-[var(--color-ink-secondary)] hover:text-[var(--color-ink-primary)] transition-colors flex items-center gap-1"
                         >
                           <span>GitHub</span>
                           <span>↗</span>
@@ -473,35 +458,32 @@ export default async function HomePage() {
       {/* =======================================================
           4. SKILLS / TECHNOLOGY (Intelligently Categorized)
           ======================================================= */}
-      <section id="skills" className="w-full border-b border-[#E5E5E5] py-20 md:py-28 bg-white">
+      <section id="skills" className="w-full border-b border-[var(--color-hairline)] py-20 md:py-28 bg-[var(--color-canvas-primary)]">
         <HomeSectionReveal>
           <SectionContainer>
             <div className="space-y-12">
               <div className="space-y-4 max-w-2xl">
-                <div className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-[#2C3480] inline-block" />
-                  <SectionLabel name="Skills & Tech Stack" index="03 / TECHNICAL STACK" />
-                </div>
-                <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-[#000000]">
+                <SectionLabel name="Skills & Tech Stack" />
+                <h2 className="font-display text-3xl md:text-4xl font-normal tracking-tight text-[var(--color-ink-primary)]">
                   Technical Stack
                 </h2>
-                <p className="font-sans text-sm text-[#555555] leading-relaxed">
+                <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
                   Demonstrated technologies categorized by practical implementation evidence:
                 </p>
-                <div className="flex flex-wrap items-center gap-4 pt-1 font-mono text-xs text-[#555555]">
+                <div className="flex flex-wrap items-center gap-3 pt-1 font-mono text-[11px] text-[var(--color-ink-secondary)]">
                   <span className="inline-flex items-center gap-1.5">
-                    <span className="w-2 h-2 bg-[#2C3480] inline-block" />
-                    <strong className="text-[#000000]">Core:</strong> Primary stack in shipped repositories
+                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)]" />
+                    <strong className="text-[var(--color-ink-primary)]">Core:</strong> Primary stack in shipped repositories
                   </span>
-                  <span className="text-[#CCCCCC] select-none">·</span>
+                  <span className="text-[var(--color-hairline)] select-none">·</span>
                   <span className="inline-flex items-center gap-1.5">
-                    <span className="w-2 h-2 bg-[#555555] inline-block" />
-                    <strong className="text-[#000000]">Working:</strong> Integrated in project features
+                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-ink-secondary)]" />
+                    <strong className="text-[var(--color-ink-primary)]">Working:</strong> Integrated in project features
                   </span>
-                  <span className="text-[#CCCCCC] select-none">·</span>
+                  <span className="text-[var(--color-hairline)] select-none">·</span>
                   <span className="inline-flex items-center gap-1.5">
-                    <span className="w-2 h-2 border border-[#888888] inline-block" />
-                    <strong className="text-[#000000]">Exposure:</strong> Course simulation or exploratory
+                    <span className="w-1.5 h-1.5 rounded-full border border-[var(--color-hairline)]" />
+                    <strong className="text-[var(--color-ink-primary)]">Exposure:</strong> Course simulation or exploratory
                   </span>
                 </div>
               </div>
@@ -510,27 +492,27 @@ export default async function HomePage() {
                 {SKILL_CATEGORIES.map((cat, idx) => (
                   <div
                     key={idx}
-                    className="border border-[#E5E5E5] bg-white p-7 space-y-5 flex flex-col justify-between hover:border-[#2C3480] transition-colors"
+                    className="border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] p-6 space-y-4 flex flex-col justify-between"
                   >
                     <div className="space-y-3">
                       <div className="flex items-center justify-between">
-                        <h3 className="font-display text-xl text-[#000000]">
+                        <h3 className="font-display text-xl text-[var(--color-ink-primary)]">
                           {cat.title}
                         </h3>
-                        <span className="font-mono text-xs text-[#2C3480] font-bold">
+                        <span className="font-mono text-[10px] text-[var(--color-accent)] font-semibold">
                           0{idx + 1}
                         </span>
                       </div>
-                      <p className="font-sans text-xs text-[#555555] leading-relaxed">
+                      <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
                         {cat.description}
                       </p>
                     </div>
 
-                    <div className="pt-4 border-t border-[#E5E5E5] flex flex-wrap gap-2">
+                    <div className="pt-3 border-t border-[var(--color-hairline)] flex flex-wrap gap-2">
                       {cat.skills.map((skill, sIdx) => (
                         <span
                           key={sIdx}
-                          className="inline-flex items-center gap-1.5 font-mono text-[11px] px-2.5 py-1 border border-[#E5E5E5] bg-[#F8F9FA] text-[#111111]"
+                          className="inline-flex items-center gap-1.5 font-mono text-[11px] px-2.5 py-1 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] text-[var(--color-ink-primary)]"
                         >
                           {skill.icon && (
                             <Image
@@ -538,15 +520,17 @@ export default async function HomePage() {
                               alt=""
                               width={12}
                               height={12}
-                              className="w-3 h-3 object-contain shrink-0 grayscale"
+                              className="w-3 h-3 object-contain shrink-0"
                             />
                           )}
                           <span>{skill.name}</span>
                           <span
-                            className={`text-[9px] uppercase tracking-wider px-1 font-sans ${
+                            className={`text-[9px] uppercase tracking-wider px-1 py-0.2 font-sans rounded-none ${
                               skill.tier === "Core"
-                                ? "text-[#2C3480] font-semibold"
-                                : "text-[#777777]"
+                                ? "text-[var(--color-accent)] font-semibold"
+                                : skill.tier === "Working"
+                                ? "text-[var(--color-ink-secondary)]"
+                                : "text-[var(--color-ink-secondary)] opacity-60"
                             }`}
                           >
                             [{skill.tier}]
@@ -563,80 +547,96 @@ export default async function HomePage() {
       </section>
 
       {/* =======================================================
-          5. WHAT I DO (Editorial Service Rows)
+          5. WHAT I DO (Services & Engineering Disciplines)
           ======================================================= */}
-      <section id="services" className="w-full border-b border-[#E5E5E5] py-20 md:py-32 bg-white">
+      <section id="services" className="w-full border-b border-[var(--color-hairline)] py-20 md:py-28 bg-[var(--color-canvas-secondary)]">
         <HomeSectionReveal>
           <SectionContainer>
             <div className="space-y-12">
-              <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-8 border-b border-[#E5E5E5]">
+              <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-8 border-b border-[var(--color-hairline)]">
                 <div className="space-y-3">
-                  <div className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 bg-[#2C3480] inline-block" />
-                    <SectionLabel name="Services & Disciplines" index="04 / SERVICES" />
-                  </div>
-                  <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-[#000000]">
+                  <SectionLabel name="What I Do" />
+                  <h2 className="font-display text-3xl md:text-4xl font-normal tracking-tight text-[var(--color-ink-primary)]">
                     Services &amp; Capabilities
                   </h2>
-                  <p className="font-mono text-xs text-[#2C3480] font-semibold uppercase tracking-wider">
-                    Editorial engineering disciplines demonstrated through working code.
+                  <p className="font-sans text-xs text-[var(--color-accent)] font-medium">
+                    End-to-end engineering demonstrated through working code.
                   </p>
                 </div>
                 <Link
                   href="/services"
-                  className="font-mono text-xs uppercase tracking-wider text-[#000000] hover:text-[#2C3480] transition-colors inline-flex items-center gap-1.5 group"
+                  className="font-mono text-xs uppercase tracking-wider text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors inline-flex items-center gap-1"
                 >
-                  <span>All Services</span>
-                  <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">→</span>
+                  <span>View Services Overview</span>
+                  <span>→</span>
                 </Link>
               </div>
 
-              {/* EDITORIAL SERVICE ROWS */}
-              <div className="divide-y divide-[#E5E5E5] border-y border-[#E5E5E5]">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {SERVICES_CATALOG.map((srv) => (
-                  <Link
+                  <div
                     key={srv.id}
-                    href={`/contact?subject=${encodeURIComponent(srv.subject)}`}
-                    className="group py-8 md:py-10 grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-start md:items-center hover:bg-[#F8F9FA] transition-colors duration-200 px-4 -mx-4 block"
+                    className="border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] p-8 space-y-6 flex flex-col justify-between group hover:border-[var(--color-ink-primary)] transition-colors"
                   >
-                    <div className="md:col-span-1 font-mono text-sm text-[#2C3480] font-bold">
-                      {srv.code}
-                    </div>
-                    <div className="md:col-span-4">
-                      <h3 className="font-display text-2xl sm:text-3xl font-normal text-[#000000] group-hover:text-[#2C3480] transition-colors duration-200">
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <span className="font-mono text-xs text-[var(--color-accent)] font-semibold tracking-wider">
+                          {srv.code}
+                        </span>
+                        <span className="font-mono text-[11px] text-[var(--color-ink-secondary)]">
+                          {srv.engagement}
+                        </span>
+                      </div>
+                      <h3 className="font-display text-2xl font-normal text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors">
                         {srv.title}
                       </h3>
-                      <span className="font-mono text-[11px] text-[#777777] uppercase tracking-wider block mt-1">
-                        {srv.engagement}
-                      </span>
-                    </div>
-                    <div className="md:col-span-6">
-                      <p className="font-sans text-sm text-[#555555] leading-relaxed">
+                      <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
                         {srv.summary}
                       </p>
+
+                      <div className="space-y-2 pt-2 border-t border-[var(--color-hairline)]">
+                        <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--color-accent)] font-semibold block">
+                          Key Deliverables
+                        </span>
+                        <ul className="space-y-1.5 font-sans text-xs text-[var(--color-ink-primary)]">
+                          {srv.deliverables.map((item, dIdx) => (
+                            <li key={dIdx} className="flex items-start gap-2">
+                              <span className="text-[var(--color-accent)] select-none">—</span>
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
-                    <div className="md:col-span-1 flex justify-start md:justify-end">
-                      <span className="font-mono text-xl text-[#000000] group-hover:text-[#2C3480] group-hover:translate-x-2 transition-all duration-200 inline-block">
-                        →
-                      </span>
+
+                    <div className="pt-4 border-t border-[var(--color-hairline)] flex items-center justify-between">
+                      <Link
+                        href={`/contact?subject=${encodeURIComponent(srv.subject)}`}
+                        className="font-mono text-xs uppercase tracking-wider text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors inline-flex items-center gap-1.5"
+                      >
+                        <span>Discuss a Project</span>
+                        <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">
+                          →
+                        </span>
+                      </Link>
                     </div>
-                  </Link>
+                  </div>
                 ))}
               </div>
 
               {/* Distinction Banner: Custom Work vs Store Products */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-8 border border-[#E5E5E5] bg-[#F8F9FA]">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)]">
                 <div className="space-y-1">
-                  <span className="font-mono text-xs uppercase tracking-wider text-[#2C3480] font-semibold block">
+                  <span className="font-mono text-xs uppercase tracking-wider text-[var(--color-accent)] font-semibold block">
                     Custom Engineering vs Digital Resources
                   </span>
-                  <p className="font-sans text-xs sm:text-sm text-[#555555] max-w-xl leading-relaxed">
+                  <p className="font-sans text-xs text-[var(--color-ink-secondary)] max-w-xl leading-relaxed">
                     Services are for custom development where you work with me directly. For downloadable architecture blueprints and developer resources, explore the Store.
                   </p>
                 </div>
                 <Link
                   href="/store"
-                  className="font-mono text-xs uppercase tracking-wider px-5 py-3 border border-[#000000] text-[#000000] hover:bg-[#000000] hover:text-white transition-colors shrink-0 text-center"
+                  className="font-mono text-xs uppercase tracking-wider px-4 py-2 border border-[var(--color-ink-primary)] text-[var(--color-ink-primary)] hover:bg-[var(--color-ink-primary)] hover:text-[var(--color-canvas-primary)] transition-colors shrink-0"
                 >
                   Explore Store →
                 </Link>
@@ -649,19 +649,16 @@ export default async function HomePage() {
       {/* =======================================================
           6. CERTIFICATIONS (Verified Credentials)
           ======================================================= */}
-      <section id="certifications" className="w-full border-b border-[#E5E5E5] py-20 md:py-28 bg-[#F8F9FA]">
+      <section id="certifications" className="w-full border-b border-[var(--color-hairline)] py-20 md:py-28 bg-[var(--color-canvas-primary)]">
         <HomeSectionReveal>
           <SectionContainer>
             <div className="space-y-12">
               <div className="space-y-3 max-w-2xl">
-                <div className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-[#2C3480] inline-block" />
-                  <SectionLabel name="Certifications" index="05 / CREDENTIALS" />
-                </div>
-                <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-[#000000]">
+                <SectionLabel name="Certifications" />
+                <h2 className="font-display text-3xl md:text-4xl font-normal tracking-tight text-[var(--color-ink-primary)]">
                   Certifications &amp; Credentials
                 </h2>
-                <p className="font-mono text-xs text-[#2C3480] font-semibold uppercase tracking-wider">
+                <p className="font-sans text-xs text-[var(--color-accent)] font-medium">
                   Verified coursework, cloud credentials, and engineering job simulations.
                 </p>
               </div>
@@ -670,32 +667,32 @@ export default async function HomePage() {
                 {CERTIFICATIONS.map((cert) => (
                   <div
                     key={cert.id}
-                    className="border border-[#E5E5E5] bg-white p-7 space-y-5 flex flex-col justify-between hover:border-[#2C3480] transition-colors group"
+                    className="border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] p-6 md:p-8 space-y-5 flex flex-col justify-between hover:border-[var(--color-ink-primary)] transition-colors group"
                   >
                     <div className="space-y-3">
                       <div className="flex items-center justify-between text-xs font-mono">
-                        <span className="text-[#2C3480] font-bold uppercase tracking-wider">
+                        <span className="text-[var(--color-accent)] font-semibold uppercase tracking-wider">
                           VERIFIED
                         </span>
-                        <span className="text-[#777777]">✓ Certificate</span>
+                        <span className="text-[var(--color-ink-secondary)]">✓ Certificate</span>
                       </div>
-                      <h3 className="font-display text-xl text-[#000000] group-hover:text-[#2C3480] transition-colors">
+                      <h3 className="font-display text-xl text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors">
                         {cert.title}
                       </h3>
-                      <p className="font-mono text-xs text-[#555555] font-medium">
+                      <p className="font-mono text-xs text-[var(--color-ink-secondary)] font-medium">
                         {cert.issuer}
                       </p>
-                      <p className="font-sans text-xs text-[#555555] leading-relaxed pt-1">
+                      <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed pt-1">
                         {cert.description}
                       </p>
                     </div>
 
-                    <div className="pt-4 border-t border-[#E5E5E5]">
+                    <div className="pt-4 border-t border-[var(--color-hairline)]">
                       <a
                         href={cert.certificateUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="font-mono text-xs uppercase tracking-wider text-[#000000] hover:text-[#2C3480] transition-colors inline-flex items-center gap-1.5"
+                        className="font-mono text-xs uppercase tracking-wider text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors inline-flex items-center gap-1.5"
                       >
                         <span>View Certificate</span>
                         <span>↗</span>
@@ -712,25 +709,22 @@ export default async function HomePage() {
       {/* =======================================================
           7. DIGITAL PRODUCTS & TEMPLATES (Legitimate Resources)
           ======================================================= */}
-      <section id="store" className="w-full border-b border-[#E5E5E5] py-20 md:py-28 bg-white">
+      <section id="store" className="w-full border-b border-[var(--color-hairline)] py-20 md:py-28 bg-[var(--color-canvas-secondary)]">
         <HomeSectionReveal>
           <SectionContainer>
             <div className="space-y-12">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pb-8 border-b border-[#E5E5E5]">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pb-8 border-b border-[var(--color-hairline)]">
                 <div className="lg:col-span-5 space-y-3">
-                  <div className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 bg-[#2C3480] inline-block" />
-                    <SectionLabel name="Store & Templates" index="06 / STORE" />
-                  </div>
-                  <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-[#000000]">
+                  <SectionLabel name="Store & Templates" />
+                  <h2 className="font-display text-4xl sm:text-5xl font-normal tracking-tight text-[var(--color-ink-primary)]">
                     Digital Products
                   </h2>
-                  <p className="font-mono text-xs text-[#2C3480] font-semibold uppercase tracking-wider">
+                  <p className="font-sans text-xs text-[var(--color-accent)] font-medium">
                     Architectural blueprints, developer boilerplates, and templates.
                   </p>
                 </div>
                 <div className="lg:col-span-7 space-y-2">
-                  <p className="font-sans text-sm sm:text-base text-[#555555] leading-relaxed max-w-xl">
+                  <p className="font-sans text-sm sm:text-base text-[var(--color-ink-secondary)] leading-relaxed max-w-xl">
                     Resources distilled from my own working systems. Strictly zero fabricated sales or fake reviews — published openly as they are finalized.
                   </p>
                 </div>
@@ -740,29 +734,29 @@ export default async function HomePage() {
                 {DIGITAL_PRODUCTS_PREVIEWS.map((prod) => (
                   <div
                     key={prod.id}
-                    className="border border-[#E5E5E5] bg-[#F8F9FA] p-7 space-y-5 flex flex-col justify-between hover:border-[#2C3480] transition-colors group"
+                    className="border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] p-6 md:p-8 space-y-5 flex flex-col justify-between hover:border-[var(--color-ink-primary)] transition-colors group"
                   >
                     <div className="space-y-3">
                       <div className="flex items-center justify-between text-xs font-mono">
-                        <span className="text-[#2C3480] uppercase tracking-wider font-bold">
+                        <span className="text-[var(--color-accent)] uppercase tracking-wider font-semibold">
                           {prod.category.replace("_", " ")}
                         </span>
                         <span
                           className={`px-2 py-0.5 text-[10px] font-mono border ${
                             prod.status === "Case Study"
-                              ? "border-[#2C3480] text-[#2C3480] bg-[#2C3480]/5"
-                              : "border-[#E5E5E5] text-[#555555]"
+                              ? "border-[var(--color-accent)] text-[var(--color-accent)] bg-[var(--color-accent)]/5"
+                              : "border-[var(--color-hairline)] text-[var(--color-ink-secondary)]"
                           }`}
                         >
                           {prod.status}
                         </span>
                       </div>
 
-                      <h3 className="font-display text-xl text-[#000000] group-hover:text-[#2C3480] transition-colors">
+                      <h3 className="font-display text-xl text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors">
                         {prod.title}
                       </h3>
 
-                      <p className="font-sans text-xs text-[#555555] leading-relaxed">
+                      <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
                         {prod.summary}
                       </p>
 
@@ -770,7 +764,7 @@ export default async function HomePage() {
                         {prod.tech.map((t, idx) => (
                           <span
                             key={idx}
-                            className="font-mono text-[10px] px-2 py-0.5 border border-[#E5E5E5] bg-white text-[#555555]"
+                            className="font-mono text-[10px] px-2 py-0.5 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] text-[var(--color-ink-secondary)]"
                           >
                             {t}
                           </span>
@@ -778,17 +772,17 @@ export default async function HomePage() {
                       </div>
                     </div>
 
-                    <div className="pt-4 border-t border-[#E5E5E5] flex items-center justify-between">
+                    <div className="pt-4 border-t border-[var(--color-hairline)] flex items-center justify-between">
                       {prod.link ? (
                         <Link
                           href={prod.link}
-                          className="font-mono text-xs uppercase tracking-wider text-[#000000] hover:text-[#2C3480] transition-colors inline-flex items-center gap-1.5"
+                          className="font-mono text-xs uppercase tracking-wider text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors inline-flex items-center gap-1.5"
                         >
                           <span>Explore Blueprint</span>
                           <span>→</span>
                         </Link>
                       ) : (
-                        <span className="font-mono text-xs text-[#777777]">
+                        <span className="font-mono text-xs text-[var(--color-ink-secondary)]">
                           Release Pending
                         </span>
                       )}
@@ -797,8 +791,8 @@ export default async function HomePage() {
                 ))}
               </div>
 
-              <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-[#E5E5E5]">
-                <span className="font-mono text-xs text-[#555555]">
+              <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-[var(--color-hairline)]">
+                <span className="font-mono text-xs text-[var(--color-ink-secondary)]">
                   Looking for custom templates or backend integrations?
                 </span>
                 <Link
@@ -820,19 +814,16 @@ export default async function HomePage() {
       {/* =======================================================
           8. ENGINEERING COMMAND CENTER / CURRENT FOCUS
           ======================================================= */}
-      <section id="focus" className="w-full border-b border-[#E5E5E5] py-20 md:py-28 bg-[#F8F9FA]">
+      <section id="focus" className="w-full border-b border-[var(--color-hairline)] py-20 md:py-28 bg-[var(--color-canvas-primary)]">
         <HomeSectionReveal>
           <SectionContainer>
             <div className="space-y-12">
               <div className="space-y-3 max-w-2xl">
-                <div className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-[#2C3480] inline-block" />
-                  <SectionLabel name="Command Center" index="07 / FOCUS" />
-                </div>
-                <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-[#000000]">
+                <SectionLabel name="Command Center" />
+                <h2 className="font-display text-3xl md:text-4xl font-normal tracking-tight text-[var(--color-ink-primary)]">
                   Current Focus &amp; Activity
                 </h2>
-                <p className="font-mono text-xs text-[#2C3480] font-semibold uppercase tracking-wider">
+                <p className="font-sans text-xs text-[var(--color-accent)] font-medium">
                   What I&apos;m building, exploring, and shipping right now.
                 </p>
               </div>
@@ -842,15 +833,15 @@ export default async function HomePage() {
                 {FOCUS_AREAS.map((item) => (
                   <div
                     key={item.id}
-                    className="border border-[#E5E5E5] bg-white p-6 space-y-3 hover:border-[#2C3480] transition-colors"
+                    className="border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] p-6 space-y-3"
                   >
-                    <span className="font-mono text-[10px] uppercase tracking-wider text-[#2C3480] font-bold block">
+                    <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--color-accent)] font-semibold block">
                       {item.category}
                     </span>
-                    <h3 className="font-display text-xl text-[#000000]">
+                    <h3 className="font-display text-xl text-[var(--color-ink-primary)]">
                       {item.title}
                     </h3>
-                    <p className="font-sans text-xs text-[#555555] leading-relaxed">
+                    <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
                       {item.description}
                     </p>
                   </div>
@@ -858,26 +849,26 @@ export default async function HomePage() {
               </div>
 
               {/* GitHub Activity & Mission Summary Card */}
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-8 border border-[#E5E5E5] bg-white p-8 md:p-10">
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-6 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] p-8">
                 <div className="md:col-span-5 space-y-4">
-                  <span className="font-mono text-xs uppercase tracking-wider text-[#2C3480] font-bold block">
+                  <span className="font-mono text-xs uppercase tracking-wider text-[var(--color-accent)] font-semibold block">
                     OPEN SOURCE ACTIVITY
                   </span>
-                  <h3 className="font-display text-2xl sm:text-3xl text-[#000000]">
+                  <h3 className="font-display text-2xl text-[var(--color-ink-primary)]">
                     GitHub Engineering Hub
                   </h3>
-                  <div className="space-y-2.5 font-mono text-xs text-[#555555]">
-                    <div className="flex justify-between py-1.5 border-b border-[#E5E5E5]">
+                  <div className="space-y-2 font-mono text-xs text-[var(--color-ink-secondary)]">
+                    <div className="flex justify-between py-1 border-b border-[var(--color-hairline)]">
                       <span>GitHub:</span>
-                      <span className="font-semibold text-[#000000]">@shivam-shukla888</span>
+                      <span className="font-semibold text-[var(--color-ink-primary)]">@shivam-shukla888</span>
                     </div>
-                    <div className="flex justify-between py-1.5 border-b border-[#E5E5E5]">
+                    <div className="flex justify-between py-1 border-b border-[var(--color-hairline)]">
                       <span>Primary Stack:</span>
-                      <span className="font-semibold text-[#000000]">Python, AI Agents, Java, SQL</span>
+                      <span className="font-semibold text-[var(--color-ink-primary)]">Python, AI Agents, Java, SQL</span>
                     </div>
-                    <div className="flex justify-between py-1.5 border-b border-[#E5E5E5]">
+                    <div className="flex justify-between py-1 border-b border-[var(--color-hairline)]">
                       <span>Featured Work:</span>
-                      <span className="font-semibold text-[#000000]">Yojna Setu, RealGuard, QuickEats</span>
+                      <span className="font-semibold text-[var(--color-ink-primary)]">Yojna Setu, RealGuard, QuickEats</span>
                     </div>
                   </div>
                   <div className="pt-2">
@@ -885,7 +876,7 @@ export default async function HomePage() {
                       href="https://github.com/shivam-shukla888"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-mono text-xs uppercase tracking-wider text-[#000000] hover:text-[#2C3480] transition-colors inline-flex items-center gap-1.5"
+                      className="font-mono text-xs uppercase tracking-wider text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors inline-flex items-center gap-1.5"
                     >
                       <span>Explore GitHub Profile</span>
                       <span>↗</span>
@@ -893,20 +884,20 @@ export default async function HomePage() {
                   </div>
                 </div>
 
-                <div className="md:col-span-7 space-y-4 md:border-l md:border-[#E5E5E5] md:pl-8 flex flex-col justify-between">
+                <div className="md:col-span-7 space-y-4 md:border-l md:border-[var(--color-hairline)] md:pl-8 flex flex-col justify-between">
                   <div className="space-y-3">
-                    <span className="font-mono text-xs uppercase tracking-wider text-[#2C3480] font-bold block">
+                    <span className="font-mono text-xs uppercase tracking-wider text-[var(--color-accent)] font-semibold block">
                       MISSION
                     </span>
-                    <h3 className="font-display text-2xl sm:text-3xl text-[#000000]">
+                    <h3 className="font-display text-2xl text-[var(--color-ink-primary)]">
                       Practical Systems Over AI Demos
                     </h3>
-                    <p className="font-sans text-sm sm:text-base text-[#555555] leading-relaxed">
+                    <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
                       I believe language models must be coupled with deterministic application logic. Conversational LLMs interpret unstructured user intent, while deterministic code and relational models enforce validation, compliance, and authoritative calculations.
                     </p>
                   </div>
 
-                  <div className="pt-4 flex flex-wrap items-center gap-4 border-t border-[#E5E5E5]">
+                  <div className="pt-4 flex flex-wrap items-center gap-4 border-t border-[var(--color-hairline)]">
                     <Link
                       href="/resume"
                       className={buttonStyles({
@@ -919,7 +910,7 @@ export default async function HomePage() {
                     </Link>
                     <Link
                       href="/contact"
-                      className="font-mono text-xs uppercase tracking-wider text-[#555555] hover:text-[#000000] transition-colors"
+                      className="font-mono text-xs uppercase tracking-wider text-[var(--color-ink-secondary)] hover:text-[var(--color-ink-primary)] transition-colors"
                     >
                       Get in Touch →
                     </Link>
@@ -932,44 +923,41 @@ export default async function HomePage() {
       </section>
 
       {/* =======================================================
-          9. CONTACT (Strategic Pure Black Section)
+          9. CONTACT
           ======================================================= */}
-      <section id="contact" className="w-full bg-[#000000] text-white py-20 md:py-32 border-b border-[#1F1F1F]">
+      <section id="contact" className="w-full bg-[var(--color-surface-dark)] text-white py-20 md:py-32">
         <HomeSectionReveal>
           <SectionContainer>
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-              <div className="lg:col-span-5 space-y-6">
-                <div className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-[#2C3480] inline-block" />
-                  <SectionLabel name="Contact" index="08 / CONTACT" dark />
-                </div>
+              <div className="lg:col-span-5 space-y-5">
+                <SectionLabel name="Contact" dark />
                 <h2 className="font-display text-4xl sm:text-5xl font-normal tracking-tight text-white leading-tight">
                   Get in Touch
                 </h2>
-                <p className="font-mono text-xs text-[#8E9BFF] font-semibold uppercase tracking-wider">
+                <p className="font-sans text-xs text-[var(--color-accent)] font-medium">
                   Direct inquiry for software engineering roles &amp; select projects.
                 </p>
-                <p className="font-sans text-sm text-[#888888] leading-relaxed max-w-md">
+                <p className="font-sans text-sm text-[var(--color-dark-ink-secondary)] leading-relaxed max-w-md">
                   {profile.contactInstructions}
                 </p>
-                <div className="pt-2 space-y-3 font-mono text-xs text-[#888888]">
+                <div className="pt-2 space-y-2 font-mono text-xs text-[var(--color-dark-ink-secondary)]">
                   {profile.email && (
-                    <div className="flex items-center gap-2">
-                      <span className="text-[#8E9BFF] uppercase tracking-wider text-[11px] font-semibold">Email:</span>
+                    <div>
+                      <span className="text-[var(--color-accent)] uppercase tracking-wider text-[10px]">Email: </span>
                       <a
                         href={`mailto:${profile.email}`}
-                        className="text-white hover:text-[#8E9BFF] transition-colors underline underline-offset-4 break-all"
+                        className="hover:text-white transition-colors underline break-all"
                       >
                         {profile.email}
                       </a>
                     </div>
                   )}
                   {profile.phone && (
-                    <div className="flex items-center gap-2">
-                      <span className="text-[#8E9BFF] uppercase tracking-wider text-[11px] font-semibold">Phone:</span>
+                    <div>
+                      <span className="text-[var(--color-accent)] uppercase tracking-wider text-[10px]">Phone: </span>
                       <a
                         href={`tel:${profile.phone}`}
-                        className="text-white hover:text-[#8E9BFF] transition-colors underline underline-offset-4"
+                        className="hover:text-white transition-colors underline"
                       >
                         {profile.phone}
                       </a>
@@ -977,13 +965,13 @@ export default async function HomePage() {
                   )}
                 </div>
 
-                <div className="pt-4 flex flex-wrap items-center gap-4">
+                <div className="pt-4 flex flex-wrap items-center gap-3">
                   <Link
                     href="/resume"
                     className={buttonStyles({
                       variant: "dark-inverse",
                       size: "md",
-                      className: "font-mono uppercase tracking-wider text-xs group",
+                      className: "group",
                     })}
                   >
                     <span>Resume</span>
@@ -993,7 +981,7 @@ export default async function HomePage() {
                   </Link>
                   <Link
                     href="/contact"
-                    className="font-mono text-xs uppercase tracking-wider px-4 py-2.5 border border-[#222222] text-[#888888] hover:text-white hover:border-[#444444] transition-colors"
+                    className="font-mono text-xs uppercase tracking-wider px-4 py-2 border border-[var(--color-dark-hairline)] text-[var(--color-dark-ink-secondary)] hover:text-white hover:border-white transition-colors"
                   >
                     Full Contact Page →
                   </Link>

@@ -319,7 +319,7 @@ export function ProductCheckoutAction({
           email: cleanEmail,
         },
         theme: {
-          color: "#2C3480",
+          color: "#D45A2A",
         },
         handler: async (paymentResponse: RazorpayResponse) => {
           // Critical rule: Browser callback is NOT verification.

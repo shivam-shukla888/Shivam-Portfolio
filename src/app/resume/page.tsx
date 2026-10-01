@@ -123,7 +123,7 @@ export default function ResumePage() {
               </div>
 
               {/* High-Fidelity Visual Preview Frame */}
-              <div className="border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] overflow-hidden">
+              <div className="border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] shadow-sm overflow-hidden">
                 <div className="p-2 sm:p-4 bg-[var(--color-canvas-secondary)] border-b border-[var(--color-hairline)] flex items-center justify-between font-mono text-[11px] text-[var(--color-ink-secondary)]">
                   <span>Authentic Document Preview</span>
                   <div className="flex items-center gap-2">

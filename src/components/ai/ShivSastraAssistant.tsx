@@ -177,16 +177,16 @@ export function ShivSastraAssistant() {
           {/* Subtle Speech Pill / Indicator */}
           <div
             className={cn(
-              "px-3 py-1.5 bg-white border border-[#E5E5E5]",
-              "group-hover:border-[#2C3480] shadow-sm",
+              "px-2.5 py-1 bg-[var(--color-canvas-primary)] border border-[var(--color-hairline)]",
+              "group-hover:border-[var(--color-ink-primary)] shadow-sm",
               "flex items-center gap-1.5 transition-all duration-200",
-              "text-[#000000] font-mono text-[10px] uppercase tracking-wider",
-              isOpen && "border-[#2C3480] text-[#2C3480]"
+              "text-[var(--color-ink-primary)] font-mono text-[10px] uppercase tracking-wider",
+              isOpen && "border-[var(--color-accent)] text-[var(--color-accent)]"
             )}
           >
             <span
               className={cn(
-                "w-1.5 h-1.5 bg-[#2C3480] inline-block transition-transform duration-200",
+                "w-1.5 h-1.5 bg-[var(--color-accent)] inline-block transition-transform duration-200",
                 isOpen ? "rotate-45" : "rotate-0"
               )}
               aria-hidden="true"
@@ -194,7 +194,7 @@ export function ShivSastraAssistant() {
             <span>{isOpen ? "Close" : "Ask SHIVSASTRA"}</span>
           </div>
 
-          {/* Original SHIVSASTRA mascot */}
+          {/* Original SHIVSASTRA mascot, created specifically for the portfolio. */}
           <div
             className={cn(
               "relative transition-transform duration-200 group-hover:scale-105 group-active:scale-95",
@@ -206,7 +206,7 @@ export function ShivSastraAssistant() {
         </button>
       </div>
 
-      {/* Mobile Mascot Trigger: Compact, clean floating pill */}
+      {/* Mobile Mascot Trigger: Compact, unobtrusive floating pill */}
       <div className="fixed bottom-4 right-4 z-40 sm:hidden">
         <button
           type="button"
@@ -216,10 +216,10 @@ export function ShivSastraAssistant() {
           aria-label={isOpen ? "Close SHIVSASTRA Assistant" : "Ask SHIVSASTRA"}
           className={cn(
             "h-10 px-3 flex items-center gap-2",
-            "bg-white border border-[#E5E5E5]",
-            "text-[#000000] font-mono text-[10px] tracking-wider uppercase",
-            "active:scale-95 shadow-md focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#2C3480]",
-            isOpen && "border-[#2C3480] text-[#2C3480]"
+            "bg-[var(--color-canvas-primary)] border border-[var(--color-hairline)]",
+            "text-[var(--color-ink-primary)] font-mono text-[10px] tracking-wider uppercase",
+            "active:scale-95 shadow-md focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]",
+            isOpen && "border-[var(--color-accent)]"
           )}
         >
           <ShivSastraMascot isOpen={isOpen} size="sm" />
@@ -240,25 +240,25 @@ export function ShivSastraAssistant() {
             "bottom-20 right-5 sm:bottom-22 sm:right-8",
             "w-[calc(100vw-2.5rem)] sm:w-[440px] max-w-[480px]",
             "h-[560px] max-h-[calc(100vh-7rem)]",
-            "bg-white border border-[#E5E5E5]",
-            "shadow-2xl"
+            "bg-[var(--color-canvas-primary)] border border-[var(--color-hairline)]",
+            "shadow-xl"
           )}
         >
           {/* Panel Header */}
-          <header className="px-5 py-4 border-b border-[#E5E5E5] bg-white flex items-center justify-between">
+          <header className="px-5 py-4 border-b border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] flex items-center justify-between">
             <div>
               <div className="flex items-center gap-2">
                 <span
-                  className="w-1.5 h-1.5 bg-[#2C3480] inline-block"
+                  className="w-1.5 h-1.5 bg-[var(--color-accent)] inline-block"
                   aria-hidden="true"
                 />
-                <span className="font-mono text-[10px] text-[#2C3480] tracking-widest uppercase font-semibold">
+                <span className="font-mono text-[10px] text-[var(--color-accent)] tracking-widest uppercase">
                   AI Assistant
                 </span>
               </div>
               <h2
                 id="shivsastra-ai-title"
-                className="font-display text-base text-[#000000] font-normal tracking-tight mt-0.5"
+                className="font-display text-base text-[var(--color-ink-primary)] font-normal tracking-tight mt-0.5"
               >
                 Portfolio Assistant
               </h2>
@@ -269,7 +269,7 @@ export function ShivSastraAssistant() {
                 <button
                   type="button"
                   onClick={clearChat}
-                  className="text-[10px] font-mono text-[#555555] hover:text-[#000000] px-2 py-1 border border-transparent hover:border-[#E5E5E5] transition-colors"
+                  className="text-[10px] font-mono text-[var(--color-ink-secondary)] hover:text-[var(--color-ink-primary)] px-2 py-1 border border-transparent hover:border-[var(--color-hairline)] transition-colors"
                   title="Clear conversation"
                 >
                   Reset
@@ -279,7 +279,7 @@ export function ShivSastraAssistant() {
                 type="button"
                 onClick={() => setIsOpen(false)}
                 aria-label="Close Assistant"
-                className="w-8 h-8 flex items-center justify-center border border-[#E5E5E5] text-[#555555] hover:border-[#2C3480] hover:text-[#2C3480] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#2C3480]"
+                className="w-8 h-8 flex items-center justify-center border border-[var(--color-hairline)] text-[var(--color-ink-secondary)] hover:border-[var(--color-ink-primary)] hover:text-[var(--color-ink-primary)] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
               >
                 <span className="text-sm leading-none font-mono">✕</span>
               </button>
@@ -287,24 +287,24 @@ export function ShivSastraAssistant() {
           </header>
 
           {/* Panel Messages Area */}
-          <div className="flex-1 overflow-y-auto px-5 py-4 space-y-4 bg-white">
+          <div className="flex-1 overflow-y-auto px-5 py-4 space-y-4">
             {/* 3.3 Initial Editorial State */}
             {messages.length === 0 && (
               <div className="py-4 space-y-4">
                 <div className="space-y-1">
-                  <span className="font-mono text-[10px] uppercase tracking-[0.08em] text-[#555555]">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.08em] text-[var(--color-ink-secondary)]">
                     Ask a Question
                   </span>
-                  <p className="font-display text-sm italic text-[#000000]">
+                  <p className="font-display text-sm italic text-[var(--color-ink-primary)]">
                     Ask a question about my work, projects, or services.
                   </p>
-                  <p className="text-xs text-[#555555] leading-relaxed pt-1">
+                  <p className="text-xs text-[var(--color-ink-secondary)] leading-relaxed pt-1">
                     Grounded in verified SHIVSASTRA portfolio content, with unknown information explicitly handled instead of invented.
                   </p>
                 </div>
 
                 <div className="pt-2 space-y-2">
-                  <span className="font-mono text-[10px] uppercase tracking-wider text-[#555555] block font-semibold">
+                  <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--color-ink-secondary)] block">
                     Suggested Questions
                   </span>
                   <div className="flex flex-col gap-1.5">
@@ -313,10 +313,10 @@ export function ShivSastraAssistant() {
                         key={prompt}
                         type="button"
                         onClick={() => handleSendMessage(prompt)}
-                        className="text-left px-3 py-2 text-xs font-sans bg-[#F8F9FA] hover:bg-[#F4F5FB] text-[#000000] border border-[#E5E5E5] hover:border-[#2C3480] transition-colors duration-150 flex items-center justify-between group"
+                        className="text-left px-3 py-2 text-xs font-sans bg-[var(--color-canvas-secondary)] hover:bg-[var(--color-canvas-secondary)]/70 text-[var(--color-ink-primary)] border border-[var(--color-hairline)] hover:border-[var(--color-ink-primary)] transition-colors duration-150 flex items-center justify-between group"
                       >
                         <span>{prompt}</span>
-                        <span className="text-[10px] font-mono text-[#2C3480] opacity-70 group-hover:opacity-100 transition-opacity">
+                        <span className="text-[10px] font-mono text-[var(--color-accent)] opacity-70 group-hover:opacity-100 transition-opacity">
                           →
                         </span>
                       </button>
@@ -335,12 +335,12 @@ export function ShivSastraAssistant() {
                   msg.role === "user" ? "ml-6" : "mr-2"
                 )}
               >
-                <div className="flex items-center gap-2 text-[10px] font-mono text-[#555555] uppercase tracking-wider">
+                <div className="flex items-center gap-2 text-[10px] font-mono text-[var(--color-ink-secondary)] uppercase tracking-wider">
                   {msg.role === "user" ? (
-                    <span className="ml-auto font-semibold text-[#2C3480]">Visitor</span>
+                    <span className="ml-auto">Visitor</span>
                   ) : (
                     <>
-                      <span className="w-1.5 h-1.5 bg-[#2C3480] inline-block" />
+                      <span className="w-1.5 h-1.5 bg-[var(--color-accent)] inline-block" />
                       <span>Assistant</span>
                     </>
                   )}
@@ -350,8 +350,8 @@ export function ShivSastraAssistant() {
                   className={cn(
                     "p-3.5 border",
                     msg.role === "user"
-                      ? "bg-[#2C3480] border-[#2C3480] text-white"
-                      : "bg-[#F8F9FA] border-[#E5E5E5] text-[#111111]"
+                      ? "bg-[var(--color-canvas-secondary)] border-[var(--color-hairline)] text-[var(--color-ink-primary)]"
+                      : "bg-[var(--color-canvas-primary)] border-[var(--color-hairline)]"
                   )}
                 >
                   {msg.role === "user" ? (
@@ -368,15 +368,15 @@ export function ShivSastraAssistant() {
             {/* 3.4 Sending State Indicator */}
             {status === "sending" && (
               <div className="space-y-1 mr-2">
-                <div className="flex items-center gap-2 text-[10px] font-mono text-[#2C3480] uppercase tracking-wider">
-                  <span className="w-1.5 h-1.5 bg-[#2C3480] inline-block animate-pulse" />
+                <div className="flex items-center gap-2 text-[10px] font-mono text-[var(--color-accent)] uppercase tracking-wider">
+                  <span className="w-1.5 h-1.5 bg-[var(--color-accent)] inline-block animate-pulse" />
                   <span>Thinking...</span>
                 </div>
-                <div className="p-3.5 bg-[#F8F9FA] border border-[#E5E5E5]">
+                <div className="p-3.5 bg-[var(--color-canvas-primary)] border border-[var(--color-hairline)]">
                   <div className="flex items-center gap-1.5 py-1">
-                    <span className="w-1.5 h-1.5 bg-[#2C3480]/60 animate-bounce" />
-                    <span className="w-1.5 h-1.5 bg-[#2C3480]/60 animate-bounce [animation-delay:150ms]" />
-                    <span className="w-1.5 h-1.5 bg-[#2C3480]/60 animate-bounce [animation-delay:300ms]" />
+                    <span className="w-1.5 h-1.5 bg-[var(--color-ink-secondary)]/50 animate-bounce" />
+                    <span className="w-1.5 h-1.5 bg-[var(--color-ink-secondary)]/50 animate-bounce [animation-delay:150ms]" />
+                    <span className="w-1.5 h-1.5 bg-[var(--color-ink-secondary)]/50 animate-bounce [animation-delay:300ms]" />
                   </div>
                 </div>
               </div>
@@ -386,9 +386,9 @@ export function ShivSastraAssistant() {
             {errorMessage && (
               <div
                 role="alert"
-                className="p-3 bg-[#F8F9FA] border border-[#2C3480] text-xs text-[#000000] space-y-1"
+                className="p-3 bg-[var(--color-canvas-secondary)] border border-[var(--color-accent)] text-xs text-[var(--color-ink-primary)] space-y-1"
               >
-                <div className="font-mono text-[10px] uppercase tracking-wider text-[#2C3480] font-semibold">
+                <div className="font-mono text-[10px] uppercase tracking-wider text-[var(--color-accent)] font-semibold">
                   {status === "rate_limited" ? "Rate Limited" : "Notice"}
                 </div>
                 <p>{errorMessage}</p>
@@ -399,7 +399,7 @@ export function ShivSastraAssistant() {
           </div>
 
           {/* Panel Input Area */}
-          <footer className="p-3 border-t border-[#E5E5E5] bg-white">
+          <footer className="p-3 border-t border-[var(--color-hairline)] bg-[var(--color-canvas-primary)]">
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -420,25 +420,25 @@ export function ShivSastraAssistant() {
                   aria-label="Your question for ShivSastra AI"
                   className={cn(
                     "w-full p-2.5 text-xs font-sans resize-none",
-                    "bg-white border border-[#E5E5E5]",
-                    "text-[#000000] placeholder:text-[#888888]",
-                    "focus:border-[#2C3480] focus-visible:outline-none",
+                    "bg-[var(--color-canvas-primary)] border border-[var(--color-hairline)]",
+                    "text-[var(--color-ink-primary)] placeholder:text-[var(--color-ink-secondary)]/70",
+                    "focus:border-[var(--color-ink-primary)] focus-visible:outline-none",
                     "disabled:opacity-50"
                   )}
                 />
               </div>
 
-              <div className="flex items-center justify-between text-[10px] font-mono text-[#555555]">
+              <div className="flex items-center justify-between text-[10px] font-mono text-[var(--color-ink-secondary)]">
                 <span>Enter ↵ to send • Shift+Enter for newline</span>
                 <button
                   type="submit"
                   disabled={!inputValue.trim() || status === "sending"}
                   className={cn(
-                    "px-3.5 py-1.5 border font-mono text-[10px] uppercase tracking-wider",
+                    "px-3 py-1.5 border border-[var(--color-hairline)] font-mono text-[10px] uppercase tracking-wider",
                     "transition-colors duration-150",
                     inputValue.trim() && status !== "sending"
-                      ? "bg-[#2C3480] text-white border-[#2C3480] hover:bg-[#000000] hover:border-[#000000] cursor-pointer"
-                      : "border-[#E5E5E5] opacity-40 cursor-not-allowed"
+                      ? "bg-[var(--color-ink-primary)] text-white hover:bg-[var(--color-accent)] hover:border-[var(--color-accent)] cursor-pointer"
+                      : "opacity-40 cursor-not-allowed"
                   )}
                 >
                   {status === "sending" ? "Sending..." : "Send"}

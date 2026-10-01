@@ -44,7 +44,7 @@ ShivSastra is a full-stack platform that combines a personal portfolio, a digita
 - **Display Serif:** Newsreader
 - **Body Sans:** Inter
 - **Metadata Mono:** JetBrains Mono
-- **Palette:** White canvas (`#FFFFFF`, 60-70%), dramatic Black (`#000000`, 20-30%), Cobalt Blue Deep accent (`#2C3480`, 5-10%), hairline borders, sharp 0px geometry
+- **Palette:** 80%+ warm ivory canvas (`#FAF9F6`), carbon ink (`#111112`), terracotta ember accent (`#D45A2A`), sharp 0px geometry
 
 ## Architecture
 

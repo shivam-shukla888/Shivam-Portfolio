@@ -9,8 +9,13 @@ interface ShivSastraMascotProps {
 
 /**
  * ShivSastra Companion Mascot (Astra-Cat)
- * Art-directed geometric design object for the portfolio.
- * Black, White, and Cobalt Blue Deep (#2C3480) aesthetic.
+ * Original SHIVSASTRA mascot, created specifically for the portfolio.
+ * Features:
+ * - Angular/geometric robotic feline ears with cybernetic sensor fins
+ * - Curved hexagonal faceplate visor with soft cyan data-eyes
+ * - Titanium and deep lapis-blue casing (#1E3A8A / #2563EB)
+ * - Minimalist copper power core (ShivSastra hexagon prism)
+ * - Floating thruster pods
  */
 export function ShivSastraMascot({
   isOpen,
@@ -38,89 +43,89 @@ export function ShivSastraMascot({
         xmlns="http://www.w3.org/2000/svg"
         className="w-full h-full drop-shadow-sm transition-transform duration-300 motion-reduce:transform-none"
       >
-        {/* Hover / Ground Shadow */}
+        {/* Hover / Glow Base */}
         <ellipse
           cx="50"
           cy="92"
           rx="22"
           ry="4"
-          fill="#000000"
-          opacity="0.15"
+          fill="var(--color-ink-primary)"
+          opacity="0.12"
           className="transition-all duration-300"
         />
 
         {/* Back Ears / Sensor Fins */}
         <polygon
           points="24,36 12,12 36,22"
-          fill="#000000"
-          stroke="#000000"
+          fill="#1E40AF"
+          stroke="#0F172A"
           strokeWidth="2.5"
           strokeLinejoin="round"
         />
         <polygon
           points="26,32 18,17 34,24"
-          fill="#2C3480"
-          opacity="0.9"
+          fill="#D45A2A"
+          opacity="0.85"
         />
 
         <polygon
           points="76,36 88,12 64,22"
-          fill="#000000"
-          stroke="#000000"
+          fill="#1E40AF"
+          stroke="#0F172A"
           strokeWidth="2.5"
           strokeLinejoin="round"
         />
         <polygon
           points="74,32 82,17 66,24"
-          fill="#2C3480"
-          opacity="0.9"
+          fill="#D45A2A"
+          opacity="0.85"
         />
 
-        {/* Robotic Head Structure - Deep Black */}
+        {/* Robotic Head Structure */}
         <rect
           x="18"
           y="20"
           width="64"
           height="52"
           rx="24"
-          fill="#000000"
-          stroke="#000000"
-          strokeWidth="2"
+          fill="#2563EB"
+          stroke="#0F172A"
+          strokeWidth="2.5"
         />
 
-        {/* Face Visor Plate - Crisp Pure White */}
+        {/* Face Visor Plate */}
         <rect
           x="26"
           y="29"
           width="48"
           height="36"
           rx="14"
-          fill="#FFFFFF"
-          stroke="#E5E5E5"
-          strokeWidth="1.5"
+          fill="#FAF9F6"
+          stroke="#0F172A"
+          strokeWidth="2"
         />
 
         {/* Expressive Digital Eyes / Sensor Bars */}
         {isOpen ? (
-          // Active listening state (Cobalt Blue focus)
+          // Alert / Active listening eyes (focus state)
           <g>
             <path
               d="M34 44 Q39 40 44 44"
-              stroke="#2C3480"
+              stroke="#D45A2A"
               strokeWidth="3"
               strokeLinecap="round"
               fill="none"
             />
             <path
               d="M56 44 Q61 40 66 44"
-              stroke="#2C3480"
+              stroke="#D45A2A"
               strokeWidth="3"
               strokeLinecap="round"
               fill="none"
             />
           </g>
         ) : (
-          // Poised neutral state
+          // Friendly neutral digital visor eyes
           <g>
             <rect
               x="34"
@@ -128,9 +133,9 @@ export function ShivSastraMascot({
               width="9"
               height="6"
               rx="3"
-              fill="#000000"
+              fill="#0F172A"
             />
-            <circle cx="36.5" cy="42" r="1.5" fill="#2C3480" />
+            <circle cx="36.5" cy="42" r="1.5" fill="#38BDF8" />
 
             <rect
               x="57"
@@ -138,19 +143,19 @@ export function ShivSastraMascot({
               width="9"
               height="6"
               rx="3"
-              fill="#000000"
+              fill="#0F172A"
             />
-            <circle cx="59.5" cy="42" r="1.5" fill="#2C3480" />
+            <circle cx="59.5" cy="42" r="1.5" fill="#38BDF8" />
           </g>
         )}
 
-        {/* Subtle Cyber Whisker Sensors (Geometric hairline lines) */}
+        {/* Subtle Cyber Whisker Sensors (Geometric lines) */}
         <line
           x1="28"
           y1="49"
           x2="20"
           y2="47"
-          stroke="#888888"
+          stroke="#64748B"
           strokeWidth="1.5"
           strokeLinecap="round"
         />
@@ -159,7 +164,7 @@ export function ShivSastraMascot({
           y1="53"
           x2="21"
           y2="55"
-          stroke="#888888"
+          stroke="#64748B"
           strokeWidth="1.5"
           strokeLinecap="round"
         />
@@ -169,7 +174,7 @@ export function ShivSastraMascot({
           y1="49"
           x2="80"
           y2="47"
-          stroke="#888888"
+          stroke="#64748B"
           strokeWidth="1.5"
           strokeLinecap="round"
         />
@@ -178,60 +183,60 @@ export function ShivSastraMascot({
           y1="53"
           x2="79"
           y2="55"
-          stroke="#888888"
+          stroke="#64748B"
           strokeWidth="1.5"
           strokeLinecap="round"
         />
 
-        {/* Nose & Mouth Line */}
-        <circle cx="50" cy="48" r="2" fill="#2C3480" />
+        {/* Robotic Nose & Mouth Line */}
+        <circle cx="50" cy="48" r="2" fill="#D45A2A" />
         <path
           d="M50 50 V55 M46 55 Q50 58 54 55"
-          stroke="#000000"
+          stroke="#0F172A"
           strokeWidth="1.5"
           strokeLinecap="round"
           fill="none"
         />
 
-        {/* Chassis Neck Joint */}
+        {/* Cyber Collar / Chassis Neck Joint */}
         <rect
           x="32"
           y="70"
           width="36"
           height="5"
           rx="2.5"
-          fill="#000000"
+          fill="#0F172A"
         />
 
-        {/* ShivSastra Hexagonal Cobalt Sensor Core */}
+        {/* ShivSastra Hexagonal Sensor Core (NOT a bell) */}
         <polygon
           points="50,71 55,74 55,80 50,83 45,80 45,74"
-          fill="#2C3480"
-          stroke="#000000"
+          fill="#D45A2A"
+          stroke="#0F172A"
           strokeWidth="1.5"
         />
-        <circle cx="50" cy="77" r="1.5" fill="#FFFFFF" />
+        <circle cx="50" cy="77" r="1.5" fill="#FAF9F6" />
 
-        {/* Base Pods */}
+        {/* Compact Torso / Hover Pods */}
         <rect
           x="30"
           y="76"
           width="40"
           height="14"
           rx="7"
-          fill="#000000"
-          stroke="#000000"
+          fill="#1E40AF"
+          stroke="#0F172A"
           strokeWidth="2"
         />
-        {/* Core Indicator */}
+        {/* Soft Core Indicator */}
         <rect
           x="38"
           y="81"
           width="24"
           height="4"
           rx="2"
-          fill="#2C3480"
-          opacity="0.9"
+          fill="#38BDF8"
+          opacity="0.7"
         />
       </svg>
     </div>

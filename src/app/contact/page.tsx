@@ -78,7 +78,7 @@ export default async function ContactPage() {
                       src="/images/shivam-shukla.jpg"
                       alt={profile.fullName}
                       fill
-                      className="object-cover grayscale contrast-[1.05]"
+                      className="object-cover"
                       sizes="56px"
                     />
                   </div>
