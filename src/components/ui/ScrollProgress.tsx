@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 
 /**
  * Editorial Scroll Progress Bar
- * Restrained 1.5px Terracotta Ember (#D45A2A) indicator anchored below sticky header.
+ * Restrained 1.5px Cobalt Blue Deep (#2C3480) indicator anchored below sticky header.
  * Uses transform-based scaleX and passive RAF scroll listener.
  */
 export function ScrollProgress() {

@@ -17,7 +17,7 @@ export default async function Image() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          backgroundColor: "#111112",
+          backgroundColor: "#000000",
           padding: "60px 70px",
           fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
           position: "relative",
@@ -31,7 +31,7 @@ export default async function Image() {
             left: 24,
             right: 24,
             bottom: 24,
-            border: "1px solid #262628",
+            border: "1px solid #1F1F1F",
             pointerEvents: "none",
           }}
         />
@@ -48,17 +48,17 @@ export default async function Image() {
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <div
               style={{
-                width: "8px",
-                height: "8px",
-                backgroundColor: "#D45A2A",
+                width: "10px",
+                height: "10px",
+                backgroundColor: "#2C3480",
               }}
             />
             <span
               style={{
                 fontSize: 16,
                 fontWeight: 600,
-                color: "#FAF9F6",
-                letterSpacing: "0.12em",
+                color: "#FFFFFF",
+                letterSpacing: "0.14em",
                 textTransform: "uppercase",
               }}
             >
@@ -70,11 +70,11 @@ export default async function Image() {
             style={{
               fontSize: 13,
               fontFamily: "monospace",
-              color: "#8E8D88",
+              color: "#888888",
               letterSpacing: "0.08em",
             }}
           >
-            STUDIO MONOGRAPH
+            DIGITAL HEADQUARTERS
           </span>
         </div>
 
@@ -84,7 +84,7 @@ export default async function Image() {
             style={{
               fontSize: 72,
               fontWeight: 400,
-              color: "#FAF9F6",
+              color: "#FFFFFF",
               margin: 0,
               letterSpacing: "-0.03em",
               lineHeight: 1.05,
@@ -94,26 +94,26 @@ export default async function Image() {
           </h1>
           <p
             style={{
-              fontSize: 24,
-              fontWeight: 500,
-              color: "#D45A2A",
+              fontSize: 22,
+              fontWeight: 600,
+              color: "#8E9BFF",
               margin: 0,
               letterSpacing: "0.08em",
               textTransform: "uppercase",
             }}
           >
-            Backend Systems · Agentic AI · AI Security
+            AI Agents · AI Security · Digital Products
           </p>
           <p
             style={{
               fontSize: 18,
-              color: "#8E8D88",
+              color: "#888888",
               margin: 0,
               maxWidth: "780px",
               lineHeight: 1.5,
             }}
           >
-            Personal digital headquarters, system architecture monographs, and independent digital studio releases.
+            Personal digital headquarters, system architecture monographs, and independent engineering studio releases.
           </p>
         </div>
 
@@ -124,7 +124,7 @@ export default async function Image() {
             alignItems: "center",
             justifyContent: "space-between",
             width: "100%",
-            borderTop: "1px solid #262628",
+            borderTop: "1px solid #1F1F1F",
             paddingTop: "24px",
           }}
         >
@@ -132,7 +132,7 @@ export default async function Image() {
             style={{
               fontSize: 14,
               fontFamily: "monospace",
-              color: "#8E8D88",
+              color: "#888888",
               letterSpacing: "0.04em",
             }}
           >
@@ -141,11 +141,11 @@ export default async function Image() {
           <span
             style={{
               fontSize: 14,
-              color: "#FAF9F6",
+              color: "#FFFFFF",
               fontWeight: 500,
             }}
           >
-            Studio & Architectural Releases →
+            Studio &amp; Architectural Releases →
           </span>
         </div>
       </div>

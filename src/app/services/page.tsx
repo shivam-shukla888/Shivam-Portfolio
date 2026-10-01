@@ -68,152 +68,128 @@ export default async function ServicesPage() {
             </div>
           </InnerPageEntrance>
 
-          {/* Service Grid: Real Published Services or Refined Domain Positioning */}
+          {/* Service Rows: Real Published Services or Refined Domain Positioning */}
           <InnerPageEntrance delayIndex={1}>
             <div>
             {services.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[var(--color-hairline)] border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)]">
-              {services.map((service) => (
-                <div
-                  key={service.id}
-                  className="p-8 space-y-6 flex flex-col justify-between"
-                >
-                  <div className="space-y-4">
-                    {service.programCode && (
-                      <span className="font-mono text-xs text-[var(--color-accent)] uppercase tracking-wider block">
-                        {service.programCode}
-                      </span>
-                    )}
-                    <h2 className="font-display text-2xl font-normal text-[var(--color-ink-primary)]">
-                      {service.title}
-                    </h2>
-                    <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
-                      {service.summary}
-                    </p>
-
-                    {service.deliverables && service.deliverables.length > 0 && (
-                      <div className="space-y-2 pt-2 border-t border-[var(--color-hairline)]">
-                        <span className="font-sans text-xs uppercase tracking-[0.08em] text-[var(--color-ink-secondary)] font-medium">
-                          Deliverables
+              <div className="divide-y divide-[#E5E5E5] border-y border-[#E5E5E5]">
+                {services.map((service) => (
+                  <div
+                    key={service.id}
+                    className="py-10 md:py-12 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-start hover:bg-[#F8F9FA] transition-colors duration-200 px-4 -mx-4 group"
+                  >
+                    <div className="md:col-span-1 font-mono text-sm text-[#2C3480] font-bold">
+                      {service.programCode || "01"}
+                    </div>
+                    <div className="md:col-span-4 space-y-2">
+                      <h2 className="font-display text-2xl sm:text-3xl text-[#000000] group-hover:text-[#2C3480] transition-colors">
+                        {service.title}
+                      </h2>
+                      {service.engagementModel && (
+                        <span className="font-mono text-xs text-[#777777] uppercase tracking-wider block">
+                          {service.engagementModel}
                         </span>
-                        <ul className="space-y-1.5 font-sans text-xs text-[var(--color-ink-primary)] list-none">
+                      )}
+                    </div>
+                    <div className="md:col-span-5 space-y-4">
+                      <p className="font-sans text-sm text-[#555555] leading-relaxed">
+                        {service.summary}
+                      </p>
+                      {service.deliverables && service.deliverables.length > 0 && (
+                        <ul className="space-y-1 font-sans text-xs text-[#111111]">
                           {service.deliverables.map((item, dIdx) => (
                             <li key={dIdx} className="flex items-start gap-2">
-                              <span className="text-[var(--color-accent)] select-none">
-                                —
-                              </span>
+                              <span className="text-[#2C3480] font-bold select-none">—</span>
                               <span>{item}</span>
                             </li>
                           ))}
                         </ul>
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="space-y-4 pt-4 border-t border-[var(--color-hairline)]">
-                    {service.engagementModel && (
-                      <div className="font-mono text-xs text-[var(--color-ink-secondary)]">
-                        {service.engagementModel}
-                      </div>
-                    )}
-                    <div>
+                      )}
+                    </div>
+                    <div className="md:col-span-2 flex justify-start md:justify-end">
                       <Link
                         href={`/services/${service.slug}`}
-                        className="inline-flex items-center gap-1.5 font-sans font-medium text-xs text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors group focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
+                        className="font-mono text-xs uppercase tracking-wider text-[#000000] group-hover:text-[#2C3480] transition-colors inline-flex items-center gap-1.5"
                       >
-                        <span>View details</span>
-                        <span className="transition-transform duration-150 group-hover:translate-x-1">
-                          →
-                        </span>
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            /* Practical Deliverables Architecture */
-            <div className="space-y-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {SERVICES_CATALOG.map((srv) => (
-                  <div
-                    key={srv.id}
-                    className="p-8 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] space-y-6 flex flex-col justify-between"
-                  >
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between">
-                        <span className="font-mono text-xs text-[var(--color-accent)] font-semibold uppercase tracking-wider">
-                          {srv.code}
-                        </span>
-                        <span className="font-mono text-[11px] text-[var(--color-ink-secondary)]">
-                          {srv.engagement}
-                        </span>
-                      </div>
-                      <h2 className="font-display text-2xl font-normal text-[var(--color-ink-primary)]">
-                        {srv.title}
-                      </h2>
-                      <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
-                        {srv.summary}
-                      </p>
-
-                      <div className="space-y-2 pt-2 border-t border-[var(--color-hairline)]">
-                        <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--color-accent)] font-semibold block">
-                          Key Deliverables
-                        </span>
-                        <ul className="space-y-1.5 font-sans text-xs text-[var(--color-ink-primary)]">
-                          {srv.deliverables.map((item, dIdx) => (
-                            <li key={dIdx} className="flex items-start gap-2">
-                              <span className="text-[var(--color-accent)] select-none">—</span>
-                              <span>{item}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-
-                    <div className="pt-4 border-t border-[var(--color-hairline)]">
-                      <Link
-                        href={`/contact?subject=${encodeURIComponent(srv.subject)}`}
-                        className="inline-flex items-center gap-1.5 font-sans font-medium text-xs text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors group focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
-                      >
-                        <span>Discuss a Project</span>
-                        <span className="transition-transform duration-150 group-hover:translate-x-1">
-                          →
-                        </span>
+                        <span>Details</span>
+                        <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
                       </Link>
                     </div>
                   </div>
                 ))}
               </div>
-
-              {/* Status Note on Packaged Scopes */}
-              <div className="p-6 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div className="space-y-1">
-                  <span className="font-mono text-xs uppercase tracking-wider text-[var(--color-accent)] font-medium">
-                    Custom Projects
-                  </span>
-                  <p className="font-sans text-xs text-[var(--color-ink-secondary)] max-w-2xl leading-relaxed">
-                    I take on custom development projects and technical consulting directly. If you have a specific system or feature you need built, send me a message with details.
-                  </p>
+            ) : (
+              /* Editorial Service Rows */
+              <div className="space-y-12">
+                <div className="divide-y divide-[#E5E5E5] border-y border-[#E5E5E5]">
+                  {SERVICES_CATALOG.map((srv) => (
+                    <Link
+                      key={srv.id}
+                      href={`/contact?subject=${encodeURIComponent(srv.subject)}`}
+                      className="py-10 md:py-12 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-start hover:bg-[#F8F9FA] transition-colors duration-200 px-4 -mx-4 group block"
+                    >
+                      <div className="md:col-span-1 font-mono text-sm text-[#2C3480] font-bold">
+                        {srv.code}
+                      </div>
+                      <div className="md:col-span-4 space-y-2">
+                        <h2 className="font-display text-2xl sm:text-3xl text-[#000000] group-hover:text-[#2C3480] transition-colors">
+                          {srv.title}
+                        </h2>
+                        <span className="font-mono text-xs text-[#777777] uppercase tracking-wider block">
+                          {srv.engagement}
+                        </span>
+                      </div>
+                      <div className="md:col-span-5 space-y-4">
+                        <p className="font-sans text-sm text-[#555555] leading-relaxed">
+                          {srv.summary}
+                        </p>
+                        <ul className="space-y-1.5 font-sans text-xs text-[#111111]">
+                          {srv.deliverables.map((item, dIdx) => (
+                            <li key={dIdx} className="flex items-start gap-2">
+                              <span className="text-[#2C3480] font-bold select-none">—</span>
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div className="md:col-span-2 flex justify-start md:justify-end">
+                        <span className="font-mono text-xs uppercase tracking-wider text-[#000000] group-hover:text-[#2C3480] transition-colors inline-flex items-center gap-1.5">
+                          <span>Discuss Project</span>
+                          <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
+                        </span>
+                      </div>
+                    </Link>
+                  ))}
                 </div>
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center justify-center font-mono text-xs uppercase tracking-wider px-4 py-2 border border-[var(--color-ink-primary)] text-[var(--color-ink-primary)] hover:bg-[var(--color-ink-primary)] hover:text-[var(--color-canvas-primary)] transition-colors self-start sm:self-auto shrink-0 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
-                >
-                  Get in Touch →
-                </Link>
+
+                {/* Status Note on Packaged Scopes */}
+                <div className="p-8 border border-[#E5E5E5] bg-[#F8F9FA] flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+                  <div className="space-y-1">
+                    <span className="font-mono text-xs uppercase tracking-wider text-[#2C3480] font-semibold block">
+                      Custom Projects
+                    </span>
+                    <p className="font-sans text-xs sm:text-sm text-[#555555] max-w-2xl leading-relaxed">
+                      I take on custom development projects and technical consulting directly. If you have a specific system or feature you need built, send me a message with details.
+                    </p>
+                  </div>
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center justify-center font-mono text-xs uppercase tracking-wider px-5 py-3 border border-[#000000] text-[#000000] hover:bg-[#000000] hover:text-white transition-colors self-start sm:self-auto shrink-0 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#000000]"
+                  >
+                    Get in Touch →
+                  </Link>
+                </div>
               </div>
-            </div>
-          )}
+            )}
             </div>
           </InnerPageEntrance>
 
           {/* Cross-Link Distinction: Services vs Store */}
           <InnerPageEntrance delayIndex={2}>
-            <div className="pt-6 border-t border-[var(--color-hairline)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 font-mono text-xs text-[var(--color-ink-secondary)]">
+            <div className="pt-6 border-t border-[#E5E5E5] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 font-mono text-xs text-[#555555]">
               <Link
                 href="/"
-                className="hover:text-[var(--color-ink-primary)] transition-colors inline-flex items-center gap-1 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
+                className="hover:text-[#000000] transition-colors inline-flex items-center gap-1"
               >
                 <span>← Back to Home</span>
               </Link>
@@ -221,7 +197,7 @@ export default async function ServicesPage() {
                 <span>Store:</span>
                 <Link
                   href="/store"
-                  className="text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors underline underline-offset-4"
+                  className="text-[#000000] hover:text-[#2C3480] transition-colors underline underline-offset-4"
                 >
                   Visit the Store →
                 </Link>

@@ -78,7 +78,7 @@ export default async function AboutPage() {
                     src="/images/shivam-shukla.jpg"
                     alt={`${profile.fullName} — Portrait`}
                     fill
-                    className="object-cover"
+                    className="object-cover grayscale contrast-[1.05] hover:grayscale-0 transition-all duration-500"
                     sizes="(max-width: 768px) 100vw, 360px"
                     priority
                   />
