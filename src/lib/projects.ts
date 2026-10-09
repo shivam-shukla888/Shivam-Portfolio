@@ -196,12 +196,54 @@ QuickEats is an ordering and delivery system engineered to solve critical applic
   liveUrl: null,
   githubUrl: "https://github.com/shivam-shukla888/QuickEats-Ordering-System",
   isFeatured: true,
-  sortOrder: 3,
+  sortOrder: 4,
   publishedAt: "2025-10-20T12:00:00Z",
+};
+
+export const SHIVSASTRA_PROJECT: Project = {
+  id: "shivsastra",
+  slug: "shivsastra",
+  title: "ShivSastra — Digital HQ",
+  editionCode: "SHIV-HQ",
+  summary:
+    "Full-stack digital platform and engineering HQ featuring portfolio, dynamic project CMS, authenticated admin system, digital store with Razorpay checkout, contact workflow, and contextual AI assistant. Engineered with PostgreSQL RLS, secure authentication, API validation, rate limiting, and server-side payment verification architecture.",
+  caseStudyMarkdown: `### Overview
+ShivSastra is a full-stack digital platform and personal engineering HQ featuring portfolio showcases, a dynamic project CMS, an authenticated admin management system, an integrated digital store with Razorpay checkout, an automated contact workflow, and a contextual AI assistant.
+
+### Architecture & Security Highlights
+- **Full-Stack Next.js Architecture**: Server-side rendering (SSR), static optimization, and modular component hierarchy with responsive, high-performance typography.
+- **Authenticated Admin CMS**: Secure credentials-based authentication with session management, role verification, and full CRUD control for projects, services, store items, and lab explorations.
+- **PostgreSQL & Row-Level Security (RLS)**: Fine-grained security policies on Supabase PostgreSQL protecting customer orders, inquiries, and private storage assets.
+- **Server-Side Payment Verification**: Integrated Razorpay checkout with HMAC-SHA256 signature verification, server-side price recalculation, and idempotent webhook handling to eliminate payment spoofing.
+- **Contextual AI Assistant**: Groq API integration bounded by strict system instructions, prompt injection defenses, deterministic input sanitization, and read-only public knowledge context.
+- **Production Defenses**: Distributed IP rate limiting, strict Zod schema validation on all API endpoints, and zero-trust parameter boundaries.
+
+### Implementation Stack
+- **Framework**: Next.js (App Router), TypeScript, React, Tailwind CSS
+- **Database & Auth**: Supabase, PostgreSQL, Row-Level Security (RLS)
+- **Payment & Orders**: Razorpay API, HMAC webhook verification
+- **AI Integration**: Groq API (Llama 3), custom safety & validation layers`,
+  coverImageUrl: "/images/hero-visual.webp",
+  category: "Full-Stack · Systems Architecture",
+  techStack: [
+    "Next.js",
+    "TypeScript",
+    "Supabase",
+    "PostgreSQL",
+    "Razorpay",
+    "Groq API",
+  ],
+  projectYear: 2026,
+  liveUrl: "https://jiosi.online",
+  githubUrl: "https://github.com/shivam-shukla888/Shivam-Portfolio",
+  isFeatured: true,
+  sortOrder: 2,
+  publishedAt: "2026-02-15T12:00:00Z",
 };
 
 export const CANONICAL_PROJECTS: Project[] = [
   YOJNA_SETU_PROJECT,
+  SHIVSASTRA_PROJECT,
   REALGUARD_PROJECT,
   QUICKEATS_PROJECT,
 ];

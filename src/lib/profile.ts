@@ -45,12 +45,12 @@ export const PROFILE_FALLBACK: ProfileDisplayData = {
   fullName: "Shivam Shukla",
   positioningStatement: "AI Agents · AI Security · Automation · Digital Products",
   heroSupportingText:
-    "I build AI agents, automation systems, and developer products. From conversational workflows and backend systems to AI security and practical digital resources.",
+    "AI Engineer and Backend Developer specializing in AI agents, LLM workflows, RAG, Machine Learning, and backend systems. B.Tech Computer Science graduate (2026) with hands-on experience in Python, Java, Spring Boot, REST APIs, PostgreSQL, Docker, AWS, and Supabase.",
   aboutMarkdown:
-    "I build software products, AI agent workflows, and automation systems with a focus on AI security. I care about building practical systems rather than AI demos — separating language extraction from deterministic backend logic. While Java and Spring Boot form my core engineering background, Python drives my current work with LLM APIs, agent orchestration, and developer tooling. Along the way, I turn repeatable engineering patterns into open developer templates and digital resources.",
+    "AI Engineer and Backend Developer specializing in AI agents, LLM workflows, RAG, Machine Learning, and backend systems. B.Tech Computer Science graduate (2026) with hands-on experience in Python, Java, Spring Boot, REST APIs, PostgreSQL, Docker, AWS, and Supabase. Skilled at building production-oriented AI applications by separating LLM processing from deterministic application logic.",
   contactInstructions:
     "Have a project in mind or want to collaborate? Send me a message with details, and I'll get back to you promptly.",
-  availabilityStatus: "Available for Software Engineering Roles & Select Client Projects",
+  availabilityStatus: "Available for Software Engineering, AI Engineering & Select Client Projects",
   email: "theshivamshukla.4uu@gmail.com",
   phone: "8887780625",
   contraUrl: "https://contra.com/shivam_shukla_7duxsdr7/work",

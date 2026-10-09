@@ -120,6 +120,22 @@ Public Email: ${profile.email || "Not listed"}
 Phone: ${profile.phone || "Not listed"}
 Availability Status: ${profile.availabilityStatus || "Inquire via contact page"}
 Contact Instructions: ${profile.contactInstructions}
+Verified Work Experience:
+- AI/ML Intern at Nexvia Technologies (Oct 2026 – Present, Remote): Real-world AI and Machine Learning engineering workflows, collaboration, and professional software practices.
+- Full Stack Development Intern at Auspify Technologies (Sep 2026 – Oct 2026, Remote): Software feature development, technical research, and documentation.
+- Software Engineer Intern at Soft Pro (Jul 2025 – Sep 2025, Noida, India): Developed backend REST APIs with Java 17, Spring Boot 3, MVC, OOP, MySQL, and Hibernate ORM (~20% lower response times); Postman testing and 15+ defect resolutions.
+Verified Education:
+- B.Tech in Computer Science and Engineering (70%, 2022 – 2026), Shri Ram Murti Smarak College of Engineering, Technology & Research (SRMS CET&R), Bareilly, affiliated to Dr. A.P.J. Abdul Kalam Technical University (AKTU), Lucknow.
+- Senior Secondary, CBSE (70%, 2021), Nav Jeevan Mission School, Kushinagar, India.
+Verified Certifications:
+- AWS Cloud Practitioner Essentials (AWS Training & Certification)
+- Advanced Software Engineering Job Simulation (Walmart Global Tech / Forage)
+Verified Technical Skills:
+- Backend: Java, Spring Boot, REST APIs, Hibernate ORM, MVC, OOP
+- AI / ML: Python, Agentic AI, LLM Integration, RAG, Tool Calling, Groq API, Machine Learning
+- Databases: PostgreSQL, MySQL, SQL, Supabase
+- Cloud & DevOps: AWS, Docker, CI/CD, Cloud Deployment, Linux
+- Tools: Git, GitHub, Postman, Maven
 Verified Profiles:
 - Contra: ${profile.contraUrl || "None"}
 - LinkedIn: ${profile.linkedinUrl || "None"}

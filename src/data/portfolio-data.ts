@@ -80,49 +80,56 @@ export const CERTIFICATIONS: CertificationItem[] = [
 
 export const SKILL_CATEGORIES: SkillCategory[] = [
   {
-    title: "AI & Agents",
-    description: "Practical agent workflows, tool-calling pipelines, and retrieval-grounded generation.",
-    skills: [
-      { name: "AI Agents", tier: "Core" },
-      { name: "LLM Integration", tier: "Core" },
-      { name: "Tool Calling", tier: "Core" },
-      { name: "RAG", tier: "Working" },
-      { name: "AI Automation", tier: "Core" },
-    ],
-  },
-  {
-    title: "AI Security",
-    description: "Defensive controls, input/output validation, and safe data boundaries for AI applications.",
-    skills: [
-      { name: "Prompt Injection Defense", tier: "Core" },
-      { name: "Input / Output Validation", tier: "Core" },
-      { name: "Data Isolation", tier: "Core" },
-      { name: "Secure AI Workflows", tier: "Core" },
-      { name: "AI Gateway Concepts", tier: "Working" },
-    ],
-  },
-  {
-    title: "Software",
-    description: "Core backend engineering, API contracts, and relational persistence.",
+    title: "AI / ML & Agents",
+    description: "Agentic AI workflows, LLM orchestration, RAG, tool calling, and machine learning models.",
     skills: [
       { name: "Python", icon: "/images/tech/python.svg", tier: "Core" },
+      { name: "Agentic AI", tier: "Core" },
+      { name: "LLM Integration", tier: "Core" },
+      { name: "RAG", tier: "Core" },
+      { name: "Tool Calling", tier: "Core" },
+      { name: "Groq API", tier: "Core" },
+      { name: "Machine Learning", tier: "Working" },
+    ],
+  },
+  {
+    title: "Backend Engineering",
+    description: "Robust REST APIs, clean MVC architectures, OOP principles, and ORM persistence.",
+    skills: [
       { name: "Java", icon: "/images/tech/java.svg", tier: "Core" },
       { name: "Spring Boot", icon: "/images/tech/spring.svg", tier: "Core" },
       { name: "REST APIs", tier: "Core" },
-      { name: "PostgreSQL / MySQL", icon: "/images/tech/mysql.webp", tier: "Core" },
+      { name: "Hibernate ORM", icon: "/images/tech/hibernate.svg", tier: "Core" },
+      { name: "MVC Architecture", tier: "Core" },
+      { name: "OOP", tier: "Core" },
     ],
   },
   {
-    title: "Product",
-    description: "Digital resources, developer templates, and practical web architectures.",
+    title: "Databases & Cloud",
+    description: "Relational persistence, cloud deployments, containerization, and data isolation.",
     skills: [
-      { name: "Digital Products", tier: "Core" },
-      { name: "Developer Templates", tier: "Core" },
-      { name: "Architecture Resources", tier: "Core" },
-      { name: "Interactive Web Experiences", tier: "Working" },
+      { name: "PostgreSQL", icon: "/images/tech/mysql.webp", tier: "Core" },
+      { name: "MySQL", icon: "/images/tech/mysql.webp", tier: "Core" },
+      { name: "SQL", tier: "Core" },
+      { name: "Supabase", tier: "Core" },
+      { name: "AWS", tier: "Working" },
+      { name: "Docker", tier: "Working" },
+      { name: "CI/CD & Linux", tier: "Working" },
+    ],
+  },
+  {
+    title: "Tools & DevOps",
+    description: "Version control, automated build systems, API contract testing, and security controls.",
+    skills: [
+      { name: "Git", tier: "Core" },
+      { name: "GitHub", tier: "Core" },
+      { name: "Postman", tier: "Core" },
+      { name: "Maven", tier: "Core" },
+      { name: "AI Security & Guardrails", tier: "Core" },
     ],
   },
 ];
+
 
 export const SERVICES_CATALOG: ServiceItem[] = [
   {

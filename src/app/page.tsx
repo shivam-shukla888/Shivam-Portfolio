@@ -74,8 +74,8 @@ export default async function HomePage() {
     getPublishedProjects(),
   ]);
 
-  // Featured 3 projects: Yojna Setu, RealGuard, QuickEats
-  const selectedProjects = allProjects.slice(0, 3);
+  // Featured projects: Yojna Setu, ShivSastra, RealGuard, QuickEats
+  const selectedProjects = allProjects.slice(0, 4);
 
   // Verified social profiles for Schema.org Person structured data
   const verifiedSameAs = [
@@ -291,10 +291,10 @@ export default async function HomePage() {
                       Shipped Systems
                     </span>
                     <h3 className="font-display text-lg text-[var(--color-ink-primary)]">
-                      3 Working Systems
+                      Shipped Systems
                     </h3>
                     <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
-                      Built Yojna Setu (AI + deterministic rules), RealGuard (AI automation), and QuickEats (AI-assisted product engineering &amp; security).
+                      Built Yojna Setu (AI + deterministic rules), ShivSastra (digital platform &amp; store), RealGuard (AI automation), and QuickEats (product engineering &amp; security).
                     </p>
                   </div>
                 </div>
@@ -869,7 +869,7 @@ export default async function HomePage() {
                     </div>
                     <div className="flex justify-between py-1 border-b border-[var(--color-hairline)]">
                       <span>Featured Work:</span>
-                      <span className="font-semibold text-[var(--color-ink-primary)]">Yojna Setu, RealGuard, QuickEats</span>
+                      <span className="font-semibold text-[var(--color-ink-primary)]">Yojna Setu, ShivSastra, QuickEats</span>
                     </div>
                   </div>
                   <div className="pt-2">

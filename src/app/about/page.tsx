@@ -105,10 +105,10 @@ export default async function AboutPage() {
                     &ldquo;I build software products, AI agents, and automation systems — prioritizing AI security and deterministic application logic over flashy demos.&rdquo;
                   </p>
                   <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
-                    I&apos;m a software builder and 2026 Computer Science Engineering graduate. I build practical software products, working with AI agent workflows, tool calling, and workflow automation. I care deeply about AI security — ensuring that user inputs are validated, data boundaries are preserved, and language models never execute authoritative transactions without deterministic controls.
+                    I&apos;m an AI Engineer and Backend Developer (2026 Computer Science Engineering graduate). I specialize in AI agents, LLM workflows, RAG, Machine Learning, and backend systems with hands-on experience in Python, Java, Spring Boot, REST APIs, PostgreSQL, Docker, AWS, and Supabase. I care deeply about building production-oriented AI applications by separating language model processing from deterministic application logic.
                   </p>
                   <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
-                    Backend engineering is the foundation of everything I build. Java and Spring Boot form my core systems background from coursework and internship experience, while Python is my primary programming language for current work in AI agent integration, LLM pipelines, and automation scripting. Along the way, I turn repeatable engineering patterns into open developer templates and digital resources.
+                    Backend engineering forms the core foundation of everything I build. Java, Spring Boot, REST APIs, and relational databases provide the structural reliability, while Python powers my work with AI agent orchestration, tool calling pipelines, and machine learning workflows. Along the way, I turn repeatable engineering patterns into open developer templates and digital resources.
                   </p>
                 </div>
 
@@ -143,21 +143,57 @@ export default async function AboutPage() {
               </div>
 
               <div className="space-y-6">
-                {/* 2025: Soft Pro */}
+                {/* Oct 2026 - Present: Nexvia Technologies */}
                 <div className="border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] p-6 md:p-8 space-y-3">
                   <div className="flex flex-wrap items-baseline justify-between gap-2">
                     <h3 className="font-display text-xl text-[var(--color-ink-primary)]">
-                      Java with Spring Boot Intern
+                      AI/ML Intern
                     </h3>
                     <span className="font-mono text-xs text-[var(--color-accent)] font-semibold">
-                      2025
+                      Oct 2026 – Present
                     </span>
                   </div>
                   <p className="font-mono text-xs text-[var(--color-ink-secondary)]">
-                    Soft Pro · Software Engineering Internship
+                    Nexvia Technologies · Remote
                   </p>
                   <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
-                    Developed RESTful APIs using Java and Spring Boot following MVC architecture. Configured MySQL with Hibernate ORM, implemented entity mappings, and participated in Agile development cycles.
+                    Working on real-world AI and Machine Learning projects with exposure to engineering workflows, tools, collaboration, documentation, and professional software practices.
+                  </p>
+                </div>
+
+                {/* Sep 2026 - Oct 2026: Auspify Technologies */}
+                <div className="border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] p-6 md:p-8 space-y-3">
+                  <div className="flex flex-wrap items-baseline justify-between gap-2">
+                    <h3 className="font-display text-xl text-[var(--color-ink-primary)]">
+                      Full Stack Development Intern
+                    </h3>
+                    <span className="font-mono text-xs text-[var(--color-accent)] font-semibold">
+                      Sep 2026 – Oct 2026
+                    </span>
+                  </div>
+                  <p className="font-mono text-xs text-[var(--color-ink-secondary)]">
+                    Auspify Technologies · Remote
+                  </p>
+                  <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
+                    Contributed to real-time software projects involving feature development, technical research, documentation, and project support with the development team.
+                  </p>
+                </div>
+
+                {/* Jul 2025 - Sep 2025: Soft Pro */}
+                <div className="border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] p-6 md:p-8 space-y-3">
+                  <div className="flex flex-wrap items-baseline justify-between gap-2">
+                    <h3 className="font-display text-xl text-[var(--color-ink-primary)]">
+                      Software Engineer Intern
+                    </h3>
+                    <span className="font-mono text-xs text-[var(--color-accent)] font-semibold">
+                      Jul 2025 – Sep 2025
+                    </span>
+                  </div>
+                  <p className="font-mono text-xs text-[var(--color-ink-secondary)]">
+                    Soft Pro · Noida, India
+                  </p>
+                  <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
+                    Developed backend REST APIs using Java 17, Spring Boot 3, MVC, OOP, MySQL, and Hibernate ORM; optimized API workflows contributing to approximately 20% lower response time. Implemented global exception handling, tested APIs with Postman, and resolved 15+ backend defects.
                   </p>
                   <div className="pt-2">
                     <a
@@ -176,17 +212,20 @@ export default async function AboutPage() {
                 <div className="border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] p-6 md:p-8 space-y-3">
                   <div className="flex flex-wrap items-baseline justify-between gap-2">
                     <h3 className="font-display text-xl text-[var(--color-ink-primary)]">
-                      B.Tech in Computer Science &amp; Engineering
+                      B.Tech in Computer Science &amp; Engineering (70%)
                     </h3>
                     <span className="font-mono text-xs text-[var(--color-accent)] font-semibold">
                       2022 – 2026
                     </span>
                   </div>
                   <p className="font-mono text-xs text-[var(--color-ink-secondary)]">
-                    SRMS College of Engineering, Technology &amp; Research, Bareilly (AKTU)
+                    Shri Ram Murti Smarak College of Engineering, Technology &amp; Research, Bareilly, India
+                  </p>
+                  <p className="font-sans text-xs text-[var(--color-accent)] font-medium">
+                    Affiliated to Dr. A.P.J. Abdul Kalam Technical University (AKTU), Lucknow
                   </p>
                   <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
-                    Completed Computer Science Engineering (2026) with focus on backend development, systems design, and AI integrations. Built three full applications (Yojna Setu, RealGuard, and QuickEats) during undergraduate studies using Java, Spring Boot, relational databases, and LLM APIs.
+                    Completed Computer Science Engineering (2026) with 70% aggregate. Specialized in backend engineering, agentic AI, LLM pipelines, and application security. Built three production-grade systems (Yojna Setu, ShivSastra, and QuickEats) during undergraduate studies.
                   </p>
                 </div>
 
@@ -194,17 +233,17 @@ export default async function AboutPage() {
                 <div className="border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] p-6 md:p-8 space-y-3">
                   <div className="flex flex-wrap items-baseline justify-between gap-2">
                     <h3 className="font-display text-xl text-[var(--color-ink-primary)]">
-                      Senior Secondary (CBSE)
+                      Senior Secondary, CBSE (70%)
                     </h3>
                     <span className="font-mono text-xs text-[var(--color-accent)] font-semibold">
                       2021
                     </span>
                   </div>
                   <p className="font-mono text-xs text-[var(--color-ink-secondary)]">
-                    Nav Jeevan Mission School
+                    Nav Jeevan Mission School, Kushinagar, India
                   </p>
                   <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
-                    Completed Senior Secondary education with a strong foundation in science and mathematics, preparing for higher education in engineering.
+                    Completed Senior Secondary education with a 70% score, establishing strong analytical foundations in science and mathematics.
                   </p>
                 </div>
               </div>

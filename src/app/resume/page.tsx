@@ -11,14 +11,14 @@ import { absoluteUrl } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Resume — Shivam Shukla",
   description:
-    "Resume of Shivam Shukla — AI Engineer, AI Agents and Backend Engineering.",
+    "Resume of Shivam Shukla — AI Engineer and Backend Developer specializing in AI agents, LLM workflows, RAG, Machine Learning, and backend systems.",
   alternates: {
     canonical: absoluteUrl("/resume"),
   },
   openGraph: {
     title: "Resume — Shivam Shukla",
     description:
-      "Resume of Shivam Shukla — AI Engineer, AI Agents and Backend Engineering.",
+      "Resume of Shivam Shukla — AI Engineer and Backend Developer specializing in AI agents, LLM workflows, RAG, Machine Learning, and backend systems.",
     url: absoluteUrl("/resume"),
     type: "profile",
     images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Shivam Shukla — Resume" }],
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Resume — Shivam Shukla",
     description:
-      "Resume of Shivam Shukla — AI Engineer, AI Agents and Backend Engineering.",
+      "Resume of Shivam Shukla — AI Engineer and Backend Developer specializing in AI agents, LLM workflows, RAG, Machine Learning, and backend systems.",
   },
 };
 
@@ -57,7 +57,7 @@ export default function ResumePage() {
                     Resume
                   </h1>
                   <p className="font-sans text-xs sm:text-sm text-[var(--color-accent)] font-medium">
-                    AI Engineer · AI Agents · Backend Engineering
+                    Agentic AI · Backend Engineering · AI Systems
                   </p>
                 </div>
                 {/* Authoritative Action Links */}
