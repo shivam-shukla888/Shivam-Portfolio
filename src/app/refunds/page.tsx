@@ -7,18 +7,20 @@ import { InnerPageEntrance } from "@/components/layout/InnerPageEntrance";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { BackToTop } from "@/components/ui/BackToTop";
 
+import { absoluteUrl } from "@/lib/site";
+
 export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Refund Policy — Shivam Shukla",
   description: "Refund and cancellation policy for digital products and custom engineering engagements on SHIVSASTRA.",
   alternates: {
-    canonical: "https://shivsastra.vercel.app/refunds",
+    canonical: absoluteUrl("/refunds"),
   },
   openGraph: {
     title: "Refund Policy — Shivam Shukla",
     description: "Refund and cancellation policy for digital products and custom engineering engagements on SHIVSASTRA.",
-    url: "https://shivsastra.vercel.app/refunds",
+    url: absoluteUrl("/refunds"),
     type: "website",
   },
   twitter: {

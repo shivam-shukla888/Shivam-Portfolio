@@ -112,7 +112,13 @@ async function runStoreCheckoutTests() {
 
   // 6. Delivery Token: High-entropy generation and deterministic hashing
   const tokenPair = generateDeliveryToken();
-  assert(typeof tokenPair.token === "string" && tokenPair.token.length === 64, "Delivery token is 64 hex characters (32 bytes entropy)");
+  const [tokenSecret, tokenExpiry] = tokenPair.token.split(".");
+  assert(
+    typeof tokenPair.token === "string" &&
+      tokenSecret.length === 64 &&
+      !isNaN(parseInt(tokenExpiry, 10)),
+    "Delivery token contains 64 hex characters (32 bytes entropy) and embedded expiration timestamp"
+  );
   assert(tokenPair.hash === hashDeliveryToken(tokenPair.token), "hashDeliveryToken returns consistent SHA-256 digest");
   assert(verifyDeliveryToken(tokenPair.token, tokenPair.hash) === true, "verifyDeliveryToken returns true for authentic token/hash pair");
   assert(verifyDeliveryToken("tampered-token", tokenPair.hash) === false, "verifyDeliveryToken returns false for forged token");

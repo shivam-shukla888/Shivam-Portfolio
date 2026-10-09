@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { verifyWebhookSignature } from "@/lib/payments/razorpay";
 import { getOrderByRazorpayOrderId, markOrderPaidAndFulfill, logStoreEvent } from "@/lib/orders";
+import { SITE_URL } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
 
@@ -97,7 +98,7 @@ export async function POST(req: NextRequest) {
       }
 
       // Idempotent fulfillment
-      const origin = req.nextUrl.origin || "https://shivsastra.com";
+      const origin = req.nextUrl.origin && req.nextUrl.origin !== "null" ? req.nextUrl.origin : SITE_URL;
       const fulfillment = await markOrderPaidAndFulfill({
         orderId: order.id,
         razorpayPaymentId,

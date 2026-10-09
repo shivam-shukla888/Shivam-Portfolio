@@ -11,12 +11,18 @@ import {
   getPublishedProductReviews,
   StoreCategory,
 } from "@/lib/products";
+import { absoluteUrl, serializeJsonLd } from "@/lib/site";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { BackToTop } from "@/components/ui/BackToTop";
 import { ProductFaqAccordion } from "@/components/store/ProductFaqAccordion";
 import { ProductCheckoutAction } from "@/components/store/ProductCheckoutAction";
 
 export const revalidate = 60;
+
+export async function generateStaticParams() {
+  const products = await getPublishedStoreProducts();
+  return products.map((p) => ({ slug: p.slug }));
+}
 
 interface ProductPageProps {
   params: Promise<{
@@ -55,7 +61,7 @@ export async function generateMetadata({
       product.description ||
       "Digital product by Shivam Shukla.",
     alternates: {
-      canonical: `https://shivsastra.vercel.app/store/${slug}`,
+      canonical: absoluteUrl(`/store/${slug}`),
     },
     openGraph: {
       title: `${product.title} — Store`,
@@ -63,9 +69,9 @@ export async function generateMetadata({
         product.shortDescription ||
         product.description ||
         "Digital product by Shivam Shukla.",
-      url: `https://shivsastra.vercel.app/store/${slug}`,
+      url: absoluteUrl(`/store/${slug}`),
       type: "website",
-      images: product.previewImageUrl ? [{ url: product.previewImageUrl }] : undefined,
+      images: product.previewImageUrl ? [{ url: absoluteUrl(product.previewImageUrl) }] : undefined,
     },
     twitter: {
       card: "summary_large_image",
@@ -109,14 +115,14 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
     "@type": "Product",
     name: product.title,
     description: product.shortDescription || product.description || undefined,
-    image: product.previewImageUrl || undefined,
+    image: product.previewImageUrl ? absoluteUrl(product.previewImageUrl) : undefined,
     category: categoryName,
     offers: {
       "@type": "Offer",
       price: product.priceInCents !== null ? (product.priceInCents / 100).toFixed(2) : undefined,
       priceCurrency: product.currency || "INR",
       availability: product.isAvailable ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
-      url: `https://shivsastra.vercel.app/store/${slug}`,
+      url: absoluteUrl(`/store/${slug}`),
     },
   };
 
@@ -143,25 +149,25 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://shivsastra.vercel.app",
+        item: absoluteUrl("/"),
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Store",
-        item: "https://shivsastra.vercel.app/store",
+        item: absoluteUrl("/store"),
       },
       {
         "@type": "ListItem",
         position: 3,
         name: categoryName,
-        item: `https://shivsastra.vercel.app${categoryHref}`,
+        item: absoluteUrl(categoryHref),
       },
       {
         "@type": "ListItem",
         position: 4,
         name: product.title,
-        item: `https://shivsastra.vercel.app/store/${product.slug}`,
+        item: absoluteUrl(`/store/${product.slug}`),
       },
     ],
   };
@@ -170,11 +176,11 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
     <article className="w-full pt-16 md:pt-24 pb-20 md:pb-28">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(productJsonLd) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbJsonLd) }}
       />
       <ScrollProgress />
       <BackToTop />
@@ -221,7 +227,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                   </div>
                   <div className="flex items-center gap-3">
                     <span className="font-mono text-xs text-[var(--color-ink-secondary)] uppercase tracking-wider">
-                      {product.productType.replace("_", " ")}
+                      {(product.productType || "digital_download").replace(/_/g, " ")}
                     </span>
                     {updatedDate && (
                       <span className="font-mono text-xs text-[var(--color-ink-secondary)] border-l border-[var(--color-hairline)] pl-3">

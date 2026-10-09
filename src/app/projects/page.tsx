@@ -7,6 +7,8 @@ import { PageBackground } from "@/components/ui/PageBackground";
 import { InnerPageEntrance } from "@/components/layout/InnerPageEntrance";
 import { getPublishedProjects } from "@/lib/projects";
 
+import { absoluteUrl } from "@/lib/site";
+
 export const revalidate = 60;
 
 export const metadata: Metadata = {
@@ -14,13 +16,13 @@ export const metadata: Metadata = {
   description:
     "Verified software systems, AI agents, and engineering builds by Shivam Shukla — AI agents, automation, and security.",
   alternates: {
-    canonical: "https://shivsastra.vercel.app/projects",
+    canonical: absoluteUrl("/projects"),
   },
   openGraph: {
     title: "Work & Projects — Shivam Shukla",
     description:
       "Verified software systems, AI agents, and engineering builds by Shivam Shukla — AI agents, automation, and security.",
-    url: "https://shivsastra.vercel.app/projects",
+    url: absoluteUrl("/projects"),
     type: "website",
   },
   twitter: {

@@ -42,6 +42,8 @@ export interface InnerPageEntranceProps {
  * - Respects OS-level prefers-reduced-motion via root MotionConfig and useReducedMotion.
  * - Zero CLS, zero layout animation, zero continuous loops.
  */
+const emptySubscribe = () => () => {};
+
 export function InnerPageEntrance({
   children,
   className = "",
@@ -52,6 +54,11 @@ export function InnerPageEntrance({
   as = "div",
 }: InnerPageEntranceProps) {
   const shouldReduceMotion = useReducedMotion();
+  const isMounted = React.useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  );
 
   const computedDelay = delay !== undefined ? delay : Math.max(0, delayIndex) * 0.06;
 
@@ -74,7 +81,7 @@ export function InnerPageEntrance({
 
   return (
     <Component
-      initial={{ opacity: 0, y }}
+      initial={isMounted ? { opacity: 0, y } : false}
       animate={{ opacity: 1, y: 0 }}
       transition={{
         duration,

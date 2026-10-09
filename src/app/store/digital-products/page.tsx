@@ -9,6 +9,8 @@ import {
 } from "@/lib/products";
 import { StoreCatalogView } from "@/components/store/StoreCatalogView";
 
+import { absoluteUrl } from "@/lib/site";
+
 export const revalidate = 60;
 
 export const metadata = {
@@ -16,13 +18,13 @@ export const metadata = {
   description:
     "Code starter repos, developer templates, and technical downloads by Shivam Shukla.",
   alternates: {
-    canonical: "https://shivsastra.vercel.app/store/digital-products",
+    canonical: absoluteUrl("/store/digital-products"),
   },
   openGraph: {
     title: "Digital Products — Store",
     description:
       "Code starter repos, developer templates, and technical downloads by Shivam Shukla.",
-    url: "https://shivsastra.vercel.app/store/digital-products",
+    url: absoluteUrl("/store/digital-products"),
     type: "website",
   },
   twitter: {

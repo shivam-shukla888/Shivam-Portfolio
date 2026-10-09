@@ -7,18 +7,20 @@ import { InnerPageEntrance } from "@/components/layout/InnerPageEntrance";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { BackToTop } from "@/components/ui/BackToTop";
 
+import { absoluteUrl } from "@/lib/site";
+
 export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Terms of Service — Shivam Shukla",
   description: "Terms of service, digital licensing, and usage conditions for SHIVSASTRA by Shivam Shukla.",
   alternates: {
-    canonical: "https://shivsastra.vercel.app/terms",
+    canonical: absoluteUrl("/terms"),
   },
   openGraph: {
     title: "Terms of Service — Shivam Shukla",
     description: "Terms of service, digital licensing, and usage conditions for SHIVSASTRA by Shivam Shukla.",
-    url: "https://shivsastra.vercel.app/terms",
+    url: absoluteUrl("/terms"),
     type: "website",
   },
   twitter: {
@@ -69,7 +71,7 @@ export default function TermsPage() {
                 <p>
                   These Terms of Service govern your access to and use of SHIVSASTRA (
                   <span className="font-mono text-xs text-[var(--color-ink-primary)]">
-                    https://shivsastra.vercel.app
+                    https://www.jiosi.online
                   </span>
                   ), including all associated digital products, software templates, services, and content operated by Shivam Shukla.
                 </p>

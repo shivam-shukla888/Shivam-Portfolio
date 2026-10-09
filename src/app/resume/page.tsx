@@ -6,21 +6,22 @@ import { SectionContainer } from "@/components/layout/SectionContainer";
 import { PageBackground } from "@/components/ui/PageBackground";
 import { InnerPageEntrance } from "@/components/layout/InnerPageEntrance";
 import { buttonStyles } from "@/components/ui/Button";
+import { absoluteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Resume — Shivam Shukla",
   description:
     "Resume of Shivam Shukla — AI Engineer, AI Agents and Backend Engineering.",
   alternates: {
-    canonical: "https://shivsastra.vercel.app/resume",
+    canonical: absoluteUrl("/resume"),
   },
   openGraph: {
     title: "Resume — Shivam Shukla",
     description:
       "Resume of Shivam Shukla — AI Engineer, AI Agents and Backend Engineering.",
-    url: "https://shivsastra.vercel.app/resume",
+    url: absoluteUrl("/resume"),
     type: "profile",
-    images: [{ url: "/images/resume-preview.png" }],
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Shivam Shukla — Resume" }],
   },
   twitter: {
     card: "summary_large_image",

@@ -1,14 +1,14 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef } from "react";
 
 /**
  * Editorial Scroll Progress Bar
- * Restrained 1.5px Terracotta Ember (#D45A2A) indicator anchored below sticky header.
- * Uses transform-based scaleX and passive RAF scroll listener.
+ * Restrained 1.5px Terracotta Ember (#B8481D) indicator anchored below sticky header.
+ * Uses direct DOM transform-based scaleX without React component re-renders.
  */
 export function ScrollProgress() {
-  const [progress, setProgress] = useState(0);
+  const barRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let animationFrameId: number;
@@ -17,14 +17,12 @@ export function ScrollProgress() {
       animationFrameId = requestAnimationFrame(() => {
         const totalHeight =
           document.documentElement.scrollHeight - window.innerHeight;
-        if (totalHeight > 0) {
-          const current = Math.min(
-            1,
-            Math.max(0, window.scrollY / totalHeight)
-          );
-          setProgress(current);
-        } else {
-          setProgress(0);
+        const current =
+          totalHeight > 0
+            ? Math.min(1, Math.max(0, window.scrollY / totalHeight))
+            : 0;
+        if (barRef.current) {
+          barRef.current.style.transform = `scaleX(${current})`;
         }
       });
     };
@@ -46,9 +44,10 @@ export function ScrollProgress() {
       className="fixed top-16 left-0 right-0 h-[1.5px] z-40 pointer-events-none motion-reduce:hidden print:hidden"
     >
       <div
-        className="h-full bg-[var(--color-accent)] transition-transform duration-75 ease-out will-change-transform"
+        ref={barRef}
+        className="h-full bg-[var(--color-accent)] will-change-transform"
         style={{
-          transform: `scaleX(${progress})`,
+          transform: "scaleX(0)",
           transformOrigin: "left center",
         }}
       />

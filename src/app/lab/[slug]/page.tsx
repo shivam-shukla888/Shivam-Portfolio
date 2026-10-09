@@ -4,12 +4,18 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { SectionContainer } from "@/components/layout/SectionContainer";
 import { InnerPageEntrance } from "@/components/layout/InnerPageEntrance";
-import { getPublishedLabEntryBySlug } from "@/lib/lab";
+import { getPublishedLabEntryBySlug, getPublishedLabEntries } from "@/lib/lab";
+import { absoluteUrl, serializeJsonLd } from "@/lib/site";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { BackToTop } from "@/components/ui/BackToTop";
 import { CopyButton } from "@/components/ui/CopyButton";
 
 export const revalidate = 60;
+
+export async function generateStaticParams() {
+  const entries = await getPublishedLabEntries();
+  return entries.map((e) => ({ slug: e.slug }));
+}
 
 interface LabDetailPageProps {
   params: Promise<{
@@ -37,12 +43,12 @@ export async function generateMetadata({
     title: `${entry.title} | Lab — Shivam Shukla`,
     description: snippet,
     alternates: {
-      canonical: `https://shivsastra.vercel.app/lab/${entry.slug}`,
+      canonical: absoluteUrl(`/lab/${entry.slug}`),
     },
     openGraph: {
       title: `${entry.title} | Lab — Shivam Shukla`,
       description: snippet,
-      url: `https://shivsastra.com/lab/${entry.slug}`,
+      url: absoluteUrl(`/lab/${entry.slug}`),
       type: "article",
     },
     twitter: {
@@ -153,19 +159,19 @@ export default async function LabDetailPage({ params }: LabDetailPageProps) {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://shivsastra.com",
+        item: absoluteUrl("/"),
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Lab",
-        item: "https://shivsastra.com/lab",
+        item: absoluteUrl("/lab"),
       },
       {
         "@type": "ListItem",
         position: 3,
         name: entry.title,
-        item: `https://shivsastra.com/lab/${entry.slug}`,
+        item: absoluteUrl(`/lab/${entry.slug}`),
       },
     ],
   };
@@ -188,9 +194,10 @@ export default async function LabDetailPage({ params }: LabDetailPageProps) {
 
   return (
     <article className="w-full pt-16 md:pt-24 pb-20 md:pb-28">
-      <script type="application/ld+json">
-        {JSON.stringify(breadcrumbJsonLd)}
-      </script>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbJsonLd) }}
+      />
       <ScrollProgress />
       <BackToTop />
       <SectionContainer>

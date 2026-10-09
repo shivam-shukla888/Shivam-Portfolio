@@ -5,11 +5,17 @@ import type { Metadata } from "next";
 import { SectionContainer } from "@/components/layout/SectionContainer";
 import { buttonStyles } from "@/components/ui/Button";
 import { InnerPageEntrance } from "@/components/layout/InnerPageEntrance";
-import { getPublishedServiceBySlug } from "@/lib/services";
+import { getPublishedServiceBySlug, getPublishedServices } from "@/lib/services";
+import { absoluteUrl, serializeJsonLd } from "@/lib/site";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { BackToTop } from "@/components/ui/BackToTop";
 
 export const revalidate = 60;
+
+export async function generateStaticParams() {
+  const services = await getPublishedServices();
+  return services.map((s) => ({ slug: s.slug }));
+}
 
 interface ServicePageProps {
   params: Promise<{
@@ -33,12 +39,12 @@ export async function generateMetadata({
     title: `${service.title} — Services | Shivam Shukla`,
     description: service.summary || undefined,
     alternates: {
-      canonical: `https://shivsastra.vercel.app/services/${service.slug}`,
+      canonical: absoluteUrl(`/services/${service.slug}`),
     },
     openGraph: {
       title: `${service.title} — Shivam Shukla`,
       description: service.summary || undefined,
-      url: `https://shivsastra.vercel.app/services/${service.slug}`,
+      url: absoluteUrl(`/services/${service.slug}`),
       type: "article",
     },
     twitter: {
@@ -65,19 +71,19 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://shivsastra.vercel.app",
+        item: absoluteUrl("/"),
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Services",
-        item: "https://shivsastra.vercel.app/services",
+        item: absoluteUrl("/services"),
       },
       {
         "@type": "ListItem",
         position: 3,
         name: service.title,
-        item: `https://shivsastra.vercel.app/services/${service.slug}`,
+        item: absoluteUrl(`/services/${service.slug}`),
       },
     ],
   };
@@ -96,7 +102,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
     <article className="w-full pt-16 md:pt-24 pb-20 md:pb-28">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbJsonLd) }}
       />
       <ScrollProgress />
       <BackToTop />

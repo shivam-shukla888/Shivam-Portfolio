@@ -19,6 +19,7 @@ import {
   FOCUS_AREAS,
   DIGITAL_PRODUCTS_PREVIEWS,
 } from "@/data/portfolio-data";
+import { SITE_URL, serializeJsonLd } from "@/lib/site";
 
 export const revalidate = 60;
 
@@ -38,13 +39,13 @@ export const metadata: Metadata = {
     "Software Engineer",
   ],
   alternates: {
-    canonical: "https://shivsastra.vercel.app",
+    canonical: SITE_URL,
   },
   openGraph: {
     title: "Shivam Shukla — AI Agents, AI Security & Developer Products",
     description:
       "I build AI agents, automation systems, and developer products. From conversational workflows and backend systems to AI security and practical digital resources.",
-    url: "https://shivsastra.vercel.app",
+    url: SITE_URL,
     type: "website",
     images: [{ url: "/images/shivam-shukla.jpg" }],
   },
@@ -90,9 +91,9 @@ export default async function HomePage() {
     "@graph": [
       {
         "@type": "Person",
-        "@id": "https://shivsastra.vercel.app/#person",
+        "@id": `${SITE_URL}/#person`,
         name: profile.fullName || "Shivam Shukla",
-        url: "https://shivsastra.vercel.app",
+        url: SITE_URL,
         jobTitle: "AI Agent & Security Builder",
         alumniOf: "SRMS College of Engineering, Technology & Research",
         knowsAbout: [
@@ -113,11 +114,11 @@ export default async function HomePage() {
       },
       {
         "@type": "WebSite",
-        "@id": "https://shivsastra.vercel.app/#website",
-        url: "https://shivsastra.vercel.app",
+        "@id": `${SITE_URL}/#website`,
+        url: SITE_URL,
         name: "SHIVSASTRA",
         publisher: {
-          "@id": "https://shivsastra.vercel.app/#person",
+          "@id": `${SITE_URL}/#person`,
         },
         description:
           "Personal portfolio, engineering archive, and digital resources of Shivam Shukla.",
@@ -130,7 +131,7 @@ export default async function HomePage() {
       {/* Schema.org Structured Data */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
       />
 
       {/* =======================================================

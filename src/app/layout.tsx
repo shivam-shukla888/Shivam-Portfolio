@@ -5,6 +5,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { MotionProvider } from "@/components/motion";
 import { ShivSastraAssistant } from "@/components/ai/ShivSastraAssistant";
+import { SITE_URL } from "@/lib/site";
 
 const newsreader = Newsreader({
   variable: "--font-newsreader",
@@ -47,11 +48,11 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Shivam Shukla" }],
   creator: "Shivam Shukla",
-  metadataBase: new URL("https://shivsastra.vercel.app"),
+  metadataBase: new URL(SITE_URL),
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://shivsastra.vercel.app",
+    url: SITE_URL,
     siteName: "SHIVSASTRA",
     title: "Shivam Shukla — Backend Systems, Agentic AI & AI Security",
     description:

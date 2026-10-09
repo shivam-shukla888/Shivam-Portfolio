@@ -13,6 +13,7 @@ declare global {
         container: string | HTMLElement,
         params: {
           sitekey: string;
+          action?: string;
           theme?: "light" | "dark" | "auto";
           callback?: (token: string) => void;
           "expired-callback"?: () => void;
@@ -77,6 +78,7 @@ export function ContactForm({
     try {
       const widgetId = window.turnstile.render(turnstileContainerRef.current, {
         sitekey: siteKey,
+        action: "contact",
         theme: isDark ? "dark" : "light",
         callback: (token: string) => {
           setTurnstileToken(token);

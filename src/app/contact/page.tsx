@@ -6,6 +6,7 @@ import { PageBackground } from "@/components/ui/PageBackground";
 import { InnerPageEntrance } from "@/components/layout/InnerPageEntrance";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { getProfileSettings } from "@/lib/profile";
+import { absoluteUrl } from "@/lib/site";
 
 export const revalidate = 60;
 
@@ -13,12 +14,12 @@ export const metadata = {
   title: "Contact — Shivam Shukla",
   description: "Have a project in mind? Tell me what you're building.",
   alternates: {
-    canonical: "https://shivsastra.com/contact",
+    canonical: absoluteUrl("/contact"),
   },
   openGraph: {
     title: "Contact — Shivam Shukla",
     description: "Have a project in mind? Tell me what you're building.",
-    url: "https://shivsastra.com/contact",
+    url: absoluteUrl("/contact"),
     type: "website",
   },
   twitter: {

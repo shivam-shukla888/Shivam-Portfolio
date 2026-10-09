@@ -6,8 +6,9 @@
   --color-ink-primary: #111112;
   --color-ink-secondary: #6E6D68;
   --color-hairline: #E6E3DC;
-  --color-accent: #D45A2A;
-  --color-accent-hover: #BA471F;
+  --color-accent: #B8481D;
+  --color-accent-hover: #9C3B14;
+  --color-accent-decorative: #D45A2A;
   --color-surface-dark: #121214;
   --color-dark-hairline: #252528;
   --color-dark-ink-primary: #FFFFFF;
@@ -184,7 +185,7 @@ body {
   }
 
   /* Show URLs for external citations */
-  a[href^="http"]:not([href*="shivsastra.com"])::after {
+  a[href^="http"]:not([href*="jiosi.online"]):not([href*="shivsastra.com"])::after {
     content: " (" attr(href) ")";
     font-size: 0.85em;
     font-family: var(--font-mono);

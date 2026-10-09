@@ -5,18 +5,20 @@ import { PageBackground } from "@/components/ui/PageBackground";
 import { InnerPageEntrance } from "@/components/layout/InnerPageEntrance";
 import { getPublishedLabEntries } from "@/lib/lab";
 
+import { absoluteUrl } from "@/lib/site";
+
 export const revalidate = 60;
 
 export const metadata = {
   title: "Lab — Shivam Shukla",
   description: "Personal sandbox for experimental ideas, software builds, and technical notes.",
   alternates: {
-    canonical: "https://shivsastra.vercel.app/lab",
+    canonical: absoluteUrl("/lab"),
   },
   openGraph: {
     title: "Lab — Shivam Shukla",
     description: "Personal sandbox for experimental ideas, software builds, and technical notes.",
-    url: "https://shivsastra.vercel.app/lab",
+    url: absoluteUrl("/lab"),
     type: "website",
   },
   twitter: {

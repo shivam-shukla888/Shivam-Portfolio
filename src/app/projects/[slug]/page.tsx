@@ -6,13 +6,19 @@ import type { Metadata } from "next";
 import { SectionContainer } from "@/components/layout/SectionContainer";
 import { buttonStyles } from "@/components/ui/Button";
 import { InnerPageEntrance } from "@/components/layout/InnerPageEntrance";
-import { getPublishedProjectBySlug } from "@/lib/projects";
+import { getPublishedProjectBySlug, getPublishedProjects } from "@/lib/projects";
+import { absoluteUrl, serializeJsonLd } from "@/lib/site";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { BackToTop } from "@/components/ui/BackToTop";
 import { YojnaSetuCaseStudy } from "@/components/projects/yojna-setu/YojnaSetuCaseStudy";
 import { CaseStudyBody } from "@/components/projects/CaseStudyBody";
 
 export const revalidate = 60;
+
+export async function generateStaticParams() {
+  const projects = await getPublishedProjects();
+  return projects.map((p) => ({ slug: p.slug }));
+}
 
 interface ProjectPageProps {
   params: Promise<{
@@ -31,15 +37,15 @@ export async function generateMetadata({
       description:
         "AI + deterministic systems welfare discovery platform. Natural language intake coupled with a deterministic rules engine over 82 welfare schemes.",
       alternates: {
-        canonical: "https://shivsastra.vercel.app/projects/yojna-setu",
+        canonical: absoluteUrl("/projects/yojna-setu"),
       },
       openGraph: {
         title: "Yojna Setu — AI + Deterministic Systems | Shivam Shukla",
         description:
           "Conversational scheme discovery system combining multilingual AI extraction with deterministic eligibility rules over 82 normalized welfare programs.",
-        url: "https://shivsastra.vercel.app/projects/yojna-setu",
+        url: absoluteUrl("/projects/yojna-setu"),
         type: "article",
-        images: [{ url: "/images/projects/yojna-setu/cover.svg" }],
+        images: [{ url: absoluteUrl("/images/projects/yojna-setu/cover.svg") }],
       },
       twitter: {
         card: "summary_large_image",
@@ -56,15 +62,15 @@ export async function generateMetadata({
       description:
         "AI automation and conversational workflows for real estate. WhatsApp conversational extraction coupled with deterministic calculations and RERA registry lookup.",
       alternates: {
-        canonical: "https://shivsastra.vercel.app/projects/realguard",
+        canonical: absoluteUrl("/projects/realguard"),
       },
       openGraph: {
         title: "RealGuard — AI Automation & Conversational Workflows | Shivam Shukla",
         description:
           "AI automation and conversational workflows for real estate. WhatsApp conversational extraction coupled with deterministic calculations and RERA registry lookup.",
-        url: "https://shivsastra.vercel.app/projects/realguard",
+        url: absoluteUrl("/projects/realguard"),
         type: "article",
-        images: [{ url: "/images/projects/realguard/realguard.png" }],
+        images: [{ url: absoluteUrl("/images/projects/realguard/realguard.png") }],
       },
       twitter: {
         card: "summary_large_image",
@@ -81,15 +87,15 @@ export async function generateMetadata({
       description:
         "AI-assisted food ordering platform featuring server-side price recalculation, ownership validation, JWT rotation, STOMP WebSockets, and Groq Llama 3.",
       alternates: {
-        canonical: "https://shivsastra.vercel.app/projects/quickeats",
+        canonical: absoluteUrl("/projects/quickeats"),
       },
       openGraph: {
         title: "QuickEats — Product Engineering & App Security | Shivam Shukla",
         description:
           "AI-assisted food ordering platform featuring server-side price recalculation, ownership validation, JWT rotation, STOMP WebSockets, and Groq Llama 3.",
-        url: "https://shivsastra.vercel.app/projects/quickeats",
+        url: absoluteUrl("/projects/quickeats"),
         type: "article",
-        images: [{ url: "/images/projects/quickeats/preview.svg" }],
+        images: [{ url: absoluteUrl("/images/projects/quickeats/preview.svg") }],
       },
       twitter: {
         card: "summary_large_image",
@@ -112,14 +118,14 @@ export async function generateMetadata({
     title: `${project.title} — Projects | Shivam Shukla`,
     description: project.summary || undefined,
     alternates: {
-      canonical: `https://shivsastra.vercel.app/projects/${project.slug}`,
+      canonical: absoluteUrl(`/projects/${project.slug}`),
     },
     openGraph: {
       title: `${project.title} — Shivam Shukla`,
       description: project.summary || undefined,
-      url: `https://shivsastra.vercel.app/projects/${project.slug}`,
+      url: absoluteUrl(`/projects/${project.slug}`),
       type: "article",
-      images: project.coverImageUrl ? [{ url: project.coverImageUrl }] : undefined,
+      images: project.coverImageUrl ? [{ url: absoluteUrl(project.coverImageUrl) }] : undefined,
     },
     twitter: {
       card: "summary_large_image",
@@ -145,19 +151,19 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://shivsastra.vercel.app",
+        item: absoluteUrl("/"),
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Projects",
-        item: "https://shivsastra.vercel.app/projects",
+        item: absoluteUrl("/projects"),
       },
       {
         "@type": "ListItem",
         position: 3,
         name: project.title,
-        item: `https://shivsastra.vercel.app/projects/${project.slug}`,
+        item: absoluteUrl(`/projects/${project.slug}`),
       },
     ],
   };
@@ -173,21 +179,21 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
       author: {
         "@type": "Person",
         name: "Shivam Shukla",
-        url: "https://shivsastra.vercel.app",
+        url: absoluteUrl("/"),
       },
-      url: "https://shivsastra.vercel.app/projects/yojna-setu",
-      image: "https://shivsastra.vercel.app/images/projects/yojna-setu/cover.svg",
+      url: absoluteUrl("/projects/yojna-setu"),
+      image: absoluteUrl("/images/projects/yojna-setu/cover.svg"),
     };
 
     return (
       <>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbJsonLd) }}
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(techArticleJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(techArticleJsonLd) }}
         />
         <YojnaSetuCaseStudy />
       </>
@@ -206,7 +212,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
     <article className="w-full pt-16 md:pt-24 pb-20 md:pb-28">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbJsonLd) }}
       />
       <ScrollProgress />
       <BackToTop />

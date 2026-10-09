@@ -164,19 +164,165 @@ async function runTurnstileSecuritySuite() {
   );
 
   // 9. Missing production secret -> fail closed
-  const prevSecret = process.env.TURNSTILE_SECRET_KEY;
+  const prevSecretKey = process.env.TURNSTILE_SECRET_KEY;
+  const prevSecret = process.env.TURNSTILE_SECRET;
   delete process.env.TURNSTILE_SECRET_KEY;
+  delete process.env.TURNSTILE_SECRET;
   const resMissingSecret = await verifyTurnstileToken("any-token", null, {
     customSecret: undefined,
   });
   assert(
     resMissingSecret.success === false &&
       resMissingSecret.error === "MISSING_SECRET_KEY",
-    "9. Missing production TURNSTILE_SECRET_KEY strictly fails closed"
+    "9. Missing production TURNSTILE_SECRET / TURNSTILE_SECRET_KEY strictly fails closed"
   );
-  if (prevSecret) {
-    process.env.TURNSTILE_SECRET_KEY = prevSecret;
+
+  // 9b. Secret resolved from TURNSTILE_SECRET when TURNSTILE_SECRET_KEY is absent
+  process.env.TURNSTILE_SECRET = dummySecret;
+  const resFromTurnstileSecret = await verifyTurnstileToken("valid-token-secret", null, {
+    customFetcher: createMockFetcher({
+      status: 200,
+      body: {
+        success: true,
+        hostname: "www.jiosi.online",
+      },
+    }),
+  });
+  assert(
+    resFromTurnstileSecret.success === true &&
+      resFromTurnstileSecret.hostname === "www.jiosi.online",
+    "9b. Secret resolution successfully works with TURNSTILE_SECRET"
+  );
+  delete process.env.TURNSTILE_SECRET;
+
+  if (prevSecretKey) {
+    process.env.TURNSTILE_SECRET_KEY = prevSecretKey;
   }
+  if (prevSecret) {
+    process.env.TURNSTILE_SECRET = prevSecret;
+  }
+
+  // 9c. Hostname validation: unauthorized hostname -> rejected
+  const resUnauthorizedHost = await verifyTurnstileToken("valid-token", null, {
+    customSecret: dummySecret,
+    customFetcher: createMockFetcher({
+      status: 200,
+      body: {
+        success: true,
+        hostname: "malicious-phishing-site.com",
+      },
+    }),
+  });
+  assert(
+    resUnauthorizedHost.success === false &&
+      resUnauthorizedHost.error === "UNAUTHORIZED_HOSTNAME",
+    "9c. Hostname mismatch (unauthorized domain) is strictly rejected"
+  );
+
+  // 9d. Canonical Production Hostnames: www.jiosi.online and jiosi.online accepted
+  const resJiosiWww = await verifyTurnstileToken("valid-token", null, {
+    customSecret: dummySecret,
+    customFetcher: createMockFetcher({
+      status: 200,
+      body: {
+        success: true,
+        hostname: "www.jiosi.online",
+      },
+    }),
+  });
+  assert(
+    resJiosiWww.success === true && resJiosiWww.hostname === "www.jiosi.online",
+    "9d-1. Canonical production host 'www.jiosi.online' is strictly accepted"
+  );
+
+  const resJiosiApex = await verifyTurnstileToken("valid-token", null, {
+    customSecret: dummySecret,
+    customFetcher: createMockFetcher({
+      status: 200,
+      body: {
+        success: true,
+        hostname: "jiosi.online",
+      },
+    }),
+  });
+  assert(
+    resJiosiApex.success === true && resJiosiApex.hostname === "jiosi.online",
+    "9d-2. Canonical production host 'jiosi.online' is strictly accepted"
+  );
+
+  // 9e. In production mode (NODE_ENV=production), arbitrary *.vercel.app and localhost are rejected
+  const prevNodeEnv = process.env.NODE_ENV;
+  (process.env as Record<string, string | undefined>).NODE_ENV = "production";
+
+  const resProdVercel = await verifyTurnstileToken("valid-token", null, {
+    customSecret: dummySecret,
+    customFetcher: createMockFetcher({
+      status: 200,
+      body: {
+        success: true,
+        hostname: "arbitrary-preview.vercel.app",
+      },
+    }),
+  });
+  assert(
+    resProdVercel.success === false &&
+      resProdVercel.error === "UNAUTHORIZED_HOSTNAME",
+    "9e-1. In production, arbitrary *.vercel.app is strictly rejected"
+  );
+
+  const resProdLocalhost = await verifyTurnstileToken("valid-token", null, {
+    customSecret: dummySecret,
+    customFetcher: createMockFetcher({
+      status: 200,
+      body: {
+        success: true,
+        hostname: "localhost",
+      },
+    }),
+  });
+  assert(
+    resProdLocalhost.success === false &&
+      resProdLocalhost.error === "UNAUTHORIZED_HOSTNAME",
+    "9e-2. In production, localhost/loopback is strictly rejected"
+  );
+
+  (process.env as Record<string, string | undefined>).NODE_ENV = prevNodeEnv;
+
+  // 9f. Action validation: expected 'contact' action accepted, mismatched action rejected
+  const resActionMatch = await verifyTurnstileToken("valid-token", null, {
+    customSecret: dummySecret,
+    expectedAction: "contact",
+    customFetcher: createMockFetcher({
+      status: 200,
+      body: {
+        success: true,
+        hostname: "www.jiosi.online",
+        action: "contact",
+      },
+    }),
+  });
+  assert(
+    resActionMatch.success === true && resActionMatch.action === "contact",
+    "9f-1. Matching expectedAction ('contact') is accepted"
+  );
+
+  const resActionMismatch = await verifyTurnstileToken("valid-token", null, {
+    customSecret: dummySecret,
+    expectedAction: "contact",
+    customFetcher: createMockFetcher({
+      status: 200,
+      body: {
+        success: true,
+        hostname: "www.jiosi.online",
+        action: "login",
+      },
+    }),
+  });
+  assert(
+    resActionMismatch.success === false &&
+      resActionMismatch.error === "ACTION_MISMATCH",
+    "9f-2. Action mismatch (expected 'contact', received 'login') is strictly rejected"
+  );
 
   // --- SECTION 2: END-TO-END SERVER ACTION INTEGRATION ---
   console.log("\n--- 2. End-to-End Action Verification & Error Sanitation ---");
@@ -194,7 +340,8 @@ async function runTurnstileSecuritySuite() {
   );
   assert(
     actionRes.status === "verification_error" &&
-      actionRes.message === "Verification failed. Please try again.",
+      (actionRes.message === "Please complete the security verification and try again." ||
+        actionRes.message === "Verification failed. Please try again."),
     "10. Submission without valid Turnstile token returns generic user error"
   );
 

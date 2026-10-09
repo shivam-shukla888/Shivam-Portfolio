@@ -127,12 +127,11 @@ export function HeroVisual() {
             style={{ transform: "translateZ(0px)" }}
           >
             <Image
-              src="/images/an-isometric-architectural-3d-vector-artwork-depic.svg"
+              src="/images/hero-visual.webp"
               alt=""
-              width={2048}
-              height={2048}
+              width={880}
+              height={880}
               priority
-              unoptimized
               className="w-full h-full object-contain pointer-events-none select-none"
             />
           </div>

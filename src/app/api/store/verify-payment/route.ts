@@ -2,11 +2,29 @@ import { NextRequest, NextResponse } from "next/server";
 import { verifyPaymentSchema } from "@/lib/validations/checkout";
 import { verifyPaymentSignature, isRazorpayConfigured } from "@/lib/payments/razorpay";
 import { getOrderById, markOrderPaidAndFulfill, logStoreEvent } from "@/lib/orders";
+import {
+  extractClientIp,
+  hashClientIdentifier,
+  checkVerifyPaymentRateLimit,
+} from "@/lib/rate-limit";
+import { SITE_URL } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
 
 export async function POST(req: NextRequest) {
   try {
+    const rawIp = extractClientIp(req.headers);
+    const hashedId = hashClientIdentifier(rawIp);
+
+    // Rate limiting: 15 verification attempts / 10 minutes per IP
+    const rateLimit = await checkVerifyPaymentRateLimit(hashedId);
+    if (!rateLimit.success) {
+      return NextResponse.json(
+        { error: "Verification rate limit exceeded. Please wait a few moments before trying again." },
+        { status: 429 }
+      );
+    }
+
     let rawBody: unknown;
     try {
       rawBody = await req.json();
@@ -81,7 +99,7 @@ export async function POST(req: NextRequest) {
     }
 
     // 6. Transition order to PAID and fulfill digital delivery (idempotent)
-    const origin = req.nextUrl.origin || "https://shivsastra.com";
+    const origin = req.nextUrl.origin && req.nextUrl.origin !== "null" ? req.nextUrl.origin : SITE_URL;
     const fulfillment = await markOrderPaidAndFulfill({
       orderId: internalOrder.id,
       razorpayPaymentId,

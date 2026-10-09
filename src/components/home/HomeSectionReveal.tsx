@@ -20,14 +20,22 @@ const EASE_EDITORIAL = [0.22, 1, 0.36, 1] as const;
  * - Automatically respects OS-level `prefers-reduced-motion` via MotionConfig.
  * - Leaves layout geometry and SectionContainer intact with 0 CLS.
  */
+const emptySubscribe = () => () => {};
+
 export function HomeSectionReveal({
   children,
   className = "",
   delay = 0,
 }: HomeSectionRevealProps) {
+  const isMounted = React.useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  );
+
   return (
     <m.div
-      initial={{ opacity: 0, y: 14 }}
+      initial={isMounted ? { opacity: 0, y: 14 } : false}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.12 }}
       transition={{

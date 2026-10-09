@@ -521,7 +521,7 @@ async function runUpstashRateLimitSuite() {
   // TEST 24: CONTACT ACTION STILL VERIFIES TURNSTILE
   // -------------------------------------------------------------
   assert(
-    contactActionSrc.includes("verifyTurnstileToken(turnstileTokenStr, rawIp)"),
+    contactActionSrc.includes("verifyTurnstileToken(turnstileTokenStr, rawIp"),
     "24. Contact Action actively invokes Cloudflare Turnstile token verification"
   );
 

@@ -8,11 +8,19 @@ import {
   findRecentPendingOrder,
   logStoreEvent,
 } from "@/lib/orders";
+import {
+  extractClientIp,
+  hashClientIdentifier,
+  checkCheckoutRateLimit,
+} from "@/lib/rate-limit";
 
 export const dynamic = "force-dynamic";
 
 export async function POST(req: NextRequest) {
   try {
+    const rawIp = extractClientIp(req.headers);
+    const hashedId = hashClientIdentifier(rawIp);
+
     let rawBody: unknown;
     try {
       rawBody = await req.json();
@@ -31,6 +39,15 @@ export async function POST(req: NextRequest) {
     }
 
     const { productId, email } = parseResult.data;
+
+    // Rate limiting: 10 requests / 10 mins per IP, and 5 orders / hour per email
+    const rateLimit = await checkCheckoutRateLimit(hashedId, email);
+    if (!rateLimit.success) {
+      return NextResponse.json(
+        { error: "Transmission limit reached. Please allow a few minutes before trying again." },
+        { status: 429 }
+      );
+    }
 
     // 2. Load product through server-side product data layer
     const product = await getPublishedStoreProductById(productId);

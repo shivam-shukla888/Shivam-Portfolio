@@ -10,6 +10,8 @@ import {
 import { StoreCatalogView } from "@/components/store/StoreCatalogView";
 import { YojnaSetuShowcase } from "@/components/store/YojnaSetuShowcase";
 
+import { absoluteUrl } from "@/lib/site";
+
 export const revalidate = 60;
 
 export const metadata = {
@@ -17,13 +19,13 @@ export const metadata = {
   description:
     "Agent starter code, tool pipelines, and evaluation workflows by Shivam Shukla.",
   alternates: {
-    canonical: "https://shivsastra.vercel.app/store/ai-agents",
+    canonical: absoluteUrl("/store/ai-agents"),
   },
   openGraph: {
     title: "AI Agents — Store",
     description:
       "Agent starter code, tool pipelines, and evaluation workflows by Shivam Shukla.",
-    url: "https://shivsastra.vercel.app/store/ai-agents",
+    url: absoluteUrl("/store/ai-agents"),
     type: "website",
   },
   twitter: {

@@ -7,16 +7,18 @@ import { InnerPageEntrance } from "@/components/layout/InnerPageEntrance";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { BackToTop } from "@/components/ui/BackToTop";
 
+import { absoluteUrl, CANONICAL_ORIGIN } from "@/lib/site";
+
 export const metadata: Metadata = {
   title: "Privacy Policy — Shivam Shukla",
   description: "Privacy policy and security practices for SHIVSASTRA, operated by Shivam Shukla.",
   alternates: {
-    canonical: "https://shivsastra.vercel.app/privacy",
+    canonical: absoluteUrl("/privacy"),
   },
   openGraph: {
     title: "Privacy Policy — Shivam Shukla",
     description: "Privacy policy and security practices for SHIVSASTRA, operated by Shivam Shukla.",
-    url: "https://shivsastra.vercel.app/privacy",
+    url: absoluteUrl("/privacy"),
     type: "website",
   },
 };
@@ -63,23 +65,16 @@ export default function PrivacyPolicyPage() {
                   SHIVSASTRA is the personal portfolio, services, and digital product website operated by Shivam Shukla.
                 </p>
                 <p>
-                  The website is currently deployed and accessible at{" "}
+                  The website is accessible at the canonical production domain{" "}
                   <a
-                    href="https://shivsastra.vercel.app"
+                    href={CANONICAL_ORIGIN}
                     className="font-mono text-xs text-[var(--color-accent)] underline hover:text-[var(--color-ink-primary)] transition-colors"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    https://shivsastra.vercel.app
+                    {CANONICAL_ORIGIN}
                   </a>
-                  , with canonical production domain configuration established for{" "}
-                  <a
-                    href="https://shivsastra.vercel.app"
-                    className="font-mono text-xs text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors"
-                  >
-                    https://shivsastra.vercel.app
-                  </a>
-                  . This Privacy Policy applies to personal information collected through both addresses and related subpaths.
+                  . This Privacy Policy applies to personal information collected through this address and related service subpaths.
                 </p>
                 <p>
                   For any privacy questions or requests regarding your data, contact Shivam Shukla directly at:{" "}

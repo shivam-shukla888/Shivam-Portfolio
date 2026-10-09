@@ -99,9 +99,10 @@ export function StoreCatalogView({
       {/* Controls Bar: Category Filter Pills + Search + Sort */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-6 border-b border-[var(--color-hairline)]">
         {showCategoryTabs && (
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Filter products by category">
             <button
               type="button"
+              aria-pressed={selectedCategory === "all"}
               onClick={() => setSelectedCategory("all")}
               className={`px-3 py-1.5 font-mono text-xs uppercase tracking-wider transition-colors border ${
                 selectedCategory === "all"
@@ -113,6 +114,7 @@ export function StoreCatalogView({
             </button>
             <button
               type="button"
+              aria-pressed={selectedCategory === "design"}
               onClick={() => setSelectedCategory("design")}
               className={`px-3 py-1.5 font-mono text-xs uppercase tracking-wider transition-colors border ${
                 selectedCategory === "design"
@@ -124,6 +126,7 @@ export function StoreCatalogView({
             </button>
             <button
               type="button"
+              aria-pressed={selectedCategory === "ai_agents"}
               onClick={() => setSelectedCategory("ai_agents")}
               className={`px-3 py-1.5 font-mono text-xs uppercase tracking-wider transition-colors border ${
                 selectedCategory === "ai_agents"
@@ -135,6 +138,7 @@ export function StoreCatalogView({
             </button>
             <button
               type="button"
+              aria-pressed={selectedCategory === "digital_products"}
               onClick={() => setSelectedCategory("digital_products")}
               className={`px-3 py-1.5 font-mono text-xs uppercase tracking-wider transition-colors border ${
                 selectedCategory === "digital_products"
@@ -285,7 +289,7 @@ export function StoreCatalogView({
                 {/* Footer Action */}
                 <div className="pt-6 border-t border-[var(--color-hairline)] mt-6 flex items-center justify-between gap-4">
                   <span className="font-mono text-[10px] text-[var(--color-ink-secondary)] uppercase tracking-wider">
-                    {product.productType.replace("_", " ")}
+                    {(product.productType || "digital_download").replace(/_/g, " ")}
                   </span>
                   <Link
                     href={itemHref}

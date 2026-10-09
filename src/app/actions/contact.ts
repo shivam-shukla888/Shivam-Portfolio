@@ -73,19 +73,28 @@ export async function submitContactInquiry(
     const { name, email, brief } = validationResult.data;
 
     // 4. Cloudflare Turnstile Verification (SEC-04: Single-use server-side challenge verification)
-    const turnstileToken =
-      formData.get("cf-turnstile-response") || formData.get("turnstile_token");
+    const rawTurnstileTokens = [
+      ...formData.getAll("cf-turnstile-response"),
+      ...formData.getAll("turnstile_token"),
+    ];
     const turnstileTokenStr =
-      typeof turnstileToken === "string" ? turnstileToken : null;
+      rawTurnstileTokens
+        .filter((t): t is string => typeof t === "string" && t.trim().length > 0)
+        .map((t) => t.trim())[0] || null;
 
-    const turnstileResult = await verifyTurnstileToken(turnstileTokenStr, rawIp);
+    const turnstileResult = await verifyTurnstileToken(turnstileTokenStr, rawIp, {
+      expectedAction: "contact",
+    });
 
     if (!turnstileResult.success) {
+      const userFacingError =
+        turnstileResult.userMessage || "Verification failed. Please try again.";
+
       return {
         status: "verification_error",
-        message: "Verification failed. Please try again.",
+        message: userFacingError,
         errors: {
-          turnstile: ["Verification failed. Please try again."],
+          turnstile: [userFacingError],
         },
       };
     }
@@ -96,8 +105,7 @@ export async function submitContactInquiry(
 
     if (supabase) {
       const { data, error } = await supabase
-        .from("contact_submissions")
-        .insert({
+        .from("contact_submissions").insert({
           name,
           email,
           brief,

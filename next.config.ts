@@ -11,7 +11,10 @@ if (supabaseUrl) {
   }
 }
 
+const isProd = process.env.NODE_ENV === "production";
+
 const nextConfig: NextConfig = {
+  poweredByHeader: false,
   turbopack: {
     root: __dirname,
   },
@@ -27,14 +30,19 @@ const nextConfig: NextConfig = {
       : [],
   },
   async headers() {
+    const scriptSrc = isProd
+      ? "script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://checkout.razorpay.com"
+      : "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://challenges.cloudflare.com https://checkout.razorpay.com";
+
     const cspDirectives = [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://challenges.cloudflare.com https://checkout.razorpay.com",
+      scriptSrc,
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob: https:",
       "font-src 'self' data:",
       "connect-src 'self' https: wss: https://challenges.cloudflare.com https://lumberjack.razorpay.com",
       "frame-src 'self' https://challenges.cloudflare.com https://api.razorpay.com",
+      "object-src 'none'",
       "frame-ancestors 'none'",
       "base-uri 'self'",
       "form-action 'self'",
@@ -44,6 +52,10 @@ const nextConfig: NextConfig = {
       {
         source: "/:path*",
         headers: [
+          {
+            key: "Strict-Transport-Security",
+            value: "max-age=63072000; includeSubDomains; preload",
+          },
           {
             key: "X-Content-Type-Options",
             value: "nosniff",

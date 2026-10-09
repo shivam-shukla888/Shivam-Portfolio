@@ -129,6 +129,8 @@ export function Navbar() {
           />
           <nav
             id="mobile-navigation-menu"
+            role="dialog"
+            aria-modal="true"
             aria-label="Mobile Navigation"
             className="relative z-50 md:hidden border-t border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] px-5 py-6 flex flex-col gap-4 shadow-sm"
         >

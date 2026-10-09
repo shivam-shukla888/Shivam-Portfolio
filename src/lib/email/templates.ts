@@ -2,6 +2,8 @@ if (typeof window !== "undefined") {
   throw new Error("This module cannot be executed on the client");
 }
 
+import { SITE_URL } from "@/lib/site";
+
 export interface ContactEmailPayload {
   name: string;
   email: string;
@@ -240,7 +242,7 @@ export function renderVisitorAutoReplyHtml(payload: ContactEmailPayload): string
           <tr>
             <td style="padding: 20px 36px; border-top: 1px solid #E6E3DC; background-color: #FAF9F6; text-align: center;">
               <p style="margin: 0; font-family: 'JetBrains Mono', Monaco, monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: #9E9D98;">
-                https://shivsastra.vercel.app
+                ${SITE_URL}
               </p>
             </td>
           </tr>
@@ -273,7 +275,7 @@ ${payload.brief}
 Warm regards,
 Shivam Shukla
 ShivSastra Studio
-https://shivsastra.vercel.app
+${SITE_URL}
 `;
 }
 
@@ -298,7 +300,7 @@ export function renderPurchaseDeliveryHtml(payload: PurchaseDeliveryPayload): st
   const safeType = escapeHtml(payload.productType.replace(/_/g, " ").toUpperCase());
   const safeAmount = escapeHtml(payload.amountFormatted);
   const safeDate = escapeHtml(payload.paidAt);
-  const supportEmail = escapeHtml(payload.supportEmail || "contact@shivsastra.com");
+  const supportEmail = escapeHtml(payload.supportEmail || "theshivamshukla.4uu@gmail.com");
 
   const downloadBlock = payload.downloadUrl
     ? `
@@ -396,7 +398,7 @@ export function renderPurchaseDeliveryHtml(payload: PurchaseDeliveryPayload): st
           <tr>
             <td style="padding: 20px 36px; border-top: 1px solid #E6E3DC; background-color: #FAF9F6; text-align: center;">
               <p style="margin: 0; font-family: 'JetBrains Mono', Monaco, monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: #9E9D98;">
-                ShivSastra // https://shivsastra.vercel.app
+                ShivSastra // ${SITE_URL}
               </p>
             </td>
           </tr>
@@ -432,11 +434,11 @@ Date: ${payload.paidAt}
 
 ${downloadSection}
 
-Support & Inquiries: ${payload.supportEmail || "contact@shivsastra.com"}
+Support & Inquiries: ${payload.supportEmail || "theshivamshukla.4uu@gmail.com"}
 
 Warm regards,
 Shivam Shukla
 ShivSastra Studio
-https://shivsastra.vercel.app
+${SITE_URL}
 `;
 }

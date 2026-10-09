@@ -70,6 +70,7 @@ export interface ProductReview {
   authorTitle: string | null;
   rating: number;
   content: string;
+  isVerifiedPurchase?: boolean;
   createdAt: string;
 }
 
@@ -130,7 +131,7 @@ function mapProduct(row: ProductRow): ProductDisplayData {
     priceInCents: row.price_in_cents,
     currency: row.currency,
     category: row.category || "digital_products",
-    productType: row.product_type,
+    productType: row.product_type || "digital_download",
     features: Array.isArray(row.features) ? row.features : [],
     requirements: row.requirements,
     faq: Array.isArray(row.faq) ? row.faq : [],
@@ -245,7 +246,7 @@ export const SPRING_BOOT_STARTER_ITEM: ProductDisplayData = {
     },
   ],
   previewImageUrl: "/images/quickeats.svg",
-  isAvailable: true,
+  isAvailable: false,
   isFeatured: false,
   sortOrder: 2,
   createdAt: "2026-09-26T12:00:00Z",
@@ -281,7 +282,7 @@ export const EDITORIAL_PORTFOLIO_ITEM: ProductDisplayData = {
     },
   ],
   previewImageUrl: "/images/backgrounds/store-design.webp",
-  isAvailable: true,
+  isAvailable: false,
   isFeatured: false,
   sortOrder: 3,
   createdAt: "2026-09-26T12:00:00Z",
@@ -565,7 +566,7 @@ export async function getPublishedProductReviews(
 
     const { data, error } = await client
       .from("product_reviews")
-      .select("id, product_id, author_name, author_title, rating, content, created_at")
+      .select("id, product_id, reviewer_name, review_title, rating, review_body, is_verified_purchase, created_at")
       .eq("product_id", productId)
       .eq("is_published", true)
       .order("created_at", { ascending: false });
@@ -577,18 +578,20 @@ export async function getPublishedProductReviews(
     return (data as Array<{
       id: string;
       product_id: string;
-      author_name: string;
-      author_title: string | null;
+      reviewer_name: string;
+      review_title: string | null;
       rating: number;
-      content: string;
+      review_body: string;
+      is_verified_purchase: boolean;
       created_at: string;
     }>).map((r) => ({
       id: r.id,
       productId: r.product_id,
-      authorName: r.author_name,
-      authorTitle: r.author_title,
+      authorName: r.reviewer_name,
+      authorTitle: r.review_title,
       rating: r.rating,
-      content: r.content,
+      content: r.review_body,
+      isVerifiedPurchase: r.is_verified_purchase,
       createdAt: r.created_at,
     }));
   } catch (err) {

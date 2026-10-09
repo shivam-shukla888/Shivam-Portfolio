@@ -9,6 +9,7 @@ import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { BackToTop } from "@/components/ui/BackToTop";
 import { CERTIFICATIONS } from "@/data/portfolio-data";
 import { buttonStyles } from "@/components/ui/Button";
+import { absoluteUrl } from "@/lib/site";
 
 export const revalidate = 60;
 
@@ -17,13 +18,13 @@ export const metadata = {
   description:
     "Background, technical approach, and direction of Shivam Shukla — AI agents, AI security, automation, and digital products.",
   alternates: {
-    canonical: "https://shivsastra.vercel.app/about",
+    canonical: absoluteUrl("/about"),
   },
   openGraph: {
     title: "About — Shivam Shukla",
     description:
       "Background, technical approach, and direction of Shivam Shukla — AI agents, AI security, automation, and digital products.",
-    url: "https://shivsastra.vercel.app/about",
+    url: absoluteUrl("/about"),
     type: "profile",
     images: [{ url: "/images/shivam-shukla.jpg" }],
   },

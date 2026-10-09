@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getOrderById, verifyDeliveryToken, createShortLivedStorageUrl, logStoreEvent } from "@/lib/orders";
+import { getOrderById, verifyDeliveryTokenDetails, createShortLivedStorageUrl, logStoreEvent } from "@/lib/orders";
 import { getSupabaseServerClient } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
@@ -34,10 +34,33 @@ export async function GET(req: NextRequest, { params }: RouteParams) {
       );
     }
 
-    // 3. Verify digital delivery authorization token
-    if (!token || !verifyDeliveryToken(token, order.delivery_token_hash)) {
+    // 3. Verify digital delivery authorization token with 24-hour expiry enforcement
+    if (!token) {
       return NextResponse.json(
-        { error: "Access denied: Missing or invalid delivery authorization token" },
+        { error: "Access denied: Missing delivery authorization token" },
+        { status: 403 }
+      );
+    }
+
+    const tokenVerification = verifyDeliveryTokenDetails(
+      token,
+      order.delivery_token_hash,
+      order.delivery_token_expires_at
+    );
+
+    if (tokenVerification.expired) {
+      return NextResponse.json(
+        {
+          error: "This download link has expired. Digital access links are valid for 24 hours from purchase. Please reach out to support with your order reference to refresh your access.",
+          code: "TOKEN_EXPIRED",
+        },
+        { status: 410 }
+      );
+    }
+
+    if (!tokenVerification.valid) {
+      return NextResponse.json(
+        { error: "Access denied: Invalid delivery authorization token" },
         { status: 403 }
       );
     }

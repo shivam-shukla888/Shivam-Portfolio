@@ -6,6 +6,7 @@ import crypto from "crypto";
 import { getSupabaseServerClient } from "@/lib/supabase/server";
 import { formatPrice } from "@/lib/products";
 import { sendPurchaseDeliveryEmail } from "@/lib/email/purchase-delivery";
+import { SITE_URL } from "@/lib/site";
 
 export type OrderStatus = "pending" | "paid" | "failed" | "cancelled" | "refunded";
 export type DeliveryStatus = "pending" | "sent" | "failed";
@@ -102,18 +103,38 @@ export interface OrderRecord {
   delivery_status: DeliveryStatus;
   delivery_token_version: number;
   delivery_token_hash: string | null;
+  delivery_token_expires_at?: string | null;
   paid_at: string | null;
   created_at: string;
   updated_at: string;
 }
 
+export const DELIVERY_TOKEN_EXPIRY_MS = 24 * 60 * 60 * 1000; // 24 hours
+
+export interface GenerateDeliveryTokenResult {
+  token: string;
+  hash: string;
+  expiresAt: string;
+}
+
+export interface VerifyDeliveryTokenResult {
+  valid: boolean;
+  expired?: boolean;
+}
+
 /**
- * Generates a high-entropy secret token for digital delivery download links.
+ * Generates a high-entropy secret token for digital delivery download links
+ * with an embedded expiration timestamp (default: 24 hours).
  */
-export function generateDeliveryToken(): { token: string; hash: string } {
-  const token = crypto.randomBytes(32).toString("hex");
+export function generateDeliveryToken(
+  expiresInMs: number = DELIVERY_TOKEN_EXPIRY_MS
+): GenerateDeliveryTokenResult {
+  const expiresAtMs = Date.now() + expiresInMs;
+  const expiresAt = new Date(expiresAtMs).toISOString();
+  const rawToken = crypto.randomBytes(32).toString("hex");
+  const token = `${rawToken}.${expiresAtMs}`;
   const hash = hashDeliveryToken(token);
-  return { token, hash };
+  return { token, hash, expiresAt };
 }
 
 /**
@@ -124,18 +145,51 @@ export function hashDeliveryToken(token: string): string {
 }
 
 /**
- * Validates delivery token against stored hash using timing-safe comparison.
+ * Validates delivery token against stored hash using timing-safe comparison,
+ * enforcing 24-hour expiration checks.
  */
-export function verifyDeliveryToken(token: string, storedHash: string | null | undefined): boolean {
-  if (!token || !storedHash) return false;
+export function verifyDeliveryToken(
+  token: string,
+  storedHash: string | null | undefined,
+  orderExpiresAt?: string | null
+): boolean {
+  return verifyDeliveryTokenDetails(token, storedHash, orderExpiresAt).valid;
+}
+
+export function verifyDeliveryTokenDetails(
+  token: string,
+  storedHash: string | null | undefined,
+  orderExpiresAt?: string | null
+): VerifyDeliveryTokenResult {
+  if (!token || !storedHash) return { valid: false };
+
+  // 1. Check embedded timestamp in token (<secret>.<timestamp>)
+  const parts = token.split(".");
+  if (parts.length === 2) {
+    const timestamp = parseInt(parts[1], 10);
+    if (!isNaN(timestamp) && Date.now() > timestamp) {
+      return { valid: false, expired: true };
+    }
+  }
+
+  // 2. Check persisted order delivery_token_expires_at
+  if (orderExpiresAt) {
+    const expiryTime = new Date(orderExpiresAt).getTime();
+    if (!isNaN(expiryTime) && Date.now() > expiryTime) {
+      return { valid: false, expired: true };
+    }
+  }
+
+  // 3. Timing-safe comparison of token hash
   try {
     const computedHash = hashDeliveryToken(token);
     const computedBuf = Buffer.from(computedHash, "utf8");
     const storedBuf = Buffer.from(storedHash, "utf8");
-    if (computedBuf.length !== storedBuf.length) return false;
-    return crypto.timingSafeEqual(computedBuf, storedBuf);
+    if (computedBuf.length !== storedBuf.length) return { valid: false };
+    const matches = crypto.timingSafeEqual(computedBuf, storedBuf);
+    return { valid: matches };
   } catch {
-    return false;
+    return { valid: false };
   }
 }
 
@@ -392,10 +446,12 @@ export async function markOrderPaidAndFulfill(params: {
   // Generate delivery token if not supplied
   let deliveryToken = params.deliveryToken;
   let deliveryTokenHash = params.deliveryTokenHash;
+  let deliveryTokenExpiresAt = existingOrder.delivery_token_expires_at || null;
   if (!deliveryTokenHash) {
     const generated = generateDeliveryToken();
     deliveryToken = generated.token;
     deliveryTokenHash = generated.hash;
+    deliveryTokenExpiresAt = generated.expiresAt;
   }
 
   const now = new Date().toISOString();
@@ -408,6 +464,7 @@ export async function markOrderPaidAndFulfill(params: {
       razorpay_payment_id: params.razorpayPaymentId,
       razorpay_signature: params.razorpaySignature || existingOrder.razorpay_signature,
       delivery_token_hash: deliveryTokenHash,
+      delivery_token_expires_at: deliveryTokenExpiresAt,
       paid_at: now,
       updated_at: now,
     })
@@ -433,7 +490,7 @@ export async function markOrderPaidAndFulfill(params: {
     .eq("id", paidOrder.product_id)
     .maybeSingle();
 
-  const baseUrl = params.baseUrl || process.env.NEXT_PUBLIC_SITE_URL || "https://shivsastra.vercel.app";
+  const baseUrl = params.baseUrl || SITE_URL;
   let downloadUrl: string | null = null;
 
   if (productData?.storage_asset_path && deliveryToken) {

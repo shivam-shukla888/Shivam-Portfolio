@@ -17,7 +17,8 @@ export function BackToTop() {
 
     const handleScroll = () => {
       animationFrameId = requestAnimationFrame(() => {
-        setIsVisible(window.scrollY > 500);
+        const shouldBeVisible = window.scrollY > 500;
+        setIsVisible((prev) => (prev !== shouldBeVisible ? shouldBeVisible : prev));
       });
     };
 
