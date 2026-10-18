@@ -157,25 +157,7 @@ export default async function AboutPage() {
                     Nexvia Technologies · Remote
                   </p>
                   <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
-                    Working on real-world AI and Machine Learning projects with exposure to engineering workflows, tools, collaboration, documentation, and professional software practices.
-                  </p>
-                </div>
-
-                {/* Sep 2026 - Oct 2026: Auspify Technologies */}
-                <div className="border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] p-6 md:p-8 space-y-3">
-                  <div className="flex flex-wrap items-baseline justify-between gap-2">
-                    <h3 className="font-display text-xl text-[var(--color-ink-primary)]">
-                      Full Stack Development Intern
-                    </h3>
-                    <span className="font-mono text-xs text-[var(--color-accent)] font-semibold">
-                      Sep 2026 – Oct 2026
-                    </span>
-                  </div>
-                  <p className="font-mono text-xs text-[var(--color-ink-secondary)]">
-                    Auspify Technologies · Remote
-                  </p>
-                  <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
-                    Contributed to real-time software projects involving feature development, technical research, documentation, and project support with the development team.
+                    Contributing to real-world AI and Machine Learning projects; involved in engineering workflows, tools, collaboration, documentation, and professional software practices.
                   </p>
                 </div>
 
