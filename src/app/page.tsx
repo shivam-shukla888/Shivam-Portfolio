@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import dynamic from "next/dynamic";
 import type { Metadata } from "next";
 import { SectionContainer } from "@/components/layout/SectionContainer";
 import { SectionLabel } from "@/components/ui/SectionLabel";
@@ -19,14 +18,14 @@ export const revalidate = 60;
 export const metadata: Metadata = {
   title: "Shivam Shukla — Web Development, Backend Systems & AI Automation",
   description:
-    "Freelance web development, Next.js landing pages, API integrations, and practical AI automation by Shivam Shukla. Upfront starting rates with verified code.",
+    "Websites, APIs, and practical AI tools by Shivam Shukla. Clear project scopes and selected work from real builds.",
   alternates: {
     canonical: SITE_URL,
   },
   openGraph: {
     title: "Shivam Shukla — Web Development, Backend Systems & AI Automation",
     description:
-      "Freelance web development, Next.js landing pages, API integrations, and practical AI automation by Shivam Shukla. Upfront starting rates with verified code.",
+      "Websites, APIs, and practical AI tools by Shivam Shukla. Clear project scopes and selected work from real builds.",
     url: SITE_URL,
     type: "website",
     siteName: "ShivSastra",
@@ -44,21 +43,10 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Shivam Shukla — Web Development, Backend Systems & AI Automation",
     description:
-      "Freelance web development, Next.js landing pages, API integrations, and practical AI automation by Shivam Shukla.",
+      "Websites, APIs, and practical AI tools by Shivam Shukla, with clear scopes and selected project work.",
     images: ["/og-image.png"],
   },
 };
-
-// Lazy-loaded signature visual with lightweight fallback
-const HeroVisual = dynamic(
-  () => import("@/components/home/HeroVisual").then((mod) => mod.HeroVisual),
-  {
-    ssr: true,
-    loading: () => (
-      <div className="w-full max-w-[440px] aspect-square border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] flex items-center justify-center p-8" />
-    ),
-  }
-);
 
 export default async function HomePage() {
   const [profile, allProjects] = await Promise.all([
@@ -101,7 +89,7 @@ export default async function HomePage() {
           "Application Security",
         ],
         description:
-          "Building websites, backend integrations, and practical AI automations with transparent starting rates.",
+          "Building websites, useful integrations, and practical AI tools with clear project scopes.",
         sameAs: verifiedSameAs,
       },
       {
@@ -127,7 +115,7 @@ export default async function HomePage() {
       />
 
       {/* =======================================================
-          1. HERO (10-Second Clarity: Who, What, Price, Next Step)
+          1. HERO (Who, What, Next Step)
           ======================================================= */}
       <section className="relative w-full border-b border-[var(--color-hairline)] pt-16 md:pt-24 pb-20 md:pb-28 overflow-hidden">
         <PageBackground
@@ -142,26 +130,20 @@ export default async function HomePage() {
           <HomeHeroMotion
             overview={
               <div className="flex flex-wrap items-baseline gap-4">
-                <SectionLabel name="Web &amp; AI Engineering" />
+                <SectionLabel name="Websites, APIs &amp; AI Tools" />
                 <span className="font-mono text-xs text-[var(--color-accent)] border-l border-[var(--color-hairline)] pl-4 font-semibold">
-                  Available for Select Client Projects
+                  Open to a few new projects
                 </span>
               </div>
             }
             title={
               <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-[4.75rem] font-normal tracking-tight text-[var(--color-ink-primary)] leading-[1.06]">
-                I build fast websites, reliable APIs, and practical AI automations.
+                I build websites, APIs, and AI tools for growing businesses.
               </h1>
-            }
-            positioning={
-              <p className="font-mono text-xs sm:text-sm uppercase tracking-[0.14em] text-[var(--color-accent)] font-semibold">
-                Bug Fixes from ₹999 · Landing Pages from ₹2,999 · APIs &amp; AI from ₹3,000
-              </p>
             }
             narrative={
               <p className="font-sans text-base md:text-lg text-[var(--color-ink-secondary)] leading-relaxed max-w-[62ch]">
-                Practical engineering for founders, creators, and growing businesses.
-                Upfront starting rates, clear written scopes, fast turnaround, and zero agency overhead.
+                Useful digital tools for founders and growing businesses—with a clear plan, direct communication, and full ownership of the finished work.
               </p>
             }
             ctas={
@@ -175,7 +157,7 @@ export default async function HomePage() {
                       className: "w-full sm:w-auto font-mono text-xs uppercase tracking-wider group",
                     })}
                   >
-                    <span>Explore Services &amp; Pricing</span>
+                    <span>Explore Services</span>
                     <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none ml-1.5">
                       ↓
                     </span>
@@ -188,7 +170,7 @@ export default async function HomePage() {
                       className: "w-full sm:w-auto font-mono text-xs uppercase tracking-wider border-[var(--color-ink-primary)] group",
                     })}
                   >
-                    <span>See Verified Work</span>
+                    <span>View My Work</span>
                     <span className="inline-block transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transform-none ml-1.5">
                       ↓
                     </span>
@@ -201,36 +183,57 @@ export default async function HomePage() {
                   </Link>
                 </div>
 
-                {/* 4 Value Pillars */}
+                {/* Clear, client-first expectations */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-[var(--color-hairline)] font-mono text-[11px] text-[var(--color-ink-secondary)]">
                   <div>
                     <strong className="text-[var(--color-ink-primary)] block font-sans text-xs">
-                      Fast Delivery
+                      Clear Plan
                     </strong>
-                    <span>1–2d fixes, 3–5d pages</span>
+                    <span>Agree on the work before I start</span>
                   </div>
                   <div>
                     <strong className="text-[var(--color-ink-primary)] block font-sans text-xs">
-                      Modern Stack
+                      Clear Cost
                     </strong>
-                    <span>Next.js, Python, Java</span>
+                    <span>Know the price before work begins</span>
                   </div>
                   <div>
                     <strong className="text-[var(--color-ink-primary)] block font-sans text-xs">
-                      Upfront Rates
+                      Direct Contact
                     </strong>
-                    <span>Scope agreed before work</span>
+                    <span>Work with the person building it</span>
                   </div>
                   <div>
                     <strong className="text-[var(--color-ink-primary)] block font-sans text-xs">
-                      Full Ownership
+                      Your Code
                     </strong>
-                    <span>100% code handed over</span>
+                    <span>Keep the finished project and files</span>
                   </div>
                 </div>
               </div>
             }
-            visual={<HeroVisual />}
+            visual={
+              <figure className="w-full max-w-[340px] space-y-3">
+                <div className="relative aspect-[4/5] overflow-hidden border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)]">
+                  <Image
+                    src="/images/shivam-shukla.jpg"
+                    alt={"Portrait of " + profile.fullName}
+                    fill
+                    sizes="(max-width: 1024px) 80vw, 340px"
+                    priority
+                    className="object-cover"
+                  />
+                </div>
+                <figcaption className="flex items-baseline justify-between gap-3 border-b border-[var(--color-hairline)] pb-2">
+                  <span className="font-display text-lg text-[var(--color-ink-primary)]">
+                    {profile.fullName}
+                  </span>
+                  <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--color-ink-secondary)]">
+                    Web &amp; AI Developer
+                  </span>
+                </figcaption>
+              </figure>
+            }
           />
         </SectionContainer>
       </section>
@@ -341,7 +344,7 @@ export default async function HomePage() {
       </section>
 
       {/* =======================================================
-          3. SERVICES & STARTING RATES PREVIEW
+          3. SERVICES PREVIEW
           ======================================================= */}
       <section id="services" className="w-full border-b border-[var(--color-hairline)] py-16 md:py-24 bg-[var(--color-canvas-primary)]">
         <HomeSectionReveal>
@@ -349,19 +352,19 @@ export default async function HomePage() {
             <div className="space-y-10">
               <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-8 border-b border-[var(--color-hairline)]">
                 <div className="space-y-3">
-                  <SectionLabel name="Services &amp; Pricing" />
+                  <SectionLabel name="Services" />
                   <h2 className="font-display text-3xl md:text-4xl font-normal tracking-tight text-[var(--color-ink-primary)]">
-                    Services &amp; Upfront Starting Rates
+                    Ways I can help
                   </h2>
                   <p className="font-sans text-xs text-[var(--color-accent)] font-medium">
-                    Web development, backend APIs, and AI integrations with transparent scopes.
+                    Website improvements, useful integrations, and simple automations for your business.
                   </p>
                 </div>
                 <Link
                   href="/services"
                   className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider px-5 py-2.5 bg-[var(--color-ink-primary)] text-[var(--color-canvas-primary)] hover:bg-[var(--color-accent)] transition-colors self-start md:self-auto"
                 >
-                  <span>Explore All Services &amp; Pricing</span>
+                  <span>See full details and prices</span>
                   <span>→</span>
                 </Link>
               </div>
@@ -374,9 +377,6 @@ export default async function HomePage() {
                     className="border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] p-6 space-y-4 flex flex-col justify-between group hover:border-[var(--color-ink-primary)] transition-colors"
                   >
                     <div className="space-y-2.5">
-                      <div className="font-mono text-xs font-semibold text-[var(--color-accent)]">
-                        {item.startingPrice}
-                      </div>
                       <h3 className="font-display text-xl font-normal text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors leading-snug">
                         {item.title}
                       </h3>
@@ -390,7 +390,7 @@ export default async function HomePage() {
                         href={item.targetHref}
                         className="font-mono text-xs uppercase tracking-wider text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors inline-flex items-center gap-1"
                       >
-                        <span>View package</span>
+                        <span>See details</span>
                         <span className="inline-block transition-transform duration-150 group-hover:translate-x-1">
                           →
                         </span>
