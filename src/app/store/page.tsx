@@ -107,14 +107,23 @@ export default async function StorePage() {
                     Store
                   </h1>
                   <p className="font-sans text-sm md:text-base text-[var(--color-ink-secondary)] leading-relaxed">
-                    Digital products I make and sell. Browse templates, tools, and downloadable work.
+                    Developer boilerplates, upcoming architecture templates, and open engineering case studies.
                   </p>
                 </div>
                 <div className="font-mono text-xs text-[var(--color-ink-secondary)] shrink-0">
-                  <span className="text-[var(--color-accent)] font-semibold">
-                    {categoryCounts.total}
-                  </span>{" "}
-                  {categoryCounts.total === 1 ? "product available" : "products available"}
+                  {categoryCounts.purchasable > 0 ? (
+                    <>
+                      <span className="text-[var(--color-accent)] font-semibold">
+                        {categoryCounts.purchasable}
+                      </span>{" "}
+                      {categoryCounts.purchasable === 1 ? "product available" : "products available"}
+                      {categoryCounts.upcoming > 0 && ` · ${categoryCounts.upcoming} upcoming`}
+                    </>
+                  ) : (
+                    <span className="text-[var(--color-ink-secondary)]">
+                      <span className="text-[var(--color-accent)] font-medium">0 commercial products for sale</span> · {categoryCounts.upcoming} upcoming · {categoryCounts.caseStudy} showcase
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
@@ -134,15 +143,14 @@ export default async function StorePage() {
                       Templates
                     </span>
                     <span>
-                      {categoryCounts.design}{" "}
-                      {categoryCounts.design === 1 ? "product" : "products"}
+                      {categoryCounts.design === 1 ? "1 upcoming template" : `${categoryCounts.design} items`}
                     </span>
                   </div>
                   <h2 className="font-display text-2xl text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors">
                     Design & Templates
                   </h2>
                   <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
-                    Interaction kits, typography systems, and web templates.
+                    Swiss-inspired portfolio kits and accessible frontend interaction systems in active development.
                   </p>
                 </div>
                 <div className="pt-4 border-t border-[var(--color-hairline)] flex items-center justify-between font-mono text-xs text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)]">
@@ -159,22 +167,21 @@ export default async function StorePage() {
                 <div className="space-y-3">
                   <div className="flex items-center justify-between text-xs font-mono text-[var(--color-ink-secondary)]">
                     <span className="text-[var(--color-accent)] uppercase tracking-wider font-semibold">
-                      Agent Tools
+                      Engineering Showcase
                     </span>
                     <span>
-                      {categoryCounts.ai_agents}{" "}
-                      {categoryCounts.ai_agents === 1 ? "product" : "products"}
+                      {categoryCounts.ai_agents === 1 ? "1 case study" : `${categoryCounts.ai_agents} items`}
                     </span>
                   </div>
                   <h2 className="font-display text-2xl text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors">
                     AI Agents
                   </h2>
                   <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
-                    Agent starter code, tool pipelines, and evaluation workflows.
+                    Decoupled conversational agents and deterministic rules engine case studies (open architecture, not for sale).
                   </p>
                 </div>
                 <div className="pt-4 border-t border-[var(--color-hairline)] flex items-center justify-between font-mono text-xs text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)]">
-                  <span>Browse AI Agents</span>
+                  <span>Explore Showcase</span>
                   <span>→</span>
                 </div>
               </Link>
@@ -187,11 +194,10 @@ export default async function StorePage() {
                 <div className="space-y-3">
                   <div className="flex items-center justify-between text-xs font-mono text-[var(--color-ink-secondary)]">
                     <span className="text-[var(--color-accent)] uppercase tracking-wider font-semibold">
-                      Downloads
+                      Boilerplates
                     </span>
                     <span>
-                      {categoryCounts.digital_products}{" "}
-                      {categoryCounts.digital_products === 1 ? "product" : "products"}
+                      {categoryCounts.digital_products === 1 ? "1 upcoming starter" : `${categoryCounts.digital_products} items`}
                     </span>
                   </div>
                   <h2 className="font-display text-2xl text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors">

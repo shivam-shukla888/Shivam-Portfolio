@@ -115,10 +115,10 @@ export default async function AboutPage() {
                     &ldquo;I build software products, AI agents, and automation systems — prioritizing AI security and deterministic application logic over flashy demos.&rdquo;
                   </p>
                   <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
-                    I&apos;m an AI Engineer and Backend Developer (2026 Computer Science Engineering graduate). I specialize in AI agents, LLM workflows, RAG, Machine Learning, and backend systems with hands-on experience in Python, Java, Spring Boot, REST APIs, PostgreSQL, Docker, AWS, and Supabase. I care deeply about building production-oriented AI applications by separating language model processing from deterministic application logic.
+                    I&apos;m an AI Engineer and Backend Developer (2026 Computer Science Engineering graduate). I specialize in building reliable AI agents and backend systems with Python, Java, Spring Boot, REST APIs, PostgreSQL, Docker, and Supabase—prioritizing deterministic application boundaries over brittle prompt chains.
                   </p>
                   <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
-                    Backend engineering forms the core foundation of everything I build. Java, Spring Boot, REST APIs, and relational databases provide the structural reliability, while Python powers my work with AI agent orchestration, tool calling pipelines, and machine learning workflows. Along the way, I turn repeatable engineering patterns into open developer templates and digital resources.
+                    My engineering foundation is built on clean architectures: Java and Spring Boot deliver predictable data flow and strict server-side validation, while Python handles AI agent orchestration, tool-calling pipelines, and multimodal data extraction. Whenever I solve recurring architecture challenges, I document them as open case studies and developer starter templates.
                   </p>
                 </div>
 

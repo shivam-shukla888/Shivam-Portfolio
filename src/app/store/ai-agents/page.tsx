@@ -78,14 +78,14 @@ export default async function AIAgentsStorePage() {
                     AI Agents
                   </h1>
                   <p className="font-sans text-sm md:text-base text-[var(--color-ink-secondary)] leading-relaxed">
-                    Agent starter code, tool-calling pipelines, and workflow setups.
+                    Decoupled agent architectures and natural-language workflow case studies.
                   </p>
                 </div>
                 <div className="font-mono text-xs text-[var(--color-ink-secondary)] shrink-0">
                   <span className="text-[var(--color-accent)] font-semibold">
-                    {categoryCounts.ai_agents}
+                    1 Showcase
                   </span>{" "}
-                  {categoryCounts.ai_agents === 1 ? "product available" : "products available"}
+                  (Architecture Case Study)
                 </div>
               </div>
             </div>
@@ -95,7 +95,7 @@ export default async function AIAgentsStorePage() {
           <InnerPageEntrance delayIndex={1}>
             <div className="space-y-3">
               <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-wider text-[var(--color-ink-secondary)]">
-                <span>Featured Engineering Showcase</span>
+                <span>Featured Engineering Showcase (Not for Sale)</span>
                 <span className="h-px flex-1 bg-[var(--color-hairline)]" />
               </div>
               <YojnaSetuShowcase />
@@ -106,7 +106,7 @@ export default async function AIAgentsStorePage() {
           <InnerPageEntrance delayIndex={2}>
             <div className="space-y-4 pt-4">
               <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-wider text-[var(--color-ink-secondary)]">
-                <span>Downloadable Starter Kits & Pipelines</span>
+                <span>Agent Architecture Catalog</span>
                 <span className="h-px flex-1 bg-[var(--color-hairline)]" />
               </div>
               <StoreCatalogView

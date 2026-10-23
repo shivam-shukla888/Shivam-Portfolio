@@ -7,8 +7,10 @@ import { SITE_URL } from "@/lib/site";
 
 export const revalidate = 3600; // 1 hour revalidation
 
-// Dynamic generation timestamp for static routes
-const BASELINE_STATIC_DATE = new Date();
+// Authoritative baseline update dates reflecting meaningful content revisions (prevents fake new dates on every build)
+const SITE_CONTENT_BASELINE = new Date("2026-03-01T00:00:00Z");
+const LEGAL_CONTENT_BASELINE = new Date("2026-02-15T00:00:00Z");
+const RESUME_CONTENT_BASELINE = new Date("2026-02-20T00:00:00Z");
 
 function safeDate(val: string | null | undefined): Date | undefined {
   if (!val) return undefined;
@@ -22,67 +24,67 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
-      lastModified: BASELINE_STATIC_DATE,
+      lastModified: SITE_CONTENT_BASELINE,
       changeFrequency: "weekly",
       priority: 1.0,
     },
     {
       url: `${baseUrl}/about`,
-      lastModified: BASELINE_STATIC_DATE,
+      lastModified: SITE_CONTENT_BASELINE,
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
       url: `${baseUrl}/projects`,
-      lastModified: BASELINE_STATIC_DATE,
+      lastModified: SITE_CONTENT_BASELINE,
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
       url: `${baseUrl}/services`,
-      lastModified: BASELINE_STATIC_DATE,
+      lastModified: SITE_CONTENT_BASELINE,
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
       url: `${baseUrl}/store`,
-      lastModified: BASELINE_STATIC_DATE,
+      lastModified: SITE_CONTENT_BASELINE,
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
       url: `${baseUrl}/contact`,
-      lastModified: BASELINE_STATIC_DATE,
+      lastModified: SITE_CONTENT_BASELINE,
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
       url: `${baseUrl}/resume`,
-      lastModified: BASELINE_STATIC_DATE,
+      lastModified: RESUME_CONTENT_BASELINE,
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
       url: `${baseUrl}/lab`,
-      lastModified: BASELINE_STATIC_DATE,
+      lastModified: SITE_CONTENT_BASELINE,
       changeFrequency: "weekly",
       priority: 0.7,
     },
     {
       url: `${baseUrl}/privacy`,
-      lastModified: BASELINE_STATIC_DATE,
+      lastModified: LEGAL_CONTENT_BASELINE,
       changeFrequency: "monthly",
       priority: 0.5,
     },
     {
       url: `${baseUrl}/terms`,
-      lastModified: BASELINE_STATIC_DATE,
+      lastModified: LEGAL_CONTENT_BASELINE,
       changeFrequency: "monthly",
       priority: 0.5,
     },
     {
       url: `${baseUrl}/refunds`,
-      lastModified: BASELINE_STATIC_DATE,
+      lastModified: LEGAL_CONTENT_BASELINE,
       changeFrequency: "monthly",
       priority: 0.5,
     },
@@ -99,13 +101,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const dynamicRoutes: MetadataRoute.Sitemap = [
       ...projects.map((p) => ({
         url: `${baseUrl}/projects/${p.slug}`,
-        lastModified: safeDate(p.publishedAt) || BASELINE_STATIC_DATE,
+        lastModified: safeDate(p.publishedAt) || SITE_CONTENT_BASELINE,
         changeFrequency: "monthly" as const,
         priority: p.slug === "yojna-setu" ? 0.9 : 0.8,
       })),
       ...services.map((s) => ({
         url: `${baseUrl}/services/${s.slug}`,
-        lastModified: safeDate(s.updatedAt || s.createdAt) || BASELINE_STATIC_DATE,
+        lastModified: safeDate(s.updatedAt || s.createdAt) || SITE_CONTENT_BASELINE,
         changeFrequency: "monthly" as const,
         priority: 0.8,
       })),
@@ -113,13 +115,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         .filter((pr) => pr.isAvailable)
         .map((pr) => ({
           url: `${baseUrl}/store/${pr.slug}`,
-          lastModified: safeDate(pr.updatedAt || pr.createdAt) || BASELINE_STATIC_DATE,
+          lastModified: safeDate(pr.updatedAt || pr.createdAt) || SITE_CONTENT_BASELINE,
           changeFrequency: "weekly" as const,
           priority: 0.8,
         })),
       ...lab.map((l) => ({
         url: `${baseUrl}/lab/${l.slug}`,
-        lastModified: safeDate(l.updatedAt || l.createdAt) || BASELINE_STATIC_DATE,
+        lastModified: safeDate(l.updatedAt || l.createdAt) || SITE_CONTENT_BASELINE,
         changeFrequency: "monthly" as const,
         priority: 0.6,
       })),
@@ -129,7 +131,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     if (!dynamicRoutes.some((r) => r.url === `${baseUrl}/projects/yojna-setu`)) {
       dynamicRoutes.unshift({
         url: `${baseUrl}/projects/yojna-setu`,
-        lastModified: BASELINE_STATIC_DATE,
+        lastModified: SITE_CONTENT_BASELINE,
         changeFrequency: "monthly" as const,
         priority: 0.9,
       });
@@ -157,7 +159,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       ...staticRoutes,
       {
         url: `${baseUrl}/projects/yojna-setu`,
-        lastModified: BASELINE_STATIC_DATE,
+        lastModified: SITE_CONTENT_BASELINE,
         changeFrequency: "monthly" as const,
         priority: 0.9,
       },

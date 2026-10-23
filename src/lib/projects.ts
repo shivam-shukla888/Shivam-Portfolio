@@ -121,8 +121,16 @@ export const REALGUARD_PROJECT: Project = {
   editionCode: "RG-AI",
   summary:
     "AI automation and conversational workflows for real estate. WhatsApp conversational input → Groq parameter extraction → Java business logic → RERA lookup → in-app EMI calculation → CRM persistence → broker workflow. The LLM extracts parameters while application logic handles authoritative calculations.",
-  caseStudyMarkdown: `### Overview
-RealGuard is an AI automation and conversational workflow assistant that connects WhatsApp messaging to verified business logic for real estate brokers.
+  caseStudyMarkdown: `### Executive Summary
+RealGuard is a conversational AI automation prototype engineered to qualify real estate leads over WhatsApp while preventing AI calculation errors through deterministic backend boundaries.
+
+### Project Context & Core Attributes
+- **Problem**: Real estate brokers lose prospective buyers due to slow manual response times, while generic AI chatbots frequently hallucinate property prices, interest rates, and loan amortization numbers.
+- **Intended User**: Real estate brokers, property consultants, and agencies managing inbound buyer inquiries via WhatsApp.
+- **My Role**: End-to-end architecture and backend implementation (conversational intake pipeline, Groq LLM extraction, deterministic calculation engine, and CRM lead persistence).
+- **Solution**: A decoupled workflow where Groq LLM extracts unstructured buyer criteria into strict JSON, while Spring Boot deterministically calculates loan EMIs, queries RERA registrations, and pushes clean lead records to CRM.
+- **Verified Status**: Working architecture prototype with verified Twilio webhook parsing, deterministic calculation logic, and open-source GitHub repository.
+- **Evidence**: Open-source repository at github.com/shivam-shukla888/RealGuard.
 
 ### Architecture & Conversational Flow
 The system enforces strict separation between conversational interpretation and authoritative domain calculations:
@@ -134,7 +142,7 @@ The system enforces strict separation between conversational interpretation and 
 5. **Deterministic EMI Calculation**: Computes loan interest, tenure amortization, and monthly EMI figures strictly within deterministic application code — the LLM never performs financial calculations.
 6. **CRM Persistence & Broker Notification**: Stores buyer records and interaction history in MySQL via Hibernate ORM and dispatches structured lead summaries to real estate brokers.
 
-### Key Engineering Lessons
+### Key Engineering Lessons & Defensive Boundaries
 - **AI for Extraction, Code for Math**: Language models interpret conversational nuance, but authoritative financial calculations and compliance rules belong strictly in verified application code.
 - **Webhook Integrity**: Spring Boot verifies Twilio webhook signatures before processing messages to prevent forged broker dispatch events.
 - **Structured Lead Qualification**: Normalizes free-form text conversations into standardized relational CRM records without requiring rigid UI forms.
@@ -166,8 +174,16 @@ export const QUICKEATS_PROJECT: Project = {
   editionCode: "QE-AI",
   summary:
     "AI-assisted product engineering and application security system. Highlights include server-side price recalculation, ownership validation, JWT refresh-token rotation, real-time STOMP order updates, and conversational AI assistance. Verified with 71 executable @Test methods across 23 backend test classes.",
-  caseStudyMarkdown: `### Overview
-QuickEats is an ordering and delivery system engineered to solve critical application security and real-time state synchronization challenges in food delivery.
+  caseStudyMarkdown: `### Executive Summary
+QuickEats is a food ordering and delivery backend engineered to solve critical application security risks and real-time state synchronization challenges.
+
+### Project Context & Core Attributes
+- **Problem**: Online food delivery platforms face cart manipulation (tampered client prices), unauthorized order access (IDOR vulnerabilities), and fragile multi-user order tracking.
+- **Intended User**: Food delivery platforms, restaurant networks, and mobile ordering apps requiring tamper-proof transactions.
+- **My Role**: Backend systems architect and security engineer (data modeling, Spring Security configuration, WebSocket integration, and automated security test suite).
+- **Solution**: High-performance Spring Boot 3 backend featuring server-authoritative price recalculation (strictly ignoring client-supplied amounts), strict account-level ownership validation, JWT refresh-token rotation, and bi-directional STOMP WebSockets for live status updates.
+- **Verified Status**: Backend architecture verified through 71 executable @Test methods across 23 backend test classes covering security controls, price recalculation logic, IDOR protections, and database transactions.
+- **Evidence**: Open-source repository with full test suite at github.com/shivam-shukla888/QuickEats-Ordering-System.
 
 ### Key Engineering Lessons & Security Mechanisms
 - **Server-Side Price Recalculation**: The order service strictly ignores client-supplied item prices. Total amounts are calculated exclusively on the server by looking up authoritative database prices, preventing cart tampering attacks.
@@ -177,7 +193,7 @@ QuickEats is an ordering and delivery system engineered to solve critical applic
 - **Conversational AI Assistance**: Groq API (Llama 3) powers conversational food recommendations and customer support grounded in verified order context.
 - **Verified Automated Test Suite**: Backed by 71 executable @Test methods across 23 backend test classes covering security controls, price recalculation logic, IDOR protections, and database transactions.
 
-### Architecture
+### Architecture & Implementation Stack
 - **Backend**: Spring Boot 3.2.3, Java 17, Spring Security 6, JJWT
 - **Persistence**: PostgreSQL, MySQL 8, and Hibernate ORM
 - **Real-Time**: Spring WebSocket with STOMP and SockJS
@@ -207,8 +223,16 @@ export const SHIVSASTRA_PROJECT: Project = {
   editionCode: "SHIV-HQ",
   summary:
     "Full-stack digital platform and engineering HQ featuring portfolio, dynamic project CMS, authenticated admin system, digital store with Razorpay checkout, contact workflow, and contextual AI assistant. Engineered with PostgreSQL RLS, secure authentication, API validation, rate limiting, and server-side payment verification architecture.",
-  caseStudyMarkdown: `### Overview
-ShivSastra is a full-stack digital platform and personal engineering HQ featuring portfolio showcases, a dynamic project CMS, an authenticated admin management system, an integrated digital store with Razorpay checkout, an automated contact workflow, and a contextual AI assistant.
+  caseStudyMarkdown: `### Executive Summary
+ShivSastra is the production digital platform and personal engineering HQ operated by Shivam Shukla, built with Next.js 16 App Router, TypeScript, and Supabase.
+
+### Project Context & Core Attributes
+- **Problem**: Technical engineers often lack a centralized digital platform that balances high-trust technical proof for engineering leads with clear, transparent service packages for non-technical clients.
+- **Intended User**: Prospective clients, engineering managers, and digital product buyers.
+- **My Role**: Full-stack architect, designer, and developer (Next.js 16 App Router, React 19, TypeScript, Supabase RLS, Razorpay integration, and defensive security hygiene).
+- **Solution**: A production-grade web application featuring server-side rendered showcases, authenticated admin CMS, Razorpay payment processing with cryptographic verification, Cloudflare Turnstile anti-spam, and automated test coverage.
+- **Verified Status**: Deployed in production at https://www.jiosi.online with 25/25 automated store security checks passing, sub-second TTFB, and zero layout shift.
+- **Evidence**: Live website (jiosi.online) and open GitHub repository at github.com/shivam-shukla888/Shivam-Portfolio.
 
 ### Architecture & Security Highlights
 - **Full-Stack Next.js Architecture**: Server-side rendering (SSR), static optimization, and modular component hierarchy with responsive, high-performance typography.

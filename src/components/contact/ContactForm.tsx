@@ -359,7 +359,7 @@ export function ContactForm({
           {isPending ? "Sending..." : labels.submit}
         </Button>
         <p className={`font-sans text-[11px] leading-relaxed ${isDark ? "text-white/60" : "text-[var(--color-ink-secondary)]"}`}>
-          Replies within 24 hours. Your details are never shared. Protected under our{" "}
+          Replies within 24 hours. Your details are never sold or shared for marketing; processed solely by our infrastructure to answer your inquiry under our{" "}
           <Link
             href="/privacy"
             className={`underline underline-offset-2 hover:text-[var(--color-accent)] transition-colors ${

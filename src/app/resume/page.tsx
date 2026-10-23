@@ -63,35 +63,35 @@ export default function ResumePage() {
                     Agentic AI · Backend Engineering · AI Systems
                   </p>
                 </div>
-                {/* Authoritative Action Links */}
+                {/* Authoritative Primary & Secondary Actions */}
                 <div className="flex flex-wrap items-center gap-3">
                   <a
                     href="/resume.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    download="Shivam_Shukla_Resume.pdf"
                     className={buttonStyles({
                       variant: "primary",
                       size: "md",
                       className: "font-mono text-xs uppercase tracking-wider group",
                     })}
                   >
-                    <span>View Resume</span>
-                    <span className="inline-block transition-transform duration-150 group-hover:translate-x-0.5 ml-1">
-                      ↗
+                    <span>Download PDF</span>
+                    <span className="inline-block transition-transform duration-150 group-hover:translate-y-0.5 ml-1">
+                      ↓
                     </span>
                   </a>
                   <a
                     href="/resume.pdf"
-                    download="Shivam_Shukla_Resume.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className={buttonStyles({
                       variant: "secondary",
                       size: "md",
                       className: "font-mono text-xs uppercase tracking-wider group",
                     })}
                   >
-                    <span>Download Resume</span>
-                    <span className="inline-block transition-transform duration-150 group-hover:translate-y-0.5 ml-1">
-                      ↓
+                    <span>View in New Tab</span>
+                    <span className="inline-block transition-transform duration-150 group-hover:translate-x-0.5 ml-1">
+                      ↗
                     </span>
                   </a>
                 </div>
@@ -110,19 +110,12 @@ export default function ResumePage() {
                   </span>
                   <span>Shivam_Shukla_Resume.pdf</span>
                 </div>
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-3">
                   <span>1 Page</span>
                   <span>·</span>
-                  <span>PDF Format</span>
+                  <span>PDF Document</span>
                   <span>·</span>
-                  <a
-                    href="/resume.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors underline underline-offset-4"
-                  >
-                    Open in New Tab ↗
-                  </a>
+                  <span className="text-[var(--color-ink-primary)]">Single-Page Concise Format</span>
                 </div>
               </div>
 
@@ -130,16 +123,7 @@ export default function ResumePage() {
               <div className="border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] shadow-sm overflow-hidden">
                 <div className="p-2 sm:p-4 bg-[var(--color-canvas-secondary)] border-b border-[var(--color-hairline)] flex items-center justify-between font-mono text-[11px] text-[var(--color-ink-secondary)]">
                   <span>Authentic Document Preview</span>
-                  <div className="flex items-center gap-2">
-                    <a
-                      href="/resume.pdf"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:text-[var(--color-ink-primary)] transition-colors"
-                    >
-                      Fullscreen ↗
-                    </a>
-                  </div>
+                  <span className="text-[10px] uppercase tracking-wider text-[var(--color-accent)] font-semibold">Verified Oct 2026</span>
                 </div>
                 <div className="relative w-full aspect-[1/1.414] bg-white">
                   <Image

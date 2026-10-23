@@ -81,14 +81,14 @@ export default async function DigitalProductsStorePage() {
                     Digital Products
                   </h1>
                   <p className="font-sans text-sm md:text-base text-[var(--color-ink-secondary)] leading-relaxed">
-                    Code starter repos, developer templates, and technical downloads.
+                    Structured Spring Boot API starters and backend developer boilerplates in active development.
                   </p>
                 </div>
                 <div className="font-mono text-xs text-[var(--color-ink-secondary)] shrink-0">
                   <span className="text-[var(--color-accent)] font-semibold">
-                    {categoryCounts.digital_products}
+                    {categoryCounts.digital_products === 1 ? "1 upcoming starter" : `${categoryCounts.digital_products} upcoming`}
                   </span>{" "}
-                  {categoryCounts.digital_products === 1 ? "product available" : "products available"}
+                  (In Development)
                 </div>
               </div>
             </div>

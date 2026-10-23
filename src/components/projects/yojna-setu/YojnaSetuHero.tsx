@@ -123,13 +123,6 @@ export function YojnaSetuHero() {
             ({data.repoNote})
           </span>
         </a>
-        <Link
-          href="/store/yojna-setu"
-          className="font-sans text-xs text-[var(--color-ink-secondary)] hover:text-[var(--color-accent)] transition-colors inline-flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)] px-2 py-1"
-        >
-          <span>Store Edition</span>
-          <span className="text-[10px]">→</span>
-        </Link>
       </div>
     </header>
   );

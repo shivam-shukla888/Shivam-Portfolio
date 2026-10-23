@@ -81,14 +81,14 @@ export default async function DesignStorePage() {
                     Design & Templates
                   </h1>
                   <p className="font-sans text-sm md:text-base text-[var(--color-ink-secondary)] leading-relaxed">
-                    Design templates, interaction kits, and UI components built for web apps.
+                    Swiss-inspired web templates and accessible interaction systems in active development.
                   </p>
                 </div>
                 <div className="font-mono text-xs text-[var(--color-ink-secondary)] shrink-0">
                   <span className="text-[var(--color-accent)] font-semibold">
-                    {categoryCounts.design}
+                    {categoryCounts.design === 1 ? "1 upcoming template" : `${categoryCounts.design} upcoming`}
                   </span>{" "}
-                  {categoryCounts.design === 1 ? "product available" : "products available"}
+                  (In Development)
                 </div>
               </div>
             </div>

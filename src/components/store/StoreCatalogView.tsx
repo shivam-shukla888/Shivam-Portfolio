@@ -185,9 +185,13 @@ export function StoreCatalogView({
             className="px-3 py-1.5 bg-[var(--color-canvas-primary)] border border-[var(--color-hairline)] rounded-none font-mono text-xs text-[var(--color-ink-primary)] focus:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
           >
             <option value="newest">Sort: Newest First</option>
-            <option value="featured">Sort: Featured Products</option>
-            <option value="price_asc">Price: Low to High</option>
-            <option value="price_desc">Price: High to Low</option>
+            <option value="featured">Sort: Featured Items</option>
+            {categoryCounts.purchasable > 0 && (
+              <>
+                <option value="price_asc">Price: Low to High</option>
+                <option value="price_desc">Price: High to Low</option>
+              </>
+            )}
           </select>
         </div>
       </div>
@@ -202,10 +206,16 @@ export function StoreCatalogView({
               CATEGORY_HREFS[product.category] || "/store";
 
             const productHref = `/store/${product.slug}`;
-            const actionHref =
-              product.slug === "yojna-setu"
-                ? "/projects/yojna-setu"
-                : productHref;
+            const isCaseStudy =
+              product.slug === "yojna-setu" ||
+              product.formattedPrice === "Case Study";
+            const isUpcoming =
+              !isCaseStudy &&
+              (product.priceInCents === null || product.priceInCents <= 0);
+
+            const actionHref = isCaseStudy
+              ? "/projects/yojna-setu"
+              : productHref;
 
             return (
               <article
@@ -216,7 +226,7 @@ export function StoreCatalogView({
                   {/* Preview Image or Graphic Frame */}
                   {product.previewImageUrl ? (
                     <Link
-                      href={productHref}
+                      href={actionHref}
                       className="w-full aspect-[16/10] border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] overflow-hidden relative block"
                     >
                       <Image
@@ -247,20 +257,40 @@ export function StoreCatalogView({
                     >
                       {categoryLabel}
                     </Link>
-                    <span className="text-[var(--color-accent)] font-semibold">
-                      {product.formattedPrice}
-                    </span>
-                  </div>
-
-                  {/* Title & Badges */}
-                  <div className="space-y-1">
-                    {product.isFeatured && (
-                      <span className="inline-block font-mono text-[9px] uppercase tracking-wider px-1.5 py-0.5 border border-[var(--color-accent)] text-[var(--color-accent)] bg-[var(--color-accent)]/5 mb-1">
-                        {product.priceInCents === null ? "Featured Agent" : "Featured Product"}
+                    {isCaseStudy ? (
+                      <span className="font-mono text-xs text-[var(--color-ink-secondary)] font-medium">
+                        Open Case Study
+                      </span>
+                    ) : isUpcoming ? (
+                      <span className="font-mono text-xs text-amber-700 dark:text-amber-400 font-medium">
+                        In Development
+                      </span>
+                    ) : (
+                      <span className="text-[var(--color-accent)] font-semibold">
+                        {product.formattedPrice}
                       </span>
                     )}
+                  </div>
+
+                  {/* Title & Classification Badge */}
+                  <div className="space-y-1.5">
+                    <div>
+                      {isCaseStudy ? (
+                        <span className="inline-block font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] text-[var(--color-ink-secondary)]">
+                          Architecture Case Study
+                        </span>
+                      ) : isUpcoming ? (
+                        <span className="inline-block font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 border border-amber-600/30 bg-amber-500/10 text-amber-800 dark:text-amber-300">
+                          Upcoming Release
+                        </span>
+                      ) : (
+                        <span className="inline-block font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 border border-emerald-600/30 bg-emerald-500/10 text-emerald-800 dark:text-emerald-300">
+                          Available for Purchase
+                        </span>
+                      )}
+                    </div>
                     <h2 className="font-display text-2xl font-normal text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors">
-                      <Link href={productHref}>{product.title}</Link>
+                      <Link href={actionHref}>{product.title}</Link>
                     </h2>
                   </div>
 
@@ -268,7 +298,7 @@ export function StoreCatalogView({
                   <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
                     {product.shortDescription ||
                       product.description ||
-                      "Digital product by Shivam Shukla."}
+                      "Digital release by Shivam Shukla."}
                   </p>
 
                   {/* Features snippets if available */}
@@ -290,17 +320,27 @@ export function StoreCatalogView({
                 {/* Footer Action */}
                 <div className="pt-6 border-t border-[var(--color-hairline)] mt-6 flex items-center justify-between gap-4">
                   <span className="font-mono text-[10px] text-[var(--color-ink-secondary)] uppercase tracking-wider">
-                    {(product.productType || "digital_download").replace(/_/g, " ")}
+                    {isCaseStudy
+                      ? "Engineering Monograph"
+                      : isUpcoming
+                      ? "In Development"
+                      : (product.productType || "digital_download").replace(/_/g, " ")}
                   </span>
                   <Link
                     href={actionHref}
                     className={buttonStyles({
-                      variant: "secondary",
+                      variant: isCaseStudy ? "primary" : "secondary",
                       size: "sm",
                       className: "font-mono uppercase tracking-wider text-xs group/btn",
                     })}
                   >
-                    <span>{product.slug === "yojna-setu" ? "View Case Study" : "View Details"}</span>
+                    <span>
+                      {isCaseStudy
+                        ? "Read Case Study"
+                        : isUpcoming
+                        ? "View Release Info"
+                        : "Buy Now"}
+                    </span>
                     <span className="inline-block transition-transform duration-200 group-hover/btn:translate-x-1 motion-reduce:transform-none ml-1">
                       →
                     </span>

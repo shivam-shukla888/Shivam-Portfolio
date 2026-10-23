@@ -161,21 +161,29 @@ export default function PrivacyPolicyPage() {
               {/* 4. Infrastructure & Service Providers */}
               <section className="space-y-3">
                 <h2 className="font-display text-xl sm:text-2xl text-[var(--color-ink-primary)] font-normal tracking-tight">
-                  4. Infrastructure & Hosting
+                  4. Infrastructure, Service Providers &amp; No-Sale Commitment
                 </h2>
-                <p>The deployed website utilizes the following infrastructure providers:</p>
+                <p>
+                  <strong className="text-[var(--color-ink-primary)]">Data is Never Sold:</strong> We never sell, rent, monetize, or trade your personal information to third parties, data brokers, or marketing networks. Information is processed strictly on our behalf by vetted technical service providers to operate this website, protect against abuse, send transactional receipts or inquiry replies, and process requested orders:
+                </p>
                 <ul className="list-disc pl-5 space-y-1.5 font-sans">
                   <li>
-                    <strong className="text-[var(--color-ink-primary)]">Vercel:</strong> Application hosting, edge proxy, and production deployment with automated HTTPS/TLS encryption.
+                    <strong className="text-[var(--color-ink-primary)]">Vercel:</strong> Application hosting, edge routing, and production deployment with automated HTTPS/TLS encryption.
                   </li>
                   <li>
-                    <strong className="text-[var(--color-ink-primary)]">Supabase:</strong> Managed database storage for inquiries and published content.
+                    <strong className="text-[var(--color-ink-primary)]">Supabase:</strong> Managed database storage for contact inquiries, digital product inventory, and purchase records.
                   </li>
                   <li>
                     <strong className="text-[var(--color-ink-primary)]">Upstash Redis:</strong> Ephemeral in-memory sliding-window counter storage for rate limiting.
                   </li>
                   <li>
-                    <strong className="text-[var(--color-ink-primary)]">Cloudflare:</strong> Turnstile bot verification service.
+                    <strong className="text-[var(--color-ink-primary)]">Cloudflare:</strong> Turnstile cryptographic bot verification service.
+                  </li>
+                  <li>
+                    <strong className="text-[var(--color-ink-primary)]">Resend:</strong> Transactional email service for delivering purchase receipts, download links, and inquiry notifications.
+                  </li>
+                  <li>
+                    <strong className="text-[var(--color-ink-primary)]">Razorpay:</strong> Payment gateway for processing orders securely without exposing card credentials to our servers.
                   </li>
                 </ul>
               </section>

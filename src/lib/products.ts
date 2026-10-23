@@ -80,6 +80,34 @@ export interface CategoryCounts {
   ai_agents: number;
   digital_products: number;
   total: number;
+  purchasable: number;
+  upcoming: number;
+  caseStudy: number;
+}
+
+/**
+ * Checks whether a product item is actually available for commercial checkout.
+ */
+export function isProductPurchasable(product: ProductDisplayData): boolean {
+  return Boolean(
+    product.isAvailable &&
+      product.priceInCents !== null &&
+      product.priceInCents > 0 &&
+      product.currency
+  );
+}
+
+/**
+ * Resolves the catalog presentation type: purchasable product, engineering case study, or upcoming release.
+ */
+export function getProductCatalogType(
+  product: ProductDisplayData
+): "purchasable" | "case_study" | "upcoming" {
+  if (isProductPurchasable(product)) return "purchasable";
+  if (product.slug === "yojna-setu" || product.formattedPrice === "Case Study") {
+    return "case_study";
+  }
+  return "upcoming";
 }
 
 /**
@@ -535,11 +563,20 @@ export async function getPublishedStoreProductById(
 export async function getStoreCategoryCounts(): Promise<CategoryCounts> {
   try {
     const products = await getPublishedStoreProducts();
+    const purchasable = products.filter(isProductPurchasable).length;
+    const caseStudy = products.filter(
+      (p) => !isProductPurchasable(p) && (p.slug === "yojna-setu" || p.formattedPrice === "Case Study")
+    ).length;
+    const upcoming = products.length - purchasable - caseStudy;
+
     return {
       design: products.filter((p) => p.category === "design").length,
       ai_agents: products.filter((p) => p.category === "ai_agents").length,
       digital_products: products.filter((p) => p.category === "digital_products").length,
       total: products.length,
+      purchasable,
+      upcoming,
+      caseStudy,
     };
   } catch (err) {
     console.error("[STORE COUNTS EXCEPTION]", err);
@@ -548,6 +585,9 @@ export async function getStoreCategoryCounts(): Promise<CategoryCounts> {
       ai_agents: 0,
       digital_products: 0,
       total: 0,
+      purchasable: 0,
+      upcoming: 0,
+      caseStudy: 0,
     };
   }
 }

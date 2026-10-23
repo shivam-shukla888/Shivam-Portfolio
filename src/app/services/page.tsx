@@ -309,6 +309,24 @@ export default async function ServicesPage() {
                       <p className="font-sans text-xs text-[var(--color-ink-secondary)] italic">
                         {pkg.pricingNote}
                       </p>
+
+                      {/* Key Scope Highlights on Card Face */}
+                      <div className="space-y-1 pt-1 border-t border-[var(--color-hairline)]">
+                        <ul className="space-y-1 list-none font-sans text-xs text-[var(--color-ink-primary)]">
+                          {pkg.deliverables.slice(0, 2).map((item, dIdx) => (
+                            <li key={dIdx} className="flex items-start gap-2">
+                              <span className="text-[var(--color-accent)] font-bold select-none">✓</span>
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                        {pkg.exclusions[0] && (
+                          <p className="font-sans text-[11px] text-[var(--color-ink-secondary)] flex items-start gap-2 pt-0.5">
+                            <span className="text-[var(--color-ink-secondary)] select-none">✕</span>
+                            <span>Excludes: {pkg.exclusions[0]}</span>
+                          </p>
+                        )}
+                      </div>
                     </div>
 
                     {/* Card Actions (Visible without clicking) */}
@@ -675,146 +693,226 @@ export default async function ServicesPage() {
             </section>
           </InnerPageEntrance>
 
-          {/* 5. COMPACT TECHNICAL CAPABILITIES & WEBSITE ENGINEERING SECTION */}
+          {/* 5. COMPACT TECHNICAL CAPABILITIES & ENGINEERING STANDARDS */}
           <InnerPageEntrance delayIndex={4}>
-            <section id="capabilities" className="space-y-8 scroll-mt-20">
+            <section id="capabilities" className="space-y-6 scroll-mt-20">
               <div className="space-y-2 max-w-3xl">
                 <div className="flex items-center gap-2">
                   <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--color-accent)] font-semibold">
-                    Technical Capabilities &amp; Engineering
+                    Technical Stack &amp; Standards
                   </span>
                   <span className="text-xs font-mono text-[var(--color-ink-secondary)]">
                     (Verified Against Code)
                   </span>
                 </div>
                 <h2 className="font-display text-3xl sm:text-4xl font-normal tracking-tight text-[var(--color-ink-primary)]">
-                  What I Genuinely Build &amp; How It&apos;s Engineered
+                  Engineering Stack &amp; Quality Standards
                 </h2>
                 <p className="font-sans text-sm md:text-base text-[var(--color-ink-secondary)] leading-relaxed">
-                  Every capability below is backed by real source code, automated test suites, or live architecture.
-                  I do not advertise technologies without hands-on implementation experience.
+                  For technical buyers and engineering leads: every technology and standard is verified against active source code, automated test suites, or live production deployments.
                 </p>
               </div>
 
-              {/* Compact 4-Card Capabilities Grid */}
+              {/* Scannable 2-Column Overview */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {TECHNICAL_CAPABILITIES.map((cap) => (
-                  <div
-                    key={cap.id}
-                    className="p-5 sm:p-6 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] space-y-4 flex flex-col justify-between"
-                  >
-                    <div className="space-y-3">
-                      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--color-hairline)] pb-2.5">
-                        <span className="font-display text-lg font-normal text-[var(--color-ink-primary)]">
-                          {cap.category}
-                        </span>
-                        <span className="font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] text-[var(--color-accent)] font-semibold">
-                          {cap.verificationBadge}
-                        </span>
-                      </div>
+                {/* Column 1: Core Technologies */}
+                <div className="p-6 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] space-y-4 flex flex-col justify-between">
+                  <div className="space-y-3">
+                    <span className="font-mono text-xs uppercase tracking-wider text-[var(--color-accent)] font-semibold block">
+                      Core Technology Stack
+                    </span>
+                    <h3 className="font-display text-xl font-normal text-[var(--color-ink-primary)]">
+                      Modern Web, Backend &amp; AI
+                    </h3>
+                    <ul className="space-y-2.5 font-sans text-xs text-[var(--color-ink-primary)] list-none">
+                      <li className="flex items-start gap-2.5">
+                        <span className="text-[var(--color-accent)] font-bold select-none shrink-0">—</span>
+                        <span><strong>Frontend:</strong> React 19, Next.js 16 (App Router), TypeScript, responsive typography, zero CLS.</span>
+                      </li>
+                      <li className="flex items-start gap-2.5">
+                        <span className="text-[var(--color-accent)] font-bold select-none shrink-0">—</span>
+                        <span><strong>Backend &amp; APIs:</strong> Java 21, Spring Boot 3, Python, PostgreSQL, Supabase RLS, REST &amp; WebSockets.</span>
+                      </li>
+                      <li className="flex items-start gap-2.5">
+                        <span className="text-[var(--color-accent)] font-bold select-none shrink-0">—</span>
+                        <span><strong>AI Orchestration:</strong> Groq SDK (Llama 3.3), OpenAI API, prompt schemas with deterministic fallbacks.</span>
+                      </li>
+                    </ul>
+                  </div>
 
-                      {/* Stack Pills */}
-                      <div className="flex flex-wrap gap-1.5">
-                        {cap.technologies.map((tech, tIdx) => (
-                          <span
-                            key={tIdx}
-                            className="font-mono text-[11px] px-2 py-0.5 bg-[var(--color-canvas-primary)] border border-[var(--color-hairline)] text-[var(--color-ink-secondary)]"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-
-                      <p className="font-sans text-xs sm:text-sm text-[var(--color-ink-primary)] leading-relaxed">
-                        {cap.summary}
-                      </p>
-
-                      <ul className="space-y-1 pt-1 list-none">
-                        {cap.capabilities.map((item, cIdx) => (
-                          <li
-                            key={cIdx}
-                            className="flex items-start gap-2 font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed"
-                          >
-                            <span className="text-[var(--color-accent)] select-none shrink-0">—</span>
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div className="pt-3 border-t border-[var(--color-hairline)]">
-                      <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--color-ink-primary)] font-semibold block mb-0.5">
-                        Demonstrated In
-                      </span>
-                      {cap.evidence.slug ? (
-                        <Link
-                          href={`/projects/${cap.evidence.slug}`}
-                          className="font-sans text-xs text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors inline-flex items-center gap-1 group"
-                        >
-                          <span className="underline underline-offset-2 font-medium">
-                            {cap.evidence.title}
-                          </span>
-                          <span className="transition-transform duration-150 group-hover:translate-x-1">→</span>
-                        </Link>
-                      ) : (
-                        <span className="font-sans text-xs text-[var(--color-ink-primary)] font-medium">
-                          {cap.evidence.title}
-                        </span>
-                      )}
+                  <div className="pt-3 border-t border-[var(--color-hairline)] font-mono text-xs text-[var(--color-ink-secondary)] flex items-center justify-between">
+                    <span>Evidence in:</span>
+                    <div className="flex gap-3">
+                      <Link href="/projects/quickeats" className="text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] underline underline-offset-2">QuickEats</Link>
+                      <Link href="/projects/yojna-setu" className="text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] underline underline-offset-2">Yojna Setu</Link>
+                      <Link href="/projects/shivsastra" className="text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] underline underline-offset-2">ShivSastra</Link>
                     </div>
                   </div>
-                ))}
+                </div>
+
+                {/* Column 2: Defensive Engineering Standards */}
+                <div className="p-6 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] space-y-4 flex flex-col justify-between">
+                  <div className="space-y-3">
+                    <span className="font-mono text-xs uppercase tracking-wider text-[var(--color-accent)] font-semibold block">
+                      Defensive Engineering Standards
+                    </span>
+                    <h3 className="font-display text-xl font-normal text-[var(--color-ink-primary)]">
+                      Security, Validation &amp; SEO
+                    </h3>
+                    <ul className="space-y-2.5 font-sans text-xs text-[var(--color-ink-primary)] list-none">
+                      <li className="flex items-start gap-2.5">
+                        <span className="text-[var(--color-accent)] font-bold select-none shrink-0">✓</span>
+                        <span><strong>Server-Authoritative Validation:</strong> Zero client trust; prices and payloads verified strictly on server.</span>
+                      </li>
+                      <li className="flex items-start gap-2.5">
+                        <span className="text-[var(--color-accent)] font-bold select-none shrink-0">✓</span>
+                        <span><strong>Cryptographic Webhooks:</strong> Timing-safe HMAC-SHA256 signature verification and idempotency guards.</span>
+                      </li>
+                      <li className="flex items-start gap-2.5">
+                        <span className="text-[var(--color-accent)] font-bold select-none shrink-0">✓</span>
+                        <span><strong>Security &amp; Anti-Spam:</strong> CSP headers, Cloudflare Turnstile verification, and hidden honeypot fields.</span>
+                      </li>
+                      <li className="flex items-start gap-2.5">
+                        <span className="text-[var(--color-accent)] font-bold select-none shrink-0">✓</span>
+                        <span><strong>Technical SEO &amp; Discovery:</strong> Canonical URL integrity, XML sitemaps, JSON-LD graphs, and /llms.txt.</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div className="pt-3 border-t border-[var(--color-hairline)] font-mono text-xs text-[var(--color-ink-secondary)] flex items-center justify-between">
+                    <span>Automated Security Suite:</span>
+                    <span className="font-semibold text-[var(--color-ink-primary)]">25/25 automated tests passing</span>
+                  </div>
+                </div>
               </div>
 
-              {/* Compact Website Engineering Showcase */}
-              <div className="space-y-4 pt-4 border-t border-[var(--color-hairline)]">
-                <div className="space-y-1">
-                  <span className="font-mono text-xs uppercase tracking-wider text-[var(--color-accent)] font-semibold">
-                    Live Proof (How This Site Is Built)
+              {/* Accessible Disclosure for Full Deep-Dive */}
+              <details className="group border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] p-5 focus-within:outline-none">
+                <summary className="flex items-center justify-between cursor-pointer list-none select-none font-mono text-xs uppercase tracking-wider text-[var(--color-ink-secondary)] hover:text-[var(--color-accent)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]">
+                  <span className="font-semibold">
+                    <span className="group-open:hidden">Inspect in-depth capability breakdowns &amp; verified live proof (SEO, Security, Performance)</span>
+                    <span className="hidden group-open:inline">Hide in-depth engineering breakdowns</span>
                   </span>
-                  <h3 className="font-display text-xl font-normal text-[var(--color-ink-primary)]">
-                    Website Engineering &amp; Defensive Hygiene
-                  </h3>
-                </div>
+                  <span className="font-mono text-sm font-semibold transition-transform duration-200 group-open:rotate-180 select-none">
+                    ↓
+                  </span>
+                </summary>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  {WEBSITE_ENGINEERING_SHOWCASE.map((showcase) => (
-                    <div
-                      key={showcase.id}
-                      className="p-5 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] space-y-3 flex flex-col justify-between"
-                    >
-                      <div className="space-y-2">
-                        <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--color-accent)] font-semibold block">
-                          {showcase.badge}
-                        </span>
-                        <h4 className="font-display text-base font-normal text-[var(--color-ink-primary)]">
-                          {showcase.title}
-                        </h4>
-                        <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
-                          {showcase.summary}
-                        </p>
-                        <ul className="space-y-1 pt-1 list-none">
-                          {showcase.highlights.map((highlight, hIdx) => (
-                            <li
-                              key={hIdx}
-                              className="flex items-start gap-2 font-sans text-[11px] text-[var(--color-ink-primary)] leading-relaxed"
+                <div className="pt-6 space-y-8">
+                  {/* Detailed 4-Card Capabilities Grid */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    {TECHNICAL_CAPABILITIES.map((cap) => (
+                      <div
+                        key={cap.id}
+                        className="p-5 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] space-y-3 flex flex-col justify-between"
+                      >
+                        <div className="space-y-2.5">
+                          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--color-hairline)] pb-2">
+                            <span className="font-display text-base font-normal text-[var(--color-ink-primary)]">
+                              {cap.category}
+                            </span>
+                            <span className="font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] text-[var(--color-accent)] font-semibold">
+                              {cap.verificationBadge}
+                            </span>
+                          </div>
+
+                          <div className="flex flex-wrap gap-1.5">
+                            {cap.technologies.map((tech, tIdx) => (
+                              <span
+                                key={tIdx}
+                                className="font-mono text-[11px] px-2 py-0.5 bg-[var(--color-canvas-secondary)] border border-[var(--color-hairline)] text-[var(--color-ink-secondary)]"
+                              >
+                                {tech}
+                              </span>
+                            ))}
+                          </div>
+
+                          <p className="font-sans text-xs text-[var(--color-ink-primary)] leading-relaxed">
+                            {cap.summary}
+                          </p>
+
+                          <ul className="space-y-1 list-none">
+                            {cap.capabilities.map((item, cIdx) => (
+                              <li
+                                key={cIdx}
+                                className="flex items-start gap-2 font-sans text-[11px] text-[var(--color-ink-secondary)] leading-relaxed"
+                              >
+                                <span className="text-[var(--color-accent)] select-none shrink-0">—</span>
+                                <span>{item}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+
+                        <div className="pt-2 border-t border-[var(--color-hairline)]">
+                          <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--color-ink-primary)] font-semibold block mb-0.5">
+                            Demonstrated In
+                          </span>
+                          {cap.evidence.slug ? (
+                            <Link
+                              href={`/projects/${cap.evidence.slug}`}
+                              className="font-sans text-xs text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors inline-flex items-center gap-1 group"
                             >
-                              <span className="text-[var(--color-accent)] font-bold select-none shrink-0">✓</span>
-                              <span>{highlight}</span>
-                            </li>
-                          ))}
-                        </ul>
+                              <span className="underline underline-offset-2 font-medium">
+                                {cap.evidence.title}
+                              </span>
+                              <span className="transition-transform duration-150 group-hover:translate-x-1">→</span>
+                            </Link>
+                          ) : (
+                            <span className="font-sans text-xs text-[var(--color-ink-primary)] font-medium">
+                              {cap.evidence.title}
+                            </span>
+                          )}
+                        </div>
                       </div>
+                    ))}
+                  </div>
 
-                      <div className="pt-2 border-t border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] p-2.5 -mx-1 -mb-1 border">
-                        <p className="font-sans text-[11px] text-[var(--color-ink-secondary)] leading-relaxed italic">
-                          {showcase.transparencyNote}
-                        </p>
-                      </div>
+                  {/* Website Engineering Showcase */}
+                  <div className="space-y-3 pt-4 border-t border-[var(--color-hairline)]">
+                    <span className="font-mono text-xs uppercase tracking-wider text-[var(--color-accent)] font-semibold block">
+                      Live Defensive Hygiene on ShivSastra
+                    </span>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      {WEBSITE_ENGINEERING_SHOWCASE.map((showcase) => (
+                        <div
+                          key={showcase.id}
+                          className="p-4 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] space-y-2 flex flex-col justify-between"
+                        >
+                          <div className="space-y-2">
+                            <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--color-accent)] font-semibold block">
+                              {showcase.badge}
+                            </span>
+                            <h4 className="font-display text-sm font-normal text-[var(--color-ink-primary)]">
+                              {showcase.title}
+                            </h4>
+                            <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
+                              {showcase.summary}
+                            </p>
+                            <ul className="space-y-1 pt-1 list-none">
+                              {showcase.highlights.map((highlight, hIdx) => (
+                                <li
+                                  key={hIdx}
+                                  className="flex items-start gap-1.5 font-sans text-[11px] text-[var(--color-ink-primary)] leading-relaxed"
+                                >
+                                  <span className="text-[var(--color-accent)] font-bold select-none shrink-0">✓</span>
+                                  <span>{highlight}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+
+                          <div className="pt-2 border-t border-[var(--color-hairline)] mt-2">
+                            <p className="font-sans text-[10px] text-[var(--color-ink-secondary)] leading-relaxed italic">
+                              {showcase.transparencyNote}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
                     </div>
-                  ))}
+                  </div>
                 </div>
-              </div>
+              </details>
             </section>
           </InnerPageEntrance>
 
