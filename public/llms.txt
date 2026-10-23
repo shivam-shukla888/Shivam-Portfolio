@@ -1,0 +1,39 @@
+# ShivSastra — Shivam Shukla
+
+> ShivSastra is the personal engineering portfolio, studio, and digital product platform of Shivam Shukla, focused on backend systems, agentic AI workflows, and software security.
+
+Shivam Shukla is an AI engineer and backend developer specializing in deterministic systems, agentic workflows, and defensive application architecture. The platform documents production-grade software engineering projects, technical case studies, practical consulting services, and curated developer resources.
+
+## Core Pages
+
+- [Home](https://www.jiosi.online/): Overview of engineering focus areas across Backend Systems, Agentic AI, and AI Security.
+- [About](https://www.jiosi.online/about): Background, technical philosophy, verified experience at Nexvia Technologies and Soft Pro, education, and credentials of Shivam Shukla.
+- [Projects](https://www.jiosi.online/projects): Portfolio of client case studies, engineering builds, and open-source systems.
+- [Services](https://www.jiosi.online/services): Practical consulting in AI agents, AI automation, AI security, product engineering, and developer products.
+- [Contact](https://www.jiosi.online/contact): Direct contact channel for project inquiries, architecture reviews, and consulting engagements.
+- [Resume](https://www.jiosi.online/resume): Verified curriculum vitae detailing software engineering background, technical stack, and education.
+
+## Featured Projects
+
+- [Yojna Setu](https://www.jiosi.online/projects/yojna-setu): AI + deterministic rules engine evaluated across 82 welfare schemes, decoupling natural-language intake from deterministic Java business logic.
+- [ShivSastra Digital HQ](https://www.jiosi.online/projects/shivsastra): Full-stack platform built with Next.js App Router, Supabase PostgreSQL with Row-Level Security, Razorpay integration, and a sandboxed AI assistant.
+- [RealGuard](https://www.jiosi.online/projects/realguard): AI automation and conversational real estate workflow connecting WhatsApp intake to RERA verification, deterministic EMI calculations, and CRM persistence.
+- [QuickEats](https://www.jiosi.online/projects/quickeats): Real-time food ordering and delivery system engineered with Spring Boot 3, server-side price recalculation, IDOR defenses, and STOMP WebSockets.
+
+## Store & Developer Releases
+
+- [Store](https://www.jiosi.online/store): Curated digital releases including developer boilerplates, architecture monographs, and templates.
+- [Design Templates](https://www.jiosi.online/store/design): Handcrafted editorial and Swiss-inspired developer portfolio templates.
+- [AI Agents](https://www.jiosi.online/store/ai-agents): Production-tested agent architectures, tool-calling pipelines, and workflow blueprints.
+- [Digital Products](https://www.jiosi.online/store/digital-products): Production-ready backend starters and developer toolkits.
+- [Yojna Setu Architecture Monograph](https://www.jiosi.online/store/yojna-setu): Technical architecture case study and agent engineering monograph for decoupled intake workflows.
+
+## Research & Personal Lab
+
+- [Personal Lab](https://www.jiosi.online/lab): Sandbox explorations, architectural experiments, research notes, and emerging prototypes.
+
+## Policies & Governance
+
+- [Privacy Policy](https://www.jiosi.online/privacy): Information governance, visitor privacy disclosures, and infrastructure security practices.
+- [Terms of Service](https://www.jiosi.online/terms): Terms governing digital resource usage, studio engagements, and platform access.
+- [Refund Policy](https://www.jiosi.online/refunds): Cancellation, fulfillment, and refund policies for digital releases and services.
