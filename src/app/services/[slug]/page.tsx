@@ -36,7 +36,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${service.title} — Services | Shivam Shukla`,
+    title: `${service.title} — Services`,
     description: service.summary || undefined,
     alternates: {
       canonical: absoluteUrl(`/services/${service.slug}`),

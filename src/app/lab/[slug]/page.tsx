@@ -40,7 +40,7 @@ export async function generateMetadata({
     : undefined;
 
   return {
-    title: `${entry.title} | Lab — Shivam Shukla`,
+    title: `${entry.title} — Lab`,
     description: snippet,
     alternates: {
       canonical: absoluteUrl(`/lab/${entry.slug}`),

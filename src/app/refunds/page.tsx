@@ -12,7 +12,7 @@ import { absoluteUrl } from "@/lib/site";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Refund Policy — Shivam Shukla",
+  title: "Refund Policy",
   description: "Refund and cancellation policy for digital products and custom engineering engagements on SHIVSASTRA.",
   alternates: {
     canonical: absoluteUrl("/refunds"),

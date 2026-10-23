@@ -47,7 +47,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     {
       url: `${baseUrl}/store`,
       lastModified: BASELINE_STATIC_DATE,
-      changeFrequency: "daily",
+      changeFrequency: "weekly",
       priority: 0.9,
     },
     {
@@ -153,7 +153,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       });
     }
 
-    return [...staticRoutes, ...dynamicRoutes];
+    const latestProductTimestamp = products
+      .filter((pr) => pr.isAvailable)
+      .map((pr) => safeDate(pr.updatedAt || pr.createdAt))
+      .filter((d): d is Date => Boolean(d))
+      .sort((a, b) => b.getTime() - a.getTime())[0];
+
+    const calibratedStaticRoutes: MetadataRoute.Sitemap = staticRoutes.map((r) => {
+      if (r.url === `${baseUrl}/store` && latestProductTimestamp) {
+        return {
+          ...r,
+          lastModified: latestProductTimestamp,
+        };
+      }
+      return r;
+    });
+
+    return [...calibratedStaticRoutes, ...dynamicRoutes];
   } catch {
     return [
       ...staticRoutes,

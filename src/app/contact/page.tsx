@@ -11,7 +11,7 @@ import { absoluteUrl } from "@/lib/site";
 export const revalidate = 60;
 
 export const metadata = {
-  title: "Contact — Shivam Shukla",
+  title: "Contact — Engineering Inquiries & Advisory",
   description: "Have a project in mind? Tell me what you're building.",
   alternates: {
     canonical: absoluteUrl("/contact"),

@@ -12,7 +12,7 @@ import { absoluteUrl } from "@/lib/site";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Terms of Service — Shivam Shukla",
+  title: "Terms of Service",
   description: "Terms of service, digital licensing, and usage conditions for SHIVSASTRA by Shivam Shukla.",
   alternates: {
     canonical: absoluteUrl("/terms"),

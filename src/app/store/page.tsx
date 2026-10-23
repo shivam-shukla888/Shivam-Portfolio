@@ -9,12 +9,12 @@ import {
 } from "@/lib/products";
 import { StoreCatalogView } from "@/components/store/StoreCatalogView";
 
-import { absoluteUrl } from "@/lib/site";
+import { absoluteUrl, serializeJsonLd } from "@/lib/site";
 
 export const revalidate = 60;
 
 export const metadata = {
-  title: "Store — Shivam Shukla",
+  title: "Store — Digital Products & Architectural Blueprints",
   description:
     "Digital products, templates, and tools made and sold by Shivam Shukla.",
   alternates: {
@@ -52,8 +52,38 @@ export default async function StorePage() {
     getStoreCategoryCounts(),
   ]);
 
+  const storeJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "SHIVSASTRA Store",
+    description:
+      "Digital products, templates, and tools made and sold by Shivam Shukla.",
+    url: absoluteUrl("/store"),
+    breadcrumb: {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: absoluteUrl("/"),
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Store",
+          item: absoluteUrl("/store"),
+        },
+      ],
+    },
+  };
+
   return (
     <div className="relative w-full pt-16 md:pt-24 pb-20 md:pb-28 overflow-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(storeJsonLd) }}
+      />
       <PageBackground
         src="/images/backgrounds/store.webp"
         opacity={0.24}
@@ -197,8 +227,35 @@ export default async function StorePage() {
             </div>
           </InnerPageEntrance>
 
-          {/* Back Link */}
+          {/* Custom Services Bridge Banner */}
           <InnerPageEntrance delayIndex={3}>
+            <div className="p-8 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] flex flex-col md:flex-row md:items-center justify-between gap-6">
+              <div className="space-y-2 max-w-2xl">
+                <div className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 bg-[var(--color-accent)] inline-block" />
+                  <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--color-accent)] font-semibold">
+                    Need Custom Client Development?
+                  </span>
+                </div>
+                <h3 className="font-display text-2xl font-normal text-[var(--color-ink-primary)]">
+                  Custom Engineering &amp; AI Integration Services
+                </h3>
+                <p className="font-sans text-xs sm:text-sm text-[var(--color-ink-secondary)] leading-relaxed">
+                  Looking for bespoke development rather than ready-made templates?
+                  I offer tailored client services including website bug fixing (starting at ₹999), Next.js landing pages, API integrations, and practical AI chatbots.
+                </p>
+              </div>
+              <Link
+                href="/services"
+                className="inline-flex items-center justify-center font-mono text-xs uppercase tracking-wider px-5 py-3 border border-[var(--color-ink-primary)] text-[var(--color-ink-primary)] hover:bg-[var(--color-ink-primary)] hover:text-[var(--color-canvas-primary)] transition-colors self-start md:self-auto shrink-0 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
+              >
+                Explore Services &amp; Packages →
+              </Link>
+            </div>
+          </InnerPageEntrance>
+
+          {/* Back Link */}
+          <InnerPageEntrance delayIndex={4}>
             <div className="pt-6 border-t border-[var(--color-hairline)]">
               <Link
                 href="/"

@@ -60,7 +60,7 @@ export async function generateMetadata({
       : absoluteUrl("/og-image.png");
 
   return {
-    title: `${product.title} — Store | Shivam Shukla`,
+    title: `${product.title} — Store`,
     description:
       product.shortDescription ||
       product.description ||
@@ -264,6 +264,26 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                   <p className="font-sans text-lg md:text-xl text-[var(--color-ink-primary)] leading-relaxed max-w-3xl">
                     {product.shortDescription}
                   </p>
+                )}
+
+                {product.slug === "yojna-setu" && (
+                  <div className="p-4 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div className="space-y-1">
+                      <span className="font-mono text-xs uppercase tracking-wider text-[var(--color-accent)] font-semibold">
+                        Engineering Case Study Available
+                      </span>
+                      <p className="font-sans text-xs text-[var(--color-ink-secondary)]">
+                        Full architectural monograph with test suite, rules engine details, and WhatsApp evidence.
+                      </p>
+                    </div>
+                    <Link
+                      href="/projects/yojna-setu"
+                      className="font-mono text-xs uppercase tracking-wider text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] shrink-0 flex items-center gap-1.5 transition-colors"
+                    >
+                      <span>Read Case Study</span>
+                      <span>→</span>
+                    </Link>
+                  </div>
                 )}
 
                 {/* Commercial Action Bar */}

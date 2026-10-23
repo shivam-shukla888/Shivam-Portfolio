@@ -14,7 +14,7 @@ import { absoluteUrl } from "@/lib/site";
 export const revalidate = 60;
 
 export const metadata = {
-  title: "About — Shivam Shukla",
+  title: "About — Engineering Philosophy & Background",
   description:
     "Background, technical approach, and direction of Shivam Shukla — AI agents, AI security, automation, and digital products.",
   alternates: {

@@ -12,7 +12,7 @@ import { absoluteUrl } from "@/lib/site";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Work & Projects — Shivam Shukla",
+  title: "Work & Projects — Systems & AI Engineering",
   description:
     "Verified software systems, AI agents, and engineering builds by Shivam Shukla — AI agents, automation, and security.",
   alternates: {

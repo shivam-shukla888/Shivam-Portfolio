@@ -10,7 +10,7 @@ import { absoluteUrl } from "@/lib/site";
 export const revalidate = 60;
 
 export const metadata = {
-  title: "Lab — Shivam Shukla",
+  title: "Lab — Experiments & Technical Notes",
   description: "Personal sandbox for experimental ideas, software builds, and technical notes.",
   alternates: {
     canonical: absoluteUrl("/lab"),

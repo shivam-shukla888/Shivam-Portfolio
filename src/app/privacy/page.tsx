@@ -10,7 +10,7 @@ import { BackToTop } from "@/components/ui/BackToTop";
 import { absoluteUrl, CANONICAL_ORIGIN } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy — Shivam Shukla",
+  title: "Privacy Policy",
   description: "Privacy policy and security practices for SHIVSASTRA, operated by Shivam Shukla.",
   alternates: {
     canonical: absoluteUrl("/privacy"),

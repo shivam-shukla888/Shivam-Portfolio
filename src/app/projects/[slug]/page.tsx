@@ -34,7 +34,7 @@ export async function generateMetadata({
   if (slug === "yojna-setu") {
     const ogImg = absoluteUrl("/images/projects/yojna-setu/evidence-whatsapp-discovery.png");
     return {
-      title: "Yojna Setu — AI + Deterministic Systems | Shivam Shukla",
+      title: "Yojna Setu — AI + Deterministic Systems",
       description:
         "AI + deterministic systems welfare discovery platform. Natural language intake coupled with a deterministic rules engine over 82 welfare schemes.",
       alternates: {
@@ -62,7 +62,7 @@ export async function generateMetadata({
   if (slug === "realguard") {
     const ogImg = absoluteUrl("/images/projects/realguard/realguard.png");
     return {
-      title: "RealGuard — AI Automation & Conversational Workflows | Shivam Shukla",
+      title: "RealGuard — AI Automation & Conversational Workflows",
       description:
         "AI automation and conversational workflows for real estate. WhatsApp conversational extraction coupled with deterministic calculations and RERA registry lookup.",
       alternates: {
@@ -90,7 +90,7 @@ export async function generateMetadata({
   if (slug === "quickeats") {
     const ogImg = absoluteUrl("/og-image.png");
     return {
-      title: "QuickEats — Product Engineering & App Security | Shivam Shukla",
+      title: "QuickEats — Product Engineering & App Security",
       description:
         "AI-assisted food ordering platform featuring server-side price recalculation, ownership validation, JWT rotation, STOMP WebSockets, and Groq Llama 3.",
       alternates: {
@@ -135,7 +135,7 @@ export async function generateMetadata({
     : absoluteUrl("/og-image.png");
 
   return {
-    title: `${project.title} — Projects | Shivam Shukla`,
+    title: `${project.title} — Projects`,
     description: project.summary || undefined,
     alternates: {
       canonical: absoluteUrl(`/projects/${project.slug}`),

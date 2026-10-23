@@ -9,7 +9,7 @@ import { buttonStyles } from "@/components/ui/Button";
 import { absoluteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Resume — Shivam Shukla",
+  title: "Resume — Software Engineer & AI Systems Architect",
   description:
     "Resume of Shivam Shukla — AI Engineer and Backend Developer specializing in AI agents, LLM workflows, RAG, Machine Learning, and backend systems.",
   alternates: {

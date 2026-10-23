@@ -9,7 +9,7 @@ Shivam Shukla is an AI engineer and backend developer specializing in determinis
 - [Home](https://www.jiosi.online/): Overview of engineering focus areas across Backend Systems, Agentic AI, and AI Security.
 - [About](https://www.jiosi.online/about): Background, technical philosophy, verified experience at Nexvia Technologies and Soft Pro, education, and credentials of Shivam Shukla.
 - [Projects](https://www.jiosi.online/projects): Portfolio of client case studies, engineering builds, and open-source systems.
-- [Services](https://www.jiosi.online/services): Practical consulting in AI agents, AI automation, AI security, product engineering, and developer products.
+- [Services](https://www.jiosi.online/services): Professional web development and AI integration services, including website bug fixing, Next.js landing pages, API integrations, AI chatbots & workflow automation, and security reviews.
 - [Contact](https://www.jiosi.online/contact): Direct contact channel for project inquiries, architecture reviews, and consulting engagements.
 - [Resume](https://www.jiosi.online/resume): Verified curriculum vitae detailing software engineering background, technical stack, and education.
 

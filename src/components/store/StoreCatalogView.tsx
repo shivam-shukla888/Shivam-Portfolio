@@ -201,10 +201,11 @@ export function StoreCatalogView({
             const categoryHref =
               CATEGORY_HREFS[product.category] || "/store";
 
-            const itemHref =
+            const productHref = `/store/${product.slug}`;
+            const actionHref =
               product.slug === "yojna-setu"
                 ? "/projects/yojna-setu"
-                : `/store/${product.slug}`;
+                : productHref;
 
             return (
               <article
@@ -215,7 +216,7 @@ export function StoreCatalogView({
                   {/* Preview Image or Graphic Frame */}
                   {product.previewImageUrl ? (
                     <Link
-                      href={itemHref}
+                      href={productHref}
                       className="w-full aspect-[16/10] border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] overflow-hidden relative block"
                     >
                       <Image
@@ -259,7 +260,7 @@ export function StoreCatalogView({
                       </span>
                     )}
                     <h2 className="font-display text-2xl font-normal text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors">
-                      <Link href={itemHref}>{product.title}</Link>
+                      <Link href={productHref}>{product.title}</Link>
                     </h2>
                   </div>
 
@@ -292,7 +293,7 @@ export function StoreCatalogView({
                     {(product.productType || "digital_download").replace(/_/g, " ")}
                   </span>
                   <Link
-                    href={itemHref}
+                    href={actionHref}
                     className={buttonStyles({
                       variant: "secondary",
                       size: "sm",
