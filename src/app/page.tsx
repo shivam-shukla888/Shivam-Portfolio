@@ -236,6 +236,51 @@ export default async function HomePage() {
       </section>
 
       {/* =======================================================
+          2. PROFILE SNAPSHOT (Restore Personal Context)
+          ======================================================= */}
+      <section
+        id="profile"
+        aria-labelledby="home-profile-heading"
+        className="w-full border-b border-[var(--color-hairline)] py-8 md:py-10 bg-[var(--color-canvas-primary)]"
+      >
+        <HomeSectionReveal>
+          <SectionContainer>
+            <div className="grid grid-cols-[72px_minmax(0,1fr)] sm:grid-cols-[88px_minmax(0,1fr)_auto] gap-4 sm:gap-6 items-center">
+              <div className="relative aspect-[4/5] w-[72px] sm:w-[88px] border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] overflow-hidden">
+                <Image
+                  src="/images/shivam-shukla.jpg"
+                  alt={`${profile.fullName || "Shivam Shukla"} — profile portrait`}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 72px, 88px"
+                />
+              </div>
+
+              <div className="min-w-0 space-y-1.5">
+                <SectionLabel name="The Person Behind the Work" />
+                <h2
+                  id="home-profile-heading"
+                  className="font-display text-xl sm:text-2xl font-normal tracking-tight text-[var(--color-ink-primary)]"
+                >
+                  {profile.fullName || "Shivam Shukla"}
+                </h2>
+                <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed max-w-[62ch]">
+                  A 2026 Computer Science graduate building websites, backend systems, and practical AI automations.
+                </p>
+              </div>
+
+              <Link
+                href="/about"
+                className="col-start-2 sm:col-start-3 font-mono text-xs uppercase tracking-wider text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors underline underline-offset-4 justify-self-start sm:justify-self-end"
+              >
+                Read my background →
+              </Link>
+            </div>
+          </SectionContainer>
+        </HomeSectionReveal>
+      </section>
+
+      {/* =======================================================
           2. SELECTED WORK (4 Verified Production Case Studies)
           ======================================================= */}
       <section id="work" className="w-full border-b border-[var(--color-hairline)] py-16 md:py-24 bg-[var(--color-canvas-secondary)]">
@@ -341,7 +386,7 @@ export default async function HomePage() {
       </section>
 
       {/* =======================================================
-          3. SERVICES & STARTING RATES PREVIEW
+          4. SERVICES & STARTING RATES PREVIEW
           ======================================================= */}
       <section id="services" className="w-full border-b border-[var(--color-hairline)] py-16 md:py-24 bg-[var(--color-canvas-primary)]">
         <HomeSectionReveal>
@@ -423,7 +468,7 @@ export default async function HomePage() {
       </section>
 
       {/* =======================================================
-          4. CREDIBILITY STRIP (Background, Education & Verified Skills)
+          5. CREDIBILITY STRIP (Background, Education & Verified Skills)
           ======================================================= */}
       <section id="credibility" className="w-full border-b border-[var(--color-hairline)] py-16 md:py-20 bg-[var(--color-canvas-secondary)]">
         <HomeSectionReveal>
@@ -513,7 +558,7 @@ export default async function HomePage() {
       </section>
 
       {/* =======================================================
-          5. CONVERSION DECISION BANNER (Single Primary Next Step)
+          6. CONVERSION DECISION BANNER (Single Primary Next Step)
           ======================================================= */}
       <section id="contact-cta" className="w-full bg-[var(--color-surface-dark)] text-white py-16 md:py-24">
         <HomeSectionReveal>
