@@ -1,5 +1,6 @@
 import { createClient, SupabaseClient } from "@supabase/supabase-js";
 import { getSupabaseServerClient } from "@/lib/supabase/server";
+import { absoluteUrl } from "@/lib/site";
 
 export type ProductType =
   | "digital_download"
@@ -246,7 +247,7 @@ export const SPRING_BOOT_STARTER_ITEM: ProductDisplayData = {
     },
   ],
   previewImageUrl: "/images/quickeats.svg",
-  isAvailable: false,
+  isAvailable: true,
   isFeatured: false,
   sortOrder: 2,
   createdAt: "2026-09-26T12:00:00Z",
@@ -282,7 +283,7 @@ export const EDITORIAL_PORTFOLIO_ITEM: ProductDisplayData = {
     },
   ],
   previewImageUrl: "/images/backgrounds/store-design.webp",
-  isAvailable: false,
+  isAvailable: true,
   isFeatured: false,
   sortOrder: 3,
   createdAt: "2026-09-26T12:00:00Z",
@@ -598,4 +599,63 @@ export async function getPublishedProductReviews(
     console.error("[STORE REVIEWS EXCEPTION]", err);
     return [];
   }
+}
+
+/**
+ * Generates Schema.org Product structured data strictly for purchasable commercial products.
+ *
+ * Requirements:
+ * - Must be available (isAvailable === true).
+ * - Must have a valid numeric priceInCents > 0 and valid currency.
+ * - Non-commercial showcases (e.g. Yojna Setu case study) and upcoming releases strictly
+ *   return null to prevent misleading Google rich-results warnings or false InStock claims.
+ */
+export function getProductStructuredData(
+  product: ProductDisplayData,
+  categoryName: string,
+  reviews: ProductReview[] = []
+): Record<string, unknown> | null {
+  const isPurchasable = Boolean(
+    product.isAvailable &&
+      product.priceInCents !== null &&
+      product.priceInCents > 0 &&
+      product.currency
+  );
+
+  if (!isPurchasable) {
+    return null;
+  }
+
+  const structuredData: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.title,
+    description: product.shortDescription || product.description || undefined,
+    image: product.previewImageUrl ? absoluteUrl(product.previewImageUrl) : undefined,
+    category: categoryName,
+    offers: {
+      "@type": "Offer",
+      price: (product.priceInCents! / 100).toFixed(2),
+      priceCurrency: product.currency!.toUpperCase(),
+      availability: "https://schema.org/InStock",
+      url: absoluteUrl(`/store/${product.slug}`),
+    },
+  };
+
+  if (reviews.length > 0) {
+    structuredData.review = reviews.map((rev) => ({
+      "@type": "Review",
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: rev.rating,
+      },
+      author: {
+        "@type": "Person",
+        name: rev.authorName,
+      },
+      reviewBody: rev.content,
+    }));
+  }
+
+  return structuredData;
 }

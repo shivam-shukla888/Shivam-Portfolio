@@ -9,6 +9,7 @@ import {
   getPublishedStoreProductBySlug,
   getPublishedStoreProducts,
   getPublishedProductReviews,
+  getProductStructuredData,
   StoreCategory,
 } from "@/lib/products";
 import { absoluteUrl, serializeJsonLd } from "@/lib/site";
@@ -124,36 +125,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
       })
     : null;
 
-  const productJsonLd: Record<string, unknown> = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    name: product.title,
-    description: product.shortDescription || product.description || undefined,
-    image: product.previewImageUrl ? absoluteUrl(product.previewImageUrl) : undefined,
-    category: categoryName,
-    offers: {
-      "@type": "Offer",
-      price: product.priceInCents !== null ? (product.priceInCents / 100).toFixed(2) : undefined,
-      priceCurrency: product.currency || "INR",
-      availability: product.isAvailable ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
-      url: absoluteUrl(`/store/${slug}`),
-    },
-  };
-
-  if (reviews.length > 0) {
-    productJsonLd.review = reviews.map((rev) => ({
-      "@type": "Review",
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: rev.rating,
-      },
-      author: {
-        "@type": "Person",
-        name: rev.authorName,
-      },
-      reviewBody: rev.content,
-    }));
-  }
+  const productJsonLd = getProductStructuredData(product, categoryName, reviews);
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
@@ -188,10 +160,12 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
 
   return (
     <article className="w-full pt-16 md:pt-24 pb-20 md:pb-28">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: serializeJsonLd(productJsonLd) }}
-      />
+      {productJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(productJsonLd) }}
+        />
+      )}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbJsonLd) }}
@@ -383,56 +357,58 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
           {/* Expandable FAQ Section */}
           <ProductFaqAccordion faq={product.faq} />
 
-          {/* Attestations & Product Reviews */}
-          <section className="space-y-6 pt-6 border-t border-[var(--color-hairline)]">
-            <div className="space-y-1">
-              <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--color-accent)]">
-                Feedback
-              </span>
-              <h2 className="font-display text-2xl text-[var(--color-ink-primary)]">
-                Reviews
-              </h2>
-            </div>
+          {/* Attestations & Product Reviews (only for purchasable products or when reviews exist) */}
+          {(reviews.length > 0 || product.priceInCents !== null) && (
+            <section className="space-y-6 pt-6 border-t border-[var(--color-hairline)]">
+              <div className="space-y-1">
+                <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--color-accent)]">
+                  Feedback
+                </span>
+                <h2 className="font-display text-2xl text-[var(--color-ink-primary)]">
+                  Reviews
+                </h2>
+              </div>
 
-            {reviews.length > 0 ? (
-              <div className="space-y-4">
-                {reviews.map((rev) => (
-                  <div
-                    key={rev.id}
-                    className="p-6 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] space-y-3"
-                  >
-                    <div className="flex items-center justify-between text-xs font-mono">
-                      <div>
-                        <span className="text-[var(--color-ink-primary)] font-semibold">
-                          {rev.authorName}
-                        </span>
-                        {rev.authorTitle && (
-                          <span className="text-[var(--color-ink-secondary)] ml-2">
-                            — {rev.authorTitle}
+              {reviews.length > 0 ? (
+                <div className="space-y-4">
+                  {reviews.map((rev) => (
+                    <div
+                      key={rev.id}
+                      className="p-6 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] space-y-3"
+                    >
+                      <div className="flex items-center justify-between text-xs font-mono">
+                        <div>
+                          <span className="text-[var(--color-ink-primary)] font-semibold">
+                            {rev.authorName}
                           </span>
-                        )}
+                          {rev.authorTitle && (
+                            <span className="text-[var(--color-ink-secondary)] ml-2">
+                              — {rev.authorTitle}
+                            </span>
+                          )}
+                        </div>
+                        <span className="text-[var(--color-accent)]">
+                          {"★".repeat(rev.rating)}
+                        </span>
                       </div>
-                      <span className="text-[var(--color-accent)]">
-                        {"★".repeat(rev.rating)}
-                      </span>
+                      <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
+                        &ldquo;{rev.content}&rdquo;
+                      </p>
                     </div>
-                    <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
-                      &ldquo;{rev.content}&rdquo;
-                    </p>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="p-8 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] text-center space-y-2">
-                <p className="font-mono text-xs text-[var(--color-ink-secondary)]">
-                  No reviews yet for this product.
-                </p>
-                <p className="font-sans text-xs text-[var(--color-ink-secondary)]">
-                  Feedback from verified buyers will appear here as reviews are submitted.
-                </p>
-              </div>
-            )}
-          </section>
+                  ))}
+                </div>
+              ) : (
+                <div className="p-8 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] text-center space-y-2">
+                  <p className="font-mono text-xs text-[var(--color-ink-secondary)]">
+                    No reviews yet for this product.
+                  </p>
+                  <p className="font-sans text-xs text-[var(--color-ink-secondary)]">
+                    Feedback from verified buyers will appear here as reviews are submitted.
+                  </p>
+                </div>
+              )}
+            </section>
+          )}
             </div>
           </InnerPageEntrance>
 
