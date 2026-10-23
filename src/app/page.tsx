@@ -150,6 +150,7 @@ export default async function HomePage() {
       <section className="relative w-full border-b border-[var(--color-hairline)] pt-16 md:pt-24 pb-20 md:pb-32 overflow-hidden">
         <PageBackground
           src="/images/backgrounds/homepage.webp"
+          alt="ShivSastra architectural blueprint background texture"
           priority
           opacity={0.55}
           position="right"

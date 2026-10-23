@@ -128,7 +128,7 @@ export function HeroVisual() {
           >
             <Image
               src="/images/hero-visual.webp"
-              alt=""
+              alt="ShivSastra 3D isometric architectural monolith visual"
               width={880}
               height={880}
               priority
