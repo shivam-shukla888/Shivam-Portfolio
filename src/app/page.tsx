@@ -150,7 +150,7 @@ export default async function HomePage() {
             }
             title={
               <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-[4.75rem] font-normal tracking-tight text-[var(--color-ink-primary)] leading-[1.06]">
-                I build fast websites, reliable APIs, and practical AI automations.
+                {profile.fullName || "Shivam Shukla"}
               </h1>
             }
             positioning={
@@ -160,8 +160,8 @@ export default async function HomePage() {
             }
             narrative={
               <p className="font-sans text-base md:text-lg text-[var(--color-ink-secondary)] leading-relaxed max-w-[62ch]">
-                Practical engineering for founders, creators, and growing businesses.
-                Upfront starting rates, clear written scopes, fast turnaround, and zero agency overhead.
+                I build fast websites, reliable APIs, and practical AI automations for founders, creators, and growing businesses.
+                Upfront starting rates and clear scopes before work begins.
               </p>
             }
             ctas={
