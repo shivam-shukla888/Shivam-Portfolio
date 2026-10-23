@@ -6,7 +6,7 @@ import { m } from "@/components/motion";
 interface HomeHeroMotionProps {
   overview: React.ReactNode;
   title: React.ReactNode;
-  positioning: React.ReactNode;
+  positioning?: React.ReactNode;
   narrative: React.ReactNode;
   ctas: React.ReactNode;
   visual: React.ReactNode;
@@ -63,14 +63,15 @@ export function HomeHeroMotion({
           {title}
         </m.div>
 
-        {/* 2. Primary Positioning Statement */}
-        <m.div
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.65, ease: EASE_EDITORIAL, delay: 0.18 }}
-        >
-          {positioning}
-        </m.div>
+        {positioning ? (
+          <m.div
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, ease: EASE_EDITORIAL, delay: 0.18 }}
+          >
+            {positioning}
+          </m.div>
+        ) : null}
 
         {/* 3. Supporting Narrative */}
         <m.div
