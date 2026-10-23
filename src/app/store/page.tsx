@@ -26,12 +26,23 @@ export const metadata = {
       "Digital products, templates, and tools made and sold by Shivam Shukla.",
     url: absoluteUrl("/store"),
     type: "website",
+    siteName: "ShivSastra",
+    locale: "en_US",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "ShivSastra Store — Digital Releases & Architecture Blueprints",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Store — Shivam Shukla",
     description:
       "Digital products, templates, and tools made and sold by Shivam Shukla.",
+    images: ["/og-image.png"],
   },
 };
 

@@ -26,13 +26,23 @@ export const metadata = {
       "Background, technical approach, and direction of Shivam Shukla — AI agents, AI security, automation, and digital products.",
     url: absoluteUrl("/about"),
     type: "profile",
-    images: [{ url: "/images/shivam-shukla.jpg" }],
+    siteName: "ShivSastra",
+    locale: "en_US",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "About Shivam Shukla — ShivSastra",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "About — Shivam Shukla",
     description:
       "Background, technical approach, and direction of Shivam Shukla — AI agents, AI security, automation, and digital products.",
+    images: ["/og-image.png"],
   },
 };
 

@@ -27,12 +27,23 @@ export const metadata = {
       "Agent starter code, tool pipelines, and evaluation workflows by Shivam Shukla.",
     url: absoluteUrl("/store/ai-agents"),
     type: "website",
+    siteName: "ShivSastra",
+    locale: "en_US",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "AI Agents & Tool Workflows — ShivSastra Store",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "AI Agents — Store",
     description:
       "Agent starter code, tool pipelines, and evaluation workflows by Shivam Shukla.",
+    images: ["/og-image.png"],
   },
 };
 

@@ -26,12 +26,23 @@ export const metadata = {
       "Code starter repos, developer templates, and technical downloads by Shivam Shukla.",
     url: absoluteUrl("/store/digital-products"),
     type: "website",
+    siteName: "ShivSastra",
+    locale: "en_US",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Developer Digital Products & Templates — ShivSastra Store",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Digital Products — Store",
     description:
       "Code starter repos, developer templates, and technical downloads by Shivam Shukla.",
+    images: ["/og-image.png"],
   },
 };
 

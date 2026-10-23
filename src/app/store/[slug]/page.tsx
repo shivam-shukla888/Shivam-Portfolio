@@ -54,8 +54,13 @@ export async function generateMetadata({
     };
   }
 
+  const socialImage =
+    product.previewImageUrl && !product.previewImageUrl.endsWith(".svg")
+      ? absoluteUrl(product.previewImageUrl)
+      : absoluteUrl("/og-image.png");
+
   return {
-    title: `${product.title} — Store`,
+    title: `${product.title} — Store | Shivam Shukla`,
     description:
       product.shortDescription ||
       product.description ||
@@ -64,22 +69,31 @@ export async function generateMetadata({
       canonical: absoluteUrl(`/store/${slug}`),
     },
     openGraph: {
-      title: `${product.title} — Store`,
+      title: `${product.title} — Store | Shivam Shukla`,
       description:
         product.shortDescription ||
         product.description ||
         "Digital product by Shivam Shukla.",
       url: absoluteUrl(`/store/${slug}`),
       type: "website",
-      images: product.previewImageUrl ? [{ url: absoluteUrl(product.previewImageUrl) }] : undefined,
+      siteName: "ShivSastra",
+      images: [
+        {
+          url: socialImage,
+          width: 1200,
+          height: 630,
+          alt: `${product.title} — ShivSastra Store`,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${product.title} — Store`,
+      title: `${product.title} — Store | Shivam Shukla`,
       description:
         product.shortDescription ||
         product.description ||
         "Digital product by Shivam Shukla.",
+      images: [socialImage],
     },
   };
 }

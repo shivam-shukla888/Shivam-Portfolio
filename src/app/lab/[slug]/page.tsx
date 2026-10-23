@@ -50,11 +50,21 @@ export async function generateMetadata({
       description: snippet,
       url: absoluteUrl(`/lab/${entry.slug}`),
       type: "article",
+      siteName: "ShivSastra",
+      images: [
+        {
+          url: "/og-image.png",
+          width: 1200,
+          height: 630,
+          alt: `${entry.title} — ShivSastra Lab`,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: `${entry.title} | Lab — Shivam Shukla`,
       description: snippet,
+      images: ["/og-image.png"],
     },
   };
 }

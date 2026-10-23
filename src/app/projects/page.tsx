@@ -24,12 +24,23 @@ export const metadata: Metadata = {
       "Verified software systems, AI agents, and engineering builds by Shivam Shukla — AI agents, automation, and security.",
     url: absoluteUrl("/projects"),
     type: "website",
+    siteName: "ShivSastra",
+    locale: "en_US",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Selected Work & Engineering Projects — Shivam Shukla",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Work & Projects — Shivam Shukla",
     description:
       "Verified software systems, AI agents, and engineering builds by Shivam Shukla — AI agents, automation, and security.",
+    images: ["/og-image.png"],
   },
 };
 

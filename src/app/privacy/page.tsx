@@ -20,6 +20,22 @@ export const metadata: Metadata = {
     description: "Privacy policy and security practices for SHIVSASTRA, operated by Shivam Shukla.",
     url: absoluteUrl("/privacy"),
     type: "website",
+    siteName: "ShivSastra",
+    locale: "en_US",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Privacy Policy — ShivSastra",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Privacy Policy — Shivam Shukla",
+    description: "Privacy policy and security practices for SHIVSASTRA, operated by Shivam Shukla.",
+    images: ["/og-image.png"],
   },
 };
 

@@ -26,12 +26,23 @@ export const metadata = {
       "Design templates, interaction kits, and UI components by Shivam Shukla.",
     url: absoluteUrl("/store/design"),
     type: "website",
+    siteName: "ShivSastra",
+    locale: "en_US",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Design & Templates — ShivSastra Store",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Design & Templates — Store",
     description:
       "Design templates, interaction kits, and UI components by Shivam Shukla.",
+    images: ["/og-image.png"],
   },
 };
 

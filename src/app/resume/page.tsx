@@ -21,13 +21,16 @@ export const metadata: Metadata = {
       "Resume of Shivam Shukla — AI Engineer and Backend Developer specializing in AI agents, LLM workflows, RAG, Machine Learning, and backend systems.",
     url: absoluteUrl("/resume"),
     type: "profile",
-    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Shivam Shukla — Resume" }],
+    siteName: "ShivSastra",
+    locale: "en_US",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Shivam Shukla — Resume" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Resume — Shivam Shukla",
     description:
       "Resume of Shivam Shukla — AI Engineer and Backend Developer specializing in AI agents, LLM workflows, RAG, Machine Learning, and backend systems.",
+    images: ["/og-image.png"],
   },
 };
 

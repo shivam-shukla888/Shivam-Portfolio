@@ -53,16 +53,25 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: SITE_URL,
-    siteName: "SHIVSASTRA",
+    siteName: "ShivSastra",
     title: "Shivam Shukla — Backend Systems, Agentic AI & AI Security",
     description:
       "Backend systems, agentic AI workflows, and software security by Shivam Shukla — with digital products and tools via the SHIVSASTRA Store.",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "ShivSastra — Shivam Shukla | Backend Systems, Agentic AI & AI Security",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Shivam Shukla — Backend Systems, Agentic AI & AI Security",
     description:
       "Backend systems, agentic AI workflows, and software security by Shivam Shukla — with digital products and tools via the SHIVSASTRA Store.",
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,

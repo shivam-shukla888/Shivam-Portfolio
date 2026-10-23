@@ -20,11 +20,22 @@ export const metadata = {
     description: "Personal sandbox for experimental ideas, software builds, and technical notes.",
     url: absoluteUrl("/lab"),
     type: "website",
+    siteName: "ShivSastra",
+    locale: "en_US",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Personal Lab & Sandbox — Shivam Shukla",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Lab — Shivam Shukla",
     description: "Personal sandbox for experimental ideas, software builds, and technical notes.",
+    images: ["/og-image.png"],
   },
 };
 

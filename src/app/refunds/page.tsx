@@ -22,11 +22,22 @@ export const metadata: Metadata = {
     description: "Refund and cancellation policy for digital products and custom engineering engagements on SHIVSASTRA.",
     url: absoluteUrl("/refunds"),
     type: "website",
+    siteName: "ShivSastra",
+    locale: "en_US",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Refund Policy — ShivSastra",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Refund Policy — Shivam Shukla",
     description: "Refund and cancellation policy for digital products and custom engineering engagements on SHIVSASTRA.",
+    images: ["/og-image.png"],
   },
 };
 

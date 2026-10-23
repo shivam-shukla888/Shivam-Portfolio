@@ -47,13 +47,23 @@ export const metadata: Metadata = {
       "I build AI agents, automation systems, and developer products. From conversational workflows and backend systems to AI security and practical digital resources.",
     url: SITE_URL,
     type: "website",
-    images: [{ url: "/images/shivam-shukla.jpg" }],
+    siteName: "ShivSastra",
+    locale: "en_US",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "ShivSastra — Shivam Shukla | Backend Systems, Agentic AI & AI Security",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Shivam Shukla — AI Agents, AI Security & Developer Products",
     description:
       "I build AI agents, automation systems, and developer products. From conversational workflows and backend systems to AI security and practical digital resources.",
+    images: ["/og-image.png"],
   },
 };
 

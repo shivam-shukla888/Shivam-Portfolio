@@ -32,6 +32,7 @@ export async function generateMetadata({
   const { slug } = await params;
 
   if (slug === "yojna-setu") {
+    const ogImg = absoluteUrl("/images/projects/yojna-setu/evidence-whatsapp-discovery.png");
     return {
       title: "Yojna Setu — AI + Deterministic Systems | Shivam Shukla",
       description:
@@ -45,18 +46,21 @@ export async function generateMetadata({
           "Conversational scheme discovery system combining multilingual AI extraction with deterministic eligibility rules over 82 normalized welfare programs.",
         url: absoluteUrl("/projects/yojna-setu"),
         type: "article",
-        images: [{ url: absoluteUrl("/images/projects/yojna-setu/cover.svg") }],
+        siteName: "ShivSastra",
+        images: [{ url: ogImg, alt: "Yojna Setu — AI + Deterministic Systems Case Study" }],
       },
       twitter: {
         card: "summary_large_image",
         title: "Yojna Setu — AI + Deterministic Systems | Shivam Shukla",
         description:
           "Conversational scheme discovery system combining multilingual AI extraction with deterministic eligibility rules over 82 normalized welfare programs.",
+        images: [ogImg],
       },
     };
   }
 
   if (slug === "realguard") {
+    const ogImg = absoluteUrl("/images/projects/realguard/realguard.png");
     return {
       title: "RealGuard — AI Automation & Conversational Workflows | Shivam Shukla",
       description:
@@ -70,18 +74,21 @@ export async function generateMetadata({
           "AI automation and conversational workflows for real estate. WhatsApp conversational extraction coupled with deterministic calculations and RERA registry lookup.",
         url: absoluteUrl("/projects/realguard"),
         type: "article",
-        images: [{ url: absoluteUrl("/images/projects/realguard/realguard.png") }],
+        siteName: "ShivSastra",
+        images: [{ url: ogImg, alt: "RealGuard — AI Automation & Conversational Workflows" }],
       },
       twitter: {
         card: "summary_large_image",
         title: "RealGuard — AI Automation & Conversational Workflows | Shivam Shukla",
         description:
           "AI automation and conversational workflows for real estate. WhatsApp conversational extraction coupled with deterministic calculations and RERA registry lookup.",
+        images: [ogImg],
       },
     };
   }
 
   if (slug === "quickeats") {
+    const ogImg = absoluteUrl("/og-image.png");
     return {
       title: "QuickEats — Product Engineering & App Security | Shivam Shukla",
       description:
@@ -95,13 +102,22 @@ export async function generateMetadata({
           "AI-assisted food ordering platform featuring server-side price recalculation, ownership validation, JWT rotation, STOMP WebSockets, and Groq Llama 3.",
         url: absoluteUrl("/projects/quickeats"),
         type: "article",
-        images: [{ url: absoluteUrl("/images/projects/quickeats/preview.svg") }],
+        siteName: "ShivSastra",
+        images: [
+          {
+            url: ogImg,
+            width: 1200,
+            height: 630,
+            alt: "QuickEats — Product Engineering & App Security",
+          },
+        ],
       },
       twitter: {
         card: "summary_large_image",
         title: "QuickEats — Product Engineering & App Security | Shivam Shukla",
         description:
           "AI-assisted food ordering platform featuring server-side price recalculation, ownership validation, JWT rotation, STOMP WebSockets, and Groq Llama 3.",
+        images: [ogImg],
       },
     };
   }
@@ -114,6 +130,10 @@ export async function generateMetadata({
     };
   }
 
+  const fallbackImg = project.coverImageUrl && !project.coverImageUrl.endsWith(".svg")
+    ? absoluteUrl(project.coverImageUrl)
+    : absoluteUrl("/og-image.png");
+
   return {
     title: `${project.title} — Projects | Shivam Shukla`,
     description: project.summary || undefined,
@@ -125,12 +145,14 @@ export async function generateMetadata({
       description: project.summary || undefined,
       url: absoluteUrl(`/projects/${project.slug}`),
       type: "article",
-      images: project.coverImageUrl ? [{ url: absoluteUrl(project.coverImageUrl) }] : undefined,
+      siteName: "ShivSastra",
+      images: [{ url: fallbackImg, alt: project.title }],
     },
     twitter: {
       card: "summary_large_image",
       title: `${project.title} — Shivam Shukla`,
       description: project.summary || undefined,
+      images: [fallbackImg],
     },
   };
 }

@@ -22,11 +22,22 @@ export const metadata: Metadata = {
     description: "Terms of service, digital licensing, and usage conditions for SHIVSASTRA by Shivam Shukla.",
     url: absoluteUrl("/terms"),
     type: "website",
+    siteName: "ShivSastra",
+    locale: "en_US",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Terms of Service — ShivSastra",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Terms of Service — Shivam Shukla",
     description: "Terms of service, digital licensing, and usage conditions for SHIVSASTRA by Shivam Shukla.",
+    images: ["/og-image.png"],
   },
 };
 

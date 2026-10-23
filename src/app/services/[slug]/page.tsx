@@ -46,11 +46,21 @@ export async function generateMetadata({
       description: service.summary || undefined,
       url: absoluteUrl(`/services/${service.slug}`),
       type: "article",
+      siteName: "ShivSastra",
+      images: [
+        {
+          url: "/og-image.png",
+          width: 1200,
+          height: 630,
+          alt: `${service.title} — ShivSastra Consulting & Advisory`,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: `${service.title} — Shivam Shukla`,
       description: service.summary || undefined,
+      images: ["/og-image.png"],
     },
   };
 }
