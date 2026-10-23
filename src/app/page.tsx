@@ -344,7 +344,7 @@ export default async function HomePage() {
       </section>
 
       {/* =======================================================
-          3. SERVICES & STARTING RATES PREVIEW
+          3. SERVICES PREVIEW
           ======================================================= */}
       <section id="services" className="w-full border-b border-[var(--color-hairline)] py-16 md:py-24 bg-[var(--color-canvas-primary)]">
         <HomeSectionReveal>
