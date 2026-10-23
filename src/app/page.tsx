@@ -281,7 +281,7 @@ export default async function HomePage() {
       </section>
 
       {/* =======================================================
-          2. SELECTED WORK (4 Verified Production Case Studies)
+          3. SELECTED WORK (4 Verified Production Case Studies)
           ======================================================= */}
       <section id="work" className="w-full border-b border-[var(--color-hairline)] py-16 md:py-24 bg-[var(--color-canvas-secondary)]">
         <HomeSectionReveal>
