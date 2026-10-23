@@ -73,8 +73,8 @@ export async function createRazorpayOrder(
     throw new Error("RAZORPAY_KEY_ID is not configured");
   }
 
-  if (params.amountCents <= 0 || !Number.isInteger(params.amountCents)) {
-    throw new Error("Order amount must be a positive integer in cents/paise");
+  if (!Number.isInteger(params.amountCents) || params.amountCents < 100) {
+    throw new Error("Order amount must be an integer of at least 100 paise (1 INR)");
   }
 
   const currency = (params.currency || "INR").toUpperCase().trim();

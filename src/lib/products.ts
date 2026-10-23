@@ -91,9 +91,10 @@ export interface CategoryCounts {
 export function isProductPurchasable(product: ProductDisplayData): boolean {
   return Boolean(
     product.isAvailable &&
-      product.priceInCents !== null &&
-      product.priceInCents > 0 &&
-      product.currency
+      Number.isInteger(product.priceInCents) &&
+      (product.priceInCents ?? 0) >= 100 &&
+      typeof product.currency === "string" &&
+      product.currency.trim().length > 0
   );
 }
 
@@ -646,7 +647,7 @@ export async function getPublishedProductReviews(
  *
  * Requirements:
  * - Must be available (isAvailable === true).
- * - Must have a valid numeric priceInCents > 0 and valid currency.
+ * - Must have an integer priceInCents of at least 100 paise and valid currency.
  * - Non-commercial showcases (e.g. Yojna Setu case study) and upcoming releases strictly
  *   return null to prevent misleading Google rich-results warnings or false InStock claims.
  */
@@ -655,14 +656,7 @@ export function getProductStructuredData(
   categoryName: string,
   reviews: ProductReview[] = []
 ): Record<string, unknown> | null {
-  const isPurchasable = Boolean(
-    product.isAvailable &&
-      product.priceInCents !== null &&
-      product.priceInCents > 0 &&
-      product.currency
-  );
-
-  if (!isPurchasable) {
+  if (!isProductPurchasable(product)) {
     return null;
   }
 

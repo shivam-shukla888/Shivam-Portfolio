@@ -70,16 +70,18 @@ export async function POST(req: NextRequest) {
     if (
       product.priceInCents === null ||
       product.priceInCents === undefined ||
-      product.priceInCents <= 0
+      !Number.isInteger(product.priceInCents) ||
+      product.priceInCents < 100 ||
+      !product.currency?.trim()
     ) {
       return NextResponse.json(
-        { error: "Product price is pending or not configured for commercial purchase" },
+        { error: "Product price or currency is invalid, or the amount is below the minimum of 100 paise" },
         { status: 400 }
       );
     }
 
     const trustedAmount = product.priceInCents;
-    const trustedCurrency = (product.currency || "INR").toUpperCase();
+    const trustedCurrency = product.currency.toUpperCase();
 
     // 5. Check Razorpay configuration
     if (!isRazorpayConfigured()) {

@@ -211,7 +211,9 @@ export function StoreCatalogView({
               product.formattedPrice === "Case Study";
             const isUpcoming =
               !isCaseStudy &&
-              (product.priceInCents === null || product.priceInCents <= 0);
+              (!Number.isInteger(product.priceInCents) ||
+                (product.priceInCents ?? 0) < 100 ||
+                !product.currency?.trim());
 
             const actionHref = isCaseStudy
               ? "/projects/yojna-setu"

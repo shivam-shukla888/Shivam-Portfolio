@@ -11,6 +11,7 @@ interface ProductCheckoutActionProps {
   formattedPrice: string;
   isAvailable: boolean;
   priceInCents: number | null;
+  currency: string | null;
 }
 
 export type CheckoutStep =
@@ -99,6 +100,7 @@ export function ProductCheckoutAction({
   formattedPrice,
   isAvailable,
   priceInCents,
+  currency,
 }: ProductCheckoutActionProps) {
   const [step, setStep] = useState<CheckoutStep>("IDLE");
   const [email, setEmail] = useState("");
@@ -140,7 +142,12 @@ export function ProductCheckoutAction({
   }, [step]);
 
   // If product is not available or non-commercial (case study or in development), render transparent status
-  if (!isAvailable || priceInCents === null || priceInCents <= 0) {
+  if (
+    !isAvailable ||
+    !Number.isInteger(priceInCents) ||
+    (priceInCents ?? 0) < 100 ||
+    !currency?.trim()
+  ) {
     const isCaseStudy = formattedPrice === "Case Study" || productSlug === "yojna-setu";
     const targetHref = isCaseStudy
       ? `/projects/${productSlug}`

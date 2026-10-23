@@ -269,6 +269,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                   formattedPrice={product.formattedPrice}
                   isAvailable={product.isAvailable}
                   priceInCents={product.priceInCents}
+                  currency={product.currency}
                 />
               </div>
             </div>

@@ -16,14 +16,14 @@ export const revalidate = 60;
 export const metadata = {
   title: "Store — Digital Products & Architectural Blueprints",
   description:
-    "Digital products, templates, and tools made and sold by Shivam Shukla.",
+    "Browse developer tools, templates, upcoming releases, and engineering case studies by Shivam Shukla.",
   alternates: {
     canonical: absoluteUrl("/store"),
   },
   openGraph: {
     title: "Store — Shivam Shukla",
     description:
-      "Digital products, templates, and tools made and sold by Shivam Shukla.",
+      "Browse developer tools, templates, upcoming releases, and engineering case studies by Shivam Shukla.",
     url: absoluteUrl("/store"),
     type: "website",
     siteName: "ShivSastra",
@@ -41,7 +41,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Store — Shivam Shukla",
     description:
-      "Digital products, templates, and tools made and sold by Shivam Shukla.",
+      "Browse developer tools, templates, upcoming releases, and engineering case studies by Shivam Shukla.",
     images: ["/og-image.png"],
   },
 };
@@ -57,7 +57,7 @@ export default async function StorePage() {
     "@type": "CollectionPage",
     name: "SHIVSASTRA Store",
     description:
-      "Digital products, templates, and tools made and sold by Shivam Shukla.",
+      "Browse developer tools, templates, upcoming releases, and engineering case studies by Shivam Shukla.",
     url: absoluteUrl("/store"),
     breadcrumb: {
       "@type": "BreadcrumbList",
@@ -107,7 +107,7 @@ export default async function StorePage() {
                     Store
                   </h1>
                   <p className="font-sans text-sm md:text-base text-[var(--color-ink-secondary)] leading-relaxed">
-                    Developer boilerplates, upcoming architecture templates, and open engineering case studies.
+                    Browse developer resources and engineering case studies. Availability and prices are shown on each item.
                   </p>
                 </div>
                 <div className="font-mono text-xs text-[var(--color-ink-secondary)] shrink-0">
