@@ -93,6 +93,7 @@ function loadRazorpayScript(): Promise<boolean> {
 
 export function ProductCheckoutAction({
   productId,
+  productSlug,
   productTitle,
   productType,
   formattedPrice,
@@ -140,17 +141,22 @@ export function ProductCheckoutAction({
 
   // If product is not available or non-commercial (case study or in development), render transparent status
   if (!isAvailable || priceInCents === null || priceInCents <= 0) {
+    const isCaseStudy = formattedPrice === "Case Study" || productSlug === "yojna-setu";
+    const targetHref = isCaseStudy
+      ? `/projects/${productSlug}`
+      : `/contact?subject=${encodeURIComponent(`Inquiry regarding ${productTitle}`)}`;
+
     return (
       <div className="pt-4 flex flex-col sm:flex-row sm:items-center gap-4">
         <a
-          href={`/contact?subject=${encodeURIComponent(`Inquiry regarding ${productTitle}`)}`}
+          href={targetHref}
           className="inline-flex items-center justify-center font-mono text-xs uppercase tracking-wider px-5 py-3 border border-[var(--color-ink-primary)] text-[var(--color-ink-primary)] hover:bg-[var(--color-ink-primary)] hover:text-[var(--color-canvas-primary)] transition-colors min-h-[44px]"
         >
-          {formattedPrice === "Case Study" ? "Read Architecture Blueprint →" : "Inquire About Release →"}
+          {isCaseStudy ? "View Architecture Case Study →" : "Inquire About Release →"}
         </a>
         <span className="font-mono text-xs text-[var(--color-ink-secondary)]">
-          {formattedPrice === "Case Study"
-            ? "Open architectural case study and agent engineering showcase."
+          {isCaseStudy
+            ? "Open architectural case study and engineering showcase. Not for sale."
             : "Resource currently in development. No payment or checkout required."}
         </span>
       </div>

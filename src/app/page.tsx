@@ -15,10 +15,10 @@ import { HomeSectionReveal } from "@/components/home/HomeSectionReveal";
 import {
   CERTIFICATIONS,
   SKILL_CATEGORIES,
-  SERVICES_CATALOG,
   FOCUS_AREAS,
   DIGITAL_PRODUCTS_PREVIEWS,
 } from "@/data/portfolio-data";
+import { HOMEPAGE_SERVICES_PREVIEW } from "@/data/services-data";
 import { SITE_URL, serializeJsonLd } from "@/lib/site";
 
 export const revalidate = 60;
@@ -559,7 +559,7 @@ export default async function HomePage() {
       </section>
 
       {/* =======================================================
-          5. WHAT I DO (Services & Engineering Disciplines)
+          5. SERVICES PREVIEW (Compact Freelance Offers)
           ======================================================= */}
       <section id="services" className="w-full border-b border-[var(--color-hairline)] py-20 md:py-28 bg-[var(--color-canvas-secondary)]">
         <HomeSectionReveal>
@@ -567,67 +567,49 @@ export default async function HomePage() {
             <div className="space-y-12">
               <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-8 border-b border-[var(--color-hairline)]">
                 <div className="space-y-3">
-                  <SectionLabel name="What I Do" />
+                  <SectionLabel name="Services &amp; Pricing" />
                   <h2 className="font-display text-3xl md:text-4xl font-normal tracking-tight text-[var(--color-ink-primary)]">
-                    Services &amp; Capabilities
+                    Services
                   </h2>
                   <p className="font-sans text-xs text-[var(--color-accent)] font-medium">
-                    End-to-end engineering demonstrated through working code.
+                    Web development, backend APIs, and AI integrations with upfront starting rates.
                   </p>
                 </div>
                 <Link
                   href="/services"
-                  className="font-mono text-xs uppercase tracking-wider text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] transition-colors inline-flex items-center gap-1"
+                  className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider px-5 py-2.5 bg-[var(--color-ink-primary)] text-[var(--color-canvas-primary)] hover:bg-[var(--color-accent)] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)] self-start md:self-auto"
                 >
-                  <span>View Services Overview</span>
+                  <span>Explore All Services &amp; Pricing</span>
                   <span>→</span>
                 </Link>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {SERVICES_CATALOG.map((srv) => (
+              {/* 4 Primary Offers Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {HOMEPAGE_SERVICES_PREVIEW.map((item) => (
                   <div
-                    key={srv.id}
-                    className="border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] p-8 space-y-6 flex flex-col justify-between group hover:border-[var(--color-ink-primary)] transition-colors"
+                    key={item.id}
+                    className="border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] p-6 space-y-4 flex flex-col justify-between group hover:border-[var(--color-ink-primary)] transition-colors"
                   >
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between">
-                        <span className="font-mono text-xs text-[var(--color-accent)] font-semibold tracking-wider">
-                          {srv.code}
-                        </span>
-                        <span className="font-mono text-[11px] text-[var(--color-ink-secondary)]">
-                          {srv.engagement}
-                        </span>
+                    <div className="space-y-2">
+                      <div className="font-mono text-xs font-semibold text-[var(--color-accent)]">
+                        {item.startingPrice}
                       </div>
-                      <h3 className="font-display text-2xl font-normal text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors">
-                        {srv.title}
+                      <h3 className="font-display text-xl font-normal text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors">
+                        {item.title}
                       </h3>
-                      <p className="font-sans text-sm text-[var(--color-ink-secondary)] leading-relaxed">
-                        {srv.summary}
+                      <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
+                        {item.customerOutcome}
                       </p>
-
-                      <div className="space-y-2 pt-2 border-t border-[var(--color-hairline)]">
-                        <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--color-accent)] font-semibold block">
-                          Key Deliverables
-                        </span>
-                        <ul className="space-y-1.5 font-sans text-xs text-[var(--color-ink-primary)]">
-                          {srv.deliverables.map((item, dIdx) => (
-                            <li key={dIdx} className="flex items-start gap-2">
-                              <span className="text-[var(--color-accent)] select-none">—</span>
-                              <span>{item}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
                     </div>
 
-                    <div className="pt-4 border-t border-[var(--color-hairline)] flex items-center justify-between">
+                    <div className="pt-3 border-t border-[var(--color-hairline)]">
                       <Link
-                        href={`/contact?subject=${encodeURIComponent(srv.subject)}`}
-                        className="font-mono text-xs uppercase tracking-wider text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors inline-flex items-center gap-1.5"
+                        href={item.targetHref}
+                        className="font-mono text-xs uppercase tracking-wider text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors inline-flex items-center gap-1 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
                       >
-                        <span>Discuss a Project</span>
-                        <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">
+                        <span>View package</span>
+                        <span className="inline-block transition-transform duration-150 group-hover:translate-x-1">
                           →
                         </span>
                       </Link>
@@ -636,21 +618,21 @@ export default async function HomePage() {
                 ))}
               </div>
 
-              {/* Distinction Banner: Custom Work vs Store Products */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)]">
+              {/* Custom Quote Link for Security, Technical SEO & Performance */}
+              <div className="p-6 border border-[var(--color-hairline)] bg-[var(--color-canvas-primary)] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="space-y-1">
                   <span className="font-mono text-xs uppercase tracking-wider text-[var(--color-accent)] font-semibold block">
-                    Custom Engineering vs Digital Resources
+                    Security, Technical SEO &amp; Performance Review
                   </span>
-                  <p className="font-sans text-xs text-[var(--color-ink-secondary)] max-w-xl leading-relaxed">
-                    Services are for custom development where you work with me directly. For downloadable architecture blueprints and developer resources, explore the Store.
+                  <p className="font-sans text-xs text-[var(--color-ink-secondary)] max-w-2xl leading-relaxed">
+                    Need a baseline security header check, search engine crawlability inspection, or Core Web Vitals audit? Custom quote tailored to your application footprint.
                   </p>
                 </div>
                 <Link
-                  href="/store"
-                  className="font-mono text-xs uppercase tracking-wider px-4 py-2 border border-[var(--color-ink-primary)] text-[var(--color-ink-primary)] hover:bg-[var(--color-ink-primary)] hover:text-[var(--color-canvas-primary)] transition-colors shrink-0"
+                  href="/services#security-seo-performance-review"
+                  className="font-mono text-xs uppercase tracking-wider px-4 py-2 border border-[var(--color-ink-primary)] text-[var(--color-ink-primary)] hover:bg-[var(--color-ink-primary)] hover:text-[var(--color-canvas-primary)] transition-colors shrink-0 self-start sm:self-auto focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)]"
                 >
-                  Explore Store →
+                  Get a Custom Quote →
                 </Link>
               </div>
             </div>

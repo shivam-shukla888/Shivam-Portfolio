@@ -20,6 +20,10 @@ export const metadata = {
   alternates: {
     canonical: absoluteUrl("/store/digital-products"),
   },
+  robots: {
+    index: false,
+    follow: true,
+  },
   openGraph: {
     title: "Digital Products — Store",
     description:

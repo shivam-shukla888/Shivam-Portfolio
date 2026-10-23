@@ -73,10 +73,32 @@ export default async function LabPage() {
           <InnerPageEntrance delayIndex={1}>
             <div>
               {entries.length === 0 ? (
-                <div className="p-8 border border-dashed border-[var(--color-hairline)] text-center space-y-1">
-                  <p className="font-sans text-xs text-[var(--color-ink-secondary)]">
-                    Lab entries will appear here as I publish experiments.
-                  </p>
+                <div className="p-8 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] space-y-4">
+                  <div className="space-y-2">
+                    <span className="font-mono text-xs uppercase tracking-wider text-[var(--color-accent)] font-semibold block">
+                      Active Development
+                    </span>
+                    <h2 className="font-display text-xl text-[var(--color-ink-primary)]">
+                      Current Engineering Experiments
+                    </h2>
+                    <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
+                      I am packaging sandbox experiments around Groq LLM tool-calling pipelines, STOMP WebSocket ordering states, and deterministic rules engines. Standalone technical notes and benchmarks will be published here as they pass validation.
+                    </p>
+                  </div>
+                  <div className="pt-3 border-t border-[var(--color-hairline)] flex flex-wrap items-center gap-4 text-xs font-mono">
+                    <Link
+                      href="/projects"
+                      className="text-[var(--color-ink-primary)] hover:text-[var(--color-accent)] underline underline-offset-4"
+                    >
+                      Explore Shipped Case Studies →
+                    </Link>
+                    <Link
+                      href="/projects/yojna-setu"
+                      className="text-[var(--color-ink-secondary)] hover:text-[var(--color-ink-primary)]"
+                    >
+                      Yojna Setu Architecture →
+                    </Link>
+                  </div>
                 </div>
               ) : (
                 <div className="divide-y divide-[var(--color-hairline)] border-y border-[var(--color-hairline)]">

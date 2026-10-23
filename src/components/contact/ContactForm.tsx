@@ -2,6 +2,7 @@
 
 import React, { useActionState, useState, useRef, useEffect, useCallback } from "react";
 import Script from "next/script";
+import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { submitContactInquiry } from "@/app/actions/contact";
 import { initialContactState } from "@/lib/validations/contact";
@@ -346,16 +347,30 @@ export function ContactForm({
         </div>
       )}
 
-      {/* Submit Button */}
-      <Button
-        variant={isDark ? "accent" : "primary"}
-        size="lg"
-        type="submit"
-        disabled={isPending}
-        className={isDark ? "w-full sm:w-auto" : "w-full"}
-      >
-        {isPending ? "Sending..." : labels.submit}
-      </Button>
+      {/* Submit Button & Privacy Note */}
+      <div className="space-y-3">
+        <Button
+          variant={isDark ? "accent" : "primary"}
+          size="lg"
+          type="submit"
+          disabled={isPending}
+          className={isDark ? "w-full sm:w-auto" : "w-full"}
+        >
+          {isPending ? "Sending..." : labels.submit}
+        </Button>
+        <p className={`font-sans text-[11px] leading-relaxed ${isDark ? "text-white/60" : "text-[var(--color-ink-secondary)]"}`}>
+          Replies within 24 hours. Your details are never shared. Protected under our{" "}
+          <Link
+            href="/privacy"
+            className={`underline underline-offset-2 hover:text-[var(--color-accent)] transition-colors ${
+              isDark ? "text-white/80" : "text-[var(--color-ink-primary)]"
+            }`}
+          >
+            Privacy Policy
+          </Link>
+          .
+        </p>
+      </div>
 
       {siteKey && (
         <Script

@@ -22,11 +22,9 @@ Shivam Shukla is an AI engineer and backend developer specializing in determinis
 
 ## Store & Developer Releases
 
-- [Store](https://www.jiosi.online/store): Curated digital releases including developer boilerplates, architecture monographs, and templates.
-- [Design Templates](https://www.jiosi.online/store/design): Handcrafted editorial and Swiss-inspired developer portfolio templates.
-- [AI Agents](https://www.jiosi.online/store/ai-agents): Production-tested agent architectures, tool-calling pipelines, and workflow blueprints.
-- [Digital Products](https://www.jiosi.online/store/digital-products): Production-ready backend starters and developer toolkits.
-- [Yojna Setu Architecture Monograph](https://www.jiosi.online/store/yojna-setu): Technical architecture case study and agent engineering monograph for decoupled intake workflows.
+- [Store](https://www.jiosi.online/store): Curated digital releases and upcoming developer boilerplates, templates, and architectural resources.
+- [AI Agents Showcase](https://www.jiosi.online/store/ai-agents): Production-tested agent architectures, decoupled intake workflows, and case studies.
+- [Yojna Setu Architecture Case Study](https://www.jiosi.online/projects/yojna-setu): Technical architecture case study and agent engineering showcase for decoupled intake workflows.
 
 ## Research & Personal Lab
 

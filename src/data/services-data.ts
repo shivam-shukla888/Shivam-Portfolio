@@ -9,6 +9,8 @@ export interface ServicePackage {
   turnaround: string;
   revisions: string;
   summary: string;
+  plainEnglishOutcome: string;
+  technicalScope: string[];
   deliverables: string[];
   exclusions: string[];
   proofProject?: {
@@ -53,6 +55,45 @@ export interface WebsiteEngineeringArea {
   highlights: string[];
   transparencyNote: string;
 }
+
+export interface HomepageServicePreview {
+  id: string;
+  title: string;
+  customerOutcome: string;
+  startingPrice: string;
+  targetHref: string;
+}
+
+export const HOMEPAGE_SERVICES_PREVIEW: HomepageServicePreview[] = [
+  {
+    id: "website-bug-fixing",
+    title: "Website Bug Fixing",
+    customerOutcome: "Fix layout glitches, broken mobile styles, dead links, and browser console errors quickly.",
+    startingPrice: "Starting at ₹999",
+    targetHref: "/services#website-bug-fixing",
+  },
+  {
+    id: "nextjs-landing-pages",
+    title: "Next.js / React Landing Pages",
+    customerOutcome: "Launch a fast, responsive landing page with clean typography and built-in technical SEO.",
+    startingPrice: "Starting at ₹2,999",
+    targetHref: "/services#nextjs-landing-pages",
+  },
+  {
+    id: "api-backend-development",
+    title: "API & Backend Integration",
+    customerOutcome: "Connect your website to payment gateways, messaging tools, databases, or external APIs.",
+    startingPrice: "Starting at ₹3,000",
+    targetHref: "/services#api-backend-development",
+  },
+  {
+    id: "ai-chatbots-automation",
+    title: "AI Chatbots & Workflow Automation",
+    customerOutcome: "Automate customer FAQ answering, lead capture, and email/database notifications.",
+    startingPrice: "Starting at ₹3,000 (subject to scope)",
+    targetHref: "/services#ai-chatbots-automation",
+  },
+];
 
 export const TECHNICAL_CAPABILITIES: TechnicalCapability[] = [
   {
@@ -130,9 +171,9 @@ export const TECHNICAL_CAPABILITIES: TechnicalCapability[] = [
       "Automated test suites (25 automated checkout and access control test cases in test-store-security.ts)",
     ],
     evidence: {
-      title: "RealGuard & ShivSastra Security",
-      slug: "realguard",
-      description: "Zero-trust input boundaries, strict CSP, and 25-point automated store security suite.",
+      title: "ShivSastra Platform Architecture",
+      slug: "shivsastra",
+      description: "Production Next.js 16 App Router platform with defensive security headers, Supabase RLS, and 25-point automated security suite.",
     },
   },
 ];
@@ -197,10 +238,18 @@ export const SERVICE_PACKAGES: ServicePackage[] = [
     startingPrice: "Starting at ₹999 – ₹1,999",
     pricingNote: "Introductory price for small, clearly scoped issues. Final quote confirmed after initial inspection.",
     idealFor: "Websites with mobile layout glitches, broken CSS/styling, dead links, or console errors.",
-    turnaround: "1–2 business days",
+    turnaround: "1–2 business days (estimate)",
     revisions: "1 round of verification on resolved issues",
     summary:
       "Rapid triage and resolution for layout breaks, mobile responsiveness errors, broken links, and front-end quirks.",
+    plainEnglishOutcome:
+      "Fix visual layout glitches, mobile responsiveness breaks, broken links, and browser console errors so your site looks polished and works reliably.",
+    technicalScope: [
+      "CSS Grid & Flexbox alignment fixes",
+      "Mobile viewport and media query corrections",
+      "JavaScript console error and uncaught exception remediation",
+      "Internal 404 broken-link checks",
+    ],
     deliverables: [
       "Small, clearly scoped UI and layout fixes",
       "Mobile responsiveness and viewport corrections",
@@ -226,10 +275,18 @@ export const SERVICE_PACKAGES: ServicePackage[] = [
     startingPrice: "Starting at ₹2,999 – ₹5,999",
     pricingNote: "Introductory price for single-page conversion marketing or business landing pages.",
     idealFor: "Founders, creators, freelancers, and businesses launching a new service, product, or portfolio.",
-    turnaround: "3–5 business days",
+    turnaround: "3–5 business days (estimate)",
     revisions: "2 rounds of layout and copy adjustments",
     summary:
       "Fast, responsive, and conversion-focused landing pages built with modern Next.js App Router, Tailwind CSS, and clean typography.",
+    plainEnglishOutcome:
+      "Launch a clean, professional, and mobile-friendly single-page website that introduces your business, showcases your value, and converts visitors into leads.",
+    technicalScope: [
+      "Next.js 16 App Router & React 19 component hierarchy",
+      "Tailwind CSS responsive styling & dark/light theme alignment",
+      "Technical SEO: Title tags, meta descriptions, Open Graph cards, semantic HTML5",
+      "Asset optimization: Next.js Image component with zero layout shift",
+    ],
     deliverables: [
       "High-performance responsive landing page built with React & Next.js",
       "Clear business narrative sections, value propositions, and contact CTA",
@@ -255,10 +312,18 @@ export const SERVICE_PACKAGES: ServicePackage[] = [
     startingPrice: "Starting at ₹3,000+",
     pricingNote: "Final price confirmed after scope review based on endpoint complexity and integration requirements.",
     idealFor: "Teams connecting apps to third-party services (payment gateways, messaging, CRM) or building custom REST APIs.",
-    turnaround: "3–7 business days",
+    turnaround: "3–7 business days (estimate)",
     revisions: "2 rounds of integration test reviews",
     summary:
       "Reliable backend endpoint development, webhook listeners, third-party API integrations, and safe data synchronization.",
+    plainEnglishOutcome:
+      "Connect your website or app to third-party services like payment gateways, messaging tools, databases, and CRMs, or create reliable custom endpoints.",
+    technicalScope: [
+      "RESTful API endpoint engineering in Python, Java (Spring Boot), or Next.js Route Handlers",
+      "Server-side payload validation using Zod / Hibernate Validator",
+      "Webhook receiver implementation with timing-safe HMAC signature verification",
+      "Database read/write synchronization with PostgreSQL / Supabase",
+    ],
     deliverables: [
       "Integration with a suitable third-party API (payment, messaging, CRM, email, or database)",
       "Custom backend endpoint development or webhook handler implementation",
@@ -284,10 +349,18 @@ export const SERVICE_PACKAGES: ServicePackage[] = [
     startingPrice: "Starting at ₹3,000 – ₹7,000+",
     pricingNote: "Priced after scope review depending on workflow triggers, tools, and message volume.",
     idealFor: "Businesses wanting automated customer FAQ responder bots, WhatsApp lead intake, or webhook workflows.",
-    turnaround: "4–8 business days",
+    turnaround: "4–8 business days (estimate)",
     revisions: "2 rounds of prompt and workflow tuning",
     summary:
       "Practical AI workflows and conversational bots that extract structured data, answer FAQs, and automate repetitive tasks reliably.",
+    plainEnglishOutcome:
+      "Automate repetitive customer inquiries, lead capture, and notifications using conversational AI that extracts key details and saves them directly to your email or database.",
+    technicalScope: [
+      "Groq API / OpenAI / Anthropic prompt engineering with structured JSON schema outputs",
+      "Decoupled architecture: LLM extracts intent, deterministic backend code executes business logic",
+      "Messaging webhook integration (e.g. WhatsApp via Twilio, or web chat widget)",
+      "Automated lead notification pipelines via email or database insertion",
+    ],
     deliverables: [
       "Basic FAQ conversational chatbot or AI API integration (Groq, OpenAI, or Anthropic)",
       "Simple workflow automation (e.g. conversational lead capture to database or email notifications)",
@@ -313,10 +386,18 @@ export const SERVICE_PACKAGES: ServicePackage[] = [
     startingPrice: "Quote after scope review",
     pricingNote: "Custom scope tailored to your application's architecture and public footprint.",
     idealFor: "Founders and developers wanting an independent baseline check on security headers, SEO setup, and performance bottlenecks.",
-    turnaround: "2–4 business days",
+    turnaround: "2–4 business days (estimate)",
     revisions: "1 follow-up verification review after fixes",
     summary:
       "A systematic inspection of HTTP security headers, technical SEO hygiene (sitemaps, canonicals, JSON-LD), and Core Web Vitals performance bottlenecks.",
+    plainEnglishOutcome:
+      "Get a clear, independent audit of your website's search engine setup, browser security headers, and loading speed with prioritized steps to fix issues.",
+    technicalScope: [
+      "HTTP response headers: Content-Security-Policy, HSTS, X-Frame-Options, X-Content-Type-Options",
+      "Technical SEO: XML sitemap discovery, robots.txt directives, canonical tag self-referencing, JSON-LD schema",
+      "Data boundary check: Identification of unintended client-side data exposure or secret leaks",
+      "Page speed & Core Web Vitals observations with prioritized remediation notes",
+    ],
     deliverables: [
       "Review of HTTP security headers (CSP, HSTS, X-Frame-Options) and basic configuration",
       "Technical SEO inspection (sitemap.xml, robots.txt, canonical URLs, metadata & JSON-LD)",
@@ -329,9 +410,9 @@ export const SERVICE_PACKAGES: ServicePackage[] = [
       "Does NOT guarantee search engine rankings or specific search placement (which depends on search engine algorithms and domain authority)",
     ],
     proofProject: {
-      title: "RealGuard Architecture",
-      slug: "realguard",
-      description: "Strict input validation boundaries, deterministic calculations, and zero-trust data separation.",
+      title: "ShivSastra Platform Architecture",
+      slug: "shivsastra",
+      description: "Production Next.js 16 App Router platform with defensive security headers, Supabase RLS, and 25-point automated store security suite.",
     },
     contactSubject: "Basic Security, SEO & Performance Review Quote",
   },

@@ -7,8 +7,8 @@ import { SITE_URL } from "@/lib/site";
 
 export const revalidate = 3600; // 1 hour revalidation
 
-// Fixed baseline deployment date for static portfolio routes (no fabrication)
-const BASELINE_STATIC_DATE = new Date("2026-09-26T00:00:00.000Z");
+// Dynamic generation timestamp for static routes
+const BASELINE_STATIC_DATE = new Date();
 
 function safeDate(val: string | null | undefined): Date | undefined {
   if (!val) return undefined;
@@ -49,24 +49,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: BASELINE_STATIC_DATE,
       changeFrequency: "weekly",
       priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/store/design`,
-      lastModified: BASELINE_STATIC_DATE,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/store/ai-agents`,
-      lastModified: BASELINE_STATIC_DATE,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/store/digital-products`,
-      lastModified: BASELINE_STATIC_DATE,
-      changeFrequency: "weekly",
-      priority: 0.8,
     },
     {
       url: `${baseUrl}/contact`,
