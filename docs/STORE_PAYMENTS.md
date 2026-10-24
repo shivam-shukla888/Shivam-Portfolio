@@ -168,3 +168,42 @@ In accordance with Database-Independent / No MCP mode, this foundation is fully 
 | **Razorpay Credentials** | `PENDING RAZORPAY CREDENTIALS` | Populate `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET`, and `RAZORPAY_WEBHOOK_SECRET` in `.env.local` / host environment. |
 | **Webhook Endpoint Configuration**| `PENDING LIVE CONFIGURATION` | Configure Razorpay dashboard webhook to point to `https://<domain>/api/webhooks/razorpay` with `order.paid` event. |
 | **End-to-End Live Payment** | `PENDING REAL PAYMENT TEST` | Execute sandbox transaction with Razorpay test card / UPI. |
+
+
+---
+
+## 9. Razorpay Sandbox Checkout & Refund Test
+
+The Spring Boot starter has a dedicated sandbox path. It is hidden from the purchasable catalog and can only create a fixed ₹1 INR order when the server is explicitly enabled with a Test Mode key. It does not deliver the upcoming template or send a purchase email.
+
+### Preview / local environment
+
+Use freshly generated Razorpay Test Mode keys. A key secret previously pasted into a chat must be regenerated before testing.
+
+Set these server environment values in .env.local for local testing or in a non-production preview environment:
+
+~~~env
+RAZORPAY_KEY_ID=rzp_test_<fresh-key-id>
+RAZORPAY_KEY_SECRET=<fresh-test-key-secret>
+RAZORPAY_TEST_CHECKOUT_ENABLED=true
+RAZORPAY_WEBHOOK_SECRET=<test-mode-webhook-secret>
+~~~
+
+Keep the flag false or unset in production. Never add the secret to a NEXT_PUBLIC_* variable.
+
+### One-time setup
+
+1. Apply supabase/migrations/20261025000001_razorpay_sandbox_refunds.sql to the project database. It adds the hidden Spring Boot test record, a refund reference, and the refund_pending order state.
+2. In Razorpay Test Mode, configure a webhook to https://<preview-domain>/api/webhooks/razorpay with the same webhook secret and events payment.captured, order.paid, refund.processed, and refund.failed.
+3. Restart the local app or redeploy the preview after environment changes.
+
+### End-to-end check
+
+1. Open /store/spring-boot-starter. It shows a ₹1 sandbox checkout only when the test key and flag are active.
+2. Enter an email and continue. Razorpay Checkout opens with ShivSastra branding.
+3. Close the Razorpay window to test cancellation. No successful payment is recorded and no refund is needed. Razorpay Test Mode is simulated and moves no real money.
+4. Complete a successful test transaction to verify the server signature, internal order state, and Razorpay webhook.
+5. On the success panel, select Refund this test payment. If Razorpay reports a pending refund, the same button checks that refund instead of creating another. The webhook updates the final refund state.
+6. Check Razorpay Dashboard in Test Mode → Transactions and confirm the payment/refund statuses.
+
+A modal dismissal is not a captured payment, so it cannot be refunded. The refund control is shown only after a signature-verified sandbox payment. A real refund against a live payment is intentionally outside this sandbox route.

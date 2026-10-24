@@ -18,6 +18,13 @@ export interface RazorpayOrderResult {
   receipt: string;
 }
 
+export interface RazorpayRefundResult {
+  id: string;
+  payment_id: string;
+  amount: number;
+  status?: "pending" | "processed" | "failed";
+}
+
 /**
  * Validates whether required Razorpay server environment credentials are set.
  */
@@ -73,8 +80,8 @@ export async function createRazorpayOrder(
     throw new Error("RAZORPAY_KEY_ID is not configured");
   }
 
-  if (params.amountCents <= 0 || !Number.isInteger(params.amountCents)) {
-    throw new Error("Order amount must be a positive integer in cents/paise");
+  if (!Number.isInteger(params.amountCents) || params.amountCents < 100) {
+    throw new Error("Order amount must be an integer of at least 100 paise (1 INR)");
   }
 
   const currency = (params.currency || "INR").toUpperCase().trim();
@@ -121,6 +128,55 @@ export async function createRazorpayOrder(
  * Cryptographically verifies Razorpay payment signature using timing-safe comparison.
  * Formula: HMAC_SHA256(order_id + "|" + payment_id, secret) == signature
  */
+export async function createRazorpayRefund(params: {
+  paymentId: string;
+  amountCents: number;
+  receipt: string;
+}): Promise<RazorpayRefundResult> {
+  const keyId = getRazorpayKeyId();
+  const keySecret = getRazorpayKeySecret();
+  if (!keyId || !keyId.startsWith("rzp_test_")) {
+    throw new Error("Refund testing requires Razorpay Test Mode credentials");
+  }
+  if (!/^pay_[A-Za-z0-9]+$/.test(params.paymentId) || !Number.isInteger(params.amountCents) || params.amountCents < 100) {
+    throw new Error("Invalid test refund request");
+  }
+
+  const auth = Buffer.from(keyId + ":" + keySecret).toString("base64");
+  const response = await fetch("https://api.razorpay.com/v1/payments/" + encodeURIComponent(params.paymentId) + "/refund", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Authorization: "Basic " + auth },
+    body: JSON.stringify({
+      amount: params.amountCents,
+      notes: { internal_order: params.receipt, environment: "test" },
+    }),
+  });
+
+  const data = await response.json().catch(() => null);
+  if (!response.ok || !data?.id || data.payment_id !== params.paymentId) {
+    throw new Error(data?.error?.description || "Razorpay could not create the refund");
+  }
+
+  return { id: data.id, payment_id: data.payment_id, amount: data.amount, status: data.status };
+}
+
+export async function getRazorpayRefund(refundId: string): Promise<RazorpayRefundResult> {
+  const keyId = getRazorpayKeyId();
+  const keySecret = getRazorpayKeySecret();
+  if (!keyId || !keyId.startsWith("rzp_test_") || !/^rfnd_[A-Za-z0-9]+$/.test(refundId)) {
+    throw new Error("Invalid test refund lookup");
+  }
+  const auth = Buffer.from(keyId + ":" + keySecret).toString("base64");
+  const response = await fetch("https://api.razorpay.com/v1/refunds/" + encodeURIComponent(refundId), {
+    headers: { Authorization: "Basic " + auth },
+  });
+  const data = await response.json().catch(() => null);
+  if (!response.ok || !data?.id) {
+    throw new Error(data?.error?.description || "Unable to check the refund status");
+  }
+  return { id: data.id, payment_id: data.payment_id, amount: data.amount, status: data.status };
+}
+
 export function verifyPaymentSignature({
   razorpayOrderId,
   razorpayPaymentId,
