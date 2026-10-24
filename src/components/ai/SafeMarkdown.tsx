@@ -61,7 +61,7 @@ function renderInlineContent(
       return (
         <code
           key={index}
-          className="font-mono text-[11px] px-1.5 py-0.5 bg-[var(--color-canvas-secondary)] border border-[var(--color-hairline)] text-[var(--color-accent)]"
+          className="font-mono text-xs px-1.5 py-0.5 bg-[var(--color-canvas-secondary)] border border-[var(--color-hairline)] text-[var(--color-accent)]"
         >
           {part.slice(1, -1)}
         </code>
@@ -153,7 +153,7 @@ function tryRenderPlainRouteItem(
           className="text-[var(--color-accent)] underline underline-offset-2 hover:text-[var(--color-accent-hover)] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ink-primary)] font-sans"
         >
           <span className="font-semibold text-[var(--color-ink-primary)]">{label}:</span>{" "}
-          <span className="font-mono text-[11px]">{normalized}</span>
+          <span className="font-mono text-xs">{normalized}</span>
         </Link>
       );
     }
@@ -187,7 +187,7 @@ export function SafeMarkdown({ content, validRoutes }: SafeMarkdownProps) {
           const codeBody = lines.slice(1, -1).join("\n");
           return (
             <div key={bIndex} className="relative group my-2">
-              <pre className="p-3 bg-[var(--color-surface-dark)] text-[var(--color-dark-ink-primary)] font-mono text-[11px] overflow-x-auto border border-[var(--color-dark-hairline)] pr-16">
+              <pre className="p-3 bg-[var(--color-surface-dark)] text-[var(--color-dark-ink-primary)] font-mono text-xs overflow-x-auto border border-[var(--color-dark-hairline)] pr-16">
                 <code>{codeBody}</code>
               </pre>
               <div className="absolute top-2 right-2">
@@ -225,7 +225,7 @@ export function SafeMarkdown({ content, validRoutes }: SafeMarkdownProps) {
           return (
             <h3
               key={bIndex}
-              className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[var(--color-accent)] pt-1"
+              className="font-mono text-xs font-semibold uppercase tracking-wider text-[var(--color-accent)] pt-1"
             >
               {renderInlineContent(headingText, validRoutes)}
             </h3>

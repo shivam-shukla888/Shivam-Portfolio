@@ -131,7 +131,7 @@ export function HeroVisual() {
               alt="ShivSastra 3D isometric architectural monolith visual"
               width={880}
               height={880}
-              priority
+              sizes="(max-width: 640px) 320px, (max-width: 1024px) 440px, 440px"
               className="w-full h-full object-contain pointer-events-none select-none"
             />
           </div>
@@ -143,11 +143,11 @@ export function HeroVisual() {
 
           {/* 1. CENTER / CORE — SHIVAM SHUKLA (Dominant Central Identity) */}
           <div
-            className="absolute left-1/2 top-[41%] -translate-x-1/2 -translate-y-1/2 z-20 flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-0.5 sm:py-1 bg-[var(--color-canvas-primary)]/95 border border-[var(--color-hairline)] transition-colors duration-300 group-hover:border-[var(--color-accent)] pointer-events-none shadow-xs"
+            className="absolute left-1/2 top-[41%] -translate-x-1/2 -translate-y-1/2 z-20 flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 bg-[var(--color-canvas-primary)]/95 border border-[var(--color-hairline)] transition-colors duration-300 group-hover:border-[var(--color-accent)] pointer-events-none shadow-xs"
             style={{ transform: "translateZ(18px)" }}
           >
             <span className="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-[var(--color-accent)] block shrink-0" />
-            <span className="text-[10px] sm:text-xs font-sans font-bold tracking-[0.08em] sm:tracking-[0.1em] text-[var(--color-ink-primary)] uppercase whitespace-nowrap">
+            <span className="text-xs font-sans font-bold tracking-[0.08em] sm:tracking-[0.1em] text-[var(--color-ink-primary)] uppercase whitespace-nowrap">
               SHIVAM SHUKLA
             </span>
           </div>
@@ -157,7 +157,7 @@ export function HeroVisual() {
             className="absolute top-1.5 sm:top-3.5 left-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-none z-10"
             style={{ transform: "translateZ(10px)" }}
           >
-            <span className="text-[9px] sm:text-xs font-sans font-bold tracking-[0.06em] sm:tracking-[0.08em] text-[var(--color-ink-primary)] uppercase whitespace-nowrap">
+            <span className="text-xs font-sans font-bold tracking-[0.06em] sm:tracking-[0.08em] text-[var(--color-ink-primary)] uppercase whitespace-nowrap">
               AGENTIC AI
             </span>
             <span className="w-[1px] h-2 sm:h-3.5 bg-[var(--color-hairline)] mt-0.5 sm:mt-1 block" />
@@ -168,7 +168,7 @@ export function HeroVisual() {
             className="absolute top-[28%] sm:top-[35%] left-1.5 sm:left-3 flex items-center pointer-events-none z-10"
             style={{ transform: "translateZ(10px)" }}
           >
-            <span className="text-[9px] sm:text-[11px] font-sans font-bold tracking-[0.06em] sm:tracking-[0.08em] text-[var(--color-ink-primary)] uppercase whitespace-nowrap">
+            <span className="text-xs font-sans font-bold tracking-[0.06em] sm:tracking-[0.08em] text-[var(--color-ink-primary)] uppercase whitespace-nowrap">
               BACKEND
             </span>
             <span className="h-[1px] w-1.5 sm:w-3 bg-[var(--color-hairline)] ml-1 sm:ml-1.5 block" />
@@ -180,7 +180,7 @@ export function HeroVisual() {
             style={{ transform: "translateZ(10px)" }}
           >
             <span className="h-[1px] w-1.5 sm:w-3 bg-[var(--color-hairline)] mr-1 sm:mr-1.5 block" />
-            <span className="text-[9px] sm:text-[11px] font-sans font-bold tracking-[0.06em] sm:tracking-[0.08em] text-[var(--color-ink-primary)] uppercase whitespace-nowrap">
+            <span className="text-xs font-sans font-bold tracking-[0.06em] sm:tracking-[0.08em] text-[var(--color-ink-primary)] uppercase whitespace-nowrap">
               AI SECURITY
             </span>
           </div>
@@ -190,7 +190,7 @@ export function HeroVisual() {
             className="absolute bottom-[17%] left-1.5 sm:left-3 flex items-center pointer-events-none z-10"
             style={{ transform: "translateZ(10px)" }}
           >
-            <span className="text-[8px] sm:text-[10px] font-sans font-semibold tracking-[0.06em] sm:tracking-[0.08em] text-[var(--color-ink-primary)] uppercase whitespace-nowrap">
+            <span className="text-xs font-sans font-semibold tracking-[0.06em] sm:tracking-[0.08em] text-[var(--color-ink-primary)] uppercase whitespace-nowrap">
               DIGITAL PRODUCTS
             </span>
             <span className="h-[1px] w-1.5 sm:w-2 bg-[var(--color-hairline)] ml-1 sm:ml-1.5 block" />
@@ -202,7 +202,7 @@ export function HeroVisual() {
             style={{ transform: "translateZ(10px)" }}
           >
             <span className="h-[1px] w-1.5 sm:w-2 bg-[var(--color-hairline)] mr-1 sm:mr-1.5 block" />
-            <span className="text-[8px] sm:text-[10px] font-sans font-semibold tracking-[0.06em] sm:tracking-[0.08em] text-[var(--color-ink-primary)] uppercase whitespace-nowrap">
+            <span className="text-xs font-sans font-semibold tracking-[0.06em] sm:tracking-[0.08em] text-[var(--color-ink-primary)] uppercase whitespace-nowrap">
               TEMPLATES
             </span>
           </div>
@@ -213,7 +213,7 @@ export function HeroVisual() {
             style={{ transform: "translateZ(10px)" }}
           >
             <span className="w-[1px] h-2 sm:h-3.5 bg-[var(--color-hairline)] mb-0.5 sm:mb-1 block" />
-            <span className="text-[8px] sm:text-[10px] font-sans font-semibold tracking-[0.06em] sm:tracking-[0.08em] text-[var(--color-ink-primary)] uppercase whitespace-nowrap">
+            <span className="text-xs font-sans font-semibold tracking-[0.06em] sm:tracking-[0.08em] text-[var(--color-ink-primary)] uppercase whitespace-nowrap">
               PROJECTS
             </span>
           </div>

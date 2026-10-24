@@ -1,11 +1,18 @@
 import type { Metadata, Viewport } from "next";
 import { Newsreader, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import dynamic from "next/dynamic";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { MotionProvider } from "@/components/motion";
-import { ShivSastraAssistant } from "@/components/ai/ShivSastraAssistant";
 import { SITE_URL } from "@/lib/site";
+
+// Dynamically load client-side assistant to preserve lean initial bundle
+const ShivSastraAssistant = dynamic(() =>
+  import("@/components/ai/ShivSastraAssistant").then(
+    (mod) => mod.ShivSastraAssistant
+  )
+);
 
 const newsreader = Newsreader({
   variable: "--font-newsreader",

@@ -47,45 +47,45 @@ export function HomeHeroMotion({
       <div className="lg:col-span-7 space-y-6">
         {/* 0. Overview & Availability Meta */}
         <m.div
-          initial={{ opacity: 0, y: 10 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, ease: EASE_EDITORIAL, delay: 0.04 }}
+          transition={{ duration: 0.55, ease: EASE_EDITORIAL }}
         >
           {overview}
         </m.div>
 
-        {/* 1. SHIVAM Dominant Headline */}
+        {/* 1. SHIVAM Dominant Headline (Immediate SSR Paint for optimal LCP) */}
         <m.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.65, ease: EASE_EDITORIAL, delay: 0.10 }}
+          transition={{ duration: 0.65, ease: EASE_EDITORIAL }}
         >
           {title}
         </m.div>
 
         {/* 2. Primary Positioning Statement */}
         <m.div
-          initial={{ opacity: 0, y: 14 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.65, ease: EASE_EDITORIAL, delay: 0.18 }}
+          transition={{ duration: 0.65, ease: EASE_EDITORIAL }}
         >
           {positioning}
         </m.div>
 
         {/* 3. Supporting Narrative */}
         <m.div
-          initial={{ opacity: 0, y: 14 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.65, ease: EASE_EDITORIAL, delay: 0.26 }}
+          transition={{ duration: 0.65, ease: EASE_EDITORIAL }}
         >
           {narrative}
         </m.div>
 
         {/* 4. Action Group / CTAs */}
         <m.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.65, ease: EASE_EDITORIAL, delay: 0.34 }}
+          transition={{ duration: 0.65, ease: EASE_EDITORIAL }}
         >
           {ctas}
         </m.div>
@@ -94,9 +94,9 @@ export function HomeHeroMotion({
       {/* 5. Right Signature Visual (HeroVisual) */}
       <m.div
         className="lg:col-span-5 flex justify-center"
-        initial={{ opacity: 0, y: 16 }}
+        initial={false}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.75, ease: EASE_EDITORIAL, delay: 0.42 }}
+        transition={{ duration: 0.75, ease: EASE_EDITORIAL }}
       >
         {visual}
       </m.div>

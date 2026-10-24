@@ -60,7 +60,7 @@ export function CopyButton({ text, className }: CopyButtonProps) {
       onClick={handleCopy}
       aria-label={copied ? "Copied code snippet to clipboard" : "Copy code snippet"}
       className={cn(
-        "px-2 py-1 font-mono text-[10px] uppercase tracking-wider transition-colors duration-150",
+        "px-2.5 py-1 font-mono text-xs uppercase tracking-wider transition-colors duration-150",
         "border border-[var(--color-dark-hairline)] bg-[var(--color-surface-dark)] text-[var(--color-dark-ink-secondary)]",
         "hover:text-[var(--color-dark-ink-primary)] hover:border-[var(--color-dark-ink-secondary)]",
         "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-dark-ink-primary)]",

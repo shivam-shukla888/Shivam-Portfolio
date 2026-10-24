@@ -81,7 +81,7 @@ export function Footer() {
                     className="hover:text-white transition-colors flex items-center gap-1 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white"
                   >
                     <span>Contra</span>
-                    <span className="text-[10px] text-[var(--color-accent)]">↗</span>
+                    <span className="text-xs text-[var(--color-accent)]">↗</span>
                   </a>
                 </li>
                 <li>
@@ -92,7 +92,7 @@ export function Footer() {
                     className="hover:text-white transition-colors flex items-center gap-1 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white"
                   >
                     <span>LinkedIn</span>
-                    <span className="text-[10px] text-[var(--color-accent)]">↗</span>
+                    <span className="text-xs text-[var(--color-accent)]">↗</span>
                   </a>
                 </li>
                 <li>
@@ -103,7 +103,7 @@ export function Footer() {
                     className="hover:text-white transition-colors flex items-center gap-1 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white"
                   >
                     <span>GitHub</span>
-                    <span className="text-[10px] text-[var(--color-accent)]">↗</span>
+                    <span className="text-xs text-[var(--color-accent)]">↗</span>
                   </a>
                 </li>
                 <li>
@@ -114,7 +114,7 @@ export function Footer() {
                     className="hover:text-white transition-colors flex items-center gap-1 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white"
                   >
                     <span>Instagram</span>
-                    <span className="text-[10px] text-[var(--color-accent)]">↗</span>
+                    <span className="text-xs text-[var(--color-accent)]">↗</span>
                   </a>
                 </li>
                 <li>
@@ -125,16 +125,16 @@ export function Footer() {
                     className="hover:text-white transition-colors flex items-center gap-1 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white"
                   >
                     <span>X</span>
-                    <span className="text-[10px] text-[var(--color-accent)]">↗</span>
+                    <span className="text-xs text-[var(--color-accent)]">↗</span>
                   </a>
                 </li>
                 <li>
                   <Link
                     href="/resume"
-                    className="text-[var(--color-accent)] hover:text-white transition-colors flex items-center gap-1 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white"
+                    className="text-[var(--color-accent-decorative)] hover:text-white transition-colors flex items-center gap-1 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white"
                   >
                     <span>Resume</span>
-                    <span className="text-[10px]">→</span>
+                    <span className="text-xs">→</span>
                   </Link>
                 </li>
               </ul>
@@ -150,14 +150,14 @@ export function Footer() {
               <li>
                 <Link
                   href="/lab"
-                  className="text-[var(--color-accent)] hover:underline flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white"
+                  className="text-[var(--color-accent-decorative)] hover:underline flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white"
                 >
                   <span>Lab</span>
                   <span>→</span>
                 </Link>
               </li>
               <li>
-                <span className="text-xs text-[var(--color-dark-ink-secondary)]/70">
+                <span className="text-xs text-[var(--color-dark-ink-secondary)]">
                   Experiments & prototypes
                 </span>
               </li>
@@ -166,7 +166,7 @@ export function Footer() {
         </div>
 
         {/* Bottom Colophon Bar */}
-        <div className="pt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-[11px] font-mono tracking-[0.08em] text-[var(--color-dark-ink-secondary)]">
+        <div className="pt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs font-mono tracking-[0.08em] text-[var(--color-dark-ink-secondary)]">
           <p>© {new Date().getFullYear()} SHIVAM SHUKLA. All rights reserved.</p>
           <nav aria-label="Legal Information" className="flex flex-wrap items-center gap-6">
             <Link

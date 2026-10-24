@@ -202,7 +202,7 @@ export default async function HomePage() {
                 </div>
 
                 {/* 4 Value Pillars */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-[var(--color-hairline)] font-mono text-[11px] text-[var(--color-ink-secondary)]">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-[var(--color-hairline)] font-mono text-xs text-[var(--color-ink-secondary)]">
                   <div>
                     <strong className="text-[var(--color-ink-primary)] block font-sans text-xs">
                       Fast Delivery
@@ -301,7 +301,7 @@ export default async function HomePage() {
                         {project.techStack.slice(0, 4).map((tech, idx) => (
                           <span
                             key={idx}
-                            className="font-mono text-[10px] px-2 py-0.5 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] text-[var(--color-ink-secondary)]"
+                            className="font-mono text-xs px-2 py-0.5 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] text-[var(--color-ink-secondary)]"
                           >
                             {tech}
                           </span>
@@ -313,6 +313,8 @@ export default async function HomePage() {
                   <div className="pt-4 border-t border-[var(--color-hairline)] flex items-center justify-between">
                     <Link
                       href={`/projects/${project.slug}`}
+                      aria-hidden="true"
+                      tabIndex={-1}
                       className="font-mono text-xs uppercase tracking-wider text-[var(--color-ink-primary)] group-hover:text-[var(--color-accent)] transition-colors inline-flex items-center gap-1 font-semibold"
                     >
                       <span>Read Case Study</span>
@@ -519,7 +521,7 @@ export default async function HomePage() {
         <HomeSectionReveal>
           <SectionContainer>
             <div className="max-w-3xl space-y-6">
-              <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--color-accent)] font-semibold block">
+              <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--color-accent-decorative)] font-semibold block">
                 Next Steps
               </span>
               <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-normal tracking-tight text-white leading-tight">

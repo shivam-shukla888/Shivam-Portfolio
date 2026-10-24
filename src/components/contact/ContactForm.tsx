@@ -251,7 +251,7 @@ export function ContactForm({
             }
           />
           {state.errors?.name && (
-            <p id="name-error" role="alert" className="font-mono text-[11px] text-[var(--color-accent)] pt-1">
+            <p id="name-error" role="alert" className="font-mono text-xs text-[var(--color-accent)] pt-1">
               {state.errors.name[0]}
             </p>
           )}
@@ -285,7 +285,7 @@ export function ContactForm({
             }
           />
           {state.errors?.email && (
-            <p id="email-error" role="alert" className="font-mono text-[11px] text-[var(--color-accent)] pt-1">
+            <p id="email-error" role="alert" className="font-mono text-xs text-[var(--color-accent)] pt-1">
               {state.errors.email[0]}
             </p>
           )}
@@ -320,7 +320,7 @@ export function ContactForm({
           }
         />
         {state.errors?.brief && (
-          <p id="brief-error" role="alert" className="font-mono text-[11px] text-[var(--color-accent)] pt-1">
+          <p id="brief-error" role="alert" className="font-mono text-xs text-[var(--color-accent)] pt-1">
             {state.errors.brief[0]}
           </p>
         )}
@@ -340,7 +340,7 @@ export function ContactForm({
             value={turnstileToken}
           />
           {state.errors?.turnstile && (
-            <p id="turnstile-error" role="alert" className="font-mono text-[11px] text-[var(--color-accent)]">
+            <p id="turnstile-error" role="alert" className="font-mono text-xs text-[var(--color-accent)]">
               {state.errors.turnstile[0]}
             </p>
           )}
@@ -358,7 +358,7 @@ export function ContactForm({
         >
           {isPending ? "Sending..." : labels.submit}
         </Button>
-        <p className={`font-sans text-[11px] leading-relaxed ${isDark ? "text-white/60" : "text-[var(--color-ink-secondary)]"}`}>
+        <p className={`font-sans text-xs leading-relaxed ${isDark ? "text-white/60" : "text-[var(--color-ink-secondary)]"}`}>
           Replies within 24 hours. Your details are never sold or shared for marketing; processed solely by our infrastructure to answer your inquiry under our{" "}
           <Link
             href="/privacy"
