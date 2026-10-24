@@ -8,24 +8,11 @@ CREATE UNIQUE INDEX IF NOT EXISTS idx_orders_razorpay_refund_id
   ON public.orders (razorpay_refund_id)
   WHERE razorpay_refund_id IS NOT NULL;
 
-DO $$
-DECLARE
-  constraint_name text;
-BEGIN
-  SELECT c.conname INTO constraint_name
-  FROM pg_constraint c
-  WHERE c.conrelid = 'public.orders'::regclass
-    AND c.contype = 'c'
-    AND pg_get_constraintdef(c.oid) ILIKE '%status%';
+ALTER TABLE public.orders DROP CONSTRAINT IF EXISTS orders_status_check;
 
-  IF constraint_name IS NOT NULL THEN
-    EXECUTE format('ALTER TABLE public.orders DROP CONSTRAINT %I', constraint_name);
-  END IF;
-
-  ALTER TABLE public.orders
-    ADD CONSTRAINT orders_status_check
-    CHECK (status IN ('pending', 'paid', 'failed', 'cancelled', 'refund_pending', 'refunded'));
-END $$;
+ALTER TABLE public.orders
+  ADD CONSTRAINT orders_status_check
+  CHECK (status IN ('pending', 'paid', 'failed', 'cancelled', 'refund_pending', 'refunded'));
 
 INSERT INTO public.products (
   id, slug, release_code, title, short_description, description,
