@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { checkoutRequestSchema } from "@/lib/validations/checkout";
 import { getPublishedStoreProductById } from "@/lib/products";
+import {
+  isTestCheckoutProduct,
+  TEST_CHECKOUT_AMOUNT_PAISE,
+} from "@/lib/payments/test-checkout";
 import { createRazorpayOrder, isRazorpayConfigured, getRazorpayKeyId } from "@/lib/payments/razorpay";
 import {
   createInternalOrder,
@@ -38,7 +42,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: firstIssue }, { status: 400 });
     }
 
-    const { productId, email } = parseResult.data;
+    const { productId, email, testMode = false } = parseResult.data;
 
     // Rate limiting: 10 requests / 10 mins per IP, and 5 orders / hour per email
     const rateLimit = await checkCheckoutRateLimit(hashedId, email);
@@ -66,20 +70,27 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 4. Verify price & currency from trusted server data
-    if (
+    // 4. Test checkout is limited to one upcoming item and a server-side fixed ₹1 amount.
+    const isTestProduct = isTestCheckoutProduct(product);
+    if (testMode && !isTestProduct) {
+      return NextResponse.json({ error: "Test checkout is not enabled for this item" }, { status: 403 });
+    }
+
+    if (!testMode && (
       product.priceInCents === null ||
       product.priceInCents === undefined ||
-      product.priceInCents <= 0
-    ) {
+      !Number.isInteger(product.priceInCents) ||
+      product.priceInCents < 100 ||
+      !product.currency?.trim()
+    )) {
       return NextResponse.json(
-        { error: "Product price is pending or not configured for commercial purchase" },
+        { error: "Product price or currency is invalid, or the amount is below the minimum of 100 paise" },
         { status: 400 }
       );
     }
 
-    const trustedAmount = product.priceInCents;
-    const trustedCurrency = (product.currency || "INR").toUpperCase();
+    const trustedAmount = testMode ? TEST_CHECKOUT_AMOUNT_PAISE : product.priceInCents!;
+    const trustedCurrency = testMode ? "INR" : product.currency!.toUpperCase();
 
     // 5. Check Razorpay configuration
     if (!isRazorpayConfigured()) {
@@ -114,6 +125,7 @@ export async function POST(req: NextRequest) {
         razorpayOrderId: existingPendingOrder.razorpay_order_id,
         amount: trustedAmount,
         currency: trustedCurrency,
+        testMode,
         keyId: getRazorpayKeyId(),
         productTitle: product.title,
         isIdempotentReuse: true,
@@ -174,6 +186,7 @@ export async function POST(req: NextRequest) {
       razorpayOrderId: razorpayOrder.id,
       amount: trustedAmount,
       currency: trustedCurrency,
+      testMode,
       keyId: getRazorpayKeyId(),
       productTitle: product.title,
     });
