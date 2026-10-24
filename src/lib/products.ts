@@ -80,6 +80,35 @@ export interface CategoryCounts {
   ai_agents: number;
   digital_products: number;
   total: number;
+  purchasable: number;
+  upcoming: number;
+  caseStudy: number;
+}
+
+/**
+ * Checks whether a product item is actually available for commercial checkout.
+ */
+export function isProductPurchasable(product: ProductDisplayData): boolean {
+  return Boolean(
+    product.isAvailable &&
+      Number.isInteger(product.priceInCents) &&
+      (product.priceInCents ?? 0) >= 100 &&
+      typeof product.currency === "string" &&
+      product.currency.trim().length > 0
+  );
+}
+
+/**
+ * Resolves the catalog presentation type: purchasable product, engineering case study, or upcoming release.
+ */
+export function getProductCatalogType(
+  product: ProductDisplayData
+): "purchasable" | "case_study" | "upcoming" {
+  if (isProductPurchasable(product)) return "purchasable";
+  if (product.slug === "yojna-setu" || product.formattedPrice === "Case Study") {
+    return "case_study";
+  }
+  return "upcoming";
 }
 
 /**
@@ -105,13 +134,13 @@ export function formatPrice(
 
   switch (curr) {
     case "INR":
-      return `₹${amount}`;
+      return `â‚¹${amount}`;
     case "USD":
       return `$${amount}`;
     case "EUR":
-      return `€${amount}`;
+      return `â‚¬${amount}`;
     case "GBP":
-      return `£${amount}`;
+      return `Â£${amount}`;
     default:
       return `${curr} ${amount}`;
   }
@@ -189,16 +218,16 @@ export const YOJNA_SETU_STORE_ITEM: ProductDisplayData = {
   releaseCode: "YS-V2",
   title: "Yojna Setu",
   shortDescription:
-    "A WhatsApp AI agent for welfare-scheme discovery. Users talk naturally — AI extracts demographic profile attributes, while deterministic Java rules evaluate eligibility over 82 normalized schemes.",
+    "A WhatsApp AI agent for welfare-scheme discovery. Users talk naturally â€” AI extracts demographic profile attributes, while deterministic Java rules evaluate eligibility over 82 normalized schemes.",
   description:
-    "A WhatsApp AI agent for welfare-scheme discovery. Users describe themselves in natural language in conversational Hindi or English — AI extracts demographic attributes, then deterministic Java rules evaluate eligibility over 82 normalized schemes.",
+    "A WhatsApp AI agent for welfare-scheme discovery. Users describe themselves in natural language in conversational Hindi or English â€” AI extracts demographic attributes, then deterministic Java rules evaluate eligibility over 82 normalized schemes.",
   priceInCents: null,
   currency: null,
   category: "ai_agents",
   productType: "code_license",
   features: [
     "82 normalized schemes (63 Central, 11 State, 8 Philanthropic)",
-    "42/42 automated tests passing · 0 Critical findings",
+    "42/42 automated tests passing Â· 0 Critical findings",
     "Deterministic Java eligibility engine with indexed queries",
     "Interactive product case study & architecture monograph",
   ],
@@ -220,7 +249,7 @@ export const YOJNA_SETU_STORE_ITEM: ProductDisplayData = {
 };
 
 export const SPRING_BOOT_STARTER_ITEM: ProductDisplayData = {
-  id: "spring-boot-starter-boilerplate",
+  id: "a9eac140-877c-4e98-9b6a-87c6712e4f03",
   slug: "spring-boot-starter",
   releaseCode: "SB3-KIT",
   title: "Spring Boot 3 API Boilerplate",
@@ -535,11 +564,20 @@ export async function getPublishedStoreProductById(
 export async function getStoreCategoryCounts(): Promise<CategoryCounts> {
   try {
     const products = await getPublishedStoreProducts();
+    const purchasable = products.filter(isProductPurchasable).length;
+    const caseStudy = products.filter(
+      (p) => !isProductPurchasable(p) && (p.slug === "yojna-setu" || p.formattedPrice === "Case Study")
+    ).length;
+    const upcoming = products.length - purchasable - caseStudy;
+
     return {
       design: products.filter((p) => p.category === "design").length,
       ai_agents: products.filter((p) => p.category === "ai_agents").length,
       digital_products: products.filter((p) => p.category === "digital_products").length,
       total: products.length,
+      purchasable,
+      upcoming,
+      caseStudy,
     };
   } catch (err) {
     console.error("[STORE COUNTS EXCEPTION]", err);
@@ -548,6 +586,9 @@ export async function getStoreCategoryCounts(): Promise<CategoryCounts> {
       ai_agents: 0,
       digital_products: 0,
       total: 0,
+      purchasable: 0,
+      upcoming: 0,
+      caseStudy: 0,
     };
   }
 }
@@ -606,7 +647,7 @@ export async function getPublishedProductReviews(
  *
  * Requirements:
  * - Must be available (isAvailable === true).
- * - Must have a valid numeric priceInCents > 0 and valid currency.
+ * - Must have an integer priceInCents of at least 100 paise and valid currency.
  * - Non-commercial showcases (e.g. Yojna Setu case study) and upcoming releases strictly
  *   return null to prevent misleading Google rich-results warnings or false InStock claims.
  */
@@ -615,14 +656,7 @@ export function getProductStructuredData(
   categoryName: string,
   reviews: ProductReview[] = []
 ): Record<string, unknown> | null {
-  const isPurchasable = Boolean(
-    product.isAvailable &&
-      product.priceInCents !== null &&
-      product.priceInCents > 0 &&
-      product.currency
-  );
-
-  if (!isPurchasable) {
+  if (!isProductPurchasable(product)) {
     return null;
   }
 
