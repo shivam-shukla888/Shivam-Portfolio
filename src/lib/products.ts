@@ -134,13 +134,13 @@ export function formatPrice(
 
   switch (curr) {
     case "INR":
-      return `₹${amount}`;
+      return `â‚¹${amount}`;
     case "USD":
       return `$${amount}`;
     case "EUR":
-      return `€${amount}`;
+      return `â‚¬${amount}`;
     case "GBP":
-      return `£${amount}`;
+      return `Â£${amount}`;
     default:
       return `${curr} ${amount}`;
   }
@@ -218,16 +218,16 @@ export const YOJNA_SETU_STORE_ITEM: ProductDisplayData = {
   releaseCode: "YS-V2",
   title: "Yojna Setu",
   shortDescription:
-    "A WhatsApp AI agent for welfare-scheme discovery. Users talk naturally — AI extracts demographic profile attributes, while deterministic Java rules evaluate eligibility over 82 normalized schemes.",
+    "A WhatsApp AI agent for welfare-scheme discovery. Users talk naturally â€” AI extracts demographic profile attributes, while deterministic Java rules evaluate eligibility over 82 normalized schemes.",
   description:
-    "A WhatsApp AI agent for welfare-scheme discovery. Users describe themselves in natural language in conversational Hindi or English — AI extracts demographic attributes, then deterministic Java rules evaluate eligibility over 82 normalized schemes.",
+    "A WhatsApp AI agent for welfare-scheme discovery. Users describe themselves in natural language in conversational Hindi or English â€” AI extracts demographic attributes, then deterministic Java rules evaluate eligibility over 82 normalized schemes.",
   priceInCents: null,
   currency: null,
   category: "ai_agents",
   productType: "code_license",
   features: [
     "82 normalized schemes (63 Central, 11 State, 8 Philanthropic)",
-    "42/42 automated tests passing · 0 Critical findings",
+    "42/42 automated tests passing Â· 0 Critical findings",
     "Deterministic Java eligibility engine with indexed queries",
     "Interactive product case study & architecture monograph",
   ],
@@ -249,7 +249,7 @@ export const YOJNA_SETU_STORE_ITEM: ProductDisplayData = {
 };
 
 export const SPRING_BOOT_STARTER_ITEM: ProductDisplayData = {
-  id: "spring-boot-starter-boilerplate",
+  id: "a9eac140-877c-4e98-9b6a-87c6712e4f03",
   slug: "spring-boot-starter",
   releaseCode: "SB3-KIT",
   title: "Spring Boot 3 API Boilerplate",

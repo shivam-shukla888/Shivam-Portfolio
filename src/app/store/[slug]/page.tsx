@@ -17,6 +17,7 @@ import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { BackToTop } from "@/components/ui/BackToTop";
 import { ProductFaqAccordion } from "@/components/store/ProductFaqAccordion";
 import { ProductCheckoutAction } from "@/components/store/ProductCheckoutAction";
+import { isTestCheckoutProduct } from "@/lib/payments/test-checkout";
 
 export const revalidate = 60;
 
@@ -270,6 +271,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                   isAvailable={product.isAvailable}
                   priceInCents={product.priceInCents}
                   currency={product.currency}
+                  testCheckoutEnabled={isTestCheckoutProduct(product)}
                 />
               </div>
             </div>

@@ -7,8 +7,9 @@ import { getSupabaseServerClient } from "@/lib/supabase/server";
 import { formatPrice } from "@/lib/products";
 import { sendPurchaseDeliveryEmail } from "@/lib/email/purchase-delivery";
 import { SITE_URL } from "@/lib/site";
+import { isTestCheckoutOrder } from "@/lib/payments/test-checkout";
 
-export type OrderStatus = "pending" | "paid" | "failed" | "cancelled" | "refunded";
+export type OrderStatus = "pending" | "paid" | "failed" | "cancelled" | "refund_pending" | "refunded";
 export type DeliveryStatus = "pending" | "sent" | "failed";
 
 /**
@@ -22,7 +23,8 @@ export type DeliveryStatus = "pending" | "sent" | "failed";
  */
 export const VALID_ORDER_TRANSITIONS: Record<OrderStatus, readonly OrderStatus[]> = {
   pending: ["paid", "failed", "cancelled"],
-  paid: ["paid"], // A paid order remains paid
+  paid: ["paid", "refund_pending", "refunded"],
+  refund_pending: ["refund_pending", "refunded", "paid"],
   failed: ["failed"],
   cancelled: ["cancelled"],
   refunded: ["refunded"],
@@ -99,6 +101,7 @@ export interface OrderRecord {
   status: OrderStatus;
   razorpay_order_id: string | null;
   razorpay_payment_id: string | null;
+  razorpay_refund_id?: string | null;
   razorpay_signature: string | null;
   delivery_status: DeliveryStatus;
   delivery_token_version: number;
@@ -304,7 +307,8 @@ export async function updateOrderRazorpayId(
  */
 export async function transitionOrderStatus(
   orderId: string,
-  nextStatus: OrderStatus
+  nextStatus: OrderStatus,
+  razorpayRefundId?: string | null
 ): Promise<{ success: boolean; order?: OrderRecord; error?: string }> {
   const client = getSupabaseServerClient();
   if (!client) {
@@ -316,7 +320,10 @@ export async function transitionOrderStatus(
     return { success: false, error: "Order not found" };
   }
 
-  if (existing.status === nextStatus) {
+  if (
+    existing.status === nextStatus &&
+    (razorpayRefundId === undefined || existing.razorpay_refund_id === razorpayRefundId)
+  ) {
     return { success: true, order: existing };
   }
 
@@ -327,9 +334,15 @@ export async function transitionOrderStatus(
     };
   }
 
+  const update: { status: OrderStatus; updated_at: string; razorpay_refund_id?: string | null } = {
+    status: nextStatus,
+    updated_at: new Date().toISOString(),
+  };
+  if (razorpayRefundId !== undefined) update.razorpay_refund_id = razorpayRefundId;
+
   const { data, error } = await client
     .from("orders")
-    .update({ status: nextStatus, updated_at: new Date().toISOString() })
+    .update(update)
     .eq("id", orderId)
     .select("*")
     .single();
@@ -382,6 +395,16 @@ export async function getOrderByRazorpayOrderId(razorpayOrderId: string): Promis
 }
 
 /**
+ * Resolves internal order by Razorpay Payment ID.
+ */
+export async function getOrderByRazorpayPaymentId(razorpayPaymentId: string): Promise<OrderRecord | null> {
+  const client = getSupabaseServerClient();
+  if (!client || !razorpayPaymentId) return null;
+  const { data, error } = await client.from("orders").select("*").eq("razorpay_payment_id", razorpayPaymentId).maybeSingle();
+  return error || !data ? null : (data as OrderRecord);
+}
+
+/**
  * Idempotently marks an order as PAID and initiates digital delivery fulfillment.
  * If already paid, returns existing state and avoids duplicate email dispatch.
  * Conforms strictly to the Order State Machine and convergence of Webhook + Browser paths.
@@ -408,6 +431,37 @@ export async function markOrderPaidAndFulfill(params: {
   const existingOrder = await getOrderById(params.orderId);
   if (!existingOrder) {
     throw new Error(`Order ${params.orderId} not found`);
+  }
+
+  // Sandbox orders are verified and persisted but never trigger a fake product delivery email.
+  if (isTestCheckoutOrder(existingOrder)) {
+    if (existingOrder.status === "paid" || existingOrder.status === "refund_pending" || existingOrder.status === "refunded") {
+      return { order: existingOrder, alreadyPaid: true, deliveryEmailSent: false };
+    }
+    if (!canTransitionOrderStatus(existingOrder.status, "paid")) {
+      throw new Error("Invalid test order state: " + existingOrder.status);
+    }
+    const now = new Date().toISOString();
+    const { data, error } = await client
+      .from("orders")
+      .update({
+        status: "paid",
+        razorpay_payment_id: params.razorpayPaymentId,
+        razorpay_signature: params.razorpaySignature || existingOrder.razorpay_signature,
+        paid_at: now,
+        updated_at: now,
+      })
+      .eq("id", existingOrder.id)
+      .eq("status", "pending")
+      .select("*")
+      .maybeSingle();
+    const settled = data || await getOrderById(existingOrder.id);
+    if (error || !settled) throw new Error("Failed to save verified sandbox payment");
+    return {
+      order: settled as OrderRecord,
+      alreadyPaid: !data,
+      deliveryEmailSent: false,
+    };
   }
 
   // 2. IDEMPOTENCY CHECK: If already paid, do not re-fulfill

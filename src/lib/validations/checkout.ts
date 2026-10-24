@@ -21,6 +21,12 @@ export const checkoutRequestSchema = z.object({
     .trim()
     .max(100, "Invalid idempotency key format")
     .optional(),
+  testMode: z.boolean().optional(),
+});
+
+export const testRefundSchema = z.object({
+  orderId: z.string().trim().uuid("Invalid internal order reference"),
+  email: z.string().trim().toLowerCase().email("A valid order email is required").max(255),
 });
 
 export type CheckoutRequestInput = z.infer<typeof checkoutRequestSchema>;

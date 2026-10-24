@@ -12,6 +12,7 @@ interface ProductCheckoutActionProps {
   isAvailable: boolean;
   priceInCents: number | null;
   currency: string | null;
+  testCheckoutEnabled?: boolean;
 }
 
 export type CheckoutStep =
@@ -35,12 +36,19 @@ interface RazorpayResponse {
   razorpay_signature: string;
 }
 
+interface RazorpayInstance {
+  open: () => void;
+  close: () => void;
+  on: (event: string, callback: (response: { error: { description: string } }) => void) => void;
+}
+
 interface RazorpayOptions {
   key: string;
   amount: number;
   currency: string;
   name: string;
   description: string;
+  image?: string;
   order_id: string;
   prefill?: {
     email?: string;
@@ -57,10 +65,7 @@ interface RazorpayOptions {
 
 declare global {
   interface Window {
-    Razorpay?: new (options: RazorpayOptions) => {
-      open: () => void;
-      on: (event: string, callback: (response: { error: { description: string } }) => void) => void;
-    };
+    Razorpay?: new (options: RazorpayOptions) => RazorpayInstance;
   }
 }
 
@@ -101,6 +106,7 @@ export function ProductCheckoutAction({
   isAvailable,
   priceInCents,
   currency,
+  testCheckoutEnabled = false,
 }: ProductCheckoutActionProps) {
   const [step, setStep] = useState<CheckoutStep>("IDLE");
   const [email, setEmail] = useState("");
@@ -114,8 +120,12 @@ export function ProductCheckoutAction({
     deliveryToken?: string;
     deliveryStatus?: string;
   } | null>(null);
+  const [refundStatus, setRefundStatus] = useState<"idle" | "pending" | "processed" | "failed">("idle");
+  const [isRefunding, setIsRefunding] = useState(false);
 
   const idempotencyKeyRef = useRef<string>("");
+  const razorpayInstanceRef = useRef<RazorpayInstance | null>(null);
+  const paymentFailedRef = useRef(false);
   const emailInputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -144,9 +154,11 @@ export function ProductCheckoutAction({
   // If product is not available or non-commercial (case study or in development), render transparent status
   if (
     !isAvailable ||
-    !Number.isInteger(priceInCents) ||
-    (priceInCents ?? 0) < 100 ||
-    !currency?.trim()
+    (!testCheckoutEnabled && (
+      !Number.isInteger(priceInCents) ||
+      (priceInCents ?? 0) < 100 ||
+      !currency?.trim()
+    ))
   ) {
     const isCaseStudy = formattedPrice === "Case Study" || productSlug === "yojna-setu";
     const targetHref = isCaseStudy
@@ -254,6 +266,32 @@ export function ProductCheckoutAction({
     await verifyPaymentOnServer(currentOrderId, lastPaymentPayload);
   };
 
+  const handleTestRefund = async () => {
+    if (!testCheckoutEnabled || !completedOrder || !email || isRefunding) return;
+    setIsRefunding(true);
+    setErrorMessage(null);
+    try {
+      const response = await fetch("/api/store/test-refund", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ orderId: completedOrder.orderId, email: email.trim().toLowerCase() }),
+      });
+      const data = await response.json();
+      if (!response.ok || !data.success) {
+        setRefundStatus("failed");
+        setErrorMessage(data.error || "Unable to process the test refund.");
+      } else {
+        setRefundStatus(data.status === "processed" ? "processed" : data.status === "failed" ? "failed" : "pending");
+        setErrorMessage(data.message || null);
+      }
+    } catch {
+      setRefundStatus("failed");
+      setErrorMessage("Unable to reach the refund service. Check the Test Mode dashboard before retrying.");
+    } finally {
+      setIsRefunding(false);
+    }
+  };
+
   // Handle initiating checkout
   const handleInitiateCheckout = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -292,6 +330,7 @@ export function ProductCheckoutAction({
         body: JSON.stringify({
           productId,
           email: cleanEmail,
+          testMode: testCheckoutEnabled,
           idempotencyKey: idempotencyKeyRef.current,
         }),
       });
@@ -325,8 +364,9 @@ export function ProductCheckoutAction({
         key: keyId,
         amount,
         currency,
-        name: "ShivSastra Studio",
-        description: productTitle,
+        name: "ShivSastra",
+        description: testCheckoutEnabled ? productTitle + " — ₹1 test payment" : productTitle,
+        image: window.location.origin + "/favicon.svg",
         order_id: razorpayOrderId,
         prefill: {
           email: cleanEmail,
@@ -345,14 +385,22 @@ export function ProductCheckoutAction({
         },
         modal: {
           ondismiss: () => {
+            razorpayInstanceRef.current = null;
             setIsSubmitting(false);
+            if (paymentFailedRef.current) {
+              paymentFailedRef.current = false;
+              return;
+            }
             setStep("CANCELLED");
           },
         },
       };
 
       const rzpInstance = new window.Razorpay(options);
+      razorpayInstanceRef.current = rzpInstance;
+      paymentFailedRef.current = false;
       rzpInstance.on("payment.failed", (failResponse) => {
+        paymentFailedRef.current = true;
         setIsSubmitting(false);
         setStep("FAILED");
         setErrorMessage(failResponse.error?.description || "Payment was rejected or cancelled by gateway.");
@@ -387,7 +435,7 @@ export function ProductCheckoutAction({
             }}
             className="font-mono text-xs uppercase tracking-wider min-h-[44px] focus-visible:ring-1 focus-visible:ring-[var(--color-accent)] focus-visible:outline-none"
           >
-            {actionLabel} — {formattedPrice} →
+            {testCheckoutEnabled ? "Run ₹1 Test Checkout →" : actionLabel + " — " + formattedPrice + " →"}
           </Button>
           <span className="font-mono text-xs text-[var(--color-ink-secondary)]">
             Instant digital fulfillment & commercial license upon verified purchase.
@@ -400,13 +448,15 @@ export function ProductCheckoutAction({
         <div className="p-5 sm:p-6 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] space-y-4">
           <div className="space-y-1">
             <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--color-accent)] font-semibold">
-              ACQUISITION CHECKOUT // V3
+              {testCheckoutEnabled ? "SANDBOX CHECKOUT // TEST MODE" : "ACQUISITION CHECKOUT // V3"}
             </span>
             <h3 className="font-display text-lg text-[var(--color-ink-primary)]">
               Fulfillment Destination
             </h3>
             <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
-              Your purchase confirmation and secure download link will be sent to this email. Payment is cryptographically verified before digital release access is granted.
+              {testCheckoutEnabled
+                ? "Use your email for the test order record. This ₹1 sandbox payment does not unlock or deliver the upcoming template."
+                : "Your purchase confirmation and secure download link will be sent to this email. Payment is cryptographically verified before digital release access is granted."}
             </p>
           </div>
 
@@ -528,28 +578,14 @@ export function ProductCheckoutAction({
           <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
             Please complete your payment in the checkout window. If it closed, click below to restart.
           </p>
-          <div className="pt-2 flex items-center gap-3">
+          <div className="pt-2">
             <Button
               variant="secondary"
               size="sm"
-              onClick={() => {
-                setIsSubmitting(false);
-                setStep("COLLECTING_EMAIL");
-              }}
+              onClick={() => razorpayInstanceRef.current?.close()}
               className="font-mono text-xs uppercase min-h-[44px]"
             >
-              Try Again
-            </Button>
-            <Button
-              variant="secondary"
-              size="sm"
-              onClick={() => {
-                setIsSubmitting(false);
-                setStep("CANCELLED");
-              }}
-              className="font-mono text-xs uppercase min-h-[44px]"
-            >
-              Cancel
+              Close payment window
             </Button>
           </div>
         </div>
@@ -619,10 +655,48 @@ export function ProductCheckoutAction({
             </p>
           </div>
 
-          <p className="font-mono text-xs text-[var(--color-ink-secondary)]">
-            A confirmation email has also been sent to your purchase email:{" "}
-            <span className="text-[var(--color-accent)]">{email}</span>.
-          </p>
+          {testCheckoutEnabled ? (
+            <p className="font-mono text-xs text-[var(--color-ink-secondary)]">
+              Sandbox payment verified. No email, download, or product access is issued in this test.
+            </p>
+          ) : (
+            <p className="font-mono text-xs text-[var(--color-ink-secondary)]">
+              A confirmation email has also been sent to your purchase email:{" "}
+              <span className="text-[var(--color-accent)]">{email}</span>.
+            </p>
+          )}
+
+          {testCheckoutEnabled && (
+            <div className="space-y-3 border-t border-[var(--color-hairline)] pt-4">
+              {refundStatus === "processed" ? (
+                <p role="status" className="font-mono text-xs text-emerald-700 dark:text-emerald-400">
+                  TEST REFUND COMPLETED — No real money moved.
+                </p>
+              ) : (
+                <Button
+                  variant="secondary"
+                  size="md"
+                  disabled={isRefunding}
+                  onClick={handleTestRefund}
+                  className="font-mono text-xs uppercase tracking-wider min-h-[44px]"
+                >
+                  {isRefunding
+                    ? "Checking refund..."
+                    : refundStatus === "pending"
+                      ? "Check test refund status"
+                      : "Refund this test payment"}
+                </Button>
+              )}
+              {refundStatus === "pending" && (
+                <p role="status" className="font-sans text-xs text-[var(--color-ink-secondary)]">
+                  Refund requested. Razorpay will update its status shortly; use the button to check again.
+                </p>
+              )}
+              {refundStatus === "failed" && errorMessage && (
+                <p role="alert" className="font-sans text-xs text-red-600">{errorMessage}</p>
+              )}
+            </div>
+          )}
 
           {completedOrder?.deliveryToken && (
             <div className="pt-2">
@@ -809,7 +883,9 @@ export function ProductCheckoutAction({
       {step === "CANCELLED" && (
         <div className="p-5 sm:p-6 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] space-y-3">
           <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
-            Checkout was cancelled. No charges were made to your card or account.
+            {testCheckoutEnabled
+              ? "Checkout closed. Test Mode does not move real money; no product was delivered."
+              : "Checkout closed before we received confirmation. If your bank shows a debit, check the payment status before trying again."}
           </p>
           <div className="flex flex-wrap items-center gap-3">
             <Button
