@@ -1,6 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { verifyWebhookSignature } from "@/lib/payments/razorpay";
-import { getOrderByRazorpayOrderId, markOrderPaidAndFulfill, logStoreEvent } from "@/lib/orders";
+import {
+  getOrderByRazorpayOrderId,
+  getOrderByRazorpayPaymentId,
+  markOrderPaidAndFulfill,
+  transitionOrderStatus,
+  logStoreEvent,
+} from "@/lib/orders";
+import { isTestCheckoutOrder } from "@/lib/payments/test-checkout";
 import { SITE_URL } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
@@ -61,6 +68,13 @@ export async function POST(req: NextRequest) {
             receipt?: string;
           };
         };
+        refund?: {
+          entity?: {
+            id?: string;
+            payment_id?: string;
+            status?: string;
+          };
+        };
       };
     };
 
@@ -74,6 +88,28 @@ export async function POST(req: NextRequest) {
     }
 
     const eventType = eventPayload.event;
+
+    if (eventType === "refund.processed" || eventType === "refund.failed") {
+      const refund = eventPayload.payload?.refund?.entity;
+      const order = refund?.payment_id
+        ? await getOrderByRazorpayPaymentId(refund.payment_id)
+        : null;
+
+      if (!order || !isTestCheckoutOrder(order)) {
+        return NextResponse.json({ received: true, ignoredEvent: eventType }, { status: 200 });
+      }
+
+      const nextStatus = eventType === "refund.processed" ? "refunded" : "paid";
+      const transition = await transitionOrderStatus(
+        order.id,
+        nextStatus,
+        eventType === "refund.processed" ? (refund?.id || order.razorpay_refund_id || null) : null
+      );
+      if (!transition.success) {
+        return NextResponse.json({ error: "Could not update test refund status" }, { status: 500 });
+      }
+      return NextResponse.json({ received: true, orderId: order.id, status: nextStatus });
+    }
 
     // Handle payment.captured or order.paid events
     if (eventType === "payment.captured" || eventType === "order.paid") {
@@ -95,6 +131,10 @@ export async function POST(req: NextRequest) {
         // Order not recognized; acknowledge to prevent endless webhook redelivery
         console.warn(`[WEBHOOK] Order with Razorpay ID ${razorpayOrderId} not found in database`);
         return NextResponse.json({ received: true, note: "Order not found" }, { status: 200 });
+      }
+
+      if (isTestCheckoutOrder(order) && !paymentEntity?.id) {
+        return NextResponse.json({ received: true, note: "Sandbox payment callback will settle this order" }, { status: 200 });
       }
 
       // Idempotent fulfillment
