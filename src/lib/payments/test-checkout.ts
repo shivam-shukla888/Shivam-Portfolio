@@ -6,7 +6,11 @@ export const TEST_CHECKOUT_AMOUNT_PAISE = 100;
 
 export function isRazorpayTestEnvironmentEnabled(): boolean {
   const keyId = (process.env.RAZORPAY_KEY_ID || "").trim();
-  return process.env.RAZORPAY_TEST_CHECKOUT_ENABLED === "true" && keyId.startsWith("rzp_test_");
+  return (
+    process.env.NODE_ENV !== "production" &&
+    process.env.RAZORPAY_TEST_CHECKOUT_ENABLED === "true" &&
+    keyId.startsWith("rzp_test_")
+  );
 }
 
 export function isTestCheckoutProduct(product: ProductDisplayData): boolean {
@@ -34,3 +38,4 @@ export function isTestCheckoutOrder(order: {
       order.currency.toUpperCase() === "INR"
   );
 }
+
