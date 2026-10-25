@@ -7,7 +7,6 @@ import {
   transitionOrderStatus,
   logStoreEvent,
 } from "@/lib/orders";
-import { isTestCheckoutOrder } from "@/lib/payments/test-checkout";
 import { SITE_URL } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
@@ -58,6 +57,7 @@ export async function POST(req: NextRequest) {
             id?: string;
             order_id?: string;
             amount?: number;
+            currency?: string;
             status?: string;
           };
         };
@@ -95,8 +95,23 @@ export async function POST(req: NextRequest) {
         ? await getOrderByRazorpayPaymentId(refund.payment_id)
         : null;
 
-      if (!order || !isTestCheckoutOrder(order)) {
+      if (!order) {
         return NextResponse.json({ received: true, ignoredEvent: eventType }, { status: 200 });
+      }
+
+      // Restrict refund transitions strictly to verified paid or refund_pending orders
+      if (order.status !== "paid" && order.status !== "refund_pending" && order.status !== "refunded") {
+        return NextResponse.json({ received: true, note: "Order not in refundable state" }, { status: 200 });
+      }
+
+      // Idempotent guard for already processed refund
+      if (order.status === "refunded" && eventType === "refund.processed") {
+        return NextResponse.json({ received: true, orderId: order.id, status: "refunded", alreadyRefunded: true });
+      }
+
+      // Ignore a late failure notification after a refund has already completed.
+      if (order.status === "refunded" && eventType === "refund.failed") {
+        return NextResponse.json({ received: true, orderId: order.id, status: "refunded", ignoredLateFailure: true });
       }
 
       const nextStatus = eventType === "refund.processed" ? "refunded" : "paid";
@@ -106,18 +121,41 @@ export async function POST(req: NextRequest) {
         eventType === "refund.processed" ? (refund?.id || order.razorpay_refund_id || null) : null
       );
       if (!transition.success) {
-        return NextResponse.json({ error: "Could not update test refund status" }, { status: 500 });
+        return NextResponse.json({ error: "Could not update refund status" }, { status: 500 });
       }
+
+      logStoreEvent("ORDER_SETTLED", {
+        orderId: order.id,
+        productId: order.product_id,
+        status: nextStatus,
+        note: `Webhook refund outcome: ${refund?.status || eventType}`,
+      });
+
       return NextResponse.json({ received: true, orderId: order.id, status: nextStatus });
     }
 
-    // Handle payment.captured or order.paid events
+    // A payment.failed event represents one failed attempt, not a terminal order state.
+    // Keep the order pending so the customer can retry with another payment method.
+    if (eventType === "payment.failed") {
+      const paymentEntity = eventPayload.payload?.payment?.entity;
+      const order = paymentEntity?.order_id
+        ? await getOrderByRazorpayOrderId(paymentEntity.order_id)
+        : null;
+      if (order) {
+        logStoreEvent("PAYMENT_VERIFICATION_FAILED", {
+          orderId: order.id,
+          productId: order.product_id,
+          note: "A payment attempt failed; order remains available for retry",
+        });
+      }
+      return NextResponse.json({ received: true, event: "payment.failed" }, { status: 200 });
+    }
+    // Fulfill only a captured payment matching the trusted internal order.
     if (eventType === "payment.captured" || eventType === "order.paid") {
       const paymentEntity = eventPayload.payload?.payment?.entity;
       const orderEntity = eventPayload.payload?.order?.entity;
 
       const razorpayOrderId = paymentEntity?.order_id || orderEntity?.id;
-      const razorpayPaymentId = paymentEntity?.id || "webhook_captured";
 
       if (!razorpayOrderId) {
         return NextResponse.json(
@@ -133,15 +171,27 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ received: true, note: "Order not found" }, { status: 200 });
       }
 
-      if (isTestCheckoutOrder(order) && !paymentEntity?.id) {
-        return NextResponse.json({ received: true, note: "Sandbox payment callback will settle this order" }, { status: 200 });
+      if (
+        !paymentEntity?.id ||
+        paymentEntity.status !== "captured" ||
+        paymentEntity.amount !== order.amount_cents ||
+        typeof paymentEntity.currency !== "string" ||
+        paymentEntity.currency.toUpperCase() !== order.currency.toUpperCase()
+      ) {
+        logStoreEvent("PAYMENT_VERIFICATION_FAILED", {
+          orderId: order.id,
+          productId: order.product_id,
+          note: "Webhook payment missing, not captured, or amount/currency mismatches internal order",
+        });
+        return NextResponse.json({ received: true, note: "Payment does not match expected captured order" }, { status: 200 });
       }
+
 
       // Idempotent fulfillment
       const origin = req.nextUrl.origin && req.nextUrl.origin !== "null" ? req.nextUrl.origin : SITE_URL;
       const fulfillment = await markOrderPaidAndFulfill({
         orderId: order.id,
-        razorpayPaymentId,
+        razorpayPaymentId: paymentEntity.id,
         baseUrl: origin,
       });
 

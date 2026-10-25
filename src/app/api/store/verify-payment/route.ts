@@ -1,6 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { verifyPaymentSchema } from "@/lib/validations/checkout";
-import { verifyPaymentSignature, isRazorpayConfigured } from "@/lib/payments/razorpay";
+import {
+  verifyPaymentSignature,
+  isRazorpayConfigured,
+  isRazorpayLiveMode,
+  fetchRazorpayPayment,
+  captureRazorpayPayment,
+} from "@/lib/payments/razorpay";
+import { isTestCheckoutOrder } from "@/lib/payments/test-checkout";
 import { getOrderById, markOrderPaidAndFulfill, logStoreEvent } from "@/lib/orders";
 import {
   extractClientIp,
@@ -96,6 +103,63 @@ export async function POST(req: NextRequest) {
         { error: "Cryptographic signature verification failed" },
         { status: 400 }
       );
+    }
+
+    // 5b. For live commercial orders, verify payment entity is bound and CAPTURED on gateway
+    if (isRazorpayLiveMode() && !isTestCheckoutOrder(internalOrder)) {
+      try {
+        let paymentDetails = await fetchRazorpayPayment(razorpayPaymentId);
+
+        if (paymentDetails.order_id !== razorpayOrderId) {
+          logStoreEvent("PAYMENT_VERIFICATION_FAILED", {
+            orderId,
+            note: "Gateway payment order_id mismatch",
+          });
+          return NextResponse.json(
+            { error: "Payment does not correspond to this order record" },
+            { status: 400 }
+          );
+        }
+
+        if (
+          paymentDetails.amount !== internalOrder.amount_cents ||
+          paymentDetails.currency.toUpperCase() !== internalOrder.currency.toUpperCase()
+        ) {
+          logStoreEvent("PAYMENT_VERIFICATION_FAILED", {
+            orderId,
+            note: "Gateway payment amount or currency does not match internal order",
+          });
+          return NextResponse.json(
+            { error: "Payment amount or currency does not match this order. Please contact support." },
+            { status: 400 }
+          );
+        }
+
+        if (paymentDetails.status === "authorized") {
+          paymentDetails = await captureRazorpayPayment(
+            razorpayPaymentId,
+            internalOrder.amount_cents,
+            internalOrder.currency
+          );
+        }
+
+        if (paymentDetails.status !== "captured") {
+          logStoreEvent("PAYMENT_VERIFICATION_FAILED", {
+            orderId,
+            note: `Payment status is ${paymentDetails.status}, expected captured`,
+          });
+          return NextResponse.json(
+            { error: `Payment is not yet captured (status: ${paymentDetails.status}). Digital fulfillment requires settlement capture.` },
+            { status: 400 }
+          );
+        }
+      } catch (gatewayErr) {
+        console.error("[PAYMENT CAPTURE CHECK ERROR]", gatewayErr instanceof Error ? gatewayErr.message : "Unknown");
+        return NextResponse.json(
+          { error: "Unable to confirm payment capture with gateway. Please check your order status." },
+          { status: 502 }
+        );
+      }
     }
 
     // 6. Transition order to PAID and fulfill digital delivery (idempotent)

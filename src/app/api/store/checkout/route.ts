@@ -5,7 +5,12 @@ import {
   isTestCheckoutProduct,
   TEST_CHECKOUT_AMOUNT_PAISE,
 } from "@/lib/payments/test-checkout";
-import { createRazorpayOrder, isRazorpayConfigured, getRazorpayKeyId } from "@/lib/payments/razorpay";
+import {
+  createRazorpayOrder,
+  isRazorpayConfigured,
+  isRazorpayLiveMode,
+  getRazorpayKeyId,
+} from "@/lib/payments/razorpay";
 import {
   createInternalOrder,
   updateOrderRazorpayId,
@@ -103,6 +108,17 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Live commercial checkouts strictly require Live Mode credentials (rzp_live_*)
+    if (!testMode && !isRazorpayLiveMode()) {
+      return NextResponse.json(
+        {
+          error: "Live payment gateway credentials are not configured",
+          status: "GATEWAY_LIVE_MODE_REQUIRED",
+        },
+        { status: 503 }
+      );
+    }
+
     logStoreEvent("CHECKOUT_STARTED", {
       productId: product.id,
       note: "Checkout initiation validated",
@@ -111,7 +127,12 @@ export async function POST(req: NextRequest) {
     // 6. DUPLICATE ORDER PROTECTION (Server-Side Idempotency)
     // Check if an active pending order was recently created for this product + email
     const existingPendingOrder = await findRecentPendingOrder(product.id, email, 5 * 60 * 1000);
-    if (existingPendingOrder && existingPendingOrder.razorpay_order_id) {
+    if (
+      existingPendingOrder &&
+      existingPendingOrder.razorpay_order_id &&
+      existingPendingOrder.amount_cents === trustedAmount &&
+      existingPendingOrder.currency.toUpperCase() === trustedCurrency
+    ) {
       logStoreEvent("ORDER_CREATED", {
         orderId: existingPendingOrder.id,
         productId: product.id,

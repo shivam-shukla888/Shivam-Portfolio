@@ -35,6 +35,14 @@ export function isRazorpayConfigured(): boolean {
 }
 
 /**
+ * Validates whether the active Razorpay credentials belong to Live Mode (starts with rzp_live_).
+ */
+export function isRazorpayLiveMode(): boolean {
+  const keyId = getRazorpayKeyId();
+  return Boolean(keyId && keyId.startsWith("rzp_live_"));
+}
+
+/**
  * Returns the public Razorpay Key ID for client-side modal initiation.
  */
 export function getRazorpayKeyId(): string | null {
@@ -64,6 +72,91 @@ function getRazorpayWebhookSecret(): string {
     throw new Error("RAZORPAY_WEBHOOK_SECRET is not configured on the server");
   }
   return webhookSecret.trim();
+}
+
+export interface RazorpayPaymentDetails {
+  id: string;
+  entity: string;
+  amount: number;
+  currency: string;
+  status: "created" | "authorized" | "captured" | "refunded" | "failed";
+  order_id: string;
+  method?: string;
+  email?: string;
+  contact?: string;
+  captured?: boolean;
+}
+
+/**
+ * Fetches verified payment details directly from the Razorpay API.
+ */
+export async function fetchRazorpayPayment(paymentId: string): Promise<RazorpayPaymentDetails> {
+  const keyId = getRazorpayKeyId();
+  const keySecret = getRazorpayKeySecret();
+  if (!keyId || !keySecret) {
+    throw new Error("Razorpay credentials are not configured on the server");
+  }
+
+  const credentials = Buffer.from(`${keyId}:${keySecret}`).toString("base64");
+  const response = await fetch(`https://api.razorpay.com/v1/payments/${encodeURIComponent(paymentId)}`, {
+    headers: {
+      Authorization: `Basic ${credentials}`,
+    },
+  });
+
+  if (!response.ok) {
+    let errorDetail = "Failed to fetch Razorpay payment";
+    try {
+      const errorJson = await response.json();
+      if (errorJson?.error?.description) {
+        errorDetail = errorJson.error.description;
+      }
+    } catch {}
+    throw new Error(`Razorpay payment fetch failed: ${errorDetail}`);
+  }
+
+  return response.json();
+}
+
+/**
+ * Explicitly captures an authorized payment via Razorpay Payments API.
+ */
+export async function captureRazorpayPayment(
+  paymentId: string,
+  amountCents: number,
+  currency: string = "INR"
+): Promise<RazorpayPaymentDetails> {
+  const keyId = getRazorpayKeyId();
+  const keySecret = getRazorpayKeySecret();
+  if (!keyId || !keySecret) {
+    throw new Error("Razorpay credentials are not configured on the server");
+  }
+
+  const credentials = Buffer.from(`${keyId}:${keySecret}`).toString("base64");
+  const response = await fetch(`https://api.razorpay.com/v1/payments/${encodeURIComponent(paymentId)}/capture`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Basic ${credentials}`,
+    },
+    body: JSON.stringify({
+      amount: amountCents,
+      currency: currency.toUpperCase(),
+    }),
+  });
+
+  if (!response.ok) {
+    let errorDetail = "Failed to capture Razorpay payment";
+    try {
+      const errorJson = await response.json();
+      if (errorJson?.error?.description) {
+        errorDetail = errorJson.error.description;
+      }
+    } catch {}
+    throw new Error(`Razorpay payment capture failed: ${errorDetail}`);
+  }
+
+  return response.json();
 }
 
 /**
@@ -125,30 +218,30 @@ export async function createRazorpayOrder(
 }
 
 /**
- * Cryptographically verifies Razorpay payment signature using timing-safe comparison.
- * Formula: HMAC_SHA256(order_id + "|" + payment_id, secret) == signature
+ * Initiates a refund for a verified paid order via Razorpay API.
  */
 export async function createRazorpayRefund(params: {
   paymentId: string;
   amountCents: number;
   receipt: string;
+  notes?: Record<string, string>;
 }): Promise<RazorpayRefundResult> {
   const keyId = getRazorpayKeyId();
   const keySecret = getRazorpayKeySecret();
-  if (!keyId || !keyId.startsWith("rzp_test_")) {
-    throw new Error("Refund testing requires Razorpay Test Mode credentials");
+  if (!keyId || !keySecret) {
+    throw new Error("Razorpay credentials are not configured on the server");
   }
   if (!/^pay_[A-Za-z0-9]+$/.test(params.paymentId) || !Number.isInteger(params.amountCents) || params.amountCents < 100) {
-    throw new Error("Invalid test refund request");
+    throw new Error("Invalid refund request parameters");
   }
 
-  const auth = Buffer.from(keyId + ":" + keySecret).toString("base64");
-  const response = await fetch("https://api.razorpay.com/v1/payments/" + encodeURIComponent(params.paymentId) + "/refund", {
+  const auth = Buffer.from(`${keyId}:${keySecret}`).toString("base64");
+  const response = await fetch(`https://api.razorpay.com/v1/payments/${encodeURIComponent(params.paymentId)}/refund`, {
     method: "POST",
-    headers: { "Content-Type": "application/json", Authorization: "Basic " + auth },
+    headers: { "Content-Type": "application/json", Authorization: `Basic ${auth}` },
     body: JSON.stringify({
       amount: params.amountCents,
-      notes: { internal_order: params.receipt, environment: "test" },
+      notes: params.notes || { internal_order: params.receipt },
     }),
   });
 
@@ -160,15 +253,21 @@ export async function createRazorpayRefund(params: {
   return { id: data.id, payment_id: data.payment_id, amount: data.amount, status: data.status };
 }
 
+/**
+ * Retrieves refund status from Razorpay API.
+ */
 export async function getRazorpayRefund(refundId: string): Promise<RazorpayRefundResult> {
   const keyId = getRazorpayKeyId();
   const keySecret = getRazorpayKeySecret();
-  if (!keyId || !keyId.startsWith("rzp_test_") || !/^rfnd_[A-Za-z0-9]+$/.test(refundId)) {
-    throw new Error("Invalid test refund lookup");
+  if (!keyId || !keySecret) {
+    throw new Error("Razorpay credentials are not configured on the server");
   }
-  const auth = Buffer.from(keyId + ":" + keySecret).toString("base64");
-  const response = await fetch("https://api.razorpay.com/v1/refunds/" + encodeURIComponent(refundId), {
-    headers: { Authorization: "Basic " + auth },
+  if (!/^rfnd_[A-Za-z0-9]+$/.test(refundId)) {
+    throw new Error("Invalid refund identifier format");
+  }
+  const auth = Buffer.from(`${keyId}:${keySecret}`).toString("base64");
+  const response = await fetch(`https://api.razorpay.com/v1/refunds/${encodeURIComponent(refundId)}`, {
+    headers: { Authorization: `Basic ${auth}` },
   });
   const data = await response.json().catch(() => null);
   if (!response.ok || !data?.id) {
