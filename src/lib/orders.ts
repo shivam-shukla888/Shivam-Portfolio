@@ -7,7 +7,7 @@ import { getSupabaseServerClient } from "@/lib/supabase/server";
 import { formatPrice } from "@/lib/products";
 import { sendPurchaseDeliveryEmail } from "@/lib/email/purchase-delivery";
 import { SITE_URL } from "@/lib/site";
-import { isTestCheckoutOrder } from "@/lib/payments/test-checkout";
+import { isPaymentOnlyCheckoutOrder } from "@/lib/payments/test-checkout";
 
 export type OrderStatus = "pending" | "paid" | "failed" | "cancelled" | "refund_pending" | "refunded";
 export type DeliveryStatus = "pending" | "sent" | "failed";
@@ -433,13 +433,13 @@ export async function markOrderPaidAndFulfill(params: {
     throw new Error(`Order ${params.orderId} not found`);
   }
 
-  // Sandbox orders are verified and persisted but never trigger a fake product delivery email.
-  if (isTestCheckoutOrder(existingOrder)) {
+  // Payment-only sandbox/live test orders are recorded but never trigger product delivery.
+  if (isPaymentOnlyCheckoutOrder(existingOrder)) {
     if (existingOrder.status === "paid" || existingOrder.status === "refund_pending" || existingOrder.status === "refunded") {
       return { order: existingOrder, alreadyPaid: true, deliveryEmailSent: false };
     }
     if (!canTransitionOrderStatus(existingOrder.status, "paid")) {
-      throw new Error("Invalid test order state: " + existingOrder.status);
+      throw new Error("Invalid payment-test order state: " + existingOrder.status);
     }
     const now = new Date().toISOString();
     const { data, error } = await client
@@ -456,7 +456,7 @@ export async function markOrderPaidAndFulfill(params: {
       .select("*")
       .maybeSingle();
     const settled = data || await getOrderById(existingOrder.id);
-    if (error || !settled) throw new Error("Failed to save verified sandbox payment");
+    if (error || !settled) throw new Error("Failed to save verified payment-test order");
     return {
       order: settled as OrderRecord,
       alreadyPaid: !data,

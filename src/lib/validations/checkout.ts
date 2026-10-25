@@ -22,6 +22,7 @@ export const checkoutRequestSchema = z.object({
     .max(100, "Invalid idempotency key format")
     .optional(),
   testMode: z.boolean().optional(),
+  liveTestMode: z.boolean().optional(),
 });
 
 export const testRefundSchema = z.object({

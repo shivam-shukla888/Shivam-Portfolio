@@ -145,6 +145,9 @@ supabase/
 | `RAZORPAY_KEY_ID` | Server | Razorpay key ID (server) |
 | `RAZORPAY_KEY_SECRET` | Server | Razorpay key secret |
 | `RAZORPAY_WEBHOOK_SECRET` | Server | Razorpay webhook signature secret |
+| `RAZORPAY_TEST_CHECKOUT_ENABLED` | Server | Enable local/preview sandbox checkout only |
+| `RAZORPAY_LIVE_TEST_CHECKOUT_ENABLED` | Server | Opt in to the restricted production ₹1 payment test |
+| `RAZORPAY_LIVE_TEST_EMAIL` | Server | Single email allowed to use the live payment test |
 
 ## Build & Quality
 

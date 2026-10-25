@@ -2,14 +2,21 @@ import { NextRequest, NextResponse } from "next/server";
 import { testRefundSchema } from "@/lib/validations/checkout";
 import { getOrderById, transitionOrderStatus, logStoreEvent } from "@/lib/orders";
 import { createRazorpayRefund, getRazorpayRefund } from "@/lib/payments/razorpay";
-import { isRazorpayTestEnvironmentEnabled, isTestCheckoutOrder } from "@/lib/payments/test-checkout";
+import {
+  isPaymentOnlyCheckoutOrder,
+  isRazorpayLiveTestEmailAllowed,
+  isRazorpayLiveTestEnvironmentEnabled,
+  isRazorpayTestEnvironmentEnabled,
+} from "@/lib/payments/test-checkout";
 import { extractClientIp, hashClientIdentifier, checkVerifyPaymentRateLimit } from "@/lib/rate-limit";
 
 export const dynamic = "force-dynamic";
 
 export async function POST(req: NextRequest) {
   try {
-    if (!isRazorpayTestEnvironmentEnabled()) {
+    const sandboxEnabled = isRazorpayTestEnvironmentEnabled();
+    const liveTestEnabled = isRazorpayLiveTestEnvironmentEnabled();
+    if (!sandboxEnabled && !liveTestEnabled) {
       return NextResponse.json({ error: "Test refunds are disabled" }, { status: 404 });
     }
 
@@ -30,8 +37,12 @@ export async function POST(req: NextRequest) {
     }
 
     const order = await getOrderById(parsed.data.orderId);
-    if (!order || !isTestCheckoutOrder(order) || order.customer_email !== parsed.data.email) {
+    const isPaymentTestOrder = Boolean(order && isPaymentOnlyCheckoutOrder(order));
+    if (!order || !isPaymentTestOrder || order.customer_email !== parsed.data.email) {
       return NextResponse.json({ error: "Test order not found for this email" }, { status: 404 });
+    }
+    if (liveTestEnabled && !isRazorpayLiveTestEmailAllowed(parsed.data.email)) {
+      return NextResponse.json({ error: "Live payment-test refund is restricted to the configured test email" }, { status: 403 });
     }
     if (!order.razorpay_payment_id) {
       return NextResponse.json({ error: "No verified payment is available to refund" }, { status: 409 });
@@ -66,16 +77,16 @@ export async function POST(req: NextRequest) {
       orderId: order.id,
       productId: order.product_id,
       status: nextStatus,
-      note: "Sandbox refund " + (refund.status || "pending"),
+      note: (liveTestEnabled ? "Live payment-test refund " : "Sandbox refund ") + (refund.status || "pending"),
     });
 
     return NextResponse.json({
       success: true,
       status: refund.status === "processed" ? "processed" : refund.status === "failed" ? "failed" : "pending",
       message: refund.status === "processed"
-        ? "Test refund completed."
+        ? (liveTestEnabled ? "Live ₹1 payment-test refund completed." : "Test refund completed.")
         : refund.status === "failed"
-          ? "Razorpay could not process this refund. Please retry or check Test Mode dashboard."
+          ? (liveTestEnabled ? "Razorpay could not process this refund. Check the Live Mode dashboard before retrying." : "Razorpay could not process this refund. Please retry or check Test Mode dashboard.")
           : "Test refund requested. The status will update when Razorpay confirms it.",
     });
   } catch (err) {

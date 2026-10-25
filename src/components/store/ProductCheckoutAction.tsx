@@ -13,6 +13,7 @@ interface ProductCheckoutActionProps {
   priceInCents: number | null;
   currency: string | null;
   testCheckoutEnabled?: boolean;
+  livePaymentTestEnabled?: boolean;
 }
 
 export type CheckoutStep =
@@ -107,7 +108,9 @@ export function ProductCheckoutAction({
   priceInCents,
   currency,
   testCheckoutEnabled = false,
+  livePaymentTestEnabled = false,
 }: ProductCheckoutActionProps) {
+  const paymentOnlyTestEnabled = testCheckoutEnabled || livePaymentTestEnabled;
   const [step, setStep] = useState<CheckoutStep>("IDLE");
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState<string | null>(null);
@@ -154,7 +157,7 @@ export function ProductCheckoutAction({
   // If product is not available or non-commercial (case study or in development), render transparent status
   if (
     !isAvailable ||
-    (!testCheckoutEnabled && (
+    (!paymentOnlyTestEnabled && (
       !Number.isInteger(priceInCents) ||
       (priceInCents ?? 0) < 100 ||
       !currency?.trim()
@@ -267,7 +270,7 @@ export function ProductCheckoutAction({
   };
 
   const handleTestRefund = async () => {
-    if (!testCheckoutEnabled || !completedOrder || !email || isRefunding) return;
+    if (!paymentOnlyTestEnabled || !completedOrder || !email || isRefunding) return;
     setIsRefunding(true);
     setErrorMessage(null);
     try {
@@ -286,7 +289,11 @@ export function ProductCheckoutAction({
       }
     } catch {
       setRefundStatus("failed");
-      setErrorMessage("Unable to reach the refund service. Check the Test Mode dashboard before retrying.");
+      setErrorMessage(
+        livePaymentTestEnabled
+          ? "Unable to reach the refund service. Check the Razorpay Live Mode dashboard before retrying."
+          : "Unable to reach the refund service. Check the Test Mode dashboard before retrying."
+      );
     } finally {
       setIsRefunding(false);
     }
@@ -331,6 +338,7 @@ export function ProductCheckoutAction({
           productId,
           email: cleanEmail,
           testMode: testCheckoutEnabled,
+          liveTestMode: livePaymentTestEnabled,
           idempotencyKey: idempotencyKeyRef.current,
         }),
       });
@@ -365,7 +373,9 @@ export function ProductCheckoutAction({
         amount,
         currency,
         name: "ShivSastra",
-        description: testCheckoutEnabled ? productTitle + " — ₹1 test payment" : productTitle,
+        description: paymentOnlyTestEnabled
+          ? productTitle + (livePaymentTestEnabled ? " — ₹1 live payment test; no delivery" : " — ₹1 test payment")
+          : productTitle,
         image: window.location.origin + "/favicon.svg",
         order_id: razorpayOrderId,
         prefill: {
@@ -435,10 +445,18 @@ export function ProductCheckoutAction({
             }}
             className="font-mono text-xs uppercase tracking-wider min-h-[44px] focus-visible:ring-1 focus-visible:ring-[var(--color-accent)] focus-visible:outline-none"
           >
-            {testCheckoutEnabled ? "Run ₹1 Test Checkout →" : actionLabel + " — " + formattedPrice + " →"}
+            {livePaymentTestEnabled
+              ? "Run ₹1 Live Payment Test →"
+              : testCheckoutEnabled
+                ? "Run ₹1 Test Checkout →"
+                : actionLabel + " — " + formattedPrice + " →"}
           </Button>
           <span className="font-mono text-xs text-[var(--color-ink-secondary)]">
-            Instant digital fulfillment & commercial license upon verified purchase.
+            {paymentOnlyTestEnabled
+              ? livePaymentTestEnabled
+                ? "Real ₹1 charge for payment verification. No download or product access; refund can be requested after confirmation."
+                : "Sandbox payment only. No download or product access is issued."
+              : "Instant digital fulfillment & commercial license upon verified purchase."}
           </span>
         </div>
       )}
@@ -448,15 +466,21 @@ export function ProductCheckoutAction({
         <div className="p-5 sm:p-6 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] space-y-4">
           <div className="space-y-1">
             <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--color-accent)] font-semibold">
-              {testCheckoutEnabled ? "SANDBOX CHECKOUT // TEST MODE" : "ACQUISITION CHECKOUT // V3"}
+              {livePaymentTestEnabled
+                ? "LIVE PAYMENT TEST // REAL ₹1 CHARGE"
+                : testCheckoutEnabled
+                  ? "SANDBOX CHECKOUT // TEST MODE"
+                  : "ACQUISITION CHECKOUT // V3"}
             </span>
             <h3 className="font-display text-lg text-[var(--color-ink-primary)]">
-              Fulfillment Destination
+              {paymentOnlyTestEnabled ? "Payment test email" : "Fulfillment Destination"}
             </h3>
             <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
-              {testCheckoutEnabled
-                ? "Use your email for the test order record. This ₹1 sandbox payment does not unlock or deliver the upcoming template."
-                : "Your purchase confirmation and secure download link will be sent to this email. Payment is cryptographically verified before digital release access is granted."}
+              {livePaymentTestEnabled
+                ? "This is a real ₹1 payment verification test, not a product purchase. No download or product access is provided. Only the configured test email can continue; you can request a refund after payment is verified."
+                : testCheckoutEnabled
+                  ? "Use your email for the test order record. This ₹1 sandbox payment does not unlock or deliver the upcoming template."
+                  : "Your purchase confirmation and secure download link will be sent to this email. Payment is cryptographically verified before digital release access is granted."}
             </p>
           </div>
 
@@ -655,9 +679,11 @@ export function ProductCheckoutAction({
             </p>
           </div>
 
-          {testCheckoutEnabled ? (
+          {paymentOnlyTestEnabled ? (
             <p className="font-mono text-xs text-[var(--color-ink-secondary)]">
-              Sandbox payment verified. No email, download, or product access is issued in this test.
+              {livePaymentTestEnabled
+                ? "Your real ₹1 payment was verified. No email, download, or product access is issued in this payment test."
+                : "Sandbox payment verified. No email, download, or product access is issued in this test."}
             </p>
           ) : (
             <p className="font-mono text-xs text-[var(--color-ink-secondary)]">
@@ -666,11 +692,11 @@ export function ProductCheckoutAction({
             </p>
           )}
 
-          {testCheckoutEnabled && (
+          {paymentOnlyTestEnabled && (
             <div className="space-y-3 border-t border-[var(--color-hairline)] pt-4">
               {refundStatus === "processed" ? (
                 <p role="status" className="font-mono text-xs text-emerald-700 dark:text-emerald-400">
-                  TEST REFUND COMPLETED — No real money moved.
+                  {livePaymentTestEnabled ? "LIVE ₹1 PAYMENT REFUNDED" : "TEST REFUND COMPLETED — No real money moved."}
                 </p>
               ) : (
                 <Button
@@ -683,8 +709,8 @@ export function ProductCheckoutAction({
                   {isRefunding
                     ? "Checking refund..."
                     : refundStatus === "pending"
-                      ? "Check test refund status"
-                      : "Refund this test payment"}
+                      ? livePaymentTestEnabled ? "Check refund status" : "Check test refund status"
+                      : livePaymentTestEnabled ? "Refund this ₹1 payment" : "Refund this test payment"}
                 </Button>
               )}
               {refundStatus === "pending" && (
@@ -883,9 +909,11 @@ export function ProductCheckoutAction({
       {step === "CANCELLED" && (
         <div className="p-5 sm:p-6 border border-[var(--color-hairline)] bg-[var(--color-canvas-secondary)] space-y-3">
           <p className="font-sans text-xs text-[var(--color-ink-secondary)] leading-relaxed">
-            {testCheckoutEnabled
-              ? "Checkout closed. Test Mode does not move real money; no product was delivered."
-              : "Checkout closed before we received confirmation. If your bank shows a debit, check the payment status before trying again."}
+            {livePaymentTestEnabled
+              ? "Checkout closed before payment confirmation. If your bank shows a debit, do not retry yet; check the Razorpay dashboard or contact support. No product was delivered."
+              : testCheckoutEnabled
+                ? "Checkout closed. Test Mode does not move real money; no product was delivered."
+                : "Checkout closed before we received confirmation. If your bank shows a debit, check the payment status before trying again."}
           </p>
           <div className="flex flex-wrap items-center gap-3">
             <Button

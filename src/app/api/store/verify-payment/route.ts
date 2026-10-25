@@ -7,7 +7,6 @@ import {
   fetchRazorpayPayment,
   captureRazorpayPayment,
 } from "@/lib/payments/razorpay";
-import { isTestCheckoutOrder } from "@/lib/payments/test-checkout";
 import { getOrderById, markOrderPaidAndFulfill, logStoreEvent } from "@/lib/orders";
 import {
   extractClientIp,
@@ -106,7 +105,7 @@ export async function POST(req: NextRequest) {
     }
 
     // 5b. For live commercial orders, verify payment entity is bound and CAPTURED on gateway
-    if (isRazorpayLiveMode() && !isTestCheckoutOrder(internalOrder)) {
+    if (isRazorpayLiveMode()) {
       try {
         let paymentDetails = await fetchRazorpayPayment(razorpayPaymentId);
 

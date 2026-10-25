@@ -206,4 +206,12 @@ Keep the flag false or unset in production. Never add the secret to a NEXT_PUBLI
 5. On the success panel, select Refund this test payment. If Razorpay reports a pending refund, the same button checks that refund instead of creating another. The webhook updates the final refund state.
 6. Check Razorpay Dashboard in Test Mode → Transactions and confirm the payment/refund statuses.
 
-A modal dismissal is not a captured payment, so it cannot be refunded. The refund control is shown only after a signature-verified sandbox payment. A real refund against a live payment is intentionally outside this sandbox route.
+A modal dismissal is not a captured payment, so it cannot be refunded. The refund control appears only after a signature-verified payment. The separate live-test refund path below is disabled by default and limited to the configured tester email.
+
+## 10. Restricted Live ₹1 Payment Verification
+
+This is a payment-flow verification tool, not a product launch. The Spring Boot starter remains marked upcoming; a successful ₹1 payment records a verified payment only and never sends a download, purchase email, or product access. The buyer can request a refund from the confirmation panel after payment verification. Closing checkout before capture does not create a refundable payment.
+
+Enable only for a short supervised test after the Razorpay account is live and the refund webhook is configured. In Vercel Production Environment Variables, set `RAZORPAY_LIVE_TEST_CHECKOUT_ENABLED=true` and `RAZORPAY_LIVE_TEST_EMAIL` to the single tester email. Keep `RAZORPAY_TEST_CHECKOUT_ENABLED=false`; use the `rzp_live_` key ID and the matching server-only live secret. Never expose the secret in a `NEXT_PUBLIC_*` variable. Redeploy after changing variables. The order API fixes the amount to ₹1 INR, rejects other products, checks the allowlisted email server-side, and records this order without fulfilling a product. Disable the live-test flag after the test.
+
+A captured live payment moves real money until Razorpay processes the refund; refund timing depends on the payment method and bank. Verify the payment and refund in Razorpay Live Mode → Transactions before repeating a test. A checkout dismissal by itself does not debit or refund money.
